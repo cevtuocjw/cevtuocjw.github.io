@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CEVTUOGRND</title>
+<link rel="icon" href="logo.png"/>
+<style>
+  :root{
+    --ink:#fff; --soft:rgba(255,255,255,.78); --faint:rgba(255,255,255,.55);
+    --panel:255,255,255; --line:rgba(255,255,255,.22);
+    --accent:#5b93ff; --r:26px; --ease:cubic-bezier(.32,.72,0,1);
+  }
+  *{box-sizing:border-box}
+  html{background:#2a0c06}
+  body{
+    margin:0;min-height:100vh;color:var(--ink);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    background-color:#2a0c06;
+    background-image:url("bg.jpg");
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    display:flex;align-items:center;justify-content:center;padding:26px;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.10) 0%,rgba(0,0,0,.28) 55%,rgba(0,0,0,.46) 100%);
+  }
+  .card{
+    position:relative;z-index:1;width:100%;max-width:620px;text-align:center;
+    padding:44px 34px;border-radius:var(--r);
+    background:rgba(var(--panel),.16);
+    backdrop-filter:blur(30px) saturate(180%);
+    -webkit-backdrop-filter:blur(30px) saturate(180%);
+    border:1px solid var(--line);
+    box-shadow:0 24px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.28);
+  }
+  .card>img{width:92px;height:92px;filter:drop-shadow(0 8px 22px rgba(0,0,0,.6))}
+  h1{font-size:26px;margin:18px 0 4px;font-weight:750;letter-spacing:3px;
+    text-shadow:0 2px 14px rgba(0,0,0,.6)}
+  .sub{color:var(--soft);font-size:14.5px;margin:0 0 28px;
+    text-shadow:0 1px 10px rgba(0,0,0,.55)}
+  .rule{width:64px;height:1px;background:rgba(255,255,255,.3);margin:0 auto 26px}
+  a.item{
+    display:flex;align-items:center;gap:14px;padding:16px 20px;margin-bottom:12px;
+    text-decoration:none;color:var(--ink);border-radius:18px;text-align:left;
+    background:rgba(var(--panel),.13);
+    backdrop-filter:blur(20px) saturate(170%);
+    -webkit-backdrop-filter:blur(20px) saturate(170%);
+    border:1px solid var(--line);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
+    transition:transform .2s var(--ease), background .2s var(--ease);
+  }
+  a.item:hover{transform:translateY(-3px);background:rgba(var(--panel),.22)}
+  a.item .tx b{display:block;font-size:15.5px;font-weight:660}
+  a.item .tx small{display:block;font-size:12.5px;color:var(--faint)}
+  a.item .arrow{margin-left:auto;font-size:20px;color:var(--faint)}
+  .osicon{display:block;flex:none;fill:currentColor}
+  .osicon.apple{width:22px;height:22px}
+  .osicon.win{width:18px;height:18px}
+  .foot{margin-top:26px;font-size:12px;color:var(--faint);
+    text-shadow:0 1px 8px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-windows" viewBox="0 0 24 24">
+    <path d="M0 3.449 9.75 2.1v9.451H0V3.449zM11.1 1.921 24 0v11.4H11.1V1.921zM0 12.6h9.75v9.451L0 20.699V12.6zM11.1 12.6H24V24l-12.9-1.801V12.6z"/>
+  </symbol>
+  <symbol id="i-book" viewBox="0 0 24 24">
+    <path d="M4 3h6a3 3 0 0 1 2 .8A3 3 0 0 1 14 3h6a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1h-6a1 1 0 0 0-1 1 1 1 0 0 0-1-1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v13h5.5V6.2A1 1 0 0 0 10 5H5zm13 0h-5a1 1 0 0 0-.5.2V18H18V5z"/>
+  </symbol>
+</svg>
+
+<div class="card">
+  <img src="logo.png" alt="CEVTUOGRND"/>
+  <h1>CEVTUOGRND</h1>
+  <p class="sub">Apps &amp; tools</p>
+  <div class="rule"></div>
+
+  <a class="item" href="/CEVTUO-RWP2EPUB/">
+    <svg class="osicon" style="width:24px;height:24px"><use href="#i-book"/></svg>
+    <span class="tx"><b>CEVTUO-RWP2EPUB</b>
+      <small>Web pages &amp; RSS → EPUB · macOS &amp; Windows</small></span>
+    <span class="arrow">›</span>
+  </a>
+
+  <p class="foot">© 2026 cevtuo · CEVTUOGRND</p>
+</div>
+
+</body>
+</html>
