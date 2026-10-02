@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>记录电影 · COOF — 看完一部，片名丢进来就记好了</title>
+<meta name="description" content="在 Tuna 里输入一个模糊的片名，自动查豆瓣、下载海报、写进 Notion 的 COOF 观影库。"/>
+<link rel="icon" href="assets/rose-logo.png"/>
+<meta property="og:title" content="记录电影 · COOF"/>
+<meta property="og:description" content="模糊片名 → 豆瓣 → Notion，一步都不用复制粘贴。"/>
+<meta property="og:image" content="assets/rose-logo.png"/>
+<style>
+  :root{
+    --ink:#f2f4f7;
+    --soft:rgba(242,244,247,.74);
+    --faint:rgba(242,244,247,.46);
+    --line:rgba(255,255,255,.14);
+    --glass:rgba(255,255,255,.055);
+    --glass2:rgba(255,255,255,.085);
+    --accent:#cdd6e4;
+    --r:24px;
+    --ease:cubic-bezier(.32,.72,0,1);
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{background:#08090b;scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Arial,sans-serif;
+    background:
+      radial-gradient(1100px 620px at 50% -12%,rgba(190,205,225,.14),transparent 62%),
+      radial-gradient(900px 520px at 90% 8%,rgba(150,170,200,.07),transparent 60%),
+      #08090b;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px;margin:0 auto;padding:56px 22px 90px}
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--line);
+    border-radius:var(--r);
+    backdrop-filter:blur(26px) saturate(160%);
+    -webkit-backdrop-filter:blur(26px) saturate(160%);
+    box-shadow:0 22px 60px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.09);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{padding:46px 34px 38px;text-align:center;position:relative;overflow:hidden}
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(520px 240px at 50% 0%,rgba(255,255,255,.09),transparent 70%);
+  }
+  .bloom{
+    display:block;height:200px;width:auto;margin:0 auto 18px;
+    position:relative;z-index:1;
+    filter:drop-shadow(0 20px 32px rgba(0,0,0,.66)) drop-shadow(0 0 22px rgba(190,205,225,.16));
+  }
+  h1{
+    font-size:clamp(28px,4.6vw,42px);line-height:1.18;margin:0 0 12px;
+    letter-spacing:.01em;font-weight:600;position:relative;z-index:1;
+    background:linear-gradient(180deg,#fff,#b9c3d2);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{color:var(--soft);font-size:17px;margin:0 auto 8px;max-width:34em;position:relative;z-index:1}
+  .byline{color:var(--faint);font-size:13px;margin:0 0 26px;position:relative;z-index:1}
+
+  .launch{
+    position:relative;z-index:1;display:flex;gap:10px;justify-content:center;
+    flex-wrap:wrap;margin:0 auto 14px;max-width:560px;
+  }
+  .launch input{
+    flex:1 1 260px;min-width:0;padding:13px 16px;border-radius:14px;
+    background:rgba(0,0,0,.34);border:1px solid var(--line);color:var(--ink);
+    font:15px/1.4 inherit;outline:none;transition:border-color .2s var(--ease);
+  }
+  .launch input:focus{border-color:rgba(255,255,255,.4)}
+  .launch input::placeholder{color:var(--faint)}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;justify-content:center;
+    padding:13px 22px;border-radius:14px;text-decoration:none;cursor:pointer;
+    background:linear-gradient(180deg,#eef1f6,#c3cbd8);color:#14171c;
+    font-weight:600;font-size:15px;border:1px solid rgba(255,255,255,.5);
+    box-shadow:0 10px 26px rgba(0,0,0,.42);transition:transform .18s var(--ease);
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn.ghost{
+    background:var(--glass2);color:var(--ink);border:1px solid var(--line);
+    box-shadow:none;font-weight:500;
+  }
+  .note{color:var(--faint);font-size:12.5px;position:relative;z-index:1;margin:6px 0 0}
+  .note code{font-family:var(--mono);font-size:12px;color:var(--soft)}
+
+  /* ---------- steps ---------- */
+  .steps{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 34px;
+  }
+  .step{padding:20px 18px;border-radius:18px;background:var(--glass);border:1px solid var(--line)}
+  .step b{display:block;font-size:13px;color:var(--faint);font-weight:600;letter-spacing:.08em;margin-bottom:8px}
+  .step span{font-size:15px;color:var(--soft)}
+  .step i{font-style:normal;color:var(--ink)}
+
+  /* ---------- features ---------- */
+  section{margin:44px 0}
+  h2{font-size:22px;margin:0 0 6px;font-weight:600;letter-spacing:.01em}
+  .lead{color:var(--faint);font-size:14px;margin:0 0 20px}
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .feat{padding:22px 20px;border-radius:20px;background:var(--glass);border:1px solid var(--line)}
+  .feat h3{margin:0 0 8px;font-size:15.5px;font-weight:600}
+  .feat p{margin:0;font-size:14px;color:var(--soft);line-height:1.68}
+  .feat .ico{font-size:20px;display:block;margin-bottom:10px;opacity:.9}
+
+  /* ---------- shots ---------- */
+  .shots{padding:30px 26px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  figure{margin:0}
+  figure img,figure video{
+    width:100%;display:block;border-radius:14px;border:1px solid var(--line);
+    box-shadow:0 14px 34px rgba(0,0,0,.44);background:#111;
+  }
+  figcaption{color:var(--faint);font-size:13px;margin-top:9px;line-height:1.6}
+  .wide{grid-column:1/-1}
+
+  .demo{padding:30px 26px}
+  .demo video{width:100%;display:block;border-radius:16px;border:1px solid var(--line);
+    box-shadow:0 18px 44px rgba(0,0,0,.5);background:#000}
+  .cap{color:var(--faint);font-size:13px;margin-top:10px}
+
+  /* ---------- install ---------- */
+  details.fold{
+    margin:16px 0;border-radius:16px;border:1px solid var(--line);
+    background:var(--glass);overflow:hidden;
+  }
+  details.fold summary{
+    cursor:pointer;padding:16px 20px;font-size:15px;font-weight:600;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+  }
+  details.fold summary::-webkit-details-marker{display:none}
+  details.fold summary::after{content:"›";font-size:20px;color:var(--faint);
+    transform:rotate(90deg);transition:transform .25s var(--ease)}
+  details.fold[open] summary::after{transform:rotate(-90deg)}
+  .fold-body{padding:0 20px 20px;color:var(--soft);font-size:14px}
+  pre{
+    background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;overflow:auto;font-family:var(--mono);font-size:12.5px;
+    line-height:1.75;color:#dbe2ec;margin:10px 0;
+  }
+  pre .c{color:#7e8899}
+  code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.07);
+    padding:1px 6px;border-radius:6px}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13.5px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.08)}
+  th{color:var(--faint);font-weight:600;font-size:12.5px}
+  td code{background:none;padding:0;color:var(--accent)}
+
+  footer{
+    margin-top:64px;text-align:center;color:var(--faint);font-size:13px;
+    padding-top:30px;border-top:1px solid rgba(255,255,255,.09);
+  }
+  .wordmark{
+    display:block;height:70px;width:auto;margin:0 auto 14px;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,.6));
+  }
+  .wordmark2{letter-spacing:.34em;font-size:12.5px;color:var(--soft);margin-bottom:4px}
+  .fine{font-size:12px;margin-top:10px}
+  a{color:var(--accent)}
+
+  @media (max-width:760px){
+    .features{grid-template-columns:1fr}
+    .steps{grid-template-columns:1fr}
+    .grid{grid-template-columns:1fr}
+    .wrap{padding:34px 16px 70px}
+    .hero{padding:34px 20px 28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ================= HERO ================= -->
+  <header class="hero glass">
+    <img class="bloom" src="assets/rose.png" alt="银玫瑰"/>
+    <h1>看完一部，片名丢进来就记好了</h1>
+    <p class="sub">在 Tuna 里输入一个<b>模糊</b>的片名 —— 剩下的豆瓣查询、海报下载、
+      Notion 建条，全部自动完成。</p>
+    <p class="byline">CEVTUO · for COOF 观影库</p>
+
+    <div class="launch">
+      <input id="q" type="text" placeholder="沙丘 2021 / 周处除三害 / dune" autocomplete="off" spellcheck="false"/>
+      <a class="btn" id="go" href="#">在 Tuna 里记录</a>
+    </div>
+    <p class="note">
+      需要已安装 <b>Tuna</b> 并开启 <code>设置 → 通用 → 允许 tuna:// 链接执行命令</code>。
+      不用 Tuna 也可以直接跑脚本，见下方。
+    </p>
+  </header>
+
+  <div class="steps">
+    <div class="step"><b>01 输入</b><span>一个<i>大概</i>的片名就行，中英文、带不带年份都可以。</span></div>
+    <div class="step"><b>02 匹配</b><span>自动去豆瓣找，<i>拿不准就列候选</i>让你补个年份，绝不瞎猜。</span></div>
+    <div class="step"><b>03 落库</b><span>字段、海报、超链接一次写进 Notion，<i>顺带把豆瓣页打开</i>。</span></div>
+  </div>
+
+  <!-- ================= FEATURES ================= -->
+  <section>
+    <h2>它替你做的六件事</h2>
+    <p class="lead">每一条都是实际跑通过的，不是设想。</p>
+    <div class="features">
+      <div class="feat">
+        <span class="ico">🎯</span>
+        <h3>模糊片名也能命中</h3>
+        <p><code>沙丘 2021</code> 会按年份消歧；<code>dune</code> 认英文原名；
+          <code>matrix</code> 也能找到《黑客帝国》。直接贴豆瓣链接或 <code>id:3001114</code> 则跳过搜索。</p>
+      </div>
+      <div class="feat">
+        <span class="ico">⚖️</span>
+        <h3>拿不准就问你，不瞎猜</h3>
+        <p>《沙丘》1984 和 2021 分数并列时，不会随便挑一个，而是把候选列出来（并复制到剪贴板），
+          你补个年份再跑一次就精确命中。</p>
+      </div>
+      <div class="feat">
+        <span class="ico">🖼️</span>
+        <h3>海报是真图，不是外链</h3>
+        <p>豆瓣图床有防盗链，外链塞进 Notion 会显示成裂图。这里是把图<b>下载后上传</b>到 Notion，
+          属性类型是 <code>file</code>，跟你手动粘贴的效果一样。</p>
+      </div>
+      <div class="feat">
+        <span class="ico">🔗</span>
+        <h3>片名自带豆瓣超链接</h3>
+        <p>条目标题是可点的超链接（等价于在 Notion 里选中文字按 ⌘K），点片名直接跳豆瓣页面。</p>
+      </div>
+      <div class="feat">
+        <span class="ico">📋</span>
+        <h3>按你既有的约定填</h3>
+        <p>映射跟着你的库走：<code>NAME</code> 写「中文名 外文名」，<code>time</code> 是分钟数，
+          <code>Date</code> 是观看日期，<code>NUM</code> 自动取最大值 +1。
+          <code>OTHER</code> 默认留空 —— 那是写你自己短评的地方。</p>
+      </div>
+      <div class="feat">
+        <span class="ico">🔁</span>
+        <h3>记到哪个页面随时换</h3>
+        <p>默认写 COOF2026。换一次就记住，之后不用每次再选 —— 除非你主动运行「记录到哪个页面」。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SHOTS ================= -->
+  <section class="shots glass">
+    <h2>实际长什么样</h2>
+    <p class="lead">下面都是真机截图。</p>
+    <div class="grid">
+      <figure class="wide">
+        <img src="assets/shot-notion.png" alt="Notion COOF2026 里新建的条目"/>
+        <figcaption>条目建好之后：片名带豆瓣超链接、海报是真图、年份片长国家类型都填好了，
+          <code>OTHER</code> 留空等你写。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/shot-term.png" alt="命令行运行输出"/>
+        <figcaption>命令行直接跑：一条命令完成查询、上传海报、写库。</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/shot-ambig.png" alt="匹配到多部时列出候选"/>
+        <figcaption>匹配到多部时不弹窗、不卡住，直接列出候选让你补年份。</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= DEMO ================= -->
+  <section class="demo glass">
+    <h2>跑一遍给你看</h2>
+    <p class="lead">真实运行录像，没有剪辑。</p>
+    <video controls preload="metadata" playsinline poster="assets/rose.png">
+      <source src="assets/demo.mp4" type="video/mp4"/>
+      你的浏览器不支持内嵌视频，<a href="assets/demo.mp4">点这里下载</a>。
+    </video>
+    <p class="cap">从输入片名到 Notion 里出现条目，全程约十几秒。</p>
+  </section>
+
+  <!-- ================= INSTALL ================= -->
+  <section>
+    <h2>怎么装</h2>
+    <p class="lead">两种用法，任选。Tuna 是给桌面顺手用的，命令行是不依赖任何 App 的兜底。</p>
+
+    <details class="fold">
+      <summary>用 Tuna（推荐）</summary>
+      <div class="fold-body">
+        <p>把两个脚本放进 Tuna 的默认脚本目录 <code>~/Library/Scripts</code>，Tuna 会自动发现它们：</p>
+        <table>
+          <tr><th>脚本</th><th>在 Tuna 里叫什么</th><th>干什么</th></tr>
+          <tr><td><code>coof-movie.py</code></td><td>记录电影</td><td>输入片名 → 查豆瓣 → 写 Notion</td></tr>
+          <tr><td><code>coof-notion-page.py</code></td><td>记录到哪个页面</td><td>换目标数据库，换一次就记住</td></tr>
+        </table>
+        <p>用法是「<b>片名在前，脚本在后</b>」：</p>
+        <pre><span class="c">1.</span> 打开 Tuna，按 <b>.</b> 进入 Text Mode，输入片名（如 奥本海默 2023）
+<span class="c">2.</span> 按 Tab 到动作栏，选「Send to Script」
+<span class="c">3.</span> 按 Tab 到目标栏，选「记录电影」，回车</pre>
+        <p>也可以先复制片名，再对「记录电影」直接回车 —— 脚本收不到参数时会读剪贴板。</p>
+        <p class="note">⚠️ 别把「记录电影」当第一栏再选 Run with Input：那个动作的第三栏是
+          「挑一个已存在的输入项」的选择器，不接受现场打的字。</p>
+      </div>
+    </details>
+
+    <details class="fold">
+      <summary>不用 Tuna，直接命令行</summary>
+      <div class="fold-body">
+        <p>只要有 Python 3（macOS 自带 <code>/usr/bin/python3</code>），两个脚本就能独立跑：</p>
+        <pre>chmod +x coof-movie.py coof-notion-page.py
+./coof-movie.py 沙丘 2021            <span class="c"># 查 + 写库</span>
+./coof-movie.py --no-notion 沙丘      <span class="c"># 只查，不写库</span>
+./coof-movie.py --no-open 沙丘        <span class="c"># 不自动打开浏览器</span>
+./coof-movie.py --link-titles 148-155 <span class="c"># 给已有条目补标题超链接</span>
+./coof-notion-page.py                <span class="c"># 看/换写入的目标页面</span></pre>
+        <p>第一次用要先接上你自己的 Notion：</p>
+        <pre>./coof-movie.py --set-notion-token &lt;你的集成 token&gt;
+<span class="c"># 然后把目标页面「连接」给这个集成，再：</span>
+./coof-movie.py --notion-schema       <span class="c"># 确认能看到字段</span></pre>
+      </div>
+    </details>
+
+    <details class="fold">
+      <summary>字段是怎么映射的</summary>
+      <div class="fold-body">
+        <p>映射在运行时读你数据库的真实结构，按属性名认。COOF 库当前长这样：</p>
+        <table>
+          <tr><th>Notion 属性</th><th>写入内容</th></tr>
+          <tr><td><code>NAME</code></td><td>「中文名 外文名」，并做成指向豆瓣的超链接</td></tr>
+          <tr><td><code>FILM</code></td><td>固定「影」（剧集写「剧」）</td></tr>
+          <tr><td><code>YEAR</code></td><td>上映年份</td></tr>
+          <tr><td><code>time</code></td><td>片长分钟数</td></tr>
+          <tr><td><code>Date</code></td><td>观看日期 = 跑脚本那天</td></tr>
+          <tr><td><code>NUM</code></td><td>递增序号，自动取当前最大值 +1</td></tr>
+          <tr><td><code>COUNTRY</code> / <code>KIND</code></td><td>制片国家 / 类型（多选）</td></tr>
+          <tr><td><code>POSTER</code></td><td>豆瓣海报，下载后上传</td></tr>
+          <tr><td><code>OTHER</code></td><td><b>默认不写</b>，留给你自己的短评。想填豆瓣简介：<code>--option fill_other=on</code></td></tr>
+        </table>
+      </div>
+    </details>
+
+    <details class="fold">
+      <summary>已知的边界</summary>
+      <div class="fold-body">
+        <p>· <b>豆瓣没有公开 API</b>，走的是非官方接口。短时间内连续请求十来次会被软性限流
+          （返回空数组），通常 1–2 分钟自愈。脚本已做请求间隔、失败重试、命中缓存不重复请求。</p>
+        <p>· 豆瓣改版可能让抓取失效。失效时脚本会<b>明确报错</b>，不会静默写错数据。</p>
+        <p>· 目前<b>不去重</b>：同一部片连跑两次会有两条记录。</p>
+        <p>· 海报会占一点 Notion workspace 存储配额，一张几十 KB。</p>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <img class="wordmark" src="assets/rose-logo.png" alt=""/>
+    <div class="wordmark2">CEVTUO CLVNCHET</div>
+    <div>CEVTUOGRND</div>
+    <div class="fine">记录电影 · for COOF 观影库 · <a href="/">apps.cevtuogrnd.com</a></div>
+  </footer>
+
+</div>
+
+<script>
+  // 把输入的片名拼成 tuna:// 链接，点了就在 Tuna 里把命令备好
+  (function () {
+    var input = document.getElementById('q');
+    var go = document.getElementById('go');
+
+    function build(q) {
+      q = (q || '').trim();
+      if (!q) return 'tuna://';
+      // Tuna 的命令形状：subject（片名）→ action → target（脚本）
+      return 'tuna://stage?subject=' + encodeURIComponent(q) +
+             '&action=' + encodeURIComponent('Send to Script') +
+             '&target=' + encodeURIComponent('记录电影');
+    }
+
+    function sync() { go.setAttribute('href', build(input.value)); }
+    input.addEventListener('input', sync);
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') { sync(); window.location.href = go.getAttribute('href'); }
+    });
+    sync();
+  })();
+</script>
+</body>
+</html>
