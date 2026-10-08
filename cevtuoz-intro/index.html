@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CEVTUO-Z · 项目介绍</title>
+<meta name="description" content="CEVTUO-Z —— 一个人的数据仪表盘。电影、笔记、阅读、健康四条数据链路，一套 Taro 代码出 H5 与小程序。"/>
+<link rel="icon" href="assets/icon-512.png"/>
+<meta property="og:title" content="CEVTUO-Z · 项目介绍"/>
+<meta property="og:description" content="电影 · 笔记 · 阅读 · 健康 —— 一个人的数据仪表盘，技术链路与数据链路全解。"/>
+<meta property="og:image" content="assets/home-hero-sm.jpg"/>
+<style>
+  :root{
+    --ink:#f2f4f7;
+    --soft:rgba(242,244,247,.74);
+    --faint:rgba(242,244,247,.46);
+    --line:rgba(255,255,255,.14);
+    --glass:rgba(255,255,255,.055);
+    --glass2:rgba(255,255,255,.09);
+    --accent:#cdd6e4;
+    --brand:#8fb4ff;
+    --r:24px;
+    --ease:cubic-bezier(.32,.72,0,1);
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  html{background:#08090b;scroll-behavior:smooth}
+  body{
+    margin:0;color:var(--ink);
+    font:16px/1.75 -apple-system,BlinkMacSystemFont,"PingFang SC","Segoe UI",Arial,sans-serif;
+    background:
+      radial-gradient(1100px 620px at 50% -12%,rgba(190,205,225,.14),transparent 62%),
+      radial-gradient(900px 520px at 90% 6%,rgba(150,170,200,.07),transparent 60%),
+      #08090b;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1000px;margin:0 auto;padding:52px 22px 90px}
+  .glass{
+    background:var(--glass);border:1px solid var(--line);border-radius:var(--r);
+    backdrop-filter:blur(26px) saturate(160%);
+    -webkit-backdrop-filter:blur(26px) saturate(160%);
+    box-shadow:0 22px 60px rgba(0,0,0,.46), inset 0 1px 0 rgba(255,255,255,.09);
+  }
+
+  /* ── hero ───────────────────────────────────────────── */
+  .hero{padding:52px 36px 42px;text-align:center;position:relative;overflow:hidden}
+  .hero::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(520px 240px at 50% 0%,rgba(255,255,255,.09),transparent 70%);
+  }
+  .mark{
+    display:block;width:104px;height:104px;margin:0 auto 16px;position:relative;z-index:1;
+    filter:drop-shadow(0 18px 30px rgba(0,0,0,.66));
+  }
+  h1{
+    font-size:clamp(30px,5.2vw,48px);line-height:1.15;margin:0 0 12px;
+    letter-spacing:.16em;font-weight:600;position:relative;z-index:1;
+    background:linear-gradient(180deg,#fff,#b9c3d2);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sub{color:var(--soft);font-size:16.5px;margin:0 auto 6px;max-width:32em;position:relative;z-index:1}
+  .byline{color:var(--faint);font-size:13px;margin:0 0 26px;position:relative;z-index:1}
+  .cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:1}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:14px;
+    text-decoration:none;cursor:pointer;font-weight:600;font-size:15px;
+    background:linear-gradient(180deg,#eef1f6,#c3cbd8);color:#14171c;
+    border:1px solid rgba(255,255,255,.5);box-shadow:0 10px 26px rgba(0,0,0,.42);
+    transition:transform .18s var(--ease);
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn.ghost{
+    background:var(--glass2);color:var(--ink);border:1px solid var(--line);
+    box-shadow:none;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  }
+
+  /* ── 目录 ───────────────────────────────────────────── */
+  .toc{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0 34px;
+  }
+  .toc a{
+    text-decoration:none;color:var(--soft);font-size:13px;padding:7px 14px;border-radius:999px;
+    background:var(--glass);border:1px solid var(--line);transition:all .18s var(--ease);
+  }
+  .toc a:hover{color:var(--ink);background:var(--glass2)}
+
+  /* ── 通用 ───────────────────────────────────────────── */
+  section{margin:52px 0}
+  h2{
+    font-size:22px;margin:0 0 6px;font-weight:600;letter-spacing:.02em;
+    display:flex;align-items:baseline;gap:12px;
+  }
+  h2 .n{font-family:var(--mono);font-size:13px;color:var(--faint);font-weight:500}
+  .lead{color:var(--soft);font-size:14.5px;margin:0 0 20px;max-width:52em}
+  h3{font-size:16px;margin:0 0 8px;font-weight:600}
+  p{margin:0 0 12px}
+  a{color:var(--brand)}
+  code{font-family:var(--mono);font-size:12.5px;background:rgba(255,255,255,.07);
+    padding:1.5px 6px;border-radius:6px;color:#dbe2ec}
+  pre{
+    background:rgba(0,0,0,.4);border:1px solid var(--line);border-radius:12px;
+    padding:14px 16px;overflow:auto;font-family:var(--mono);font-size:12.5px;
+    line-height:1.8;color:#dbe2ec;margin:12px 0;
+  }
+  pre .c{color:#7e8899}
+
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{padding:22px;border-radius:20px;background:var(--glass);border:1px solid var(--line)}
+  .card p{margin:0;font-size:13.5px;color:var(--soft);line-height:1.75}
+  .card .tag{
+    display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;
+    color:var(--faint);border:1px solid var(--line);border-radius:999px;
+    padding:2px 9px;margin-bottom:12px;
+  }
+
+  /* 品牌卡 */
+  .brand{position:relative;overflow:hidden}
+  .brand .mk{
+    font-size:26px;font-weight:650;letter-spacing:.14em;margin:0 0 4px;
+    background:linear-gradient(180deg,#fff,#a9b4c4);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .brand .zh{font-size:13px;color:var(--faint);margin:0 0 14px}
+  .brand .src{
+    margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.09);
+    font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.8;
+  }
+
+  /* 链路图 */
+  .flow{
+    display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:14px 0 0;
+    font-family:var(--mono);font-size:12px;
+  }
+  .flow .node{
+    padding:8px 12px;border-radius:10px;background:var(--glass2);
+    border:1px solid var(--line);color:var(--soft);white-space:nowrap;
+  }
+  .flow .node.hi{color:var(--ink);border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.13)}
+  .flow .arw{color:var(--faint);font-size:11px}
+
+  /* 截图 */
+  .shots{padding:26px 22px;border-radius:var(--r)}
+  .shotgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  figure{margin:0}
+  figure img{
+    width:100%;display:block;border-radius:14px;border:1px solid var(--line);
+    box-shadow:0 14px 34px rgba(0,0,0,.44);background:#111;
+  }
+  figcaption{color:var(--faint);font-size:12.5px;margin-top:9px;line-height:1.6}
+  .wide{grid-column:1/-1}
+  .wide img{border-radius:18px}
+  .barfig img{border-radius:12px;background:transparent;border-color:rgba(255,255,255,.1)}
+
+  /* 视频 */
+  video{
+    width:100%;display:block;border-radius:18px;border:1px solid var(--line);
+    box-shadow:0 18px 44px rgba(0,0,0,.5);background:#000;
+  }
+
+  /* 折叠 */
+  details.fold{
+    margin:14px 0;border-radius:16px;border:1px solid var(--line);
+    background:var(--glass);overflow:hidden;
+  }
+  details.fold summary{
+    cursor:pointer;padding:16px 20px;font-size:15px;font-weight:600;
+    list-style:none;display:flex;justify-content:space-between;align-items:center;
+  }
+  details.fold summary::-webkit-details-marker{display:none}
+  details.fold summary::after{content:"›";font-size:20px;color:var(--faint);
+    transform:rotate(90deg);transition:transform .25s var(--ease)}
+  details.fold[open] summary::after{transform:rotate(-90deg)}
+  .fold-body{padding:0 20px 20px;color:var(--soft);font-size:13.5px}
+
+  table{width:100%;border-collapse:collapse;margin:8px 0 4px;font-size:13px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.08);
+    vertical-align:top}
+  th{color:var(--faint);font-weight:600;font-size:12.5px}
+  td code{background:none;padding:0;color:var(--accent)}
+
+  footer{
+    margin-top:64px;text-align:center;color:var(--faint);font-size:12.5px;
+    padding-top:30px;border-top:1px solid rgba(255,255,255,.09);
+  }
+  footer img{height:60px;width:auto;display:block;margin:0 auto 14px;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,.6))}
+  .wordmark2{letter-spacing:.34em;font-size:12.5px;color:var(--soft);margin-bottom:6px}
+
+  @media (max-width:820px){
+    .g2,.g3,.shotgrid{grid-template-columns:1fr 1fr}
+    .wide{grid-column:1/-1}
+  }
+  @media (max-width:620px){
+    .g2,.g3,.shotgrid{grid-template-columns:1fr}
+    .wrap{padding:30px 16px 70px}
+    .hero{padding:34px 20px 30px}
+    .shots{padding:18px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero glass">
+    <img class="mark" src="assets/cevtuo-z-mark.svg" alt="CEVTUO-Z"/>
+    <h1>CEVTUO&nbsp;Z</h1>
+    <p class="sub">一个人的数据仪表盘 —— 电影、笔记、阅读、健康，聚在同一套玻璃材质里。</p>
+    <p class="byline">CEVTUOGRND · personal dashboard</p>
+    <div class="cta">
+      <a class="btn" href="https://z.cevtuo.com" target="_blank" rel="noopener">打开 z.cevtuo.com →</a>
+      <a class="btn ghost" href="#stack">技术链路</a>
+      <a class="btn ghost" href="#data">数据链路</a>
+    </div>
+  </header>
+
+  <nav class="toc">
+    <a href="#what">这是什么</a>
+    <a href="#brands">四个品牌</a>
+    <a href="#stack">技术链路</a>
+    <a href="#data">数据链路</a>
+    <a href="#features">功能特色</a>
+    <a href="#shots">截图</a>
+    <a href="#video">演示视频</a>
+  </nav>
+
+  <!-- ───────────────────────────── 这是什么 ── -->
+  <section id="what">
+    <h2><span class="n">01</span>这是什么</h2>
+    <p class="lead">
+      CEVTUO-Z 把散在四个地方的个人数据 —— Notion 里的观影记录和笔记、
+      Kindle 上的阅读历史、手机里的健康数据 —— 收拢到一个站点上，
+      用同一套材质和同一套排版呈现。它既是给自己看的面板，也是一次
+      「同一份代码要同时活在浏览器和微信里」的完整工程练习。
+    </p>
+    <div class="grid g3">
+      <div class="card">
+        <span class="tag">一个来源</span>
+        <h3>四扇门，一张皮</h3>
+        <p>四个品牌共用一份设计 token、一份玻璃材质、一份导航实现。
+          改一处，全站跟着变 —— 不是四套各自为政的页面。</p>
+      </div>
+      <div class="card">
+        <span class="tag">两端</span>
+        <h3>网页与小程序同源</h3>
+        <p>同一套 <code>Taro</code> + <code>React</code> 代码，编译成 H5 网页和
+          微信小程序两个产物，小程序里读的是同一个数据契约。</p>
+      </div>
+      <div class="card">
+        <span class="tag">不设密码</span>
+        <h3>数据是公开的</h3>
+        <p>观影、笔记、阅读都可以随便看。只有健康数据是加密的
+          —— 因为那是唯一能指向一个具体身体的数据。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── 四个品牌 ── -->
+  <section id="brands">
+    <h2><span class="n">02</span>四个品牌</h2>
+    <p class="lead">每个品牌是一扇门，主页上各占一屏，点进去是它自己的世界。</p>
+    <div class="grid g2">
+      <div class="card brand">
+        <div class="mk">COOF</div>
+        <p class="zh">观影记录</p>
+        <p>按年历编排的观影清单。<b>看过了什么、什么时候看的、今年每个月看了多少</b>
+          —— 一条平滑的月度曲线，和每个月的海报墙。</p>
+        <div class="src">来源：Notion 观影库 · 豆瓣海报<br/>出口：<code>data/coof/&lt;年月&gt;/index.json</code></div>
+      </div>
+      <div class="card brand">
+        <div class="mk">CNSR</div>
+        <p class="zh">笔记</p>
+        <p>四个来源的笔记汇成一条时间线：<b>Shopping / Learn / tech-learn / TECH-AI</b>。
+          每个来源有自己那一列「最近几天的条目」，点开看全文。</p>
+        <div class="src">来源：Notion 四个数据库<br/>出口：<code>data/cnsr/&lt;来源&gt;.json</code></div>
+      </div>
+      <div class="card brand">
+        <div class="mk">CAPPERR</div>
+        <p class="zh">Kindle 阅读</p>
+        <p>读数、书库、每日时长。<b>本周每天读了多久、这个月的阅读日历</b>
+          —— 一张周柱状图加一张月度热力。</p>
+        <div class="src">来源：Kindle 上的 KOReader 插件<br/>出口：<code>data/paperr/index.json</code></div>
+      </div>
+      <div class="card brand">
+        <div class="mk">CHEALTH</div>
+        <p class="zh">健康</p>
+        <p>步数、心率、睡眠、运动。<b>今天怎么样、这一周怎么样、趋势怎么样</b>
+          —— 三层，从一天的圆环到几个月的曲线。</p>
+        <div class="src">来源：三星健康 → Health Connect → 手机 App<br/>出口：<code>data/chealth/index.json</code>（加密）</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── 技术链路 ── -->
+  <section id="stack">
+    <h2><span class="n">03</span>技术链路</h2>
+    <p class="lead">从一行代码到两个平台上跑起来的东西，中间经过这些环节。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <span class="tag">框架</span>
+        <h3>Taro 4.0.9 + React 18</h3>
+        <p>一套 TypeScript 源码，两个编译目标：
+          <code>build:h5</code> 出网页，<code>build:weapp</code> 出微信小程序。
+          组件、路由、样式都是 Taro 那一层统一掉的 —— 平台差异只写在少数几处。</p>
+      </div>
+      <div class="card">
+        <span class="tag">单仓</span>
+        <h3>bun workspaces</h3>
+        <p>一个仓库里装着应用、数据契约、同步流水线和服务端：
+          <code>apps/dashboard</code>、<code>packages/schema</code>、
+          <code>pipeline</code>、<code>services/ingest</code>。
+          它们共享同一份类型定义。</p>
+      </div>
+      <div class="card">
+        <span class="tag">样式</span>
+        <h3>SCSS token + 玻璃材质</h3>
+        <p>所有颜色、圆角、模糊强度都是变量。卡片材质只有一处定义，
+          任何地方都不许自己写一份 —— 验收看的是<b>计算值</b>，
+          不是「我 include 了哪个 mixin」。</p>
+      </div>
+      <div class="card">
+        <span class="tag">部署</span>
+        <h3>一个源，三处出口</h3>
+        <p>站点产物推到 <code>gh-pages</code>，GitHub Pages 与国内镜像都从它取。
+          数据由独立的发布桥写进同一个分支 —— 内容是天然同步的。</p>
+      </div>
+    </div>
+
+    <div class="flow" aria-label="构建到部署的链路">
+      <span class="node">TypeScript 源码</span><span class="arw">→</span>
+      <span class="node">Taro 编译</span><span class="arw">→</span>
+      <span class="node hi">H5 产物</span><span class="arw">↘</span>
+      <span class="node">gh-pages</span><span class="arw">→</span>
+      <span class="node">GitHub Pages</span><span class="arw">+</span>
+      <span class="node">国内镜像 :443</span>
+    </div>
+
+    <table>
+      <thead><tr><th>入口</th><th>地址</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>主站</td><td><code>z.cevtuo.com</code></td><td>备案域名，443，深圳节点 —— 国内读者的主入口</td></tr>
+        <tr><td>备份</td><td><code>z.cevtuogrnd.com</code></td><td>GitHub Pages 直出，海外线路更快</td></tr>
+        <tr><td>应用页</td><td><code>apps.cevtuogrnd.com</code></td><td>本页所在的用户站，聚合各个项目</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ───────────────────────────── 数据链路 ── -->
+  <section id="data">
+    <h2><span class="n">04</span>数据链路</h2>
+    <p class="lead">
+      四条链路，每条都是「<b>源头 → 采集 → 落到 gh-pages → 浏览器读</b>」。
+      中间没有一台常开的个人电脑 —— 采集和发布都跑在云上或手机上。
+    </p>
+
+    <div class="card" style="margin-bottom:14px">
+      <span class="tag">01 · COOF 观影</span>
+      <h3>Notion 观影库 → 网页</h3>
+      <p>同步脚本按年历拉取 Notion 里的观影记录，配上豆瓣的海报图，
+        按年写成分片 JSON。海报走自己的 CDN，不写外链。</p>
+      <div class="flow">
+        <span class="node">Notion 观影库</span><span class="arw">→</span>
+        <span class="node">Notion API</span><span class="arw">→</span>
+        <span class="node">同步流水线</span><span class="arw">→</span>
+        <span class="node hi">data/coof/*.json</span><span class="arw">→</span>
+        <span class="node">gh-pages</span><span class="arw">→</span>
+        <span class="node">浏览器</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <span class="tag">02 · CNSR 笔记</span>
+      <h3>Notion 四个源 → 网页</h3>
+      <p>四个数据库各自独立刷新（四个一循环），所以每个来源存成自己的文件
+        —— 合在一起的话，任何一个刷新都会让另外三个谎报新鲜度。</p>
+      <div class="flow">
+        <span class="node">Shopping / Learn / tech-learn / TECH-AI</span><span class="arw">→</span>
+        <span class="node">Notion API</span><span class="arw">→</span>
+        <span class="node hi">data/cnsr/&lt;源&gt;.json</span><span class="arw">→</span>
+        <span class="node">gh-pages</span><span class="arw">→</span>
+        <span class="node">浏览器</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <span class="tag">03 · CAPPERR 阅读</span>
+      <h3>Kindle → 云 → 网页</h3>
+      <p>Kindle 上的 KOReader 插件把阅读历史 <code>POST</code> 到云上的接入服务，
+        服务端用 GitHub API 直接写进 <code>gh-pages</code>。
+        <b>这条链路里没有任何一台 Mac</b> —— 机器是阿里云的一台小实例。</p>
+      <div class="flow">
+        <span class="node">Kindle · KOReader 插件</span><span class="arw">→</span>
+        <span class="node">接入服务 :8789</span><span class="arw">→</span>
+        <span class="node">GitHub API</span><span class="arw">→</span>
+        <span class="node hi">gh-pages</span><span class="arw">→</span>
+        <span class="node">浏览器</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom:14px">
+      <span class="tag">04 · CHEALTH 健康</span>
+      <h3>手机 → 云（加密）→ 网页</h3>
+      <p>手机上装一个自己写的 App，定时把三星健康里同步过来的数据推到云上。
+        服务端按日期合并、只保留最近 31 天，<b>再用 AES-GCM 密封</b>才写进仓库
+        —— 因为仓库是公开的。浏览器里解开它只需要一个内置口令。</p>
+      <div class="flow">
+        <span class="node">三星健康</span><span class="arw">→</span>
+        <span class="node">Health Sync</span><span class="arw">→</span>
+        <span class="node">Health Connect</span><span class="arw">→</span>
+        <span class="node">CEVTUO Health</span><span class="arw">→</span>
+        <span class="node">接入服务 :8789</span><span class="arw">→</span>
+        <span class="node hi">AES-GCM 密封</span><span class="arw">→</span>
+        <span class="node">gh-pages</span><span class="arw">→</span>
+        <span class="node">浏览器解密</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="tag">桥 · 自动发布</span>
+      <h3>数据落到线上的那一跳</h3>
+      <p>同步跑完只把数据写进了仓库的主分支，而站点读的是 <code>gh-pages</code>。
+        这两者之间原先靠手工一条命令 —— 忘了跑，站点就停在某一天。
+        现在有一条自动桥：同步一结束就触发发布，另外每小时兜底一次。</p>
+      <div class="flow">
+        <span class="node">定时同步</span><span class="arw">→</span>
+        <span class="node">main</span><span class="arw">→</span>
+        <span class="node hi">发布桥</span><span class="arw">→</span>
+        <span class="node">gh-pages</span><span class="arw">→</span>
+        <span class="node">CDN</span><span class="arw">→</span>
+        <span class="node">你看到的页面</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── 功能特色 ── -->
+  <section id="features">
+    <h2><span class="n">05</span>功能特色</h2>
+    <p class="lead">这些是站上自己长出来的东西，不是买来的一套模板。</p>
+
+    <div class="grid g2">
+      <div class="card">
+        <span class="tag">导航</span>
+        <h3>Cnowbar —— 一条底栏取代整个顶栏</h3>
+        <p>最左边是<b>返回</b>和一个 <b>UO</b> 圆盘，其余位置是<b>这一页自己的分区</b>：
+          点一下翻到那一屏，滚动的时候高亮也跟着走。
+          分区超过五个就<b>折成一摞</b>（后面露两层边），点它才摊开 ——
+          是折叠，不是隐藏，摊开那一下要有宽度动画。</p>
+      </div>
+      <div class="card">
+        <span class="tag">UO</span>
+        <h3>点 UO 展开「现在」</h3>
+        <p>UO 展开后是最近 24 小时的成果流：看过什么电影、读过哪本书、
+          跑了多少、睡到几点 —— 一行一枚胶囊，右边挂一条卡尺刻度。
+          上下都能折叠，默认贴着「现在」。行按离视口中心的距离缩放淡出，
+          所以滚起来是<b>波动的</b>。设备状态（电量、网络）贴在右边。</p>
+      </div>
+      <div class="card">
+        <span class="tag">字标</span>
+        <h3>逐像素反色的名字</h3>
+        <p>「CEVTUO Z」不是固定的黑或白 —— 它和身后的东西<b>逐像素</b>混色，
+          压在浅色上就变深、压在深色上就变亮，甚至同一个字母的各处都不一样。
+          所以它放在任何背景上都读得出来。</p>
+      </div>
+      <div class="card">
+        <span class="tag">材质</span>
+        <h3>玻璃，而且是同一块玻璃</h3>
+        <p>全站的卡片用同一份材质定义：同一档模糊、同一档饱和度、同一圈高光。
+          验收的方式是量<b>计算值</b>在三页上是否真的相同 —— 不是看代码有没有引用。</p>
+      </div>
+      <div class="card">
+        <span class="tag">画框</span>
+        <h3>每页一张画，带画框</h3>
+        <p>每个页面挂一张自己的画，永远在内容之下。窄屏允许被屏幕边裁掉，
+          但露出的面积一定大于一半。背景用的也是这些画。</p>
+      </div>
+      <div class="card">
+        <span class="tag">翻页</span>
+        <h3>一屏一屏地翻</h3>
+        <p>每一页由几「屏」组成，滑动时整屏吸附过去。底部条的每个分区
+          就是其中的一屏 —— 两条路走的是同一套状态，不会互相打架。</p>
+      </div>
+      <div class="card">
+        <span class="tag">双语</span>
+        <h3>中文 / English</h3>
+        <p>右上角一键切换，所有中文位置都换成英文 —— 包括圆盘里那个字</p>
+      </div>
+      <div class="card">
+        <span class="tag">主题</span>
+        <h3>深色 / 浅色</h3>
+        <p>两种主题都是正式版，不是「深色加个滤镜」。凡随主题变的东西
+          （颜色、底色、阴影）两个主题各验一遍，判据是算出来的对比度。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── 截图 ── -->
+  <section id="shots">
+    <h2><span class="n">06</span>截图</h2>
+    <p class="lead">全部拍自线上站（<code>z.cevtuo.com</code>），不是设计稿。</p>
+    <div class="shots glass">
+      <div class="shotgrid">
+        <figure class="wide">
+          <img src="assets/home-hero.jpg" alt="主页首屏" loading="lazy"/>
+          <figcaption>主页首屏 —— 常驻字标、画廊画框、底部 Cnowbar。桌面宽度。</figcaption>
+        </figure>
+
+        <figure>
+          <img src="assets/uo-panel.jpg" alt="UO 面板" loading="lazy"/>
+          <figcaption>点 UO 展开的「最近 24 小时」—— 胶囊 + 卡尺刻度，右下角是手机电量和网络。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/coof.jpg" alt="COOF" loading="lazy"/>
+          <figcaption>COOF —— 观影总量、全年月度曲线、年历切片、最近看过。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/cnsr.jpg" alt="CNSR" loading="lazy"/>
+          <figcaption>CNSR —— 四个来源的时间线，每个来源各带自己的同步时刻。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/paperr.jpg" alt="CAPPERR" loading="lazy"/>
+          <figcaption>CAPPERR —— Kindle 阅读，本周柱状图与月度日历。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/chealth.jpg" alt="CHEALTH" loading="lazy"/>
+          <figcaption>CHEALTH —— 步数、心率、睡眠、运动，以及各条趋势曲线。</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/home-mobile.jpg" alt="手机主页" loading="lazy"/>
+          <figcaption>手机上的主页（390px）。</figcaption>
+        </figure>
+        <figure class="barfig">
+          <img src="assets/cnowbar.png" alt="Cnowbar 特写" loading="lazy"/>
+          <figcaption>Cnowbar 特写：<code>✕</code> 是展开状态下的 UO，
+            「主屏」是当前分区，`C N P` 折成一摞，箭头摊开其余的。</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────────────────────── 视频 ── -->
+  <section id="video">
+    <h2><span class="n">07</span>演示视频</h2>
+    <p class="lead">一段走查：主页开 UO 面板 → 逐个分区翻过去 → 四个品牌页 → 回主页。约 45 秒。</p>
+    <video src="assets/walkthrough.webm" poster="assets/walkthrough-poster.jpg"
+      controls preload="metadata" playsinline></video>
+  </section>
+
+  <!-- ───────────────────────────── 折叠：怎么跑 ── -->
+  <section id="run">
+    <h2><span class="n">08</span>本地跑起来</h2>
+    <details class="fold">
+      <summary>开发与构建命令</summary>
+      <div class="fold-body">
+        <p>需要一个 bun 环境。仓库是一个 workspaces 单仓。</p>
+<pre><span class="c"># 开发（网页 / 小程序各一条）</span>
+bun run app:dev:h5
+bun run app:dev:weapp
+
+<span class="c"># 构建</span>
+bun run app:build:h5
+bun run app:build:weapp
+
+<span class="c"># 类型检查 —— 改过界面代码之后一定要跑</span>
+bun run typecheck</pre>
+        <p style="margin-top:12px">本地预览走 <code>bash scripts/preview.sh</code>：
+          它会类型检查、构建、重铺一份预览，并且起一个带 SPA 回落的本地服务器。</p>
+      </div>
+    </details>
+    <details class="fold">
+      <summary>这个项目踩过的几个坑（写给下一个接手的人）</summary>
+      <div class="fold-body">
+        <p>它们都在仓库的 <code>docs/</code> 和交接文档里，简版：</p>
+        <table>
+          <tbody>
+            <tr><td><b>同特异型的 CSS 谁赢只看导入顺序</b></td>
+              <td>写了不生效、且不报错。规则在别的文件里，看源码看不出来 —— 要去产物里数那个选择器有几条规则。</td></tr>
+            <tr><td><b>断言全绿 ≠ 断言在测东西</b></td>
+              <td>一组断言全盯着同一个对象时，另一个对象坏了没人管。加断言先问：它<b>怎么才会红</b>。</td></tr>
+            <tr><td><b>「量不到」会被读成「产品坏了」</b></td>
+              <td>工具链的毛病会伪装成被测对象的毛病。同一个检查器两次跑结果不同，先修抖动再谈结论。</td></tr>
+            <tr><td><b>随主题变的东西，两个主题都要看</b></td>
+              <td>只跑一个主题时，另一个主题下的问题可以活很久 —— 判据用算出来的对比度，不用「看起来还行」。</td></tr>
+            <tr><td><b>直连正常 ≠ 经代理正常</b></td>
+              <td>反向代理要把 <code>Origin</code> 转发过去，否则 CORS 头会静默消失 —— 而直连测永远看不出来。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <img src="assets/cevtuo-z-mark.svg" alt="CEVTUO-Z"/>
+    <div class="wordmark2">CEVTUO&nbsp;Z</div>
+    <p>© 2026 cevtuo · CEVTUOGRND</p>
+    <p style="margin-top:8px">
+      <a href="https://z.cevtuo.com" target="_blank" rel="noopener">z.cevtuo.com</a>
+      &nbsp;·&nbsp;
+      <a href="/">apps.cevtuogrnd.com</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
