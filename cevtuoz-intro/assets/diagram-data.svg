@@ -1,0 +1,192 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 1340" width="1560" height="1340"
+     font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC',Arial,sans-serif">
+<style>
+  .t{fill:#0a0a0a} .dim{fill:#6b6b6b} .faint{fill:#9a9a9a}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+  .box{fill:#fff;stroke:#d9d9d9;stroke-width:1.4}
+  .boxhl{fill:#fff;stroke:#c07b31;stroke-width:1.6}
+  .boxdk{fill:#111;stroke:#111}
+  .bad{fill:#fff5f4;stroke:#d84f3f;stroke-width:1.4;stroke-dasharray:6 4}
+  .badt{fill:#b23b2c}
+  .arw{stroke:#b0b0b0;stroke-width:1.6;fill:none}
+  .arwd{stroke:#c07b31;stroke-width:1.8;fill:none}
+  .lbl{font-size:11px;letter-spacing:2.2px;text-transform:uppercase}
+  .h1{font-size:26px;font-weight:700;letter-spacing:-.4px}
+  .ln{font-size:16px;font-weight:700;letter-spacing:.06em}
+  .h3{font-size:13px;font-weight:600}
+  .p{font-size:12px} .xs{font-size:11px}
+</style>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#b0b0b0"/></marker>
+  <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#c07b31"/></marker>
+</defs>
+<rect width="1560" height="1340" fill="#fff"/>
+
+<text x="48" y="52" class="t h1">数据链路</text>
+<text x="48" y="76" class="dim p">四条链路，同一个形状：源头 → 采集 → 云 → gh-pages → 浏览器。中间没有一台常开的个人电脑。</text>
+<text x="1512" y="52" class="faint mono xs" text-anchor="end">CEVTUO-Z · 2026-10</text>
+<line x1="48" y1="98" x2="1512" y2="98" stroke="#e6e6e6" stroke-width="1.4"/>
+
+<!-- ══════════ LANE 1 · COOF ══════════ -->
+<text x="48" y="146" class="t ln">COOF</text>
+<text x="128" y="146" class="faint mono lbl">观影 · 保留全部年历</text>
+<rect x="48" y="164" width="260" height="88" rx="9" class="box"/>
+<text x="68" y="192" class="t h3">Notion 观影库</text>
+<text x="68" y="214" class="dim p">一个日历一页（COOF2026 …）</text>
+<text x="68" y="234" class="faint mono xs">片名 · 日期 · 评分 · 类型</text>
+<path d="M308 208 H 330" class="arw" marker-end="url(#a)"/>
+<rect x="330" y="164" width="268" height="88" rx="9" class="box"/>
+<text x="350" y="192" class="t h3">同步流水线</text>
+<text x="350" y="214" class="dim p">定时拉取 · 按年分片</text>
+<text x="350" y="234" class="faint mono xs">豆瓣匹配 + 海报下载后自存</text>
+<path d="M598 208 H 620" class="arw" marker-end="url(#a)"/>
+<rect x="620" y="164" width="268" height="88" rx="9" class="box"/>
+<text x="640" y="192" class="t h3">写入仓库</text>
+<text x="640" y="214" class="dim p">posters/&lt;id&gt;.jpg + index.json</text>
+<text x="640" y="234" class="faint mono xs">路径是相对 origin 的（部署与数据解耦）</text>
+<path d="M888 208 H 910" class="arw" marker-end="url(#a)"/>
+<rect x="910" y="164" width="250" height="88" rx="9" class="boxhl"/>
+<text x="930" y="192" class="t h3">gh-pages</text>
+<text x="930" y="214" class="dim p">data/coof/*.json</text>
+<text x="930" y="234" class="faint mono xs">约 45 MB（海报占多数）</text>
+<path d="M1160 208 H 1182" class="arwd" marker-end="url(#ad)"/>
+<rect x="1182" y="164" width="330" height="88" rx="9" class="boxdk"/>
+<text x="1202" y="192" fill="#fff" class="h3">浏览器</text>
+<text x="1202" y="214" fill="#b9b9b9" class="p">年历 · 月度曲线 · 海报墙</text>
+<text x="1202" y="234" fill="#7d7d7d" class="mono xs">图片走 ASSET_CDN，data/ 走穿透缓存</text>
+<rect x="48" y="262" width="1464" height="46" rx="8" class="bad"/>
+<text x="68" y="290" class="badt mono xs">✗ 已删除</text>
+<text x="168" y="290" class="dim p">直接外链豆瓣图床 —— 有防盗链，放进页面全是裂图。改为下载后自存，属性类型 file。</text>
+
+<!-- ══════════ LANE 2 · CNSR ══════════ -->
+<text x="48" y="352" class="t ln">CNSR</text>
+<text x="128" y="352" class="faint mono lbl">笔记 · 保留全部</text>
+<rect x="48" y="370" width="260" height="88" rx="9" class="box"/>
+<text x="68" y="398" class="t h3">Notion 四个源</text>
+<text x="68" y="420" class="dim p">Shopping · Learn</text>
+<text x="68" y="440" class="faint mono xs">tech-learn · TECH-AI</text>
+<path d="M308 414 H 330" class="arw" marker-end="url(#a)"/>
+<rect x="330" y="370" width="268" height="88" rx="9" class="box"/>
+<text x="350" y="398" class="t h3">同步（四源轮转）</text>
+<text x="350" y="420" class="dim p">一次刷一个源，四个一循环</text>
+<text x="350" y="440" class="faint mono xs">每源各自带自己的 updatedAt</text>
+<path d="M598 414 H 620" class="arw" marker-end="url(#a)"/>
+<rect x="620" y="370" width="268" height="88" rx="9" class="box"/>
+<text x="640" y="398" class="t h3">按源分文件</text>
+<text x="640" y="420" class="dim p">不是合成一个大文件</text>
+<text x="640" y="440" class="faint mono xs">否则一次刷新会污染另三个的新鲜度</text>
+<path d="M888 414 H 910" class="arw" marker-end="url(#a)"/>
+<rect x="910" y="370" width="250" height="88" rx="9" class="boxhl"/>
+<text x="930" y="398" class="t h3">gh-pages</text>
+<text x="930" y="420" class="dim p">data/cnsr/&lt;源&gt;.json</text>
+<text x="930" y="440" class="faint mono xs">约 6.1 MB</text>
+<path d="M1160 414 H 1182" class="arwd" marker-end="url(#ad)"/>
+<rect x="1182" y="370" width="330" height="88" rx="9" class="boxdk"/>
+<text x="1202" y="398" fill="#fff" class="h3">浏览器</text>
+<text x="1202" y="420" fill="#b9b9b9" class="p">四个来源的时间线 · 日历热力</text>
+<text x="1202" y="440" fill="#7d7d7d" class="mono xs">每条笔记保留自己的同步时刻</text>
+<rect x="48" y="468" width="1464" height="46" rx="8" class="bad"/>
+<text x="68" y="496" class="badt mono xs">✗ 已删除</text>
+<text x="168" y="496" class="dim p">单文件 data/cnsr/index.json —— 每次刷新都要重写整份，另外三个源就会谎报一个自己没有的新鲜度。</text>
+
+<!-- ══════════ LANE 3 · CAPPERR ══════════ -->
+<text x="48" y="558" class="t ln">CAPPERR</text>
+<text x="176" y="558" class="faint mono lbl">Kindle 阅读 · 保留全部</text>
+<rect x="48" y="576" width="260" height="88" rx="9" class="box"/>
+<text x="68" y="604" class="t h3">Kindle · KOReader</text>
+<text x="68" y="626" class="dim p">statistics.sqlite3</text>
+<text x="68" y="646" class="faint mono xs">书 · 时长 · 页数 · 起止</text>
+<path d="M308 620 H 330" class="arw" marker-end="url(#a)"/>
+<rect x="330" y="576" width="268" height="88" rx="9" class="box"/>
+<text x="350" y="604" class="t h3">KOReader 插件</text>
+<text x="350" y="626" class="dim p">在 KOReader 进程内部读库</text>
+<text x="350" y="646" class="faint mono xs">导出 JSON 到可见分区根目录</text>
+<path d="M598 620 H 620" class="arw" marker-end="url(#a)"/>
+<rect x="620" y="576" width="268" height="88" rx="9" class="box"/>
+<text x="640" y="604" class="t h3">接入服务 :8789</text>
+<text x="640" y="626" class="dim p">POST → 鉴权 → 按日期合并</text>
+<text x="640" y="646" class="faint mono xs">原始导出逐字存，不重写</text>
+<path d="M888 620 H 910" class="arw" marker-end="url(#a)"/>
+<rect x="910" y="576" width="250" height="88" rx="9" class="boxhl"/>
+<text x="930" y="604" class="t h3">gh-pages</text>
+<text x="930" y="626" class="dim p">GitHub API 原子提交</text>
+<text x="930" y="646" class="faint mono xs">data/paperr/ · 约 48 KB</text>
+<path d="M1160 620 H 1182" class="arwd" marker-end="url(#ad)"/>
+<rect x="1182" y="576" width="330" height="88" rx="9" class="boxdk"/>
+<text x="1202" y="604" fill="#fff" class="h3">浏览器</text>
+<text x="1202" y="626" fill="#b9b9b9" class="p">读数 · 书架 · 本周柱状 · 月度热力</text>
+<text x="1202" y="646" fill="#7d7d7d" class="mono xs">中间没有 Mac，机器是阿里云</text>
+<rect x="48" y="674" width="1464" height="46" rx="8" class="bad"/>
+<text x="68" y="702" class="badt mono xs">✗ 已删除</text>
+<text x="168" y="702" class="dim p">从电脑 SFTP 拉 statistics.sqlite3 —— 那是 WAL 模式，拷出来的可能是旧快照，最近的阅读还在 -wal 里。</text>
+
+<!-- ══════════ LANE 4 · CHEALTH ══════════ -->
+<text x="48" y="764" class="t ln">CHEALTH</text>
+<text x="186" y="764" class="faint mono lbl">健康 · 只保留最近 31 天，到期删除</text>
+<rect x="48" y="782" width="260" height="88" rx="9" class="box"/>
+<text x="68" y="810" class="t h3">三星健康</text>
+<text x="68" y="832" class="dim p">手表 + 手机</text>
+<text x="68" y="852" class="faint mono xs">Health Sync / Health Connect</text>
+<path d="M308 826 H 330" class="arw" marker-end="url(#a)"/>
+<rect x="330" y="782" width="268" height="88" rx="9" class="box"/>
+<text x="350" y="810" class="t h3">CEVTUO Health App</text>
+<text x="350" y="832" class="dim p">每 15 分钟（熄屏退化到约 1 小时）</text>
+<text x="350" y="852" class="faint mono xs">三星 SDK 权威 + HC 补充</text>
+<path d="M598 826 H 620" class="arw" marker-end="url(#a)"/>
+<rect x="620" y="782" width="268" height="88" rx="9" class="box"/>
+<text x="640" y="810" class="t h3">接入服务 :8789</text>
+<text x="640" y="832" class="dim p">按日期合并 → 保留 31 天</text>
+<text x="640" y="852" class="faint mono xs">AES-GCM 密封后写仓库</text>
+<path d="M888 826 H 910" class="arw" marker-end="url(#a)"/>
+<rect x="910" y="782" width="250" height="88" rx="9" class="boxhl"/>
+<text x="930" y="810" class="t h3">gh-pages</text>
+<text x="930" y="832" class="dim p">data/chealth/index.json</text>
+<text x="930" y="852" class="faint mono xs">741 KB 密文 · 仓库公开也读不出</text>
+<path d="M1160 826 H 1182" class="arwd" marker-end="url(#ad)"/>
+<rect x="1182" y="782" width="330" height="88" rx="9" class="boxdk"/>
+<text x="1202" y="810" fill="#fff" class="h3">浏览器解密</text>
+<text x="1202" y="832" fill="#b9b9b9" class="p">PBKDF2 20 万次 + AES-GCM</text>
+<text x="1202" y="852" fill="#7d7d7d" class="mono xs">纯 JS（@noble），不用 crypto.subtle</text>
+<rect x="48" y="880" width="720" height="46" rx="8" class="bad"/>
+<text x="68" y="908" class="badt mono xs">✗ 已删除</text>
+<text x="168" y="908" class="dim p">睡眠时长用 TOTAL_DURATION 按「入睡日」归日 ⇒ 连着两夜加成一晚（10-07 报出 15.5h）。</text>
+<rect x="792" y="880" width="720" height="46" rx="8" class="bad"/>
+<text x="812" y="908" class="badt mono xs">✗ 已删除</text>
+<text x="912" y="908" class="dim p">HC 的 SleepSessionRecord 直接求和 —— 手表和手机重叠时重复计入（出现过 182.5h）。</text>
+
+<!-- ══ 底部：保留与删除 ══ -->
+<line x1="48" y1="962" x2="1512" y2="962" stroke="#e6e6e6" stroke-width="1.4"/>
+<text x="48" y="996" class="faint mono lbl">保留与删除</text>
+
+<rect x="48" y="1014" width="352" height="118" rx="10" class="box"/>
+<text x="68" y="1042" class="t h3">CHEALTH · 31 天滚动</text>
+<text x="68" y="1066" class="dim p">从「最新数据日期」往回算 31 天，</text>
+<text x="68" y="1086" class="dim p">同时裁 days 和 sessions。</text>
+<text x="68" y="1112" class="faint mono xs">服务器只保存这四个固定文件，覆盖写</text>
+
+<rect x="420" y="1014" width="352" height="118" rx="10" class="box"/>
+<text x="440" y="1042" class="t h3">COOF / CNSR / PAPERR</text>
+<text x="440" y="1066" class="dim p">不设到期 —— 是历史记录，</text>
+<text x="440" y="1086" class="dim p">删了就回不来。</text>
+<text x="440" y="1112" class="faint mono xs">COOF 约 45 MB · CNSR 6.1 MB · PAPERR 48 KB</text>
+
+<rect x="792" y="1014" width="352" height="118" rx="10" class="box"/>
+<text x="812" y="1042" class="t h3">站点产物</text>
+<text x="812" y="1066" class="dim p">dist/ 约 7.6 MB（含 3.9 MB 品牌动图）</text>
+<text x="812" y="1086" class="dim p">构建时清空重建，不留旧 chunk。</text>
+<text x="812" y="1112" class="faint mono xs">gh-pages 仓库整体约 101 MB</text>
+
+<rect x="1164" y="1014" width="348" height="118" rx="10" class="boxhl"/>
+<text x="1184" y="1042" class="t h3">删除怎么发生</text>
+<text x="1184" y="1066" class="dim p">服务端每次合并后重算窗口，</text>
+<text x="1184" y="1086" class="dim p">旧的一天自然落出窗口即被丢弃。</text>
+<text x="1184" y="1112" class="faint mono xs">不是「定时删任务」，是「窗口重算」</text>
+
+<rect x="48" y="1152" width="1464" height="152" rx="10" class="boxdk"/>
+<text x="68" y="1182" fill="#fff" class="h3">拿到的数据类型 —— 手机上采集的字段</text>
+<text x="68" y="1211" fill="#b9b9b9" class="p">步数 · 距离 · 总消耗 · 活动消耗 · 爬楼 · 活动时间 · 步频 · 速度（均/峰） · 睡眠（时长 / 起止 / 分期 / 分数 / 覆盖分钟）</text>
+<text x="68" y="1239" fill="#b9b9b9" class="p">静息心率 · 心率（均/峰） · 血氧 · 皮肤温度 · 体温 · 呼吸频率 · 能量分数 · 体重 · 体脂 · 骨骼肌 · BMI · 基础代谢 · 目标（步数/活动消耗/活动时间/饮水） · 就寝 / 起床时间</text>
+<text x="68" y="1279" fill="#b9b9b9" class="p">运动会话：类型 · 时长 · 距离 · 活动消耗 · 心率（均/峰/曲线） · 功率（均/峰/曲线） · 步频曲线 · 速度（峰/曲线） · 来源 · 器械次数</text>
+</svg>

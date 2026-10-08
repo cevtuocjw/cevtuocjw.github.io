@@ -4,261 +4,206 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>CEVTUO-Z · 一个人的数据仪表盘</title>
-<meta name="description" content="CEVTUO-Z —— 把 Notion 的观影与笔记、Kindle 的阅读、手机的健康收拢到一个站点。全部技术链路与数据链路。"/>
+<meta name="description" content="CEVTUO-Z —— 把 Notion 的观影与笔记、Kindle 的阅读、手机的健康收拢到一个站点。技术架构、数据链路、客户端下载与配置、部署与迁移。"/>
 <link rel="icon" href="assets/icon-512.png"/>
 <meta property="og:title" content="CEVTUO-Z · 一个人的数据仪表盘"/>
-<meta property="og:description" content="电影 · 笔记 · 阅读 · 健康 —— 技术链路与数据链路全解。"/>
+<meta property="og:description" content="四个品牌 · 四条数据链路 · 客户端下载与配置 · 部署与迁移"/>
 <meta property="og:image" content="assets/home-hero-sm.jpg"/>
 <style>
   :root{
-    --black:#000;
-    --ink:#fff;
-    --dim:rgba(255,255,255,.62);
-    --faint:rgba(255,255,255,.38);
-    --rule:rgba(255,255,255,.14);
-    --rule2:rgba(255,255,255,.08);
-    --copper:#c8813f;
-    --copper-lt:#f0b070;
-    --paper:#fff;
-    --paper-ink:#0a0a0a;
-    --paper-dim:rgba(0,0,0,.58);
-    --paper-faint:rgba(0,0,0,.4);
+    --black:#000; --ink:#fff;
+    --dim:rgba(255,255,255,.62); --faint:rgba(255,255,255,.38);
+    --rule:rgba(255,255,255,.14); --rule2:rgba(255,255,255,.08);
+    --copper:#c8813f; --copper-lt:#e8a862;
+    --paper:#fff; --paper-ink:#0a0a0a;
+    --paper-dim:rgba(0,0,0,.6); --paper-faint:rgba(0,0,0,.42);
     --paper-rule:rgba(0,0,0,.13);
     --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Segoe UI",Arial,sans-serif;
     --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
-    --serif:"Times New Roman",Georgia,"Songti SC","Source Han Serif SC",serif;
+    --serif:"Times New Roman",Georgia,"Songti SC",serif;
     --pad:clamp(20px,5vw,64px);
     --ease:cubic-bezier(.22,.61,.36,1);
   }
   *{box-sizing:border-box}
   html{background:var(--black);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-  body{
-    margin:0;background:var(--black);color:var(--ink);
-    font:400 16px/1.65 var(--sans);
-    -webkit-font-smoothing:antialiased;overflow-x:hidden;
-  }
+  body{margin:0;background:var(--black);color:var(--ink);
+    font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
   ::selection{background:var(--copper);color:#000}
   .wrap{max-width:1320px;margin:0 auto;padding:0 var(--pad)}
 
-  /* ── 顶栏 ─────────────────────────────────────────── */
-  header.bar{
-    position:sticky;top:0;z-index:50;
-    background:rgba(0,0,0,.72);backdrop-filter:blur(18px) saturate(160%);
-    -webkit-backdrop-filter:blur(18px) saturate(160%);
-    border-bottom:1px solid var(--rule2);
-  }
-  .bar-in{
-    max-width:1320px;margin:0 auto;padding:14px var(--pad);
-    display:flex;align-items:center;gap:28px;
-  }
+  header.bar{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.74);
+    backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);
+    border-bottom:1px solid var(--rule2)}
+  .bar-in{max-width:1320px;margin:0 auto;padding:13px var(--pad);display:flex;align-items:center;gap:24px}
   .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);flex:none}
   .brand img{width:22px;height:22px}
   .brand b{font-size:15px;font-weight:600;letter-spacing:.16em}
-  nav.bar-nav{margin-left:auto;display:flex;gap:26px;align-items:center;flex-wrap:wrap}
-  nav.bar-nav a{color:var(--dim);text-decoration:none;font-size:13.5px;transition:color .2s var(--ease)}
+  nav.bar-nav{margin-left:auto;display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+  nav.bar-nav a{color:var(--dim);text-decoration:none;font-size:13px;transition:color .2s var(--ease)}
   nav.bar-nav a:hover{color:var(--ink)}
-  nav.bar-nav a.arrow::after{content:" ↗";font-size:11px;opacity:.6}
-  .pill{
-    display:inline-flex;align-items:center;gap:7px;flex:none;
-    background:#fff;color:#000;text-decoration:none;
-    font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:999px;
-    border:1px solid #fff;transition:transform .2s var(--ease),opacity .2s var(--ease);
-  }
+  .pill{display:inline-flex;align-items:center;gap:7px;flex:none;background:#fff;color:#000;
+    text-decoration:none;font-size:13.5px;font-weight:600;padding:8px 18px;border-radius:999px;
+    border:1px solid #fff;transition:transform .2s var(--ease)}
   .pill:hover{transform:translateY(-1px)}
   .pill.ghost{background:transparent;color:#fff;border-color:var(--rule)}
   .pill.ghost:hover{background:rgba(255,255,255,.08)}
-  .pill.dark{background:#000;color:#fff;border-color:#000}
-  @media (max-width:860px){ nav.bar-nav{display:none} }
+  .pill.copper{background:transparent;color:var(--copper-lt);border-color:rgba(200,129,63,.5)}
+  .pill.copper:hover{background:rgba(200,129,63,.12)}
+  @media (max-width:1000px){ nav.bar-nav a.hide-sm{display:none} }
 
-  /* ── 章节骨架 ─────────────────────────────────────── */
   section{border-top:1px solid var(--rule2)}
-  .sec{padding:clamp(56px,9vw,130px) 0}
-  .row{display:grid;grid-template-columns:minmax(140px,240px) 1fr;gap:clamp(20px,5vw,72px)}
-  @media (max-width:820px){ .row{grid-template-columns:1fr;gap:22px} }
+  .sec{padding:clamp(52px,8vw,118px) 0}
+  .row{display:grid;grid-template-columns:minmax(140px,220px) 1fr;gap:clamp(20px,5vw,68px)}
+  @media (max-width:820px){ .row{grid-template-columns:1fr;gap:20px} }
 
-  .eyebrow{
-    font:500 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--faint);display:flex;gap:9px;align-items:baseline;
-  }
-  .eyebrow::before{
-    content:"";width:7px;height:7px;background:currentColor;flex:none;
-    transform:translateY(-1px);
-  }
+  .eyebrow{font:500 11px/1.5 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--faint);display:flex;gap:9px;align-items:baseline}
+  .eyebrow::before{content:"";width:7px;height:7px;background:currentColor;flex:none;transform:translateY(-1px)}
   .eyebrow.num{color:var(--copper-lt)}
 
-  h1{
-    font-size:clamp(38px,7.2vw,86px);line-height:1.02;letter-spacing:-.028em;
-    font-weight:600;margin:0 0 22px;max-width:15em;
-  }
-  h2{
-    font-size:clamp(26px,3.6vw,46px);line-height:1.12;letter-spacing:-.02em;
-    font-weight:600;margin:0 0 18px;max-width:22em;
-  }
-  h3{font-size:17px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
-  p{margin:0 0 14px;color:var(--dim);font-size:15.5px;max-width:44em}
-  p.lead{color:var(--ink);font-size:clamp(17px,2vw,22px);line-height:1.5;max-width:30em;font-weight:400}
+  h1{font-size:clamp(36px,6.6vw,78px);line-height:1.04;letter-spacing:-.028em;font-weight:600;margin:0 0 20px;max-width:15em}
+  h2{font-size:clamp(25px,3.4vw,42px);line-height:1.14;letter-spacing:-.02em;font-weight:600;margin:0 0 16px;max-width:24em}
+  h3{font-size:16.5px;font-weight:600;margin:0 0 8px;letter-spacing:-.01em}
+  h4{font-size:14px;font-weight:650;margin:0 0 6px}
+  p{margin:0 0 13px;color:var(--dim);font-size:15px;max-width:48em}
+  p.lead{color:var(--ink);font-size:clamp(16.5px,1.9vw,21px);line-height:1.5;max-width:32em}
   a{color:var(--copper-lt)}
   code{font-family:var(--mono);font-size:.86em;color:var(--copper-lt);
-    background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px}
+    background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;word-break:break-all}
+  strong{color:var(--ink);font-weight:600}
+  ul.plain{margin:0 0 14px;padding-left:1.1em;color:var(--dim);font-size:15px;max-width:48em}
+  ul.plain li{margin-bottom:7px}
+  ol.steps{margin:0 0 14px;padding-left:1.4em;color:var(--dim);font-size:15px;max-width:48em}
+  ol.steps li{margin-bottom:9px}
 
-  /* ── 首屏 ─────────────────────────────────────────── */
+  /* hero */
   .hero{position:relative;border-top:0;overflow:hidden;background:#000}
-  .hero-art{
-    position:absolute;inset:-12% -6% -30% -6%;pointer-events:none;
+  .hero-art{position:absolute;inset:-12% -6% -30% -6%;pointer-events:none;
     background:
-      repeating-linear-gradient(88deg,
-        rgba(255,140,40,0) 0px,
-        rgba(255,168,84,.5) 3px,
-        rgba(214,120,36,.16) 11px,
-        rgba(255,120,20,0) 27px),
+      repeating-linear-gradient(88deg, rgba(255,140,40,0) 0px, rgba(255,168,84,.5) 3px,
+        rgba(214,120,36,.16) 11px, rgba(255,120,20,0) 27px),
       radial-gradient(78% 62% at 24% 34%, rgba(255,164,72,.34), transparent 68%),
       radial-gradient(60% 55% at 72% 62%, rgba(206,104,26,.24), transparent 70%);
     filter:blur(11px) saturate(120%);
     -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 66%,transparent 100%);
-    mask-image:linear-gradient(180deg,#000 0%,#000 66%,transparent 100%);
-  }
-  .hero-art::after{
-    content:"";position:absolute;inset:0;
-    background:radial-gradient(50% 46% at 50% 52%, rgba(0,0,0,.62), transparent 72%);
-  }
-  .hero-in{position:relative;z-index:1;padding:clamp(70px,11vw,150px) 0 clamp(34px,5vw,58px)}
-  .hero-tag{
-    display:inline-flex;align-items:center;gap:9px;font:500 11.5px/1 var(--mono);
+    mask-image:linear-gradient(180deg,#000 0%,#000 66%,transparent 100%)}
+  .hero-art::after{content:"";position:absolute;inset:0;
+    background:radial-gradient(50% 46% at 50% 52%, rgba(0,0,0,.62), transparent 72%)}
+  .hero-in{position:relative;z-index:1;padding:clamp(64px,10vw,140px) 0 clamp(32px,5vw,56px)}
+  .hero-tag{display:inline-flex;align-items:center;gap:9px;font:500 11.5px/1 var(--mono);
     letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
-    border:1px solid var(--rule);border-radius:999px;padding:8px 15px;margin-bottom:34px;
-  }
+    border:1px solid var(--rule);border-radius:999px;padding:8px 15px;margin-bottom:32px}
   .hero-tag i{width:7px;height:7px;border-radius:50%;background:var(--copper-lt);
     box-shadow:0 0 10px var(--copper-lt);font-style:normal}
   .hero h1{text-shadow:0 2px 40px rgba(0,0,0,.6)}
-  .hero .lead{color:rgba(255,255,255,.78)}
-  .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
-  .hero-metrics{
-    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:clamp(46px,7vw,84px);
-    background:var(--rule2);border-top:1px solid var(--rule2);
-  }
-  .hero-metrics .m{background:#000;padding:22px 22px 22px 0}
-  .hero-metrics .m:not(:first-child){padding-left:22px}
-  .hero-metrics .v{
-    font:400 clamp(28px,4vw,48px)/1 var(--serif);letter-spacing:-.02em;
-    margin-bottom:9px;color:#fff;
-  }
-  .hero-metrics .k{font:500 10.5px/1.6 var(--mono);letter-spacing:.16em;
-    text-transform:uppercase;color:var(--faint)}
+  .hero .lead{color:rgba(255,255,255,.8)}
+  .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+  .hero-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+    margin-top:clamp(44px,6vw,80px);background:var(--rule2);border-top:1px solid var(--rule2)}
+  .hero-metrics .m{background:#000;padding:20px 20px 20px 0}
+  .hero-metrics .m:not(:first-child){padding-left:20px}
+  .hero-metrics .v{font:400 clamp(26px,3.6vw,44px)/1 var(--serif);letter-spacing:-.02em;margin-bottom:9px}
+  .hero-metrics .k{font:500 10.5px/1.6 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint)}
   @media (max-width:700px){ .hero-metrics{grid-template-columns:1fr 1fr} }
 
-  /* ── 品牌条 ───────────────────────────────────────── */
-  .brands{border-top:1px solid var(--rule2)}
-  .brands .lab{
-    font:500 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;
-    color:var(--faint);padding:26px 0 20px;
-  }
-  .brands ul{
-    list-style:none;margin:0;padding:0;
-    display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule2);
-  }
-  .brands li{background:#000;padding:26px 22px 30px 0}
-  .brands li:not(:first-child){padding-left:22px}
-  .brands b{
-    display:block;font-size:clamp(20px,2.4vw,29px);font-weight:600;
-    letter-spacing:.1em;margin-bottom:8px;
-  }
+  /* 品牌条 */
+  .brands ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);
+    gap:1px;background:var(--rule2);border-top:1px solid var(--rule2)}
+  .brands li{background:#000;padding:24px 20px 26px 0}
+  .brands li:not(:first-child){padding-left:20px}
+  .brands b{display:block;font-size:clamp(19px,2.2vw,27px);font-weight:600;letter-spacing:.1em;margin-bottom:7px}
   .brands small{color:var(--faint);font-size:12.5px;line-height:1.6;display:block}
   @media (max-width:760px){ .brands ul{grid-template-columns:1fr 1fr} }
+  .brands .lab{font:500 10.5px/1 var(--mono);letter-spacing:.2em;text-transform:uppercase;
+    color:var(--faint);padding:24px 0 16px}
 
-  /* ── 白底章节 ─────────────────────────────────────── */
   .paper{background:var(--paper);color:var(--paper-ink)}
   .paper p{color:var(--paper-dim)}
-  .paper .lead{color:var(--paper-ink)}
+  .paper p.lead{color:var(--paper-ink)}
+  .paper strong{color:var(--paper-ink)}
   .paper .eyebrow{color:var(--paper-faint)}
   .paper .eyebrow.num{color:#9c5f1e}
   .paper code{color:#8a4f12;background:rgba(0,0,0,.05)}
   .paper a{color:#8a4f12}
-  .paper .rule{border-color:var(--paper-rule)}
+  .paper ul.plain,.paper ol.steps{color:var(--paper-dim)}
+  .paper .cell{background:var(--paper)}
+  .paper .grid{background:var(--paper-rule);border-color:var(--paper-rule)}
+  .paper th{color:var(--paper-faint)}
+  .paper td{border-color:var(--paper-rule)}
 
-  /* ── 卡片/网格 ────────────────────────────────────── */
   .grid{display:grid;gap:1px;background:var(--rule2);border-top:1px solid var(--rule2)}
-  .g2{grid-template-columns:repeat(2,1fr)}
-  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)} .g3{grid-template-columns:repeat(3,1fr)}
   .g4{grid-template-columns:repeat(4,1fr)}
   @media (max-width:900px){ .g3,.g4{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:620px){ .g2,.g3,.g4{grid-template-columns:1fr} }
-  .cell{background:var(--black);padding:26px 24px 30px 0}
-  .cell:not(:nth-child(1)){padding-left:24px}
-  .paper .grid{background:var(--paper-rule);border-color:var(--paper-rule)}
-  .paper .cell{background:var(--paper)}
+  .cell{background:var(--black);padding:24px 22px 28px 0}
+  .cell:not(:nth-child(1)){padding-left:22px}
 
-  /* ── 数据链路 ─────────────────────────────────────── */
-  .chain{border-top:1px solid var(--rule2);padding:34px 0}
-  .chain:first-of-type{border-top:0}
-  .chain-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:8px}
-  .chain-head h3{margin:0;font-size:20px}
-  .flow{
-    display:flex;flex-wrap:wrap;align-items:center;gap:0;margin-top:18px;
-    font:400 12.5px/1 var(--mono);
-  }
+  /* 大图 */
+  .figurebox{border:1px solid var(--rule);border-radius:6px;background:#fff;overflow:hidden}
+  .figscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .figscroll img{display:block;width:100%;min-width:940px;height:auto}
+  @media (max-width:940px){ .figscroll img{min-width:940px} }
+  .figcap{color:var(--faint);font-size:12.5px;margin-top:12px;line-height:1.7;max-width:60em}
+
+  .flow{display:flex;flex-wrap:wrap;align-items:center;margin-top:14px;font:400 12.5px/1 var(--mono)}
   .flow span.n{color:var(--dim);padding:7px 0;white-space:nowrap}
   .flow span.n.hi{color:var(--copper-lt)}
-  .flow span.a{color:var(--faint);padding:0 11px;font-size:11px}
+  .flow span.a{color:var(--faint);padding:0 10px;font-size:11px}
+  .chain{border-top:1px solid var(--rule2);padding:30px 0}
+  .chain:first-of-type{border-top:0}
 
-  /* ── 截图 ─────────────────────────────────────────── */
-  .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+  .shots{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}
   @media (max-width:900px){ .shots{grid-template-columns:1fr 1fr} }
   @media (max-width:600px){ .shots{grid-template-columns:1fr} }
   figure{margin:0}
-  figure img{width:100%;display:block;border-radius:3px;background:#111;
-    box-shadow:0 24px 60px rgba(0,0,0,.6)}
-  figcaption{color:var(--faint);font-size:12px;margin-top:10px;line-height:1.6}
+  figure img{width:100%;display:block;border-radius:3px;background:#111;box-shadow:0 22px 56px rgba(0,0,0,.6)}
+  .paper figure img{box-shadow:0 20px 46px rgba(0,0,0,.18)}
+  figcaption{color:var(--faint);font-size:12px;margin-top:9px;line-height:1.6}
   .paper figcaption{color:var(--paper-faint)}
   .wide{grid-column:1/-1}
-  video{width:100%;display:block;border-radius:3px;background:#000;
-    box-shadow:0 24px 60px rgba(0,0,0,.6)}
+  video{width:100%;display:block;border-radius:3px;background:#000;box-shadow:0 24px 60px rgba(0,0,0,.6)}
 
-  /* ── 折叠 ─────────────────────────────────────────── */
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px;max-width:64em}
+  th,td{text-align:left;padding:11px 14px 11px 0;border-bottom:1px solid var(--rule2);vertical-align:top}
+  th{color:var(--faint);font:500 10.5px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase}
+  td code{background:none;padding:0}
+  /* 第一列要给命令路径留出宽度，否则 deploy-ingest.sh 会被从中间折断 */
+  table.mig td:first-child{min-width:210px}
+
   details.fold{border-top:1px solid var(--rule2)}
-  details.fold summary{
-    cursor:pointer;list-style:none;padding:22px 0;display:flex;
-    justify-content:space-between;align-items:center;gap:20px;
-    font-size:16px;font-weight:600;
-  }
+  details.fold summary{cursor:pointer;list-style:none;padding:20px 0;display:flex;
+    justify-content:space-between;align-items:center;gap:20px;font-size:16px;font-weight:600}
   details.fold summary::-webkit-details-marker{display:none}
   details.fold summary::after{content:"+";font:400 22px/1 var(--mono);color:var(--faint)}
   details.fold[open] summary::after{content:"–"}
-  .fold-body{padding:0 0 30px;max-width:60em}
-  pre{
-    background:rgba(255,255,255,.045);border:1px solid var(--rule2);border-radius:6px;
-    padding:16px 18px;overflow:auto;font-family:var(--mono);font-size:12.5px;
-    line-height:1.85;color:#e6e6e6;margin:14px 0;max-width:60em;
-  }
+  .fold-body{padding:0 0 28px}
+  pre{background:rgba(255,255,255,.045);border:1px solid var(--rule2);border-radius:6px;
+    padding:15px 17px;overflow:auto;font-family:var(--mono);font-size:12.5px;line-height:1.85;
+    color:#e6e6e6;margin:12px 0;max-width:64em}
   pre .c{color:var(--faint)}
   .paper pre{background:rgba(0,0,0,.04);border-color:var(--paper-rule);color:#222}
   .paper pre .c{color:var(--paper-faint)}
 
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;max-width:60em}
-  th,td{text-align:left;padding:12px 14px 12px 0;border-bottom:1px solid var(--rule2);vertical-align:top}
-  th{color:var(--faint);font:500 10.5px/1.5 var(--mono);letter-spacing:.14em;text-transform:uppercase}
-  .paper th{color:var(--paper-faint)}
-  .paper td{border-color:var(--paper-rule)}
-  td code{background:none;padding:0}
+  .dl{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--rule2);border-top:1px solid var(--rule2)}
+  @media (max-width:760px){ .dl{grid-template-columns:1fr} }
+  .dl > div{background:#000;padding:28px 22px 30px 0}
+  .dl > div:not(:nth-child(1)){padding-left:22px}
+  .dl .meta{font:500 10.5px/1.7 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+  .note{border-left:2px solid var(--copper);padding:2px 0 2px 14px;margin:16px 0;
+    color:var(--dim);font-size:14.5px;max-width:46em}
+  .note b{color:var(--copper-lt)}
 
-  /* ── 页脚 ─────────────────────────────────────────── */
-  footer{border-top:1px solid var(--rule2);padding:clamp(52px,7vw,90px) 0 42px}
-  .foot-big{
-    font-size:clamp(30px,6vw,72px);font-weight:600;letter-spacing:-.03em;line-height:1.05;
-    margin:0 0 34px;max-width:14em;
-  }
-  .foot-grid{
-    display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule2);
-    border-top:1px solid var(--rule2);margin-top:34px;
-  }
-  .foot-grid > div{background:#000;padding:22px 22px 26px 0}
-  .foot-grid > div:not(:first-child){padding-left:22px}
-  .foot-grid .k{font:500 10.5px/1.6 var(--mono);letter-spacing:.16em;
-    text-transform:uppercase;color:var(--faint);margin-bottom:10px}
+  footer{border-top:1px solid var(--rule2);padding:clamp(48px,6vw,84px) 0 40px}
+  .foot-big{font-size:clamp(28px,5vw,60px);font-weight:600;letter-spacing:-.03em;line-height:1.06;margin:0 0 30px;max-width:16em}
+  .foot-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule2);
+    border-top:1px solid var(--rule2);margin-top:30px}
+  .foot-grid > div{background:#000;padding:20px 20px 24px 0}
+  .foot-grid > div:not(:first-child){padding-left:20px}
+  .foot-grid .k{font:500 10.5px/1.6 var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-bottom:9px}
   .foot-grid .v{font-size:14px;color:var(--dim)}
-  .fine{color:var(--faint);font-size:12.5px;margin-top:38px;
-    display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  .fine{color:var(--faint);font-size:12.5px;margin-top:34px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
   @media (max-width:700px){ .foot-grid{grid-template-columns:1fr} }
-
   @media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} *{transition:none!important} }
 </style>
 </head>
@@ -266,189 +211,166 @@
 
 <header class="bar">
   <div class="bar-in">
-    <a class="brand" href="/cevtuoz-intro/">
-      <img src="assets/cevtuo-z-mark.svg" alt=""/>
-      <b>CEVTUO&nbsp;Z</b>
-    </a>
+    <a class="brand" href="/cevtuoz-intro/"><img src="assets/cevtuo-z-mark.svg" alt=""/><b>CEVTUO&nbsp;Z</b></a>
     <nav class="bar-nav">
-      <a href="#what">这是什么</a>
-      <a href="#brands">四个品牌</a>
-      <a href="#stack">技术链路</a>
-      <a href="#data">数据链路</a>
-      <a href="#features">功能特色</a>
-      <a href="#shots">截图</a>
-      <a class="arrow" href="https://z.cevtuo.com" target="_blank" rel="noopener">z.cevtuo.com</a>
+      <a href="#what">概述</a>
+      <a href="#stack" class="hide-sm">技术架构</a>
+      <a href="#data" class="hide-sm">数据链路</a>
+      <a href="#download" class="hide-sm">客户端</a>
+      <a href="#server" class="hide-sm">部署</a>
+      <a href="#storage" class="hide-sm">存储</a>
+      <a href="https://z.cevtuo.com" target="_blank" rel="noopener">z.cevtuo.com ↗</a>
     </nav>
     <a class="pill" href="https://z.cevtuo.com" target="_blank" rel="noopener">打开站点</a>
   </div>
 </header>
 
-<!-- ─────────────────────────────── 首屏 ── -->
+<!-- ══════════ HERO ══════════ -->
 <section class="hero">
   <div class="hero-art"></div>
   <div class="wrap hero-in">
     <span class="hero-tag"><i></i>Personal data dashboard</span>
     <h1>一个人的<br/>数据仪表盘</h1>
-    <p class="lead">电影、笔记、阅读、健康 —— 散在四个地方的个人数据，
-      收拢到一个站点上，用同一套材质和同一套排版呈现。</p>
+    <p class="lead">把散在 Notion、Kindle 和手机里的个人数据，收拢到一个站点上呈现。
+      四个品牌共用一套设计 token、一份玻璃材质、一份导航实现。</p>
     <div class="hero-cta">
       <a class="pill" href="https://z.cevtuo.com" target="_blank" rel="noopener">打开 z.cevtuo.com →</a>
-      <a class="pill ghost" href="#stack">技术链路</a>
+      <a class="pill ghost" href="#stack">技术架构</a>
       <a class="pill ghost" href="#data">数据链路</a>
+      <a class="pill ghost" href="#download">客户端下载</a>
     </div>
-
     <div class="hero-metrics">
       <div class="m"><div class="v">4</div><div class="k">条数据链路</div></div>
-      <div class="m"><div class="v">2</div><div class="k">个编译目标 · H5 + 小程序</div></div>
-      <div class="m"><div class="v">1</div><div class="k">套设计 token</div></div>
+      <div class="m"><div class="v">2</div><div class="k">个编译目标</div></div>
+      <div class="m"><div class="v">5</div><div class="k">个页面</div></div>
       <div class="m"><div class="v">31</div><div class="k">天滚动数据</div></div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 品牌条 ── -->
 <section class="brands">
-  <div class="wrap">
-    <div class="lab">Four doors</div>
+  <div class="wrap"><div class="lab">四个品牌</div>
     <ul>
       <li><b>COOF</b><small>观影记录<br/>Notion → 网页</small></li>
       <li><b>CNSR</b><small>笔记<br/>Notion 四个源</small></li>
-      <li><b>CAPPERR</b><small>Kindle 阅读<br/>KOReader → 云</small></li>
-      <li><b>CHEALTH</b><small>健康<br/>手机 → 云（加密）</small></li>
+      <li><b>CAPPERR</b><small>Kindle 阅读<br/>KOReader 插件 → 云</small></li>
+      <li><b>CHEALTH</b><small>健康<br/>手机 App → 云（加密）</small></li>
     </ul>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 01 这是什么 ── -->
+<!-- ══════════ 01 概述 ══════════ -->
 <section id="what" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">01</div><div class="eyebrow" style="margin-top:12px">这是什么</div></div>
+    <div><div class="eyebrow num">01</div><div class="eyebrow" style="margin-top:12px">概述</div></div>
     <div>
-      <h2>四扇门，一张皮</h2>
-      <p class="lead">它既是给自己看的面板，也是一次「同一份代码要同时活在浏览器和微信里」
-        的完整工程练习。</p>
-      <p>四个品牌共用一份设计 token、一份玻璃材质、一份导航实现 —— 改一处，全站跟着变，
-        不是四套各自为政的页面。</p>
-      <p>观影、笔记、阅读都是公开的，随便看。只有健康数据是加密的 ——
-        因为那是唯一能指向一个具体身体的数据。</p>
+      <h2>它是什么</h2>
+      <p class="lead">一个自用的个人数据站点，同时也是「同一份代码要同时活在浏览器和微信里」
+        的工程实践。</p>
+      <p>四个品牌（COOF / CNSR / CAPPERR / CHEALTH）是同一个应用里的四个页面，不是四个独立站点。
+        它们共用设计 token、玻璃材质定义和导航实现，改一处全站生效。</p>
+      <p>数据来源有四个：Notion 的两个库、Kindle 上的阅读统计、手机上的健康数据。
+        四条链路都以「源头 → 采集 → 落到仓库 → 浏览器读」的形状收口，中间没有一台常开的个人电脑。</p>
+      <p>观影、笔记、阅读三类数据是公开的。健康数据是唯一的例外 ——
+        它只保留最近 31 天，且在写进仓库之前用 AES-GCM 密封，因为那是唯一能指向一个具体身体的数据。</p>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 02 四个品牌 ── -->
-<section id="brands" class="sec">
-  <div class="wrap row">
-    <div><div class="eyebrow num">02</div><div class="eyebrow" style="margin-top:12px">四个品牌</div></div>
-    <div>
-      <h2>每个品牌一扇门</h2>
-      <p>主页上各占一屏，点进去是它自己的世界。</p>
-    </div>
-  </div>
-  <div class="wrap">
-    <div class="grid g4" style="margin-top:36px">
-      <div class="cell">
-        <h3>COOF</h3>
-        <p style="font-size:14px">按年历编排的观影清单。看过了什么、什么时候看的、
-          今年每个月看了多少 —— 一条平滑的月度曲线和每个月的海报墙。</p>
-        <div class="eyebrow" style="margin-top:16px;letter-spacing:.1em">Notion 观影库 · 豆瓣海报</div>
-      </div>
-      <div class="cell">
-        <h3>CNSR</h3>
-        <p style="font-size:14px">四个来源汇成一条时间线：Shopping / Learn / tech-learn /
-          TECH-AI。每个来源有自己那一列「最近几天的条目」。</p>
-        <div class="eyebrow" style="margin-top:16px;letter-spacing:.1em">Notion 四个数据库</div>
-      </div>
-      <div class="cell">
-        <h3>CAPPERR</h3>
-        <p style="font-size:14px">Kindle 上的阅读。本周每天读了多久、这个月的阅读日历 ——
-          一张周柱状图加一张月度热力。</p>
-        <div class="eyebrow" style="margin-top:16px;letter-spacing:.1em">KOReader 插件 · 云</div>
-      </div>
-      <div class="cell">
-        <h3>CHEALTH</h3>
-        <p style="font-size:14px">步数、心率、睡眠、运动。今天怎么样、这一周怎么样、
-          趋势怎么样 —— 三层，从一天的圆环到几个月的曲线。</p>
-        <div class="eyebrow" style="margin-top:16px;letter-spacing:.1em">三星健康 · 手机 App · 加密</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────────── 03 技术链路 ── -->
+<!-- ══════════ 02 技术架构 ══════════ -->
 <section id="stack" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">03</div><div class="eyebrow" style="margin-top:12px">技术链路</div></div>
+    <div><div class="eyebrow num">02</div><div class="eyebrow" style="margin-top:12px">技术架构</div></div>
     <div>
-      <h2>从一行代码到两个平台上跑起来</h2>
-      <p class="lead">一套 TypeScript 源码，两个编译目标，三个部署出口。</p>
+      <h2>一套源码，两个产物，三个出口</h2>
+      <p class="lead">客户端、构建、服务端的完整拓扑。</p>
+      <p>图里红框是<strong>曾经用过、后来删掉</strong>的做法 —— 每一条都真实发生过，
+        并附一行它坏在哪。</p>
     </div>
+  </div>
+  <div class="wrap" style="margin-top:32px">
+    <div class="figurebox"><div class="figscroll">
+      <a href="assets/diagram-arch.svg" target="_blank" rel="noopener"><img src="assets/diagram-arch.svg" alt="技术架构图"/></a>
+    </div></div>
+    <p class="figcap">点图可在新窗口打开原图（1560px）。窄屏下可左右滑动。</p>
   </div>
 
   <div class="wrap">
     <div class="grid g2" style="margin-top:40px">
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">框架</div>
-        <h3>Taro 4.0.9 + React 18</h3>
-        <p style="font-size:14px"><code>build:h5</code> 出网页，<code>build:weapp</code> 出微信小程序。
-          组件、路由、样式都由 Taro 那一层统一，平台差异只写在少数几处。</p>
+        <div class="eyebrow" style="margin-bottom:13px">框架</div>
+        <h3>Taro 4.0.9 + React 18.3</h3>
+        <p style="font-size:14px">一套 TypeScript 源码，两个编译目标：
+          <code>build:h5</code> 出网页，<code>build:weapp</code> 出微信小程序。
+          组件、路由、样式都由 Taro 统一，平台差异集中在少数几处。</p>
       </div>
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">单仓</div>
+        <div class="eyebrow" style="margin-bottom:13px">单仓</div>
         <h3>bun workspaces</h3>
-        <p style="font-size:14px">应用、数据契约、同步流水线、服务端住在同一个仓库里：
+        <p style="font-size:14px">应用、数据契约、同步流水线、服务端在同一个仓库里：
           <code>apps/dashboard</code>、<code>packages/schema</code>、
           <code>pipeline</code>、<code>services/ingest</code>，共享同一份类型定义。</p>
       </div>
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">样式</div>
-        <h3>SCSS token + 玻璃材质</h3>
-        <p style="font-size:14px">颜色、圆角、模糊强度全是变量。卡片材质只有一处定义，
-          任何地方不许自己写一份 —— 验收看的是<b>计算值</b>，不是「我 include 了哪个 mixin」。</p>
+        <div class="eyebrow" style="margin-bottom:13px">样式</div>
+        <h3>SCSS token + 单一玻璃材质</h3>
+        <p style="font-size:14px">颜色、圆角、模糊强度全部是变量；卡片材质只有一处定义，
+          任何地方不许另写一份。验收看的是<strong>计算值</strong>在三页上是否真的相同，
+          而不是代码里有没有引用某个 mixin。</p>
       </div>
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">部署</div>
+        <div class="eyebrow" style="margin-bottom:13px">部署</div>
         <h3>一个源，三处出口</h3>
         <p style="font-size:14px">站点产物推到 <code>gh-pages</code>，GitHub Pages 与国内镜像
-          都从它取；数据由独立的发布桥写进同一个分支 —— 两边内容天然同步。</p>
+          都从它取；数据由独立的发布桥写进同一个分支。两边内容因此天然同步，
+          不需要各推一次。</p>
       </div>
     </div>
 
-    <div class="flow" style="margin-top:44px">
+    <div class="flow" style="margin-top:40px">
       <span class="n">TypeScript 源码</span><span class="a">→</span>
       <span class="n">Taro 编译</span><span class="a">→</span>
       <span class="n hi">H5 产物</span><span class="a">→</span>
       <span class="n">gh-pages</span><span class="a">→</span>
       <span class="n">GitHub Pages</span><span class="a">+</span>
-      <span class="n">国内镜像 :443</span>
+      <span class="n">阿里云镜像 :443</span>
     </div>
 
-    <table style="margin-top:34px">
-      <thead><tr><th>入口</th><th>地址</th><th>说明</th></tr></thead>
+    <table style="margin-top:30px">
+      <thead><tr><th>入口</th><th>地址</th><th>载体</th><th>说明</th></tr></thead>
       <tbody>
-        <tr><td>主站</td><td><code>z.cevtuo.com</code></td><td>备案域名，443，深圳节点 —— 国内读者的主入口</td></tr>
-        <tr><td>备份</td><td><code>z.cevtuogrnd.com</code></td><td>GitHub Pages 直出，海外线路更快</td></tr>
-        <tr><td>应用页</td><td><code>apps.cevtuogrnd.com</code></td><td>本页所在的用户站，聚合各个项目</td></tr>
+        <tr><td>主站</td><td><code>z.cevtuo.com</code></td><td>阿里云镜像</td>
+          <td>已 ICP 备案，443，深圳节点。国内读者的主入口，首页 2.29s</td></tr>
+        <tr><td>备份</td><td><code>z.cevtuogrnd.com</code></td><td>GitHub Pages</td>
+          <td>海外线路更快；国内首页约 7.8s</td></tr>
+        <tr><td>应用页</td><td><code>apps.cevtuogrnd.com</code></td><td>GitHub Pages</td>
+          <td>本页所在的用户站，聚合各个项目</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 04 数据链路 ── -->
+<!-- ══════════ 03 数据链路 ══════════ -->
 <section id="data" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">04</div><div class="eyebrow" style="margin-top:12px">数据链路</div></div>
+    <div><div class="eyebrow num">03</div><div class="eyebrow" style="margin-top:12px">数据链路</div></div>
     <div>
-      <h2>四条链路，一个固定形状</h2>
-      <p class="lead">源头 → 采集 → 落到 <code>gh-pages</code> → 浏览器读。</p>
-      <p>中间没有一台常开的个人电脑 —— 采集和发布都跑在云上或手机上。</p>
+      <h2>四条链路与它们的保留规则</h2>
+      <p class="lead">每条链路都标了体积、保留期，以及那一行被删掉的错误做法。</p>
     </div>
+  </div>
+  <div class="wrap" style="margin-top:32px">
+    <div class="figurebox"><div class="figscroll">
+      <a href="assets/diagram-data.svg" target="_blank" rel="noopener"><img src="assets/diagram-data.svg" alt="数据链路图"/></a>
+    </div></div>
+    <p class="figcap">四张独立视图叠加在「保留与删除」规则之上；底部是手机端实际采集到的字段全集。</p>
   </div>
 
   <div class="wrap">
     <div class="chain">
-      <div class="chain-head"><span class="eyebrow num">01</span><h3>COOF · 观影</h3></div>
-      <p style="font-size:14px">同步脚本按年历拉取 Notion 里的观影记录，配上豆瓣的海报图，
-        按年写成分片 JSON。海报走自己的 CDN，不写外链。</p>
+      <h3>COOF · 观影</h3>
+      <p style="font-size:14px">同步脚本按年历拉取 Notion 里的观影记录，配上豆瓣匹配到的海报，
+        按年写成分片 JSON。海报是下载后自存的 —— 豆瓣图床有防盗链，外链放进页面全是裂图。</p>
       <div class="flow">
         <span class="n">Notion 观影库</span><span class="a">→</span>
         <span class="n">Notion API</span><span class="a">→</span>
@@ -458,11 +380,10 @@
         <span class="n">浏览器</span>
       </div>
     </div>
-
     <div class="chain">
-      <div class="chain-head"><span class="eyebrow num">02</span><h3>CNSR · 笔记</h3></div>
-      <p style="font-size:14px">四个数据库各自独立刷新（四个一循环），所以每个来源存成自己的文件
-        —— 合在一起的话，任何一个刷新都会让另外三个谎报新鲜度。</p>
+      <h3>CNSR · 笔记</h3>
+      <p style="font-size:14px">四个数据库各自独立刷新（一次刷一个，四个一循环），
+        所以每个来源存成自己的文件。合在一起的话，任何一个刷新都会让另外三个谎报新鲜度。</p>
       <div class="flow">
         <span class="n">Shopping / Learn / tech-learn / TECH-AI</span><span class="a">→</span>
         <span class="n">Notion API</span><span class="a">→</span>
@@ -471,132 +392,417 @@
         <span class="n">浏览器</span>
       </div>
     </div>
-
     <div class="chain">
-      <div class="chain-head"><span class="eyebrow num">03</span><h3>CAPPERR · 阅读</h3></div>
-      <p style="font-size:14px">Kindle 上的 KOReader 插件把阅读历史 <code>POST</code> 到云上的接入服务，
-        服务端用 GitHub API 直接写进 <code>gh-pages</code>。
-        <b style="color:#fff">这条链路里没有任何一台 Mac</b> —— 机器是阿里云的一台小实例。</p>
+      <h3>CAPPERR · 阅读</h3>
+      <p style="font-size:14px">Kindle 上的 KOReader 插件在 KOReader 进程内部读统计库，
+        导出 JSON；接入服务把原始导出逐字存下来，再用 GitHub API 写进 gh-pages。
+        这条链路里<strong>没有任何一台 Mac</strong>。</p>
       <div class="flow">
-        <span class="n">Kindle · KOReader 插件</span><span class="a">→</span>
+        <span class="n">Kindle · KOReader</span><span class="a">→</span>
+        <span class="n">插件导出 JSON</span><span class="a">→</span>
         <span class="n">接入服务 :8789</span><span class="a">→</span>
-        <span class="n">GitHub API</span><span class="a">→</span>
         <span class="n hi">gh-pages</span><span class="a">→</span>
         <span class="n">浏览器</span>
       </div>
     </div>
-
     <div class="chain">
-      <div class="chain-head"><span class="eyebrow num">04</span><h3>CHEALTH · 健康</h3></div>
-      <p style="font-size:14px">手机上装一个自己写的 App，定时把三星健康里同步过来的数据推到云上。
-        服务端按日期合并、只保留最近 31 天，<b style="color:#fff">再用 AES-GCM 密封</b>才写进仓库
-        —— 因为仓库是公开的。浏览器里解开它只需要一个内置口令。</p>
+      <h3>CHEALTH · 健康</h3>
+      <p style="font-size:14px">手机 App 定时把三星健康同步过来的数据 POST 到接入服务；
+        服务端按日期合并、只保留最近 31 天，<strong>再用 AES-GCM 密封</strong>才写进仓库
+        —— 因为仓库是公开的。浏览器里解开它需要口令，内核是 PBKDF2 20 万次 + AES-GCM。</p>
       <div class="flow">
         <span class="n">三星健康</span><span class="a">→</span>
-        <span class="n">Health Sync</span><span class="a">→</span>
         <span class="n">Health Connect</span><span class="a">→</span>
         <span class="n">CEVTUO Health</span><span class="a">→</span>
         <span class="n">接入服务 :8789</span><span class="a">→</span>
-        <span class="n hi">AES-GCM 密封</span><span class="a">→</span>
+        <span class="n hi">AES-GCM</span><span class="a">→</span>
         <span class="n">gh-pages</span><span class="a">→</span>
         <span class="n">浏览器解密</span>
       </div>
     </div>
+  </div>
 
-    <div class="chain">
-      <div class="chain-head"><span class="eyebrow num">05</span><h3>桥 · 自动发布</h3></div>
-      <p style="font-size:14px">同步跑完只把数据写进仓库的主分支，而站点读的是
-        <code>gh-pages</code>。这两者之间原先靠手工一条命令 —— 忘了跑，站点就停在某一天。
-        现在有一条自动桥：同步一结束就触发发布，另外每小时兜底一次。</p>
-      <div class="flow">
-        <span class="n">定时同步</span><span class="a">→</span>
-        <span class="n">main</span><span class="a">→</span>
-        <span class="n hi">发布桥</span><span class="a">→</span>
-        <span class="n">gh-pages</span><span class="a">→</span>
-        <span class="n">CDN</span><span class="a">→</span>
-        <span class="n">你看到的页面</span>
+  <!-- 数据类型 -->
+  <div class="wrap" style="margin-top:44px">
+    <h3>手机上采集到的数据类型</h3>
+    <p style="font-size:14px">数据源以<strong>三星健康 SDK</strong> 为准，Health Connect 作补充 ——
+      HC 的运动记录里力量类运动一律是同一个编号（#70），
+      `title` / `notes` / `segments` / `laps` / `device` 全是空的，光靠它分不出跳绳和卷腹。</p>
+    <table>
+      <thead><tr><th>分类</th><th>字段</th></tr></thead>
+      <tbody>
+        <tr><td>活动</td><td>步数 · 距离 · 总消耗 · 活动消耗 · 爬楼层数 · 活动时间 · 步频 · 平均与峰值速度</td></tr>
+        <tr><td>睡眠</td><td>时长 · 入睡与醒来时刻 · 分期（清醒 / 浅睡 / 深睡 / REM / 未判定）· 睡眠分数 · 分期覆盖分钟</td></tr>
+        <tr><td>心脏</td><td>静息心率 · 平均心率 · 最大心率 · 心率变异性（HRV）</td></tr>
+        <tr><td>体征</td><td>血氧 · 皮肤温度 · 体温 · 呼吸频率 · 能量分数</td></tr>
+        <tr><td>身体成分</td><td>体重 · 体脂率 · 骨骼肌量 · BMI · 基础代谢</td></tr>
+        <tr><td>目标</td><td>步数 · 活动消耗 · 活动时间 · 饮水（读自三星里你自己设的值，不是我们写死的）</td></tr>
+        <tr><td>运动会话</td><td>类型 · 时长 · 距离 · 活动消耗 · 心率（均 / 峰 / 曲线）· 功率（均 / 峰 / 曲线）· 步频曲线 · 峰值速度与速度曲线 · 数据来源 · 器械次数</td></tr>
+        <tr><td>设备</td><td>电量 · 是否充电 · 网络类型 · 上报时刻</td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>两条口径规则。</b>
+      活动时间只算走路类，运动时长不并入。
+      活动消耗同来源去重 —— Health Sync 会同时写一条分钟记录和一条同窗口的聚合记录，
+      直接相加会翻倍。</div>
+  </div>
+</section>
+
+<!-- ══════════ 04 功能 ══════════ -->
+<section id="features" class="sec">
+  <div class="wrap row">
+    <div><div class="eyebrow num">04</div><div class="eyebrow" style="margin-top:12px">界面与交互</div></div>
+    <div>
+      <h2>界面上几个不是默认实现的地方</h2>
+      <p class="lead">下面每一条都对应一段自己写的东西，不是组件库给的。</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="grid g2" style="margin-top:36px">
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">导航</div>
+        <h3>Cnowbar · 底部条取代顶栏</h3>
+        <p style="font-size:14px">最左是返回键和一个 UO 圆盘，其余位置是<strong>当前页自己的分区</strong>：
+          点一下翻到那一屏，滚动时高亮跟着走。分区超过五个时第 6 个起折成一摞，
+          点开才摊平 —— 用宽度动画而不是 <code>display</code> 切换，否则那一帧是「切」过去的。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">UO 面板</div>
+        <h3>最近 24 小时的成果流</h3>
+        <p style="font-size:14px">一行一枚胶囊（电影 / 阅读 / 运动 / 睡眠），右边是卡尺刻度；
+          上下都可折叠，默认贴着「现在」。每行按离视口中心的距离缩放淡出。
+          设备状态（电量 / 充电 / 网络）竖排贴在右侧。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">字标</div>
+        <h3>逐像素反色</h3>
+        <p style="font-size:14px">「CEVTUO Z」用 <code>mix-blend-mode: difference</code>，
+          和身后内容逐像素混色 —— 压在浅背景上变深、深背景上变亮，
+          同一个字母的各处也可以不同。它和 <code>text-shadow</code> 不能共存，
+          字晕会被一起反色。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">材质</div>
+        <h3>全站同一块玻璃</h3>
+        <p style="font-size:14px">卡片材质只有一处声明；所有 <code>backdrop-filter</code>
+          都经由同一个函数，参数是相对 token 的倍率。迁移时按倍率折算，
+          模糊半径和迁移前相差不到 0.2px。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">画廊</div>
+        <h3>每页一张画，带画框</h3>
+        <p style="font-size:14px">画框永远在内容之下（<code>z-index: -1</code>，
+          —— <code>0</code> 会盖住正文，<code>-2</code> 会掉到壁纸底下）。
+          窄屏允许被屏幕边裁掉，但露出面积必须大于一半。背景用的也是这些画。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">翻页</div>
+        <h3>整屏吸附，底部条与滑动共用一套状态</h3>
+        <p style="font-size:14px">每页由几「屏」组成，滑动时整屏吸附过去。
+          底部条的分区点击和滑动手势走同一套 active 状态，不会互相打架。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">双语</div>
+        <h3>中文 / English</h3>
+        <p style="font-size:14px">右上角切换，所有中文位置换成英文 —— 包括底部条圆盘里那个字。
+          品牌名（COOF / CNSR…）本来就不翻。</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">主题</div>
+        <h3>深色 / 浅色</h3>
+        <p style="font-size:14px">两种主题都是正式版。凡随主题变的东西（颜色、底色、阴影、
+          透明度）两个主题各验一遍，判据是<strong>算出来的对比度</strong>，
+          不是「看起来还行」。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 05 功能特色 ── -->
-<section id="features" class="sec">
+<!-- ══════════ 05 客户端下载与配置 ══════════ -->
+<section id="download" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">05</div><div class="eyebrow" style="margin-top:12px">功能特色</div></div>
+    <div><div class="eyebrow num">05</div><div class="eyebrow" style="margin-top:12px">客户端</div></div>
     <div>
-      <h2>站上自己长出来的东西</h2>
-      <p class="lead">不是买来的一套模板。</p>
+      <h2>下载与配置</h2>
+      <p class="lead">两个客户端：手机上的采集 App，和 Kindle 上的 KOReader 插件。</p>
+      <p>两者都<strong>不含任何密钥</strong>。连接凭据由你在设备上填，或在服务端配置。</p>
     </div>
   </div>
 
   <div class="wrap">
-    <div class="grid g2" style="margin-top:40px">
+    <div class="dl" style="margin-top:32px">
+      <div>
+        <div class="meta">Android · 15.8 MB · v2.4</div>
+        <h3>CEVTUO Health</h3>
+        <p style="font-size:14px">采集手机健康数据并上报。要求 Android 10（API 29）及以上，
+          目标 API 35。用手机浏览器打开下面这个链接即可下载。</p>
+        <p style="margin:18px 0 0">
+          <a class="pill copper"
+             href="https://github.com/cevtuocjw/CEVTUO-Z/releases/latest/download/CEVTUO-Health-2.4.apk">
+             下载 APK →</a>
+        </p>
+      </div>
+      <div>
+        <div class="meta">Kindle / Kobo · 14 KB</div>
+        <h3>cevtuo-capperr.koplugin</h3>
+        <p style="font-size:14px">KOReader 插件，把阅读统计导出成 JSON。
+          在 KOReader 进程内部读库 —— 统计库是 WAL 模式，从电脑上直接拷文件可能拿到旧快照。</p>
+        <p style="margin:18px 0 0">
+          <a class="pill copper"
+             href="https://github.com/cevtuocjw/CEVTUO-Z/releases/latest/download/cevtuo-capperr.koplugin.zip">
+             下载插件 →</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:34px">
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">导航</div>
-        <h3>Cnowbar —— 一条底栏取代整个顶栏</h3>
-        <p style="font-size:14px">最左边是<b>返回</b>和一个 <b>UO</b> 圆盘，其余位置是
-          <b>这一页自己的分区</b>：点一下翻到那一屏，滚动时高亮也跟着走。
-          分区超过五个就<b>折成一摞</b>（后面露两层边），点它才摊开 ——
-          是折叠不是隐藏，摊开那一下要有宽度动画。</p>
+        <h4>手机 App · 第一次装</h4>
+        <ol class="steps" style="font-size:14px">
+          <li>下载上面的 APK，在系统设置里允许「安装未知来源应用」，装上。</li>
+          <li>打开 App，按提示授予 Health Connect 的读取权限（逐个数据类型给）。
+            <strong>少给一个就少一项，而且不报错。</strong></li>
+          <li>在 App 里填<strong>同步地址</strong>和<strong>设备 token</strong>，
+            点保存。（地址默认已填；token 由服务端的设备表决定）</li>
+          <li>点一次「同步」，看日志里出现 <code>同步 HTTP 2xx</code> 即成功。</li>
+          <li>关闭这个应用的电池优化 —— 熄屏后 Doze 会把后台同步批量推迟，
+            间隔从 15 分钟退化到约 1 小时。这是 Android 的正常行为，不是坏了。</li>
+        </ol>
       </div>
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">UO</div>
-        <h3>点 UO 展开「现在」</h3>
-        <p style="font-size:14px">最近 24 小时的成果流：看过什么电影、读过哪本书、
-          跑了多少、睡到几点 —— 一行一枚胶囊，右边挂一条卡尺刻度。上下都能折叠，
-          默认贴着「现在」；行按离视口中心的距离缩放淡出，所以滚起来是<b>波动的</b>。
-          设备状态（电量、网络）贴在右边。</p>
+        <h4>Kindle 插件 · 第一次装</h4>
+        <ol class="steps" style="font-size:14px">
+          <li>下载上面的插件 zip 并解压，得到一个 <code>cevtuo-capperr.koplugin</code> 文件夹。</li>
+          <li>Kindle 用 USB 连电脑，<code>koreader</code> 目录在可见分区根目录。</li>
+          <li>把整个文件夹放进 <code>koreader/plugins/</code>。</li>
+          <li><strong>重启 KOReader</strong> —— 插件只在启动时扫描一次。</li>
+          <li>菜单 → 工具 → 导出阅读统计（CEVTUO）。
+            导出文件落在可见分区根目录，插上电脑就能拿走。</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:1px">
+      <div class="cell">
+        <h4>换手机怎么办</h4>
+        <p style="font-size:14px">历史数据不用搬，它在云上。</p>
+        <ol class="steps" style="font-size:14px">
+          <li>新手机装同一个 APK。</li>
+          <li>把同一个<strong>同步地址</strong>和<strong>设备 token</strong>填进去，
+            重新授予 Health Connect 权限。</li>
+          <li>同步一次，最近 31 天会自动补上。</li>
+          <li><strong>旧手机要停用</strong>（卸载或关掉同步）—— 两台同时上报会让同一份数据被记两遍。</li>
+        </ol>
+        <p style="font-size:13.5px;margin-bottom:0">如果 token 也想换：在服务端
+          <code>.env</code> 的设备表里加一条新的，旧的那条删掉，然后把新 token 填进新手机。</p>
       </div>
       <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">字标</div>
-        <h3>逐像素反色的名字</h3>
-        <p style="font-size:14px">「CEVTUO Z」不是固定的黑或白 —— 它和身后的东西
-          <b>逐像素</b>混色，压在浅色上就变深、压在深色上就变亮，
-          甚至同一个字母的各处都不一样。所以放在任何背景上都读得出来。</p>
-      </div>
-      <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">材质</div>
-        <h3>玻璃，而且是同一块玻璃</h3>
-        <p style="font-size:14px">全站卡片用同一份材质定义：同一档模糊、同一档饱和度、
-          同一圈高光。验收方式是量<b>计算值</b>在三页上是否真的相同 ——
-          不是看代码有没有引用。</p>
-      </div>
-      <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">画框</div>
-        <h3>每页一张画，带画框</h3>
-        <p style="font-size:14px">每个页面挂一张自己的画，永远在内容之下。窄屏允许被屏幕边裁掉，
-          但露出的面积一定大于一半。背景用的也是这些画。</p>
-      </div>
-      <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">翻页</div>
-        <h3>一屏一屏地翻</h3>
-        <p style="font-size:14px">每一页由几「屏」组成，滑动时整屏吸附过去。
-          底部条的每个分区就是其中的一屏 —— 两条路走同一套状态，不会互相打架。</p>
-      </div>
-      <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">双语</div>
-        <h3>中文 / English</h3>
-        <p style="font-size:14px">右上角一键切换，所有中文位置都换成英文 ——
-          包括圆盘里那个字。</p>
-      </div>
-      <div class="cell">
-        <div class="eyebrow" style="margin-bottom:14px">主题</div>
-        <h3>深色 / 浅色</h3>
-        <p style="font-size:14px">两种主题都是正式版，不是「深色加个滤镜」。
-          凡随主题变的东西，两个主题各验一遍，判据是<b>算出来的对比度</b>。</p>
+        <h4>换 Kindle 怎么办</h4>
+        <p style="font-size:14px"><strong>阅读历史不会自动跟过去</strong>，
+          它在设备本地的 <code>statistics.sqlite3</code> 里。要搬就搬这个文件。</p>
+        <ol class="steps" style="font-size:14px">
+          <li>旧设备上<strong>先退出 KOReader</strong>，
+            然后把 <code>statistics.sqlite3</code> 连同 <code>-wal</code>、
+            <code>-shm</code> 三个文件一起备份 —— 只拷主库很可能拿到旧快照。</li>
+          <li>新设备装好 KOReader，把这三个文件放回
+            <code>koreader/settings/</code> 下同样的位置。</li>
+          <li>再按上面的步骤装插件、重启。</li>
+        </ol>
+        <p style="font-size:13.5px;margin-bottom:0">只换 Kindle 不搬历史也可以 ——
+          插件从零开始记，站上的数据保持已有的不变。</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 06 截图（白底）── -->
+<!-- ══════════ 06 服务器与部署 ══════════ -->
+<section id="server" class="sec">
+  <div class="wrap row">
+    <div><div class="eyebrow num">06</div><div class="eyebrow" style="margin-top:12px">服务器与部署</div></div>
+    <div>
+      <h2>阿里云那台机器在做什么</h2>
+      <p class="lead">一台 2 vCPU / 769 MB 的深圳轻量实例，承担三件事。</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid g3" style="margin-top:34px">
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">角色一</div>
+        <h3>国内镜像</h3>
+        <p style="font-size:14px">把 <code>gh-pages</code> 整站铺一份到本机，
+          监听 <code>:443</code> / <code>:8082</code> / <code>:8081</code>。
+          国内访问首页 2.29s（热的 0.65s），GitHub Pages 是 7.8s。
+          TTFB 17–56ms。</p>
+        <p style="font-size:13px;margin-bottom:0;color:var(--faint)">没有 nginx，Bun 直接对外</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">角色二</div>
+        <h3>数据接入服务</h3>
+        <p style="font-size:14px">Kindle 插件和手机 App 的 POST 终点，监听 <code>:8789</code>。
+          按日期合并、做去重与保留期裁剪，然后用 GitHub API 原子提交到
+          <code>gh-pages</code>。</p>
+        <p style="font-size:13px;margin-bottom:0;color:var(--faint)">systemd 常驻，单文件打包运行</p>
+      </div>
+      <div class="cell">
+        <div class="eyebrow" style="margin-bottom:13px">角色三</div>
+        <h3>证书与备案入口</h3>
+        <p style="font-size:14px">用 acme.sh 走阿里云 DNS 自动签发与续期，
+          续期回调里重启镜像进程。备案域名 <code>z.cevtuo.com</code> 解析到这台机器。</p>
+        <p style="font-size:13px;margin-bottom:0;color:var(--faint)">两张证书分开存放，不要混用</p>
+      </div>
+    </div>
+
+    <div class="grid g3" style="margin-top:1px">
+      <div class="cell">
+        <h4>代码在哪</h4>
+        <p style="font-size:14px">公开仓库
+          <a href="https://github.com/cevtuocjw/CEVTUO-Z" target="_blank" rel="noopener">cevtuocjw/CEVTUO-Z</a>。
+          应用在 <code>apps/dashboard</code>，服务端在 <code>services/ingest</code>，
+          同步流水线在 <code>pipeline</code>，部署脚本在 <code>scripts/</code>。</p>
+      </div>
+      <div class="cell">
+        <h4>数据在哪</h4>
+        <p style="font-size:14px">全部在同一个仓库的 <code>gh-pages</code> 分支的
+          <code>data/</code> 目录下。服务端机器上只有
+          <code>/opt/cevtuo-ingest</code> 的代码和日志 ——
+          <strong>删掉这台机器不会丢任何数据</strong>。</p>
+      </div>
+      <div class="cell">
+        <h4>备份在哪</h4>
+        <p style="font-size:14px">数据本身就在 GitHub 上，还分布在三处出口的缓存里。
+          真正需要单独备份的只有两样：服务端的 <code>.env</code>（口令与 token），
+          和 Kindle 的 <code>statistics.sqlite3</code>。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap" style="margin-top:44px">
+    <h3>换一台服务器怎么做</h3>
+    <p style="font-size:14px">数据不在服务器上，所以换机器不动数据。按顺序走：</p>
+    <table class="mig">
+      <thead><tr><th>#</th><th>做什么</th><th>为什么</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>买新机器 —— <strong>必须还是中国内地节点</strong></td>
+          <td>备案只发给内地服务器；地域选定后不可更改</td></tr>
+        <tr><td>2</td><td>装 bun —— <strong>拷真身，不要软链</strong></td>
+          <td>软链会 <code>203/EXEC</code> 起不来</td></tr>
+        <tr><td>3</td><td><code>bash scripts/deploy-ingest.sh</code></td>
+          <td>部署接入服务 + systemd 单元 + <code>.env</code>（token 在这里）</td></tr>
+        <tr><td>4</td><td><code>bash scripts/deploy-mirror.sh</code></td>
+          <td>从 gh-pages 铺整站，并重启镜像实例</td></tr>
+        <tr><td>5</td><td>用 acme.sh 重新签证书</td>
+          <td>证书跟着机器走；续期回调指向 <code>scripts/restart-mirrors.sh</code></td></tr>
+        <tr><td>6</td><td>DNS 的 A 记录改到新 IP</td>
+          <td>改完等解析生效</td></tr>
+        <tr><td>7</td><td>备案接入信息更新</td>
+          <td>仍用阿里云：在备案控制台更新接入信息即可，域名和主体信息不用重来。
+            换成别家云：需要做一次接入备案。这一步<strong>动手前先确认</strong></td></tr>
+        <tr><td>8</td><td>验证四处指纹一致</td>
+          <td>本地 / gh-pages / 国内镜像 / z.cevtuo.com 的 <code>js/app.&lt;hash&gt;.js</code></td></tr>
+      </tbody>
+    </table>
+    <div class="note"><b>可以照抄的现成脚本。</b>
+      <code>deploy-pages.sh</code>（构建并发布站点）、<code>deploy-ingest.sh</code>、
+      <code>deploy-mirror.sh</code>、<code>restart-mirrors.sh</code>、<code>publish-data.mjs</code>。
+      这几个脚本是成套的，换机器时按上面顺序跑即可。</div>
+  </div>
+
+  <div class="wrap" style="margin-top:44px">
+    <h3>做过的优化</h3>
+    <div class="grid g2" style="margin-top:24px">
+      <div class="cell">
+        <h4>数据走穿透缓存</h4>
+        <p style="font-size:14px">先立刻发本机那份（0.4–1ms），后台去上游拉最新写回。
+          45 秒的重验证间隔只决定「多久刷一次」，读者改完数据基本立刻能看到。</p>
+      </div>
+      <div class="cell">
+        <h4>图片与数据分路</h4>
+        <p style="font-size:14px">HTTPS 页面上 <code>static/</code> 的图片走 CDN，
+          而 <code>data/</code> <strong>不改写</strong> —— 数据的新鲜度不能交给 CDN 缓存。</p>
+      </div>
+      <div class="cell">
+        <h4>品牌动图推迟加载</h4>
+        <p style="font-size:14px">最重的不是海报，是品牌 APNG（合计约 3.4 MB）。
+          用 <code>IntersectionObserver</code> 把它们推迟到快进视口时才下载，
+          首屏图片因此从 3.4 MB 降到约 2.0 MB。</p>
+      </div>
+      <div class="cell">
+        <h4>构建即清空</h4>
+        <p style="font-size:14px">每次构建先清 <code>dist/</code>，不留上一代的 hash chunk ——
+          否则负向对照会改到旧文件，静默变成「没做事」。</p>
+      </div>
+      <div class="cell">
+        <h4>部署脚本自己构建</h4>
+        <p style="font-size:14px">发布脚本默认会跑类型检查和构建。
+          此前它只负责拷贝产物，于是「发布成功」和「发布了一个旧版」在输出里长得一模一样。</p>
+      </div>
+      <div class="cell">
+        <h4>折射玻璃已休眠</h4>
+        <p style="font-size:14px">真折射玻璃（SVG 位移图作 backdrop-filter）在 48 个面上
+          实测 4.7 fps；不铺时 60 fps。这处效果 <strong>13 倍</strong>的代价太大，
+          已从线上撤下。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 07 存储与保留 ══════════ -->
+<section id="storage" class="sec">
+  <div class="wrap row">
+    <div><div class="eyebrow num">07</div><div class="eyebrow" style="margin-top:12px">存储与保留</div></div>
+    <div>
+      <h2>占多少，什么会被删掉</h2>
+      <p class="lead">数据在仓库里，总共约 52 MB；站点产物另算。</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <table style="margin-top:28px">
+      <thead><tr><th>内容</th><th>体积</th><th>保留规则</th></tr></thead>
+      <tbody>
+        <tr><td>COOF 观影（含海报）</td><td>约 45 MB</td>
+          <td>全部年历，<strong>不设到期</strong>。海报是体积的主要来源</td></tr>
+        <tr><td>CNSR 笔记</td><td>约 6.1 MB</td><td>全部，不设到期</td></tr>
+        <tr><td>CHEALTH 健康</td><td>741 KB（密文）</td>
+          <td><strong>最近 31 天</strong>，从「最新数据日期」往回算</td></tr>
+        <tr><td>CAPPERR 阅读</td><td>约 48 KB</td><td>全部，不设到期</td></tr>
+        <tr><td>站点产物 <code>dist/</code></td><td>约 7.6 MB</td>
+          <td>每次构建清空重建；其中品牌动图约 3.9 MB</td></tr>
+        <tr><td>gh-pages 分支整体</td><td>约 101 MB</td><td>—</td></tr>
+      </tbody>
+    </table>
+
+    <div class="grid g2" style="margin-top:34px">
+      <div class="cell">
+        <h4>「到期删除」实际是怎么发生的</h4>
+        <p style="font-size:14px">不是有一个定时删除任务。服务端每次合并之后
+          <strong>重新计算窗口</strong>，同时裁 <code>days</code> 和 <code>sessions</code>；
+          旧的一天自然落出窗口就不再被写出。收益是删除逻辑永远和写入逻辑一致，
+          不会出现「删了一半」的状态。</p>
+        <p style="font-size:13.5px;margin-bottom:0;color:var(--faint)">
+          保留期从「最新数据日期」算，不按墙上时钟 —— 手机一周没同步也不会把数据清空。</p>
+      </div>
+      <div class="cell">
+        <h4>服务端只有四个固定文件</h4>
+        <p style="font-size:14px">接入服务对每个数据源只保存一个文件并覆盖写：
+          健康、阅读各一份，另加同步元信息。
+          没有数据库、没有日志表，所以磁盘占用是常数，不随时间增长。</p>
+        <p style="font-size:13.5px;margin-bottom:0;color:var(--faint)">
+          真正的瓶颈是磁盘而不是 CPU —— 这台机器只有 769 MB 内存，
+          但服务端常驻约 50 MB。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ 08 截图 ══════════ -->
 <section id="shots" class="sec paper">
   <div class="wrap row">
-    <div><div class="eyebrow num">06</div><div class="eyebrow" style="margin-top:12px">截图</div></div>
+    <div><div class="eyebrow num">08</div><div class="eyebrow" style="margin-top:12px">截图</div></div>
     <div>
-      <h2>全部拍自线上站</h2>
-      <p class="lead">不是设计稿，不是原型 —— 是 <code>z.cevtuo.com</code> 此刻的样子。</p>
+      <h2>拍自线上站</h2>
+      <p class="lead">不是设计稿，是 <code>z.cevtuo.com</code> 此刻的样子。</p>
     </div>
   </div>
   <div class="wrap">
@@ -607,7 +813,7 @@
       </figure>
       <figure>
         <img src="assets/uo-panel.jpg" alt="UO 面板" loading="lazy"/>
-        <figcaption>点 UO 展开的「最近 24 小时」—— 胶囊 + 卡尺刻度，右下角是手机电量和网络。</figcaption>
+        <figcaption>UO 面板 —— 最近 24 小时的成果流，右下角是手机电量与网络。</figcaption>
       </figure>
       <figure>
         <img src="assets/coof.jpg" alt="COOF" loading="lazy"/>
@@ -638,70 +844,95 @@
   </div>
 </section>
 
-<!-- ─────────────────────────────── 07 视频 ── -->
+<!-- ══════════ 09 视频 ══════════ -->
 <section id="video" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">07</div><div class="eyebrow" style="margin-top:12px">演示视频</div></div>
-    <div>
-      <h2>走一遍</h2>
-      <p class="lead">主页开 UO 面板 → 逐个分区翻过去 → 四个品牌页 → 回主页。约 45 秒。</p>
-    </div>
+    <div><div class="eyebrow num">09</div><div class="eyebrow" style="margin-top:12px">演示视频</div></div>
+    <div><h2>走一遍</h2>
+      <p class="lead">主页开 UO 面板 → 逐个分区翻过去 → 四个品牌页 → 回主页。约 45 秒。</p></div>
   </div>
-  <div class="wrap" style="margin-top:34px">
+  <div class="wrap" style="margin-top:32px">
     <video src="assets/walkthrough.webm" poster="assets/walkthrough-poster.jpg"
       controls preload="metadata" playsinline></video>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 08 折叠 ── -->
+<!-- ══════════ 10 折叠 ══════════ -->
 <section id="run" class="sec">
   <div class="wrap row">
-    <div><div class="eyebrow num">08</div><div class="eyebrow" style="margin-top:12px">本地跑起来</div></div>
+    <div><div class="eyebrow num">10</div><div class="eyebrow" style="margin-top:12px">附录</div></div>
     <div style="max-width:none">
-      <h2>命令与踩过的坑</h2>
+      <h2>常用命令与已知的坑</h2>
 
       <details class="fold">
-        <summary>开发与构建命令</summary>
+        <summary>开发与构建</summary>
         <div class="fold-body">
-          <p>需要一个 bun 环境。仓库是一个 workspaces 单仓。</p>
-<pre><span class="c"># 开发（网页 / 小程序各一条）</span>
+          <p>需要一个 bun 环境。</p>
+<pre><span class="c"># 开发</span>
 bun run app:dev:h5
 bun run app:dev:weapp
 
 <span class="c"># 构建</span>
-bun run app:build:h5
-bun run app:build:weapp
+bun run app:build:h5      <span class="c"># → apps/dashboard/dist/</span>
+bun run app:build:weapp   <span class="c"># → apps/dashboard/dist-weapp/</span>
 
-<span class="c"># 类型检查 —— 改过界面代码之后一定要跑</span>
+<span class="c"># 类型检查 —— 改过界面代码之后必须跑</span>
 bun run typecheck</pre>
-          <p>本地预览走 <code>bash scripts/preview.sh</code>：类型检查、构建、重铺一份预览，
-            并起一个带 SPA 回落的本地服务器。</p>
+          <p>本地预览：<code>bash scripts/preview.sh</code>（类型检查 → 构建 → 重铺预览 →
+            起一个带 SPA 回落的本地服务器）。</p>
+          <div class="note"><b>必须两个都跑。</b>
+            <code>typecheck</code> 过了不代表能打包（webpack 的解析和 SCSS 可能失败），
+            而打包过了也不代表能跑 —— 这个项目出现过三次「构建全绿、页面白屏」。</div>
         </div>
       </details>
 
       <details class="fold">
-        <summary>这个项目踩过的坑（写给下一个接手的人）</summary>
+        <summary>手机端构建与探针</summary>
+        <div class="fold-body">
+<pre><span class="c"># 构建（没有 gradlew，用系统 gradle）</span>
+cd ~/cevtuo-health
+JAVA_HOME=~/android-toolchain/jdk/Contents/Home \
+  ~/android-toolchain/gradle/gradle-8.11.1/bin/gradle assembleRelease
+
+<span class="c"># 装到手机（保留数据）</span>
+adb install -r app/build/outputs/apk/release/app-release.apk
+
+<span class="c"># 手动触发一次上报 —— ⚠️ 必须先 force-stop</span>
+adb shell am force-stop com.cevtuo.health
+adb shell am start -n com.cevtuo.health/.MainActivity -e run sync
+
+<span class="c"># 只读诊断，不消耗 Health Connect 配额</span>
+adb shell dumpsys battery
+adb shell dumpsys jobscheduler | grep com.cevtuo.health</pre>
+          <div class="note"><b>三件容易踩的事。</b>
+            <code>am start -e run X</code> 对还活着的 Activity 只走 <code>onNewIntent</code>,
+            等于没点 —— 必须先 force-stop。
+            Health Connect 有 API 配额，会被人为的手动同步烧掉，而且是滚动窗口。
+            熄屏 Doze 下 JobScheduler 会把后台同步批量推迟，15 分钟会退化到约 1 小时。</div>
+        </div>
+      </details>
+
+      <details class="fold">
+        <summary>这个项目踩过的坑</summary>
         <div class="fold-body">
           <table>
             <tbody>
-              <tr><td><b>同特异型的 CSS 谁赢只看导入顺序</b></td>
-                <td>写了不生效、且不报错。规则在别的文件里，看源码看不出来 ——
-                  要去产物里数那个选择器有几条规则。</td></tr>
-              <tr><td><b>断言全绿 ≠ 断言在测东西</b></td>
-                <td>一组断言全盯着同一个对象时，另一个对象坏了没人管。
-                  加断言先问：它<b>怎么才会红</b>。</td></tr>
-              <tr><td><b>「量不到」会被读成「产品坏了」</b></td>
-                <td>工具链的毛病会伪装成被测对象的毛病。同一个检查器两次跑结果不同，
-                  先修抖动再谈结论。</td></tr>
-              <tr><td><b>随主题变的东西，两个主题都要看</b></td>
-                <td>只跑一个主题时，另一个主题下的问题可以活很久 ——
-                  判据用算出来的对比度，不用「看起来还行」。</td></tr>
-              <tr><td><b>直连正常 ≠ 经代理正常</b></td>
-                <td>反向代理要把 <code>Origin</code> 转发过去，否则 CORS 头静默消失 ——
-                  而直连测永远看不出来。</td></tr>
-              <tr><td><b>同一件事两处实现，迟早对不上</b></td>
-                <td>实测：睡眠时长一处按「入睡那天」归日、另一处按「醒来那天」，
-                  于是 10-07 那天报出 15.5 小时 —— 把连着两夜加在了一起。</td></tr>
+              <tr><td><strong>同特异型的 CSS 谁赢只看导入顺序</strong></td>
+                <td>写了不生效且不报错，规则在别的文件里。要去产物里数那个选择器有几条规则。</td></tr>
+              <tr><td><strong>断言全绿 ≠ 断言在测东西</strong></td>
+                <td>一组断言全盯着同一个对象时，另一个对象坏了没人管。加断言先问：它怎么才会红。</td></tr>
+              <tr><td><strong>「量不到」会被读成「产品坏了」</strong></td>
+                <td>工具链的毛病会伪装成被测对象的毛病。同一个检查器两次跑结果不同，先修抖动再谈结论。</td></tr>
+              <tr><td><strong>随主题变的东西，两个主题都要看</strong></td>
+                <td>只跑一个主题时，另一个主题下的问题可以活很久。判据用算出来的对比度。</td></tr>
+              <tr><td><strong>直连正常 ≠ 经代理正常</strong></td>
+                <td>反向代理要把 <code>Origin</code> 转发过去，否则 CORS 头静默消失 —— 直连测永远看不出来。</td></tr>
+              <tr><td><strong>同一件事两处实现，迟早对不上</strong></td>
+                <td>睡眠时长一处按「入睡那天」归日、另一处按「醒来那天」，
+                  于是连着两夜被加成一晚，10-07 报出 15.5 小时。已改为同一条规则。</td></tr>
+              <tr><td><strong>写在样式表里 ≠ 浏览器认了它</strong></td>
+                <td>一条 <code>text-shadow: var(--x)</code> 的计算值可以是 <code>none</code>。
+                  注释描述的是意图，不是事实 —— 要验证的是计算值。</td></tr>
             </tbody>
           </table>
         </div>
@@ -710,23 +941,30 @@ bun run typecheck</pre>
   </div>
 </section>
 
-<!-- ─────────────────────────────── 页脚 ── -->
 <footer>
   <div class="wrap">
-    <p class="foot-big">四扇门，一张皮，两个平台。</p>
-    <a class="pill dark" style="background:#fff;color:#000;border-color:#fff"
-       href="https://z.cevtuo.com" target="_blank" rel="noopener">打开 z.cevtuo.com →</a>
+    <p class="foot-big">四个品牌，一套源码，两条客户端。</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="pill" href="https://z.cevtuo.com" target="_blank" rel="noopener">打开 z.cevtuo.com →</a>
+      <a class="pill ghost"
+         href="https://github.com/cevtuocjw/CEVTUO-Z/releases/latest/download/CEVTUO-Health-2.4.apk">下载 App</a>
+      <a class="pill ghost"
+         href="https://github.com/cevtuocjw/CEVTUO-Z/releases/latest/download/cevtuo-capperr.koplugin.zip">下载 Kindle 插件</a>
+    </div>
 
     <div class="foot-grid">
-      <div><div class="k">站点</div><div class="v"><a href="https://z.cevtuo.com" target="_blank" rel="noopener">z.cevtuo.com</a><br/>
+      <div><div class="k">站点</div><div class="v">
+        <a href="https://z.cevtuo.com" target="_blank" rel="noopener">z.cevtuo.com</a><br/>
         <a href="https://z.cevtuogrnd.com" target="_blank" rel="noopener">z.cevtuogrnd.com</a></div></div>
-      <div><div class="k">应用页</div><div class="v"><a href="/">apps.cevtuogrnd.com</a></div></div>
-      <div><div class="k">四个品牌</div><div class="v">COOF · CNSR · CAPPERR · CHEALTH</div></div>
+      <div><div class="k">源码</div><div class="v">
+        <a href="https://github.com/cevtuocjw/CEVTUO-Z" target="_blank" rel="noopener">github.com/cevtuocjw/CEVTUO-Z</a></div></div>
+      <div><div class="k">下载</div><div class="v">
+        <a href="https://github.com/cevtuocjw/CEVTUO-Z/releases" target="_blank" rel="noopener">Releases</a></div></div>
     </div>
 
     <div class="fine">
       <span>© 2026 cevtuo · CEVTUOGRND</span>
-      <span>截图与视频拍自线上站</span>
+      <span>截图与视频拍自线上站 · 数据截至 2026-10</span>
     </div>
   </div>
 </footer>

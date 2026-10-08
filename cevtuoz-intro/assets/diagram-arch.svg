@@ -1,0 +1,222 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1560 1120" width="1560" height="1120"
+     font-family="-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang SC',Arial,sans-serif">
+<style>
+  .t     { fill:#0a0a0a; }
+  .dim   { fill:#6b6b6b; }
+  .faint { fill:#9a9a9a; }
+  .mono  { font-family:ui-monospace,SFMono-Regular,Menlo,monospace; }
+  .band  { fill:#fafafa; }
+  .box   { fill:#fff; stroke:#d9d9d9; stroke-width:1.4; }
+  .boxhl { fill:#fff; stroke:#c07b31; stroke-width:1.6; }
+  .boxdk { fill:#111; stroke:#111; }
+  .grp   { fill:none; stroke:#e2e2e2; stroke-width:1.2; stroke-dasharray:5 4; }
+  .arw   { stroke:#b0b0b0; stroke-width:1.6; fill:none; }
+  .arwd  { stroke:#c07b31; stroke-width:1.8; fill:none; }
+  .bad   { fill:#fff5f4; stroke:#d84f3f; stroke-width:1.5; stroke-dasharray:6 4; }
+  .badx  { stroke:#d84f3f; stroke-width:2.6; fill:none; stroke-linecap:round; }
+  .badt  { fill:#b23b2c; }
+  .strike{ stroke:#b23b2c; stroke-width:1.3; }
+  .lbl   { font-size:11px; letter-spacing:2.2px; text-transform:uppercase; }
+  .h1    { font-size:26px; font-weight:700; letter-spacing:-.4px; }
+  .h2    { font-size:15px; font-weight:650; }
+  .h3    { font-size:13px; font-weight:600; }
+  .p     { font-size:12px; }
+  .xs    { font-size:11px; }
+</style>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#b0b0b0"/>
+  </marker>
+  <marker id="ad" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#c07b31"/>
+  </marker>
+</defs>
+
+<rect width="1560" height="1120" fill="#fff"/>
+
+<!-- ── 标题 ───────────────────────────────────────────── -->
+<text x="48" y="52" class="t h1">技术架构</text>
+<text x="48" y="76" class="dim p">一套源码 → 两个编译目标 → 三个出口 → 一个服务端</text>
+<text x="1512" y="52" class="faint mono xs" text-anchor="end">CEVTUO-Z · 2026-10</text>
+<line x1="48" y1="98" x2="1512" y2="98" stroke="#e6e6e6" stroke-width="1.4"/>
+
+<!-- ══ 01 客户端 ═══════════════════════════════════════ -->
+<text x="48" y="132" class="faint mono lbl">01 · 客户端</text>
+
+<rect x="48" y="150" width="336" height="104" rx="10" class="box"/>
+<text x="70" y="180" class="t h2">浏览器 · H5</text>
+<text x="70" y="204" class="dim p">z.cevtuo.com（备案 / 443 / 深圳）</text>
+<text x="70" y="224" class="dim p">z.cevtuogrnd.com（GitHub Pages）</text>
+<text x="70" y="244" class="faint mono xs">同一份 dist/</text>
+
+<rect x="408" y="150" width="336" height="104" rx="10" class="box"/>
+<text x="430" y="180" class="t h2">微信小程序</text>
+<text x="430" y="204" class="dim p">同一套组件 / 路由 / 样式</text>
+<text x="430" y="224" class="dim p">请求域名必须 ICP 备案</text>
+<text x="430" y="244" class="faint mono xs">dist-weapp/ · 主体是个人 ⇒ web-view 不可用</text>
+
+<rect x="768" y="150" width="336" height="104" rx="10" class="box" stroke-dasharray="6 4"/>
+<text x="790" y="180" class="t h2">Android（备选路线）</text>
+<text x="790" y="204" class="dim p">WebView 壳套 z.cevtuo.com</text>
+<text x="790" y="224" class="dim p">网页零改动，无需审核</text>
+<text x="790" y="244" class="faint mono xs">Capacitor / Tauri · 尚未做</text>
+
+<rect x="1128" y="150" width="384" height="104" rx="10" class="boxdk"/>
+<text x="1150" y="180" fill="#fff" class="h2">渲染层共用</text>
+<text x="1150" y="204" fill="#b9b9b9" class="p">SCSS token · 玻璃材质单一定义</text>
+<text x="1150" y="224" fill="#b9b9b9" class="p">深浅主题 · 中英双语 · 逐像素反色字标</text>
+<text x="1150" y="244" fill="#7d7d7d" class="mono xs">platform/* · styles/* · components/*</text>
+
+<!-- ══ 02 一份源码 ═════════════════════════════════════ -->
+<text x="48" y="306" class="faint mono lbl">02 · 一份源码，两个产物</text>
+
+<rect x="48" y="324" width="1464" height="196" rx="12" class="grp"/>
+<text x="70" y="352" class="t h2">apps/dashboard —— 一套 TypeScript 源码</text>
+<text x="70" y="374" class="dim p">Taro 4.0.9 · React 18.3 · TypeScript 5.7 · Sass　（bun workspaces 单仓）</text>
+
+<rect x="70" y="392" width="336" height="106" rx="9" class="box"/>
+<text x="90" y="418" class="t h3">页面</text>
+<text x="90" y="441" class="dim p">home · coof · cnsr · paperr · chealth</text>
+<text x="90" y="461" class="dim p">每页由几「屏」组成，整屏吸附</text>
+<text x="90" y="481" class="faint mono xs">pages/*</text>
+
+<rect x="426" y="392" width="336" height="106" rx="9" class="box"/>
+<text x="446" y="418" class="t h3">平台层</text>
+<text x="446" y="441" class="dim p">导航唯一实现 · 数据客户端 · 主题</text>
+<text x="446" y="461" class="dim p">画廊画框 · 健康解密 · 资源路径</text>
+<text x="446" y="481" class="faint mono xs">platform/*</text>
+
+<rect x="782" y="392" width="336" height="106" rx="9" class="box"/>
+<text x="802" y="418" class="t h3">数据契约</text>
+<text x="802" y="441" class="dim p">zod schema 只用作类型（编译期擦除）</text>
+<text x="802" y="461" class="dim p">路径契约两处实现，typecheck 挡住漂移</text>
+<text x="802" y="481" class="faint mono xs">packages/schema</text>
+
+<rect x="1138" y="392" width="354" height="106" rx="9" class="box"/>
+<text x="1158" y="418" class="t h3">构建产物</text>
+<text x="1158" y="441" class="dim p">build:h5 → dist/　约 7.6 MB</text>
+<text x="1158" y="461" class="dim p">build:weapp → dist-weapp/　约 1.6 MB</text>
+<text x="1158" y="481" class="faint mono xs">two targets, one source</text>
+
+
+<!-- ══ 03 出口与服务端 ═════════════════════════════════ -->
+<text x="48" y="566" class="faint mono lbl">03 · 三个出口 + 一个服务端</text>
+
+<!-- gh-pages 源 -->
+<rect x="48" y="584" width="300" height="132" rx="10" class="boxhl"/>
+<text x="70" y="614" class="t h2">gh-pages</text>
+<text x="70" y="637" class="dim p">唯一的源</text>
+<text x="70" y="657" class="dim p">站点产物 + 全部数据</text>
+<text x="70" y="682" class="faint mono xs">data/coof · cnsr · paperr · chealth</text>
+<text x="70" y="700" class="faint mono xs">静态资源 static/ · 约 52 MB 数据</text>
+
+<path d="M348 620 H 400" class="arwd" marker-end="url(#ad)"/>
+<path d="M348 690 H 400" class="arwd" marker-end="url(#ad)"/>
+
+<!-- GitHub Pages -->
+<rect x="404" y="584" width="336" height="132" rx="10" class="box"/>
+<text x="426" y="614" class="t h2">GitHub Pages</text>
+<text x="426" y="637" class="dim p">海外线路，无需备案</text>
+<text x="426" y="657" class="dim p">CDN 缓存 index.html 600s</text>
+<text x="426" y="682" class="faint mono xs">z.cevtuogrnd.com</text>
+<text x="426" y="700" class="faint mono xs">404.html = index.html 副本（SPA 回落）</text>
+
+<!-- 阿里云镜像 -->
+<rect x="784" y="584" width="728" height="132" rx="10" class="boxdk"/>
+<text x="806" y="614" fill="#fff" class="h2">阿里云轻量 · 深圳（内地，可备案）</text>
+<text x="806" y="638" fill="#b9b9b9" class="p">2 vCPU · 769 MB · CentOS 8 · 无 nginx（Bun 直跑）</text>
+<text x="806" y="662" fill="#b9b9b9" class="p">镜像 :443（z.cevtuo.com）· :8082 · :8081</text>
+<text x="806" y="686" fill="#b9b9b9" class="p">接入服务 :8789　·　TLS 转发 8443</text>
+<text x="806" y="706" fill="#7d7d7d" class="mono xs">cert: acme.sh dns_ali · reload → restart-mirrors.sh</text>
+
+<!-- 数据来源（上行） -->
+<text x="48" y="772" class="faint mono lbl">04 · 数据从这里进来（只写不读）</text>
+
+<rect x="48" y="790" width="230" height="96" rx="10" class="box"/>
+<text x="68" y="818" class="t h3">Kindle · KOReader</text>
+<text x="68" y="841" class="dim p">插件读 statistics.sqlite3</text>
+<text x="68" y="861" class="faint mono xs">POST → :8789</text>
+
+<rect x="298" y="790" width="230" height="96" rx="10" class="box"/>
+<text x="318" y="818" class="t h3">Android App</text>
+<text x="318" y="841" class="dim p">三星健康 / Health Connect</text>
+<text x="318" y="861" class="faint mono xs">POST → :8789</text>
+
+<rect x="548" y="790" width="230" height="96" rx="10" class="box"/>
+<text x="568" y="818" class="t h3">Notion</text>
+<text x="568" y="841" class="dim p">观影库 · 四个笔记库</text>
+<text x="568" y="861" class="faint mono xs">定时流水线拉取</text>
+
+<path d="M163 790 V 730 H 950 V 716" class="arwd" marker-end="url(#ad)"/>
+<path d="M413 790 V 730" class="arwd"/>
+<path d="M663 790 V 730" class="arwd"/>
+
+<rect x="798" y="790" width="250" height="96" rx="10" class="box"/>
+<text x="818" y="818" class="t h3">服务端合并后</text>
+<text x="818" y="841" class="dim p">GitHub API 写 gh-pages</text>
+<text x="818" y="861" class="faint mono xs">→ 回到 03 那个「唯一的源」</text>
+
+<path d="M1048 838 H 1100" class="arwd" marker-end="url(#ad)"/>
+<rect x="1104" y="790" width="408" height="96" rx="10" class="boxhl"/>
+<text x="1124" y="818" class="t h3">浏览器读</text>
+<text x="1124" y="841" class="dim p">数据 45s 穿透缓存（先发本地、后台拉最新）</text>
+<text x="1124" y="861" class="faint mono xs">图片走 ASSET_CDN = z.cevtuo.com</text>
+
+<!-- ══ 05 已废弃 ✗ ═════════════════════════════════════ -->
+<g>
+  <rect x="48" y="954" width="352" height="64" rx="9" class="bad"/>
+  <text x="68" y="979" class="badt mono xs">hash 路由</text>
+  <text x="68" y="999" class="dim xs">#/pages/coof/index → /coof</text>
+  <line x1="64" y1="968" x2="140" y2="980" class="strike"/>
+  <line x1="64" y1="980" x2="140" y2="968" class="strike"/>
+</g>
+<g>
+  <rect x="420" y="954" width="352" height="64" rx="9" class="bad"/>
+  <text x="440" y="979" class="badt mono xs">publicPath: './'</text>
+  <text x="440" y="999" class="dim xs">根挂载下所有 chunk 404</text>
+  <line x1="436" y1="968" x2="558" y2="980" class="strike"/>
+  <line x1="436" y1="980" x2="558" y2="968" class="strike"/>
+</g>
+<g>
+  <rect x="792" y="954" width="352" height="64" rx="9" class="bad"/>
+  <text x="812" y="979" class="badt mono xs">Taro.renamePagename</text>
+  <text x="812" y="999" class="dim xs">写了等于没写 → 改用 customRoutes</text>
+  <line x1="808" y1="968" x2="957" y2="980" class="strike"/>
+  <line x1="808" y1="980" x2="957" y2="968" class="strike"/>
+</g>
+<g>
+  <rect x="1164" y="954" width="348" height="64" rx="9" class="bad"/>
+  <text x="1184" y="979" class="badt mono xs">crypto.subtle 解密</text>
+  <text x="1184" y="999" class="dim xs">HTTP 页面上是 undefined</text>
+  <line x1="1180" y1="968" x2="1318" y2="980" class="strike"/>
+  <line x1="1180" y1="980" x2="1318" y2="968" class="strike"/>
+</g>
+<g>
+  <rect x="48" y="1030" width="352" height="64" rx="9" class="bad"/>
+  <text x="68" y="1055" class="badt mono xs">CDP Page.captureScreenshot</text>
+  <text x="68" y="1075" class="dim xs">本机 Chrome 自动反色，像素是假</text>
+  <line x1="64" y1="1044" x2="254" y2="1056" class="strike"/>
+  <line x1="64" y1="1056" x2="254" y2="1044" class="strike"/>
+</g>
+<g>
+  <rect x="420" y="1030" width="352" height="64" rx="9" class="bad"/>
+  <text x="440" y="1055" class="badt mono xs">手工发布数据</text>
+  <text x="440" y="1075" class="dim xs">忘了跑 ⇒ 站点停在某一天</text>
+  <line x1="436" y1="1044" x2="525" y2="1056" class="strike"/>
+  <line x1="436" y1="1056" x2="525" y2="1044" class="strike"/>
+</g>
+<g>
+  <rect x="792" y="1030" width="352" height="64" rx="9" class="bad"/>
+  <text x="812" y="1055" class="badt mono xs">Taro.navigateBack()</text>
+  <text x="812" y="1075" class="dim xs">browser 模式下退栈不换页</text>
+  <line x1="808" y1="1044" x2="957" y2="1056" class="strike"/>
+  <line x1="808" y1="1056" x2="957" y2="1044" class="strike"/>
+</g>
+<g>
+  <rect x="1164" y="1030" width="348" height="64" rx="9" class="bad"/>
+  <text x="1184" y="1055" class="badt mono xs">折射玻璃 48 个面</text>
+  <text x="1184" y="1075" class="dim xs">4.7 fps → 已休眠，回到 60 fps</text>
+  <line x1="1180" y1="1044" x2="1296" y2="1056" class="strike"/>
+  <line x1="1180" y1="1056" x2="1296" y2="1044" class="strike"/>
+</g>
+</svg>
