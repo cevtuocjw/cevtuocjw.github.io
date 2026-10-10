@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>C4emem — 会自己长大的个人知识库</title>
-<meta name="description" content="C4emem 是一个本地优先的个人知识库 AI 助手。它主动找你、还能照着你的话自己长出功能。数据全部留在你自己的机器上。"/>
+<title>C4emem — 会自己长大的个人知识及操作源</title>
+<meta name="description" content="C4emem 是一个本地优先的个人知识及操作源 AI 助手。它主动找你、还能照着你的话自己长出功能。数据全部留在你自己的机器上。"/>
 <link rel="icon" href="assets/logo.png"/>
 <style>
 :root{
@@ -51,6 +51,10 @@ header nav a:hover{color:var(--ink)}
 .hero .top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
 .hero .links{display:flex;gap:clamp(12px,3vw,30px);flex-wrap:wrap}
 .hero .links a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft)}
+.dlbtn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
+  border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:13px;background:#fff;
+  box-shadow:0 6px 18px rgba(20,26,40,.07);transition:transform .18s var(--ease)}
+.dlbtn:hover{transform:translateY(-2px)}
 .hero .mid{margin:clamp(30px,7vh,90px) 0 0;max-width:1000px}
 .hero .mid h2{font-size:clamp(34px,7.4vw,86px);line-height:1.06;letter-spacing:-1px;font-weight:400;margin:0}
 .hero .mid .sub{margin-top:22px;font-size:clamp(15px,1.6vw,19px);color:var(--soft);max-width:56ch}
@@ -147,18 +151,19 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
   <div class="glow"></div>
   <div class="wrap">
     <div class="top">
-      <h1>一个会照着你的话，自己长大的知识库。</h1>
-      <div class="links"><a href="#evolve">自我进化</a><a href="#proactive">主动式</a><a href="#install">下载</a></div>
+      <h1>主动式、会自我进化的知识及操作源。</h1>
+      <div class="links"><a href="#evolve">自我进化</a><a href="#proactive">主动式</a>
+        <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">下载 macOS ↓</a></div>
     </div>
     <div class="mid">
       <h2>它自己进化</h2>
-      <p class="sub">缺什么，直接跟它说。它读完你本机的软件清单，给你一份方案；你点头，功能就真的长出来 —— 而且长在侧栏、来源扇区、设置该在的地方，不是一个孤零零的入口。</p>
+      <p class="sub">一个<strong>不以"你问它才答"为前提</strong>的知识及操作源 Agent：它会主动替你盯着、也能照着你的话自己长出功能。多源输入（语音 / 文字 / 工作流），任何内容都能先丢进货架，再成为某条流程的一环。</p>
     </div>
     <div class="stage"><img src="assets/g-selfimprove.gif" alt="自我进化"/></div>
   </div>
   <div class="wrap"><div class="foot">
-    <span class="meta">macOS · 本地优先 · 数据不出本机</span>
-    <a class="meta" href="#install">下载 ↓</a>
+    <span class="meta">macOS 13+ · 本地优先 · 数据不出本机</span>
+    <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">下载 macOS 版（.dmg，50 MB）</a>
   </div></div>
 </section>
 
@@ -238,10 +243,10 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
         <text x="66" y="302" class="ts">SQLite（流水 / 待办 / 块 / 会话）</text>
 
         <rect class="bx" x="330" y="86" width="240" height="112"/>
-        <text x="350" y="114" class="tt">检索：两条腿融合</text>
-        <text x="350" y="138" class="ts">FTS5（trigram，关键词）</text>
-        <text x="350" y="158" class="ts">＋ 本机嵌入模型（向量）</text>
-        <text x="350" y="178" class="ts">RRF 融合排序</text>
+        <text x="350" y="114" class="tt">检索</text>
+        <text x="350" y="138" class="ts">关键词 ＋ 语义，融合排序</text>
+        <text x="350" y="158" class="ts">索引与嵌入模型都在本机</text>
+        <text x="350" y="178" class="ts">离线可用</text>
 
         <rect class="bx" x="646" y="86" width="212" height="112"/>
         <text x="666" y="114" class="tt">内容来源</text>
@@ -307,9 +312,9 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
   <div class="sec-head"><span class="eyebrow">(5). SOURCES</span><span class="meta">一个按钮，九个来源</span></div>
   <div class="two">
     <div>
-      <h3 style="font-size:clamp(18px,2.2vw,24px)">左下角一颗按钮，90° 扇出来。</h3>
-      <p><b>融合</b>永远在正中最里面那一格（它是唯一同时满足"正中最中"和"离按钮最近"的位置）。选中某个来源，最左边那一栏就会<b>染成它的颜色</b> —— 你现在在哪儿，一眼看得出来。</p>
-      <p>Notion 的四个库<b>合成一格</b>（它们本来就是同一个软件里的库）；邮件两条路也合一。分成好几格的时候，你只会在几个几乎一样的名字里挑。</p>
+      <h3 style="font-size:clamp(18px,2.2vw,24px)">切换知识及操作源</h3>
+      <p>你手上所有的<b>知识及操作源</b>都收在左下角：Notion、邮件、手机、Figma、飞书。点一下扇开，选一个就切过去 —— 左边那一栏会跟着染成它的颜色，现在在哪个源上一眼看得出来。</p>
+      <p>也可以停在最中间的「融合」，那是不挑来源、全都看的模式。</p>
     </div>
     <div class="media"><img src="assets/g-sources.gif" alt="来源扇区"/></div>
   </div>
@@ -321,8 +326,8 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
 
   <div class="row">
     <div class="no">(6a).</div>
-    <div class="txt"><h3>检索：两条腿一起走</h3>
-      <p>关键词一条腿（全文索引，擅长精确词），向量一条腿（擅长"意思相近"），两条的结果用 RRF 融合。命中处<b>开窗给你看上下文</b>，点开是全文，还能<b>一键跳回那个软件</b>。</p></div>
+    <div class="txt"><h3>检索</h3>
+      <p>按意思找，也按词找 —— 你记得多少就说多少。命中处<b>开窗给你看上下文</b>，点开是全文，还能<b>一键跳回那个软件</b>。</p></div>
     <div class="media"><img src="assets/g-search.gif" alt="检索"/></div>
   </div>
 
@@ -342,9 +347,9 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
 
   <div class="row">
     <div class="no">(6d).</div>
-    <div class="txt"><h3>仓库（货架）</h3>
-      <p>右下角一颗球，<b>什么都能往里放</b>：拖一段话、拖一个文件、拖一张图、⌘V 粘贴、或者选中一段再点它。攒着，回头一起处理。</p></div>
-    <div class="media no-bg"><img src="assets/g-quit.gif" alt=""/></div>
+    <div class="txt"><h3>货架</h3>
+      <p>右下角。**任何东西都能先搁进去**：拖一段话、拖一个文件、拖一张图、⌘V 粘贴，或者选中一段再点它。攒完之后它是一整段材料 —— 可以送去回答，也可以直接变成工作流里的一环。</p></div>
+    <div class="media"><img src="assets/g-shelf.gif" alt="货架"/></div>
   </div>
 
 </div></section>
@@ -400,11 +405,6 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
 </div></section>
 
 <footer id="contact"><div class="wrap">
-  <div class="cols">
-    <div><h3>是什么</h3><p class="meta">本地优先的个人知识库 AI 助手。<br/>装在你自己的电脑上。</p></div>
-    <div><h3>来源</h3><p class="meta">Notion · 企业邮箱 · 手机（ADB）· Figma · 飞书</p></div>
-    <div><h3>更多</h3><p class="meta"><a href="/">CEVTUO 主页 →</a><br/><a href="/CEVTUO-RWP/">CEVTUO-RWP →</a></p></div>
-  </div>
   <div class="fin"><span>CEVTUO CLVNCHET</span><span>CEVTUOGRND</span></div>
 </div></footer>
 
