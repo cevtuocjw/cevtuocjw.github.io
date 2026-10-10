@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>C4emem — 本地优先的个人知识库 AI 助手</title>
-<meta name="description" content="C4emem 是一个本地优先的个人知识库 AI 助手：桌面 Pet 轮盘、FTS5+向量双路检索、结构流、主动式与自我进化。数据全部留在你自己的机器上。"/>
+<title>C4emem — 会自己长大的个人知识库</title>
+<meta name="description" content="C4emem 是一个本地优先的个人知识库 AI 助手。它主动找你、还能照着你的话自己长出功能。数据全部留在你自己的机器上。"/>
 <link rel="icon" href="assets/logo.png"/>
 <style>
 :root{
@@ -12,104 +12,102 @@
   --line:rgba(18,22,29,.10); --line2:rgba(18,22,29,.06);
   --accent:#5d7a00; --lime:#d7f24a;
   --ease:cubic-bezier(.32,.72,0,1);
-  --gutter:clamp(18px,4vw,60px);
-  --maxw:1240px;
+  --gutter:clamp(18px,4vw,60px); --maxw:1240px;
 }
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{
-  margin:0;background:var(--bg);color:var(--ink);
+body{margin:0;background:var(--bg);color:var(--ink);
   font:400 18px/1.62 -apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
-  letter-spacing:.36px;-webkit-font-smoothing:antialiased;overflow-x:hidden;
-}
+  letter-spacing:.36px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
-
-/* ── 眉标 / 小字（reference 的 12px 大写、.36px 字距）──────────── */
 .eyebrow{font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:var(--soft);margin:0 0 18px}
 .meta{font-size:13px;color:var(--faint);letter-spacing:.2px}
-h1{font-size:18px;font-weight:400;letter-spacing:.36px;margin:0;max-width:30ch}
+h1{font-size:18px;font-weight:400;letter-spacing:.36px;margin:0;max-width:34ch}
 h2.statement{font-size:clamp(26px,4.2vw,48px);font-weight:400;line-height:1.24;letter-spacing:-.2px;margin:0;max-width:26ch}
 h3{font-size:18px;font-weight:400;margin:0 0 8px}
 p{margin:0 0 16px;color:var(--soft)}
 p.lead{color:var(--ink)}
+b{font-weight:500;color:var(--ink)}
 
-/* ── 顶栏（sticky, 42px）──────────────────────────────────── */
 header{position:sticky;top:0;z-index:20;height:42px;display:flex;align-items:center;
-  background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line2)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
 header .brand{font-size:12px;letter-spacing:.36px;text-transform:uppercase}
-header nav{display:flex;gap:clamp(12px,3vw,34px)}
+header nav{display:flex;gap:clamp(10px,2.4vw,30px)}
 header nav a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft)}
 header nav a:hover{color:var(--ink)}
 
-/* ── Hero（min-h-svh，像 reference 那样"整屏"）────────────── */
-.hero{min-height:88svh;display:flex;flex-direction:column;justify-content:space-between;
-  padding:clamp(28px,6vh,72px) 0 0}
+/* ── Hero：第一屏就是"自我进化" ───────────────────────────── */
+.hero{position:relative;min-height:92svh;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(28px,6vh,70px) 0 0;overflow:hidden}
+.hero .glow{position:absolute;inset:-20% -10% auto -10%;height:120%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(60% 60% at 18% 22%,rgba(215,242,74,.34),transparent 62%),
+    radial-gradient(55% 60% at 82% 12%,rgba(120,160,255,.20),transparent 60%),
+    radial-gradient(70% 70% at 50% 100%,rgba(255,225,180,.34),transparent 66%);
+  filter:blur(6px)}
+.hero .wrap{position:relative;z-index:1;width:100%}
 .hero .top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.hero .top .links{display:flex;gap:clamp(12px,3vw,30px);flex-wrap:wrap}
-.hero .top .links a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft)}
-.hero .stage{flex:1;display:grid;place-items:center;padding:clamp(20px,5vh,60px) 0 0}
-.hero .stage .shot{width:min(620px,86vw);filter:drop-shadow(0 30px 60px rgba(20,26,40,.22))}
-.hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding-bottom:28px}
+.hero .links{display:flex;gap:clamp(12px,3vw,30px);flex-wrap:wrap}
+.hero .links a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft)}
+.hero .mid{margin:clamp(30px,7vh,90px) 0 0;max-width:1000px}
+.hero .mid h2{font-size:clamp(34px,7.4vw,86px);line-height:1.06;letter-spacing:-1px;font-weight:400;margin:0}
+.hero .mid .sub{margin-top:22px;font-size:clamp(15px,1.6vw,19px);color:var(--soft);max-width:56ch}
+.hero .stage{margin-top:auto;display:grid;place-items:center;padding:clamp(16px,4vh,40px) 0 0}
+.hero .stage img{width:min(880px,96vw);border-radius:18px;border:1px solid var(--line);
+  box-shadow:0 30px 70px rgba(20,26,40,.16)}
+.hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:18px 0 26px}
 
-/* ── 陈述句段 ─────────────────────────────────────────────── */
-.say{padding:clamp(70px,14vh,160px) 0}
-.say .wrap{max-width:1000px}
+section{padding:clamp(56px,11vh,140px) 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
+  padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:36px}
 
-/* ── 编号式特色（reference 的 (1). (2). (3). (4).）────────── */
-.why{padding:0 0 clamp(60px,10vh,120px)}
-.why .head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
-  padding:0 0 26px;border-bottom:1px solid var(--line);margin-bottom:38px}
-.rows{display:flex;flex-direction:column}
-.row{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.05fr);gap:clamp(14px,3vw,48px);
-  align-items:start;padding:clamp(26px,5vh,52px) 0;border-bottom:1px solid var(--line2)}
-.row .no{font-size:13px;color:var(--faint);letter-spacing:.2px;padding-top:3px}
-.row .txt{max-width:44ch}
-.row .txt h3{font-size:clamp(19px,2.1vw,24px);margin-bottom:10px}
-.row .media{background:#0e1117;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
-.row .media img{width:100%;height:auto}
-.no-bg{background:none !important;border:0 !important;border-radius:0}
-.no-bg img{filter:drop-shadow(0 26px 46px rgba(20,26,40,.20))}
+/* 编号式（reference 的 (1). (2). (3). …）*/
+.row{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.08fr);gap:clamp(14px,3vw,48px);
+  align-items:start;padding:clamp(24px,5vh,50px) 0;border-bottom:1px solid var(--line2)}
+.row .no{font-size:13px;color:var(--faint);padding-top:3px}
+.row .txt{max-width:46ch}
+.row .txt h3{font-size:clamp(19px,2.1vw,25px);margin-bottom:10px}
+.media{background:#0e1117;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.media img{width:100%;height:auto}
+.no-bg{background:none!important;border:0!important}
+.no-bg img{filter:drop-shadow(0 24px 44px rgba(20,26,40,.20))}
 
-/* ── 全屏字样（reference 的 BESPOKE MEDICAL AESTHETIC）─────── */
-.display{min-height:70svh;display:grid;place-items:center;text-align:center;padding:40px 0}
-.display .t{font-size:clamp(34px,9vw,110px);line-height:1.02;letter-spacing:-.5px;font-weight:400;text-transform:uppercase}
-.display .c{font-size:13px;color:var(--faint);margin-top:22px;letter-spacing:.36px}
+/* 步骤（自我进化那段用 Notion 举例）*/
+.steps{counter-reset:s;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:s;position:relative;padding:0 0 18px 44px;color:var(--soft)}
+.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;
+  display:grid;place-items:center;font-size:12.5px;color:var(--ink);background:var(--lime);border:1px solid rgba(18,22,29,.12)}
+.steps li b{color:var(--ink)}
 
-/* ── Philosophy ───────────────────────────────────────────── */
-.philo{padding:clamp(60px,12vh,140px) 0;border-top:1px solid var(--line)}
-.philo .wrap{max-width:1000px}
-.philo .st{font-size:clamp(20px,2.6vw,32px);line-height:1.4;margin:0 0 22px}
+/* 两种模式并排 */
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,54px);align-items:start}
+.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.4vw,28px)}
+ul.plain{margin:0;padding-left:18px}
+ul.plain li{margin-bottom:11px;color:var(--soft);font-size:15.5px}
 
-/* ── 功能网格（Approach 那组 3:4 卡片）─────────────────────── */
-.appr{padding:0 0 clamp(60px,12vh,140px)}
-.appr .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:clamp(16px,2.4vw,30px);margin-top:34px}
+/* 架构图 */
+.arch{background:#0e1117;border-radius:18px;padding:clamp(18px,3vw,34px);border:1px solid var(--line)}
+.arch svg{width:100%;height:auto;display:block}
+
+.display{min-height:62svh;display:grid;place-items:center;text-align:center;padding:40px 0}
+.display .t{font-size:clamp(32px,8.6vw,104px);line-height:1.02;letter-spacing:-.5px;text-transform:uppercase}
+.display .c{font-size:13px;color:var(--faint);margin-top:20px;letter-spacing:.36px}
+
 .card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
-.card .ph{aspect-ratio:3/4;background:#0e1117;display:grid;place-items:center;overflow:hidden}
+.card .ph{aspect-ratio:16/10;background:#0e1117;overflow:hidden;display:grid;place-items:center}
 .card .ph img{width:100%;height:100%;object-fit:cover;object-position:top center}
 .card .ph.clear{background:none}
-.card .ph.clear img{object-fit:contain;padding:8%}
+.card .ph.clear img{object-fit:contain;padding:6%}
 .card .bd{padding:16px 18px 20px}
 .card .bd h3{font-size:16px;margin-bottom:6px}
-.card .bd p{font-size:13.5px;margin:0;color:var(--soft)}
+.card .bd p{font-size:13.5px;margin:0}
 
-/* ── 重头戏：主动式 / 自我进化 ────────────────────────────── */
-.big{padding:0 0 clamp(60px,12vh,140px)}
-.big .box{border-top:1px solid var(--line);padding-top:clamp(28px,6vh,64px)}
-.big .two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,56px);align-items:start;margin-top:26px}
-.big .two .media{background:#0e1117;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
-.big ul{margin:0;padding-left:18px}
-.big li{margin-bottom:12px;color:var(--soft);font-size:15.5px}
-.big li b{color:var(--ink);font-weight:500}
-
-/* ── 安装（折叠，reference 没有但 CEVTUO-RWP 的模式保留）──── */
 .fold{margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
 .fold>summary{cursor:pointer;list-style:none;padding:16px 20px;font-size:15px;display:flex;justify-content:space-between;align-items:center}
 .fold>summary::-webkit-details-marker{display:none}
-.fold>summary::after{content:"＋";color:var(--faint);font-size:15px}
+.fold>summary::after{content:"＋";color:var(--faint)}
 .fold[open]>summary::after{content:"－"}
 .fold .in{padding:0 20px 20px;font-size:14px;color:var(--soft)}
 .fold .in code{background:var(--bg);border:1px solid var(--line2);border-radius:6px;padding:2px 6px;font-size:12.5px}
@@ -117,16 +115,16 @@ header nav a:hover{color:var(--ink)}
 .fold li{margin-bottom:9px}
 
 footer{border-top:1px solid var(--line);padding:clamp(40px,8vh,90px) 0 60px}
-footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:30px}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:30px}
 footer h3{font-size:13px;letter-spacing:.36px;text-transform:uppercase;color:var(--faint);margin-bottom:10px}
 footer a{color:var(--soft);text-decoration:none;font-size:14px}
-footer .fin{margin-top:46px;font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:var(--faint);
+footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:var(--faint);
   display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
 
-@media (max-width:820px){
-  .row{grid-template-columns:34px minmax(0,1fr);}
+@media (max-width:860px){
+  .row{grid-template-columns:34px minmax(0,1fr)}
   .row .media{grid-column:2;margin-top:14px}
-  .big .two{grid-template-columns:minmax(0,1fr)}
+  .two{grid-template-columns:minmax(0,1fr)}
   .hero{min-height:auto}
 }
 </style>
@@ -136,180 +134,268 @@ footer .fin{margin-top:46px;font-size:12px;letter-spacing:.36px;text-transform:u
 <header><div class="wrap">
   <span class="brand">C4EMEM</span>
   <nav>
-    <a href="#why">特色</a>
-    <a href="#features">功能</a>
+    <a href="#evolve">自我进化</a>
+    <a href="#proactive">主动式</a>
+    <a href="#arch">架构</a>
+    <a href="#all">全部功能</a>
     <a href="#install">安装</a>
-    <a href="#contact">联系</a>
   </nav>
 </div></header>
 
-<!-- Hero -->
+<!-- ═══ Hero：这一屏的主题就是"自我进化" ═══ -->
 <section class="hero">
+  <div class="glow"></div>
   <div class="wrap">
     <div class="top">
-      <h1>把知识库留在你自己的机器上。</h1>
-      <div class="links">
-        <a href="#why">特色</a><a href="#features">功能</a><a href="#install">下载</a>
-      </div>
+      <h1>一个会照着你的话，自己长大的知识库。</h1>
+      <div class="links"><a href="#evolve">自我进化</a><a href="#proactive">主动式</a><a href="#install">下载</a></div>
     </div>
-    <div class="stage">
-      <img class="shot" src="assets/g-wheel.gif" alt="桌面 CEVTUO Pet 轮盘" loading="eager"/>
+    <div class="mid">
+      <h2>它自己进化</h2>
+      <p class="sub">缺什么，直接跟它说。它读完你本机的软件清单，给你一份方案；你点头，功能就真的长出来 —— 而且长在侧栏、来源扇区、设置该在的地方，不是一个孤零零的入口。</p>
     </div>
-    <div class="foot">
-      <span class="meta">macOS · 本地优先 · 不需联网也能用</span>
-      <a class="meta" href="#install">下载 ↓</a>
-    </div>
+    <div class="stage"><img src="assets/g-selfimprove.gif" alt="自我进化"/></div>
   </div>
+  <div class="wrap"><div class="foot">
+    <span class="meta">macOS · 本地优先 · 数据不出本机</span>
+    <a class="meta" href="#install">下载 ↓</a>
+  </div></div>
 </section>
 
-<!-- 陈述 -->
-<section class="say"><div class="wrap">
-  <h2 class="statement">C4emem 是一个装在你电脑上的个人知识库 AI 助手。它不把内容传上云，检索、生成、主动提醒全部跑在本机。</h2>
+<!-- ═══ (1) 自我进化 —— 用 Notion 跑一遍 ═══ -->
+<section id="evolve"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(1). SELF-EVOLUTION</span><span class="meta">最重要的一件事</span></div>
+  <div class="two">
+    <div>
+      <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">跟它说要什么，它把功能长出来。</h2>
+      <p class="lead">举一个真实的例子：你说「<b>我想让 Notion 里的东西更好用一点</b>」。</p>
+      <ol class="steps">
+        <li><b>它先读你本机的软件清单</b>（每天自动重扫一次），所以它知道你的 Notion 里有哪些库、本机还装了什么。</li>
+        <li><b>它给方案，不动代码</b>：会告诉你"我可以加一个『按主题聚拢这一周的笔记』的卡片"，并说明落在哪里（侧栏 / 卡片 / 设置）。</li>
+        <li><b>你点头才做</b>。改配置（卸掉一个功能、把某个标成主动式）它可以<u>直接做</u>；<u>改代码</u>必须先给你看方案。</li>
+        <li><b>做好就真的在</b>：不是加一个入口，而是这个功能该出现的每个地方都有 —— 侧栏、左下角来源扇区、设置、卡片。</li>
+        <li><b>不好用随时删</b>：卸载进「待安装」保留 30 天，一键装回；内置功能只给「暂时关闭」—— 给「卸载」是在撒谎。</li>
+      </ol>
+    </div>
+    <div class="media"><img src="assets/g-selfimprove.gif" alt="自我进化的操作界面"/></div>
+  </div>
 </div></section>
 
-<!-- 编号式特色（reference 的 (1).(2).(3).(4).）-->
-<section class="why" id="why"><div class="wrap">
-  <div class="head"><span class="eyebrow">WHY C4EMEM?</span><span class="meta">(1) — (4)</span></div>
-  <div class="rows">
-
-    <article class="row">
-      <div class="no">(1).</div>
-      <div class="txt">
-        <h3>数据不出本机</h3>
-        <p>你的笔记、邮件、相册、健康数据都留在本地。检索用本机的全文索引（FTS5）＋本机嵌入模型，两条腿融合排序；只有你<b>主动</b>问它、且需要联网时，才走网络。</p>
-      </div>
-      <div class="media"><img src="assets/g-search.gif" alt="检索"/></div>
-    </article>
-
-    <article class="row">
-      <div class="no">(2).</div>
-      <div class="txt">
-        <h3>一个轮盘，管所有软件</h3>
-        <p>桌面上的小东西不是装饰：鼠标放上去就展开一圈你正在开着的软件，<b>敲字母直接切过去</b>；全局快捷键 <code>⌥⌘C</code> 随处呼出。右键是一张勾选清单，勾几个一起退掉。</p>
-      </div>
-      <div class="media no-bg"><img src="assets/g-wheel.gif" alt="轮盘"/></div>
-    </article>
-
-    <article class="row">
-      <div class="no">(3).</div>
-      <div class="txt">
-        <h3>它主动找你</h3>
-        <p>不是"你问它才答"。它看你正在做什么（刚切到哪个软件、刚复制了什么），按你自己的规则决定要不要开口 —— 而且<b>预算、间隔、静默时段</b>都在你手里，吵到你了可以随手关掉。</p>
-      </div>
-      <div class="media"><img src="assets/g-proactive.gif" alt="主动式"/></div>
-    </article>
-
-    <article class="row">
-      <div class="no">(4).</div>
-      <div class="txt">
-        <h3>对话就能长出功能</h3>
-        <p>缺什么，直接跟它说。它会先<b>给方案</b>（不悄悄改代码），你点头之后功能才落地 —— 而且落在该落的地方：侧栏、来源扇区、设置、卡片，不是一个孤零零的入口。</p>
-      </div>
-      <div class="media"><img src="assets/g-selfimprove.gif" alt="自我进化"/></div>
-    </article>
-
+<!-- ═══ (2) 主动式 ═══ -->
+<section id="proactive" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(2). PROACTIVE</span><span class="meta">第二重要</span></div>
+  <div class="two">
+    <div class="media"><img src="assets/g-proactive.gif" alt="主动式"/></div>
+    <div>
+      <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">不是"你问它才答"，是它主动找你。</h2>
+      <ul class="plain">
+        <li><b>三层拆开，钱花在刀刃上</b>：<b>检测</b>在你机器上做（前台切到哪个软件、剪贴板变了什么 —— 一分钱不花）；<b>决策</b>走你的规则；<b>只有真要开口时</b>才调模型。</li>
+        <li><b>你说了算</b>：最短间隔、每日预算、静默时段、哪一类只提醒一次 —— 都在设置里，吵到你了随手关掉。</li>
+        <li><b>待办板 ≠ 流水</b>：待办的状态会被你改（处理了 / 略过），流水只增不改。两件事不混在一张表里。</li>
+        <li><b>勾了就真的算数</b>：被你标成「主动式」的功能，下一次生成时它会把你勾过的<b>喂进提示词</b> —— 不是给你看个勾。</li>
+      </ul>
+    </div>
   </div>
+</div></section>
+
+<!-- ═══ (3) 架构 ═══ -->
+<section id="arch" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(3). ARCHITECTURE</span><span class="meta">它为什么这么拆</span></div>
+  <div class="two" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)">
+    <div>
+      <h3 style="font-size:clamp(18px,2.2vw,24px)">一个本地核心 ＋ 一层很薄的原生壳。</h3>
+      <p>核心是一个跑在 <code>127.0.0.1:8770</code> 的本地 HTTP 服务 —— 检索、生成、主动式全在里面。<br/>
+      外面那层壳很薄：菜单栏、窗口、桌面 Pet、网页↔原生桥。它只做"网页做不到的那几件事"。</p>
+      <p>这样拆的好处：核心是纯 HTTP，<b>手机端 / 小程序 / 别的壳都能复用同一套</b>；而换壳不用重写任何业务。</p>
+    </div>
+    <div class="arch">
+      <svg viewBox="0 0 900 520" role="img" aria-label="C4emem 架构图">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6" fill="none" stroke="#8d94a3" stroke-width="1.2"/>
+          </marker>
+          <style>
+            .bx{fill:#161a22;stroke:#39404e;stroke-width:1.1;rx:10}
+            .bx2{fill:#1d2430;stroke:#4a5468;stroke-width:1.1;rx:10}
+            .tt{fill:#e9ecf4;font:400 15px -apple-system,"PingFang SC",sans-serif}
+            .ts{fill:#98a1b3;font:400 12.5px -apple-system,"PingFang SC",sans-serif}
+            .ln{stroke:#8d94a3;stroke-width:1.2;fill:none;marker-end:url(#ar)}
+            .lm{fill:#d7f24a}
+          </style>
+        </defs>
+        <text x="20" y="34" class="tt">这台电脑（离线可用）</text>
+        <rect x="20" y="50" width="860" height="300" rx="14" fill="none" stroke="#2a3038" stroke-dasharray="5 5"/>
+
+        <rect class="bx" x="46" y="86" width="212" height="86"/>
+        <text x="66" y="116" class="tt">macOS 壳（Swift）</text>
+        <text x="66" y="140" class="ts">菜单栏 · 窗口 · 桌面 Pet</text>
+        <text x="66" y="158" class="ts">全局快捷键 · 网页↔原生桥</text>
+
+        <rect class="bx2" x="46" y="212" width="212" height="112"/>
+        <text x="66" y="240" class="tt">本地核心（Bun）</text>
+        <text x="66" y="262" class="ts">HTTP · 127.0.0.1:8770</text>
+        <text x="66" y="282" class="ts">检索 · 生成 · 主动式 · 功能注册表</text>
+        <text x="66" y="302" class="ts">SQLite（流水 / 待办 / 块 / 会话）</text>
+
+        <rect class="bx" x="330" y="86" width="240" height="112"/>
+        <text x="350" y="114" class="tt">检索：两条腿融合</text>
+        <text x="350" y="138" class="ts">FTS5（trigram，关键词）</text>
+        <text x="350" y="158" class="ts">＋ 本机嵌入模型（向量）</text>
+        <text x="350" y="178" class="ts">RRF 融合排序</text>
+
+        <rect class="bx" x="646" y="86" width="212" height="112"/>
+        <text x="666" y="114" class="tt">内容来源</text>
+        <text x="666" y="138" class="ts">Notion（四个库合一格）</text>
+        <text x="666" y="158" class="ts">企业邮箱 · 手机（ADB）</text>
+        <text x="666" y="178" class="ts">Figma · 飞书</text>
+
+        <rect class="bx" x="330" y="250" width="240" height="74"/>
+        <text x="350" y="278" class="tt">生成</text>
+        <text x="350" y="300" class="ts">只有需要时才联网</text>
+
+        <path class="ln" d="M258 129 H326"/>
+        <path class="ln" d="M642 129 H570"/>
+        <path class="ln" d="M450 226 V246"/>
+        <path class="ln" d="M258 268 H326"/>
+        <path class="ln" d="M150 172 V208"/>
+        <circle class="lm" cx="292" cy="129" r="3.5"/><circle class="lm" cx="606" cy="129" r="3.5"/>
+        <circle class="lm" cx="292" cy="268" r="3.5"/><circle class="lm" cx="150" cy="190" r="3.5"/>
+
+        <text x="20" y="392" class="ts">默认不出这台电脑。只有你主动问、而且确实需要联网时，才把那一问发出去。</text>
+      </svg>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ (4) 三种输入 ═══ -->
+<section id="input" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(4). THREE WAYS IN</span><span class="meta">语音 / 文字 / 结构流</span></div>
+
+  <div class="row">
+    <div class="no">(4a).</div>
+    <div class="txt"><h3>语音</h3>
+      <p>点一下开始说，再点一下结束 —— <b>音频不出本机</b>，识别在本机做。说完它把结果并成文字，你可以直接改。</p></div>
+    <div class="media"><img src="assets/g-voice.gif" alt="语音"/></div>
+  </div>
+
+  <div class="row">
+    <div class="no">(4b).</div>
+    <div class="txt"><h3>文字</h3>
+      <p>直接打字。下面那几个按钮是"去哪找"：换一个来源、或者一路往下问。答的时候会告诉你<b>它是从哪儿看到的</b>。</p></div>
+    <div class="media"><img src="assets/g-text.gif" alt="文字"/></div>
+  </div>
+
+  <div class="row">
+    <div class="no">(4c).</div>
+    <div class="txt"><h3>结构流</h3>
+      <p>把"要做的事"画成一张图：一块一块，块之间有<b>类型化的端口</b> —— 颜色不同就是类型不同，<b>两边对得上才连得起来</b>。这就是"线到底有什么意义"的答案：如果每个口什么都收，线就只是装饰。</p></div>
+    <div class="media"><img src="assets/g-flow.gif" alt="结构流"/></div>
+  </div>
+
+  <div class="three" style="margin-top:34px">
+    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+      <h3>三种版式</h3><p><b>卡片</b>（自由画布，x/y 就是位置）· <b>Nuggets</b>（紧凑网格）· <b>3D</b>（有厚度的影子）。同一张图，三种看法。</p></div></div>
+    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+      <h3>三种线</h3><p><b>实线</b>=数据流 · <b>虚线</b>=先后顺序 · <b>点线</b>=条件（判断为真才往下走）。一眼分得出这几种关系。</p></div></div>
+    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+      <h3>没填完也能跑</h3><p>它按拓扑序一块一块执行：<b>没填的部分跳过，填好的照跑</b>。不用等一张完美的图。</p></div></div>
+  </div>
+</div></section>
+
+<!-- ═══ (5) 来源 ═══ -->
+<section id="sources" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(5). SOURCES</span><span class="meta">一个按钮，九个来源</span></div>
+  <div class="two">
+    <div>
+      <h3 style="font-size:clamp(18px,2.2vw,24px)">左下角一颗按钮，90° 扇出来。</h3>
+      <p><b>融合</b>永远在正中最里面那一格（它是唯一同时满足"正中最中"和"离按钮最近"的位置）。选中某个来源，最左边那一栏就会<b>染成它的颜色</b> —— 你现在在哪儿，一眼看得出来。</p>
+      <p>Notion 的四个库<b>合成一格</b>（它们本来就是同一个软件里的库）；邮件两条路也合一。分成好几格的时候，你只会在几个几乎一样的名字里挑。</p>
+    </div>
+    <div class="media"><img src="assets/g-sources.gif" alt="来源扇区"/></div>
+  </div>
+</div></section>
+
+<!-- ═══ (6) 检索 / 记录 / 按软件 ═══ -->
+<section id="all" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(6). THE REST</span><span class="meta">逐条</span></div>
+
+  <div class="row">
+    <div class="no">(6a).</div>
+    <div class="txt"><h3>检索：两条腿一起走</h3>
+      <p>关键词一条腿（全文索引，擅长精确词），向量一条腿（擅长"意思相近"），两条的结果用 RRF 融合。命中处<b>开窗给你看上下文</b>，点开是全文，还能<b>一键跳回那个软件</b>。</p></div>
+    <div class="media"><img src="assets/g-search.gif" alt="检索"/></div>
+  </div>
+
+  <div class="row">
+    <div class="no">(6b).</div>
+    <div class="txt"><h3>记录栏</h3>
+      <p>它做过的事都在这儿（只增不改）。本地按词搜、多选、批量删除 —— <b>删的只是流水，会话留着</b>。</p></div>
+    <div class="media"><img src="assets/g-record.gif" alt="记录"/></div>
+  </div>
+
+  <div class="row">
+    <div class="no">(6c).</div>
+    <div class="txt"><h3>按软件看</h3>
+      <p>每个软件一块：它带来了多少内容、带来了哪些功能。想知道"我到底从哪个来源拿了多少东西"，看这一屏。</p></div>
+    <div class="media"><img src="assets/g-bysource.gif" alt="按软件"/></div>
+  </div>
+
+  <div class="row">
+    <div class="no">(6d).</div>
+    <div class="txt"><h3>仓库（货架）</h3>
+      <p>右下角一颗球，<b>什么都能往里放</b>：拖一段话、拖一个文件、拖一张图、⌘V 粘贴、或者选中一段再点它。攒着，回头一起处理。</p></div>
+    <div class="media no-bg"><img src="assets/g-quit.gif" alt=""/></div>
+  </div>
+
+</div></section>
+
+<!-- ═══ (7) 桌面 Pet —— 挪到后面 ═══ -->
+<section id="pet" style="padding-top:0"><div class="wrap">
+  <div class="sec-head"><span class="eyebrow">(7). DESKTOP PET</span><span class="meta">放在最后，但它很好用</span></div>
+  <div class="two">
+    <div>
+      <h3 style="font-size:clamp(18px,2.2vw,24px)">一个小家伙，替你把所有软件管起来。</h3>
+      <p>鼠标放上去就展开一圈<b>你正在开着的软件</b>，指针压到哪个哪个亮，中轴写着它的名字。<b>敲字母直接切过去</b>（C 就是 Chrome），打字就筛选；全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出。</p>
+      <p>右键是一张<b>勾选清单</b>：列出正在运行的软件，勾几个一起退掉 —— 退出是破坏性动作，所以按钮是红的、没勾时点不动、退完还会回来告诉你哪几个没退成。</p>
+    </div>
+    <div class="media no-bg"><img src="assets/g-wheel.gif" alt="桌面 Pet"/></div>
+  </div>
+  <div class="media no-bg" style="margin-top:30px;max-width:640px"><img src="assets/g-quit.gif" alt="右键勾选退出"/></div>
 </div></section>
 
 <!-- 全屏字样 -->
-<section class="display">
-  <div>
-    <div class="t">Local<br/>first</div>
-    <div class="c">本地优先 · 不联网也能用</div>
-  </div>
-</section>
+<section class="display"><div>
+  <div class="t">Local first</div>
+  <div class="c">数据不出本机 · 不联网也能用</div>
+</div></section>
 
-<!-- Philosophy -->
-<section class="philo"><div class="wrap">
+<!-- 哲学 -->
+<section style="padding-top:0"><div class="wrap" style="max-width:1000px">
   <p class="eyebrow">OUR PHILOSOPHY</p>
-  <p class="st">一个工具的价值不在于它能接多少服务，而在于<b>它替你想到了什么</b>。所以我们把两件事放到最重：它主动给你的东西，和它自己长大的能力。</p>
-  <p>每个来源都从"它到底是一份内容，还是一双手"开始判断 —— 分不清这两件事，就会答错"能不能接"。界面上每一个"我们做不到"，都会写成一句人话，而不是一个转圈。</p>
-</div></section>
-
-<!-- 功能（Approach 那组卡片）-->
-<section class="appr" id="features"><div class="wrap">
-  <div class="head" style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding-bottom:26px;border-bottom:1px solid var(--line)">
-    <span class="eyebrow" style="margin:0">EVERY FEATURE</span><span class="meta">逐个说明</span>
-  </div>
-  <div class="grid">
-
-    <div class="card"><div class="ph"><img src="assets/g-wheel.gif" alt=""/></div><div class="bd">
-      <h3>桌面 Pet · 轮盘</h3><p>悬停展开、敲字母即开（C 是 Chrome）、打字筛选、中轴显示当前指着谁。切完自动收起，鼠标没挪开就不会再来烦你。</p></div></div>
-
-    <div class="card"><div class="ph"><img src="assets/g-quit.gif" alt=""/></div><div class="bd">
-      <h3>右键 · 勾选批量退出</h3><p>列出正在运行的软件，勾几个一起退。<b>退出是破坏性动作</b>，所以按钮是红的、没勾时点不动，退完还会回来告诉你哪几个没退成。</p></div></div>
-
-    <div class="card"><div class="ph"><img src="assets/g-search.gif" alt=""/></div><div class="bd">
-      <h3>检索 · 两条腿融合</h3><p>全文索引（FTS5 trigram）＋向量相似度，用 RRF 融合。命中处开窗给你看上下文，点击弹全文，还能一键跳回那个软件。</p></div></div>
-
-    <div class="card"><div class="ph"><img src="assets/g-proactive.gif" alt=""/></div><div class="bd">
-      <h3>主动式</h3><p>检测在你机器上（零成本）、决策按你的规则、生成才花 token。每一条都能"处理了 / 略过"，勾过的会真的进下一次生成。</p></div></div>
-
-    <div class="card"><div class="ph"><img src="assets/g-selfimprove.gif" alt=""/></div><div class="bd">
-      <h3>自我进化</h3><p>跟它说想要什么 → 它读你本机装了哪些软件、推荐能做的功能 → 出方案 → 你点头 → 落地成真的功能。</p></div></div>
-
-    <div class="card"><div class="ph clear" style="background:#0e1117"><img src="assets/g-quit.gif" alt="" style="object-fit:contain"/></div><div class="bd">
-      <h3>来源扇区</h3><p>左下角一颗按钮按 90° 扇出所有来源：Notion 四个库合成一格、邮件两条路合一、手机走 ADB。融合永远在正中最里那格。</p></div></div>
-
-  </div>
-</div></section>
-
-<!-- 重头戏 -->
-<section class="big"><div class="wrap">
-
-  <div class="box">
-    <p class="eyebrow">PROACTIVE</p>
-    <h2 class="statement" style="font-size:clamp(22px,3vw,36px);max-width:30ch">它主动给你的东西，才是这个软件的核心。</h2>
-    <div class="two">
-      <div>
-        <ul>
-          <li><b>三层拆开</b>：检测在你机器上做（不花一分钱）、决策走你的规则、<b>只有真的要开口时才调模型</b>。</li>
-          <li><b>你说了算</b>：最短间隔、每日预算、静默时段、哪一类只提醒一次 —— 全在设置里，随时关。</li>
-          <li><b>待办板 ≠ 流水</b>：待办的状态会被你改（处理了 / 略过），流水只增不改；两件事不混。</li>
-          <li><b>勾了就真的算数</b>：你标成"主动式"的功能，下一次生成时它会把你的勾选<b>喂进提示词</b>。</li>
-        </ul>
-      </div>
-      <div class="media"><img src="assets/g-proactive.gif" alt="主动式"/></div>
-    </div>
-  </div>
-
-  <div class="box" style="margin-top:clamp(40px,8vh,90px)">
-    <p class="eyebrow">SELF-EVOLUTION</p>
-    <h2 class="statement" style="font-size:clamp(22px,3vw,36px);max-width:30ch">缺什么，跟它说；它长出来，长在对的地方。</h2>
-    <div class="two">
-      <div class="media"><img src="assets/g-selfimprove.gif" alt="自我进化"/></div>
-      <div>
-        <ul>
-          <li><b>先出方案，再动代码</b>：改配置（卸功能、标主动式）它可以<b>直接做</b>；改代码（新功能）<b>必须先给你看方案</b>。</li>
-          <li><b>它知道你装了什么</b>：每天自动重扫一次本机的应用清单 —— 你不用凭记忆敲软件名，它把候选摆出来。</li>
-          <li><b>落在该落的地方</b>：新功能会同时出现在侧栏、来源扇区、设置和卡片里，<b>不是一个孤零零的入口</b>。</li>
-          <li><b>删除永远不静默</b>：卸载进"待安装"保留 30 天，一键装回；内置功能只给"暂时关闭"—— 给"卸载"是在撒谎。</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
+  <p style="font-size:clamp(20px,2.6vw,32px);line-height:1.4;color:var(--ink);margin-bottom:22px">
+    一个工具的价值不在于它能接多少服务，而在于<b>它替你想到了什么</b>。</p>
+  <p>所以我们把两件事放到最重：它主动给你的东西，和它自己长大的能力。每个来源都从"它到底是一份内容，还是一双手"开始判断 —— 分不清这两件事，就会答错"能不能接"。界面上每一个"我们做不到"，都写成一句人话，而不是一个转圈。</p>
 </div></section>
 
 <!-- 安装 -->
-<section class="appr" id="install"><div class="wrap">
+<section id="install" style="padding-top:0"><div class="wrap">
   <p class="eyebrow">INSTALL</p>
-  <details class="fold"><summary>下载与安装（点开）<span class="meta">macOS 13+</span></summary>
+  <details class="fold" open><summary>下载与安装<span class="meta">macOS 13+</span></summary>
     <div class="in">
       <ol>
         <li>下载 <b>Cevtuo C4emem.app</b>（当前为内部构建，尚未公证签名）。</li>
-        <li>第一次打开如果被拦：右键 → <b>打开</b>，或到「系统设置 → 隐私与安全性」里点"仍要打开"。</li>
+        <li>第一次打开如果被拦：右键 → <b>打开</b>；或「系统设置 → 隐私与安全性」里点"仍要打开"。</li>
         <li>它会常驻菜单栏（<b>C4</b>），同时在桌面右下角放一个小家伙。</li>
-        <li>全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出轮盘；鼠标放到小家伙上也会展开。</li>
+        <li>快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出轮盘；鼠标放到小家伙上也会展开。</li>
       </ol>
-      <p style="margin-top:14px">⚠️ 这是<b>自用为主</b>的软件：它读的是你自己电脑上的东西。第一次运行需要你填自己的来源凭据（Notion / 邮箱 / 手机等），<b>不会带任何人的配置</b>。</p>
+      <p style="margin-top:14px">⚠️ 这是<b>自用为主</b>的软件：它读的是你自己电脑上的东西。第一次运行要填你自己的来源凭据（Notion / 邮箱 / 手机等），<b>不会带任何别人的配置</b>。</p>
     </div>
   </details>
-  <details class="fold"><summary>它是怎么跑的<span class="meta">架构</span></summary>
-    <div class="in">
-      <p>一个本地 HTTP 核心（Bun，<code>127.0.0.1:8770</code>）＋ 一个很薄的 macOS 壳（Swift：菜单栏、窗口、桌面 Pet、网页↔原生桥）。</p>
-      <p>这样拆的好处：核心是纯 HTTP，手机端 / 小程序 / 别的壳都能复用；而原生只做"网页做不到的那几件事" —— 挪窗口、全局快捷键、把别人叫到前台。</p>
-    </div>
+  <details class="fold"><summary>没有联网能用吗<span class="meta">离线</span></summary>
+    <div class="in">能。检索、记录、结构流、快捷启动软件全部离线可用 —— 因为索引和嵌入模型都在本机。只有"让模型替你写东西"那一步需要联网。</div>
+  </details>
+  <details class="fold"><summary>它怎么保证我的数据不外流<span class="meta">隐私</span></summary>
+    <div class="in">核心只监听 <code>127.0.0.1</code>，外部访问不到；页面与核心同源。所有内容默认留在本机，只有你主动发问、且需要联网时才把那一问送出去。</div>
   </details>
 </div></section>
 
