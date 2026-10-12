@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Cevtuo C4emem — 住在你自己机器里、会自己长大的知识及操作源</title>
-<meta name="description" content="Cevtuo C4emem 住在你自己的机器里主动成长。安静，但一直在；不等你来找它，需要的时候它也可以主动来问你、来帮你。"/>
+<title>Cevtuo C4emem — 本地优先、可自我扩展的知识及操作源</title>
+<meta name="description" content="Cevtuo C4emem：本地优先的知识及操作源。检索、生成与主动式调度在本机完成，支持按对话生成功能。数据不出本机。"/>
 <link rel="icon" href="assets/logo.png"/>
 <style>
 /* ══ 版面参考 twks.ch/en/agency：#fff 底、近黑字、超大字重、发丝分隔线、
@@ -122,6 +122,21 @@ section.tight{padding-top:clamp(30px,5vh,64px)}
 .flowbig .grid p{color:rgba(255,255,255,.7)}
 .flowbig .media{background:rgba(255,255,255,.06)}
 
+/* ══ 全部功能：参考 twks 的 customers 那一列 —— 大字罗列，当前那一条是黑、其余是灰 ══
+   动画：① 指针压到哪一条哪一条变黑并展开它的说明；② 没人动的时候自己往下走一条。
+   ⚠️ 全站文案一律**陈述句**（照 figma.com 的口吻），这一节尤其：只有"功能名 + 一句说明"。 */
+.flist{display:flex;flex-direction:column}
+.flist .fg{font-size:13.5px;color:var(--faint);margin:26px 0 6px;letter-spacing:-.005em}
+.flist .fg:first-child{margin-top:0}
+.fi{display:block;font-size:clamp(19px,2.9vw,38px);line-height:1.16;letter-spacing:-.035em;
+  color:#c2c2c2;cursor:default;padding:1px 0;
+  transition:color .5s var(--ease),transform .5s var(--ease)}
+.fi.on{color:var(--ink)}
+.fi .d{display:block;font-size:13.5px;line-height:1.5;letter-spacing:-.005em;color:var(--soft);
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .55s var(--ease),opacity .4s var(--ease),margin-top .4s var(--ease)}
+.fi.on .d{max-height:4.5em;opacity:1;margin-top:5px}
+.fi em{font-style:normal;color:var(--faint);font-size:.62em;margin-left:.5em;letter-spacing:0}
+
 /* 全屏字样 */
 .display{padding:clamp(70px,16vh,190px) 0;border-top:1px solid var(--line)}
 .display .t{font-size:clamp(40px,11vw,168px);line-height:.94;letter-spacing:-.05em;font-weight:500;
@@ -168,6 +183,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <a href="#flow">结构流</a>
     <a href="#arch">架构</a>
     <a href="#shelf">货架</a>
+    <a href="#features">全部功能</a>
     <a href="#install">安装</a>
   </nav>
   <a class="arrowlink" href="#install">下载 <i>→→</i></a>
@@ -183,13 +199,13 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       </div>
     </div>
     <div class="cols" style="grid-template-columns:minmax(0,.42fr) minmax(0,1.9fr);margin-top:clamp(24px,4vh,44px)">
-      <p class="eyebrow">它会自己修改<br>和长大的 Agent 软件</p>
+      <p class="eyebrow">会自我修改<br>与成长的 Agent 软件</p>
       <div>
         <div class="cta rv">
           <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
             下载 macOS 版</a>
-          <a class="dlbtn ghost" href="#flow">先看看它能做什么</a>
+          <a class="dlbtn ghost" href="#flow">功能一览</a>
         </div>
         <div class="nowline" style="margin-top:clamp(24px,4vh,44px)">
           <span id="clock">本地时间 --:--:--</span>
@@ -209,23 +225,22 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <section id="evolve" class="rule">
   <div class="wrap"><div class="cols">
     <div class="rv"><h2 class="big">(1) 自我进化</h2>
-      <p class="lead" style="margin-top:14px">你说一句话，它长一样东西出来。</p>
-      <p class="eyebrow" style="margin-top:10px">最重要的一件事</p></div>
+      <p class="eyebrow" style="margin-top:14px">按本机实际情况生成功能方案</p></div>
     <div class="rv">
-      <p class="lead">举一个真实的例子：你说「<b>我想让 Notion 里的东西更好用一点</b>」。</p>
+      <p class="lead">功能由对话生成，落地位置由系统决定。以下为一次完整过程。</p>
       <div class="acc">
-        <details open><summary><span class="n">1</span>它先看清楚你手上有什么</summary>
-          <div class="b"><p>本机装了哪些软件、Notion 里有哪几个库 —— 每天自己重看一遍，所以它不会问你"你有哪些来源"这种问题。</p></div></details>
-        <details><summary><span class="n">2</span>它先给方案，不动手</summary>
-          <div class="b"><p>会告诉你"我可以加一张『把这一周的笔记按主题聚拢』的卡片"，并且说清楚它会出现在哪儿 —— 侧栏、卡片，还是设置里。</p></div></details>
-        <details><summary><span class="n">3</span>你点头它才做</summary>
-          <div class="b"><p>改配置（卸掉一样、把某样标成主动式）它自己就能做完；改代码之前，一定会先给你看。这两件事它分得很清。</p></div></details>
-        <details><summary><span class="n">4</span>做好就是真的在</summary>
-          <div class="b"><p>不是多一个入口，而是这个功能该出现的每个地方都有它 —— 侧栏、左下角来源扇区、设置、卡片。</p></div></details>
-        <details><summary><span class="n">5</span>不好用随时收回</summary>
-          <div class="b"><p>卸下的进「待安装」，留 30 天，一键装回；内置的那几样只给「暂时关闭」—— 给「卸载」是在骗人。</p></div></details>
+        <details open><summary><span class="n">1</span>读取本机状态</summary>
+          <div class="b"><p>扫描已安装应用与已接入来源（含 Notion 各库），每日重新执行一次。该结果决定方案的作用范围。</p></div></details>
+        <details><summary><span class="n">2</span>生成方案</summary>
+          <div class="b"><p>输出功能描述与落点说明（侧栏、卡片或设置项），不产生代码改动。</p></div></details>
+        <details><summary><span class="n">3</span>确认后执行</summary>
+          <div class="b"><p>配置类变更（停用功能、标记为主动式）直接生效；代码类变更需先提交方案。两类变更分级处理。</p></div></details>
+        <details><summary><span class="n">4</span>全位置生效</summary>
+          <div class="b"><p>功能上线后同时出现在侧栏、来源面板、设置与卡片中，不限于单一入口。</p></div></details>
+        <details><summary><span class="n">5</span>可回退</summary>
+          <div class="b"><p>卸载的功能进入待安装列表，保留 30 天；内置功能仅支持暂时关闭。</p></div></details>
       </div>
-      <div class="media" style="margin-top:26px"><video src="assets/g-selfimprove.webm" aria-label="自我进化的操作界面" muted loop autoplay playsinline preload="metadata"></video></div>
+      <div class="media" style="margin-top:26px"><video src="assets/g-selfimprove.webm" aria-label="自我进化" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
   </div></div>
 </section>
@@ -234,34 +249,34 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <section id="proactive" class="rule">
   <div class="wrap"><div class="cols">
     <div class="rv"><h2 class="big">(2) 主动式</h2>
-      <p class="eyebrow" style="margin-top:14px">第二重要</p></div>
+      <p class="eyebrow" style="margin-top:14px">检测 / 决策 / 生成三层分离</p></div>
     <div class="rv">
-      <h3 class="mid">它不等你问。</h3>
+      <h3 class="mid">输出不受提问触发。</h3>
       <div class="acc">
-        <details open><summary><span class="n">1</span>先在你自己的机器上判断</summary>
-          <div class="b"><p>你切到了哪个软件、剪贴板刚才换了什么 —— 它自己看得见。这一步不花钱，也不出这台电脑。</p></div></details>
-        <details><summary><span class="n">2</span>真到该开口的时候才问一次</summary>
-          <div class="b"><p>检测在你机器上做，决策走你的规则，<b>只有真要开口时才调模型</b>。所以它安静，也省。</p></div></details>
-        <details><summary><span class="n">3</span>吵不吵由你说了算</summary>
-          <div class="b"><p>最短间隔、每天的上限、静默的时段、哪一类只提醒一次 —— 都在设置里，随时可以关掉。</p></div></details>
-        <details><summary><span class="n">4</span>答应过的事是算数的</summary>
-          <div class="b"><p>被你勾成「主动式」的东西，下一次它真的会带上 —— 不是给你看一个勾。待办板（状态会被你改）和流水（只增不改）是两张表，不混在一起。</p></div></details>
+        <details open><summary><span class="n">1</span>检测层运行于本机</summary>
+          <div class="b"><p>采集前台应用切换与剪贴板变更。该层不调用模型，不产生费用，数据不出本机。</p></div></details>
+        <details><summary><span class="n">2</span>决策层按规则执行</summary>
+          <div class="b"><p>仅当规则判定需要输出时才调用模型，调用次数与时机均可约束。</p></div></details>
+        <details><summary><span class="n">3</span>频率可配置</summary>
+          <div class="b"><p>最短间隔、每日上限、静默时段、单类提醒次数均为可配置项。</p></div></details>
+        <details><summary><span class="n">4</span>标记参与生成</summary>
+          <div class="b"><p>标记为主动式的功能会写入生成提示词。待办板（状态可变）与流水（只增）分表存储。</p></div></details>
       </div>
       <div class="media" style="margin-top:26px"><video src="assets/g-proactive.webm" aria-label="主动式" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
   </div></div>
 </section>
 
-<!-- ═══ (3) 你怎么说 ═══ -->
+<!-- ═══ (3) 输入方式 ═══ -->
 <section id="input" class="rule">
   <div class="wrap"><div class="cols">
-    <div class="rv"><h2 class="big">(3) 你怎么说</h2>
-      <p class="eyebrow" style="margin-top:14px">说，或者写</p></div>
+    <div class="rv"><h2 class="big">(3) 输入方式</h2>
+      <p class="eyebrow" style="margin-top:14px">语音 / 文字 / 结构流</p></div>
     <div class="grid rv">
-      <div><div class="media"><video src="assets/g-voice.webm" aria-label="语音" muted loop autoplay playsinline preload="metadata"></video></div>
-        <h3>说</h3><p>点一下开始，再点一下结束。<b>声音不出这台机器</b>，转成字以后你可以直接改 —— 说错了不算数。</p></div>
-      <div><div class="media"><video src="assets/g-text.webm" aria-label="文字" muted loop autoplay playsinline preload="metadata"></video></div>
-        <h3>写</h3><p>直接打字。下面那几颗按钮是"去哪儿找"：换一个来源，或者顺着往下再问一层。它答的时候会告诉你<b>这句话是从哪儿看到的</b>。</p></div>
+      <div><div class="media"><video src="assets/g-voice.webm" aria-label="语音输入" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3>语音</h3><p>点击开始与结束。识别在本机完成，音频不外传；结果转为可编辑文本。</p></div>
+      <div><div class="media"><video src="assets/g-text.webm" aria-label="文字输入" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3>文字</h3><p>直接输入。来源可切换，可连续追问；回答附带出处标注。</p></div>
     </div>
   </div></div>
 </section>
@@ -277,25 +292,25 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
         <h2 class="big" style="color:#fff;margin-top:14px">把一件要做的事<br/>摊开成一张图</h2>
       </div>
       <div>
-        <p class="lead" style="color:rgba(255,255,255,.9)">有些事一句话说不清楚 —— 那就把它画出来。一块一块摆，块与块之间用线接上。<br/>
-        看着麻烦，其实是在逼自己说清：<b>什么把它点着、去哪一份材料里看、由谁来做、结果放到哪儿</b>。</p>
+        <p class="lead" style="color:rgba(255,255,255,.9)">把任务表示为有向图：节点是块，边是类型化的数据与顺序关系。<br/>
+        块分四类：<b>事件、来源、动作、去处</b>。四类齐备即为一条可执行流程。</p>
         <div class="acc acc-dark">
-          <details open><summary><span class="n">1</span>放下一块<b>事件</b>：什么让这件事开始</summary><div class="b"><p>手动跑、到点了、切到某个软件、剪贴板换了东西、手机来了通知。</p></div></details>
-          <details><summary><span class="n">2</span>接上一块<b>来源</b>：去看哪一份东西</summary><div class="b"><p>笔记、邮件、手机通知流、Figma、剪贴板，或者直接上网找。</p></div></details>
-          <details><summary><span class="n">3</span>接上一块<b>动作</b>：让谁来做</summary><div class="b"><p>比如「总结」，比如「问一句」，比如「查词 / 翻译」。</p></div></details>
-          <details><summary><span class="n">4</span>最后是<b>去处</b>：结论放到哪儿</summary><div class="b"><p>放进货架、写成文件、写回 Notion、发到手机，或者只是弹个通知。</p></div></details>
+          <details open><summary><span class="n">1</span>放下一块<b>事件</b>：什么让这件事开始</summary><div class="b"><p>手动触发、定时触发、应用切换、剪贴板变更、手机通知。</p></div></details>
+          <details><summary><span class="n">2</span>接上一块<b>来源</b>：去看哪一份东西</summary><div class="b"><p>笔记、邮件、手机通知流、Figma、剪贴板、网络检索。</p></div></details>
+          <details><summary><span class="n">3</span>接上一块<b>动作</b>：让谁来做</summary><div class="b"><p>总结、提问、查词 / 翻译。</p></div></details>
+          <details><summary><span class="n">4</span>最后是<b>去处</b>：结论放到哪儿</summary><div class="b"><p>写入货架、生成文件、写回 Notion、发送至手机、弹出通知。</p></div></details>
           <details><summary><span class="n">5</span>然后按<b>运行</b></summary><div class="b"><p>它按先后一块一块走完 —— <b>没填的块跳过，填好的照跑</b>，不必等一张完美的图。</p></div></details>
         </div>
-        <p style="color:rgba(255,255,255,.72);margin-top:18px">端口是分颜色的，<b>两边对得上才连得起来</b>。这不是装饰：如果每个口什么都收，线就只是画着好看。</p>
+        <p style="color:rgba(255,255,255,.72);margin-top:18px">端口带类型，<b>类型匹配方可连接</b>。端口不设类型约束时，连线不表达任何语义。</p>
       </div>
     </div>
     <div class="grid" style="margin-top:clamp(34px,6vh,60px)">
       <div><div class="media"><video src="assets/g-flow-modes.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-        <h3 style="color:#fff">同一张图，三种看法</h3><p style="color:rgba(255,255,255,.7)"><b>卡片</b>是自由画布，位置就是位置；<b>Nuggets</b> 收成紧凑的格子；<b>3D</b> 给它一层有厚度的影子。</p></div>
+        <h3 style="color:#fff">三种视图</h3><p style="color:rgba(255,255,255,.7)"><b>卡片</b>：自由画布，坐标即位置。<b>Nuggets</b>：紧凑网格。<b>3D</b>：带厚度的投影。同一份图，三种呈现。</p></div>
       <div><div class="media"><video src="assets/g-flow-lines.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-        <h3 style="color:#fff">三种线，三种意思</h3><p style="color:rgba(255,255,255,.7)"><b>实线</b>把上一块的结论递下去；<b>虚线</b>只说先后，不递东西；<b>点线</b>是一个条件 —— 判断为真才往下走。</p></div>
+        <h3 style="color:#fff">三种连线</h3><p style="color:rgba(255,255,255,.7)"><b>实线</b>：传递数据。<b>虚线</b>：仅表示先后，不传数据。<b>点线</b>：条件成立时执行。</p></div>
       <div><div class="media"><video src="assets/g-flow-run.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-        <h3 style="color:#fff">没填完也能跑</h3><p style="color:rgba(255,255,255,.7)">不用等一张全都填满的图。缺的地方跳过，写好的地方照走 —— 先跑起来，再慢慢补。</p></div>
+        <h3 style="color:#fff">部分执行</h3><p style="color:rgba(255,255,255,.7)">图不完整亦可运行：未填写的块跳过，已填写的正常执行。</p></div>
     </div>
   </div>
 </section>
@@ -306,10 +321,10 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <div class="rv"><h2 class="big">(5) 它是怎么搭的</h2>
       <p class="eyebrow" style="margin-top:14px">为什么这么拆</p></div>
     <div class="rv">
-      <h3 class="mid">一个本地核心，加一层很薄的壳。</h3>
-      <p>核心是一个跑在 <code>127.0.0.1:8770</code> 上的本地服务 —— 找东西、生成、主动式，全在里面。<br/>
-      外面那层壳很薄：菜单栏、窗口、桌面 Pet、以及网页和原生之间的那座桥。它只做网页做不到的那几件事。</p>
-      <p>这样拆的好处很实在：核心只讲 HTTP，<b>手机端、小程序、别的壳都能复用同一套</b>；而换掉外壳，业务一行都不用重写。</p>
+      <h3 class="mid">一个本地核心，加一层外壳。</h3>
+      <p>核心为本地 HTTP 服务，监听 <code>127.0.0.1:8770</code>，承载检索、生成与主动式调度。<br/>
+      外壳负责菜单栏、窗口、桌面 Pet 与网页↔原生桥，仅实现网页环境无法完成的能力。</p>
+      <p>核心仅暴露 HTTP 接口，<b>移动端、小程序与其它外壳可复用同一套实现</b>；替换外壳不影响业务逻辑。</p>
       <div class="arch" style="margin-top:22px">
         <svg viewBox="0 0 900 520" role="img" aria-label="C4emem 架构图">
           <defs>
@@ -353,16 +368,16 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
           <path class="ln" d="M450 226 V246"/><path class="ln" d="M258 268 H326"/><path class="ln" d="M150 172 V208"/>
           <circle class="lm" cx="292" cy="129" r="3.5"/><circle class="lm" cx="606" cy="129" r="3.5"/>
           <circle class="lm" cx="292" cy="268" r="3.5"/><circle class="lm" cx="150" cy="190" r="3.5"/>
-          <text x="20" y="392" class="ts">默认不出这台电脑。只有你主动问、而且确实需要联网时，才把那一问送出去。</text>
+          <text x="20" y="392" class="ts">默认不出本机。仅在主动发起生成请求且确需网络时，发出该次请求。</text>
         </svg>
       </div>
       <div class="capline">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
-        <span>外壳是 macOS 原生（Swift）—— 只负责系统才做得到的那几件事。</span>
+        <span>外壳为 macOS 原生实现（Swift），仅承担系统级能力。</span>
       </div>
       <div class="capline">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.6v3M12 18.4v3M2.6 12h3M18.4 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg>
-        <span>核心是通用的 HTTP 服务（Bun）—— 换个壳，它照样跑。</span>
+        <span>核心为通用 HTTP 服务（Bun），与外壳解耦。</span>
       </div>
     </div>
   </div></div>
@@ -374,9 +389,9 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <div class="rv"><h2 class="big">(6) 东西从哪来</h2>
       <p class="eyebrow" style="margin-top:14px">一颗按钮，九个来源</p></div>
     <div class="rv">
-      <h3 class="mid">你现在在看哪儿，一眼就知道。</h3>
-      <p>手上的东西都收在左下角那颗按钮里：Notion、邮箱、手机、Figma、飞书。点一下扇开，选一个就切过去 —— 左边那一栏会跟着染成它的颜色。</p>
-      <p>停在最中间那格是「融合」：不挑来源，全都看。什么时候该专一、什么时候该合起来看，由你当场决定。</p>
+      <h3 class="mid">来源集中管理。</h3>
+      <p>已接入的来源集中于左下角面板：Notion、企业邮箱、企业微信邮件、Figma、飞书、手机。选择后导航栏按来源着色，当前来源可即时识别。</p>
+      <p>居中一项为「融合」：不限定来源，跨全部来源检索。来源过滤粒度可随时切换。</p>
       <div class="media" style="margin-top:22px"><video src="assets/g-sources.webm" aria-label="来源扇区" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
   </div></div>
@@ -385,26 +400,26 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <!-- ═══ (7) 找东西 ═══ -->
 <section id="all" class="rule">
   <div class="wrap"><div class="cols">
-    <div class="rv"><h2 class="big">(7) 找东西</h2>
+    <div class="rv"><h2 class="big">(7) 检索</h2>
       <p class="eyebrow" style="margin-top:14px">这一件，值得讲细</p></div>
     <div class="rv">
-      <h3 class="mid">你记得多少，就说多少。</h3>
-      <p class="lead">搜索最难的地方从来不是"找得到"，而是<b>你根本想不起当初是怎么记的</b>。所以这里同时按两条路找，再把两边的结果合起来排。</p>
+      <h3 class="mid">关键词与语义双路检索。</h3>
+      <p class="lead">检索的失效点通常不在召回，而在<b>原始记录的表述与查询不一致</b>。因此本系统并行执行两路检索，并融合排序。</p>
       <div class="acc">
         <details open><summary><span class="n">1</span>按词找</summary>
-          <div class="b"><p>你还记得那句话里的某个字眼 —— 那就先把它们捞出来。这一路讲究的是"确有此事"。</p></div></details>
+          <div class="b"><p>按字面命中，适用于记得原文片段的情形。结果为字面精确匹配。</p></div></details>
         <details><summary><span class="n">2</span>按意思找</summary>
-          <div class="b"><p>你只记得"有一篇讲玻璃的"，字面上却一个字都不对 —— 这一路也能找到它。字面不打架的时候，它比按词找更有用。</p></div></details>
+          <div class="b"><p>按语义命中，适用于仅记得主题、字面完全不同的情形。索引与嵌入模型均在本机运行。</p></div></details>
         <details><summary><span class="n">3</span>两路合排，也各自留着手印</summary>
-          <div class="b"><p>结果会告诉你这条是靠哪一路捞上来的，不会把两种命中混成一个说不清的数字。</p></div></details>
+          <div class="b"><p>两路结果融合排序，并标注各自的命中路径，不合并为单一不可解释的分数。</p></div></details>
         <details><summary><span class="n">4</span>命中处开一扇窗</summary>
-          <div class="b"><p>不给你一整篇，先给你<b>它出现在哪一段、上下文是什么</b>。想细看再点开全文。</p></div></details>
+          <div class="b"><p>命中处展示上下文窗口，可展开全文，不直接交付整篇文档。</p></div></details>
         <details><summary><span class="n">5</span>一键回到它来的地方</summary>
-          <div class="b"><p>看完能直接跳回那个软件里去改 —— 找东西的终点不是"看完"，是"接着做事"。</p></div></details>
+          <div class="b"><p>结果可跳转回来源应用，检索到操作的路径不中断。</p></div></details>
         <details><summary><span class="n">6</span>它自己知道自己有多心虚</summary>
-          <div class="b"><p>材料很勉强的时候，它会明说"这条不太可信"，并问你要不要再上网找一遍 —— 而不是把一句没把握的话讲得像结论。</p></div></details>
+          <div class="b"><p>材料不足时标注低可信度，并提供联网检索选项；置信度不达标的内容不作结论输出。</p></div></details>
       </div>
-      <p style="margin-top:18px">顺带一句实话：库是<b>你自己的库</b>。同一个词在别人机器上搜出来的东西，和你这里完全是两回事 —— 这正是它留在这台电脑上的意义。</p>
+      <p style="margin-top:18px">索引基于本机语料构建。<b>同一查询在不同设备上的结果互不相同</b>，这是本地化存储的直接结果。</p>
       <div class="media" style="margin-top:22px"><video src="assets/g-search.webm" aria-label="检索" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
   </div></div>
@@ -416,19 +431,19 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <div class="rv"><h2 class="big">(8) 货架</h2>
       <p class="eyebrow" style="margin-top:14px">什么都能先搁进去</p></div>
     <div class="rv">
-      <h3 class="mid">先收着，等想法成形再说。</h3>
-      <p>右下角那颗球。收集东西的时候，你多半还不知道它将来要干什么 —— 那就先放进去。<b>攒够了它就是一整段材料</b>：可以送去回答，也可以直接变成结构流里的一块。</p>
-      <p>入口不止一个，因为顺手的方式本来就不止一种。下面每一格，都是<b>那一种真的走了一遍</b>录下来的。</p>
+      <h3 class="mid">暂存区。</h3>
+      <p>右下角为暂存入口。内容采集时通常尚未确定用途，可先存入货架。<b>多条内容可合并为一份材料</b>，用于回答或作为结构流的一个块。</p>
+      <p>提供五种写入方式。以下每一格为该方式的完整操作记录。</p>
       <div class="media" style="margin-top:22px"><video src="assets/g-shelf.webm" aria-label="把一条记录拖进货架，再送进结构流" muted loop autoplay playsinline preload="metadata"></video></div>
       <div class="grid" style="margin-top:clamp(22px,3.5vh,38px)">
         <div><div class="media"><video src="assets/g-shelf-file.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3>拖一个文件进来</h3><p>从桌面直接拽进来。名字和它是个什么，都留着。</p></div>
+          <h3>文件拖入</h3><p>从系统文件管理器拖入，保留文件名与类型。</p></div>
         <div><div class="media"><video src="assets/g-shelf-image.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3>拖一张图进来</h3><p>图会带一张缩略图 —— 一眼认得出是哪张，不用点开。</p></div>
+          <h3>图片拖入</h3><p>生成缩略图，便于在列表中直接辨认。</p></div>
         <div><div class="media"><video src="assets/g-shelf-paste.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3>⌘V 直接贴上</h3><p>刚复制的那一段，不用切窗口。⚠️ 光标在输入框里时 ⌘V 还是"粘字"，它不抢。</p></div>
+          <h3>⌘V 粘贴</h3><p>读取剪贴板内容。输入框获得焦点时 ⌘V 保持为常规粘贴，不拦截。</p></div>
         <div><div class="media"><video src="assets/g-shelf-select.webm" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3>选中，再点它</h3><p>最万能的一条：不挑元素、不挑位置、不挑浏览器。选中一段，点那颗球。</p></div>
+          <h3>选择后点按</h3><p>不依赖元素类型、位置或浏览器实现：选中文本后点击入口即可写入。</p></div>
       </div>
     </div>
   </div></div>
@@ -438,21 +453,77 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <section id="pet" class="rule">
   <div class="wrap"><div class="cols">
     <div class="rv"><h2 class="big">(9) 桌面那个小家伙</h2>
-      <p class="eyebrow" style="margin-top:14px">它替你管着所有软件</p></div>
+      <p class="eyebrow" style="margin-top:14px">应用切换与批量退出</p></div>
     <div class="rv">
-      <h3 class="mid">鼠标放上去，一圈软件摊开。</h3>
-      <p>那一圈是你<b>正开着的软件</b>，指针压到哪个哪个亮，中间写着它的名字。<b>敲字母直接切过去</b>（C 就是 Chrome），打别的字就是筛选。全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code>，在哪儿都能叫出来。</p>
-      <p>右键是一张<b>勾选清单</b>：列出正在运行的东西，勾几个一起退掉。退出是不可逆的，所以按钮是红的、一个都没勾的时候点不动、退完还会回来告诉你哪几个没退成。</p>
-      <p>它自己长什么样，也可以换 —— 一块卡片，或者一颗矿石。</p>
+      <h3 class="mid">应用切换由单个入口承载。</h3>
+      <p>悬停展开当前运行的应用程序，指针所在项高亮并在中轴显示名称。<b>按字母直接切换</b>（C 对应 Chrome），其余字符进入筛选。全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 在任意界面可用。</p>
+      <p>右键展开<b>运行中应用清单</b>：勾选后可批量退出。退出不可逆，因此按钮以红色标识、未勾选时禁用、执行后回报未成功的条目。</p>
+      <p>外观提供五种形态：卡片、珍珠、银、铅、锌。</p>
       <div class="grid" style="margin-top:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
         <div><div class="media free" style="max-width:420px"><video src="assets/g-wheel.webm" aria-label="桌面 Pet 的轮盘" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3 style="margin-top:14px">鼠标放上去就展开</h3><p>一圈正在运行的软件，敲角上那个字母直接切过去。</p></div>
+          <h3 style="margin-top:14px">应用轮盘</h3><p>悬停展开运行中应用，按角标字母直接切换。</p></div>
         <div><div class="media free" style="max-width:420px"><video src="assets/g-quit.webm" aria-label="右键勾选退出" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3 style="margin-top:14px">右键 = 一笔勾掉</h3><p>勾几个一起退。退完还会回来告诉你哪几个没退成。</p></div>
+          <h3 style="margin-top:14px">批量退出</h3><p>勾选后统一退出，并回报未成功的条目。</p></div>
         <div><div class="media free" style="max-width:420px"><video src="assets/g-pet-forms.webm" aria-label="五种样子" muted loop autoplay playsinline preload="metadata"></video></div>
-          <h3 style="margin-top:14px">五种样子</h3><p>卡片 · 珍珠 · 银 · 铅 · 锌。换一个，它就在原地变一个。</p></div>
+          <h3 style="margin-top:14px">五种形态</h3><p>卡片 · 珍珠 · 银 · 铅 · 锌，切换即时生效。</p></div>
       </div>
     </div>
+  </div></div>
+</section>
+
+<!-- ═══ 全部功能 ═══ -->
+<section id="features" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">全部功能</h2>
+      <p class="eyebrow" style="margin-top:14px">内置 · 按来源 · 可安装</p>
+      <p style="margin-top:20px;font-size:14.5px">共 <b id="fcount">—</b> 项。指针停在任一项上查看说明；无操作时自动轮换。</p>
+    </div>
+    <div class="rv"><div class="flist" id="flist">
+
+      <p class="fg">来源</p>
+      <span class="fi">Notion<em>四个库合一格</em><span class="d">笔记语料。库分为 learn / techai / techlearn / shopping，按同一来源计入。</span></span>
+      <span class="fi">企业邮箱<em>IMAP</em><span class="d">收发件、线程与待办。经 IMAP 直连同步，不经第三方中转。</span></span>
+      <span class="fi">企业微信邮件<span class="d">企业微信内的邮件。</span></span>
+      <span class="fi">Figma<span class="d">设计稿与项目。</span></span>
+      <span class="fi">手机<em>ADB</em><span class="d">机型、电量、存储与相册，以及通知流。经 ADB 连接。</span></span>
+      <span class="fi">飞书<em>未接入</em><span class="d">文档与消息。当前为占位实现，调用时返回明确的未实现错误，不返回空结果。</span></span>
+      <span class="fi">跨来源 · 融合<span class="d">不限定来源，在全部已接入来源上同时检索。</span></span>
+
+      <p class="fg">输入</p>
+      <span class="fi">语音<span class="d">识别在本机完成，音频不外传；结果转为可编辑文本。</span></span>
+      <span class="fi">文字<span class="d">直接输入，来源可切换、可连续追问，回答附带出处。</span></span>
+      <span class="fi">结构流<span class="d">以有向图编排任务：事件、来源、动作、去处四类节点，端口按类型连接。</span></span>
+
+      <p class="fg">检索与整理</p>
+      <span class="fi">搜索<span class="d">关键词与语义两路并行检索，融合排序，标注命中路径。</span></span>
+      <span class="fi">推荐<span class="d">从笔记中提取反复出现的主题。</span></span>
+      <span class="fi">主题<span class="d">按主题聚合笔记。</span></span>
+      <span class="fi">词条<span class="d">术语的聚合与索引。</span></span>
+      <span class="fi">链接<span class="d">笔记中引用的外部链接。</span></span>
+      <span class="fi">按软件<span class="d">按来源统计内容量与由此带来的功能。</span></span>
+
+      <p class="fg">主动</p>
+      <span class="fi">主动板<span class="d">系统主动产出的条目，状态可标记为已处理或略过。</span></span>
+      <span class="fi">待办抽取<em>可安装</em><span class="d">从邮件正文提取请求与期限。规则实现，逐条附带原文供判断。</span></span>
+      <span class="fi">线程未结提醒<em>可安装</em><span class="d">判断多轮线程的当前责任方，未结项进入工作区。</span></span>
+      <span class="fi">联系人 / 公司<em>可安装</em><span class="d">从邮件往来自动汇集联系人画像与最近一次联系时间。</span></span>
+      <span class="fi">项目档案<em>可安装</em><span class="d">聚合单个项目的邮件、笔记与报价，项目名可自定义。</span></span>
+      <span class="fi">关键词订阅<em>可安装 · 未就绪</em><span class="d">按关键词订阅邮件。尚未实现。</span></span>
+
+      <p class="fg">自我进化</p>
+      <span class="fi">自我改进<span class="d">按对话生成功能方案并落地到所有相关位置。</span></span>
+      <span class="fi">功能管理<span class="d">暂时关闭、卸载、30 天待安装与一键装回；内置功能仅支持暂时关闭。</span></span>
+      <span class="fi">主动式标记<span class="d">标记参与生成提示词的构造。</span></span>
+      <span class="fi">按来源断开<span class="d">断开某来源及其带来的功能，不删除本机数据。</span></span>
+
+      <p class="fg">工具</p>
+      <span class="fi">工作区<span class="d">待办看板。</span></span>
+      <span class="fi">记录栏<span class="d">只增的操作流水，支持本地检索、多选与批量删除；删除仅作用于流水。</span></span>
+      <span class="fi">货架<span class="d">暂存任意内容，可送入回答或作为结构流的一个块。</span></span>
+      <span class="fi">用量<span class="d">调用次数与 token 统计。</span></span>
+      <span class="fi">桌面 Pet<span class="d">应用轮盘、右键批量退出、五种外观、全局快捷键 ⌥⌘C / ⌥⌘4。</span></span>
+
+    </div></div>
   </div></div>
 </section>
 
@@ -464,13 +535,13 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 
 <!-- 哲学 -->
 <section class="rule"><div class="wrap"><div class="cols">
-  <div class="rv"><h2 class="big">我们怎么想<br/>这件事</h2></div>
+  <div class="rv"><h2 class="big">设计<br/>原则</h2></div>
   <div class="rv">
     <p style="font-size:clamp(20px,2.6vw,34px);line-height:1.28;letter-spacing:-.03em;color:var(--ink);max-width:30ch;margin-bottom:26px">
-      一样工具的分量，不在它能接上多少个服务，而在它<b>替你想到了多少你没想到的</b>。</p>
-    <p>所以我们只在意两件事：它主动递过来的东西，和它自己长大的能力。剩下都是这两件事的副产品。</p>
-    <p>判断一个来源能不能接的时候，先分清它是<b>一份内容</b>、还是<b>一双手</b> —— 这两件事分不清，答案就一定是错的。所以界面上每一句"我们暂时做不到"，都写成一句人话，而不是一个转圈。</p>
-    <p>还有一件小事，但我们一直守着：<b>删除永远不静默</b>。任何能删的东西，都留一条回头的路。</p>
+      工具的价值不由接入服务的数量决定，而由<b>它在无提示条件下完成的工作量</b>决定。</p>
+    <p>因此系统只有两项核心指标：主动产出的质量，与自我扩展的能力。其余均为其衍生物。</p>
+    <p>评估一个来源是否可接入时，须先区分它提供的是<b>内容</b>还是<b>操作能力</b>；两者混淆会导致判断错误。界面上所有未实现的能力均以明确文字说明，不以加载状态代替。</p>
+    <p>删除操作不静默执行。所有可删除对象均保留可回退路径。</p>
   </div>
 </div></div></section>
 
@@ -482,19 +553,19 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <details open><summary>下载与安装</summary><div class="in">
       <ol>
         <li>下载 <b>Cevtuo C4emem.app</b>（当前为内部构建，尚未公证签名）。</li>
-        <li>第一次打开如果被拦：右键 → <b>打开</b>；或到「系统设置 → 隐私与安全性」里点"仍要打开"。</li>
-        <li>它会常驻菜单栏（<b>C4</b>），同时在桌面右下角放一个小家伙。</li>
-        <li>快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出轮盘；鼠标放到小家伙上也会展开。</li>
+        <li>首次启动如被系统拦截：右键 → <b>打开</b>；或在「系统设置 → 隐私与安全性」中选择"仍要打开"。</li>
+        <li>应用常驻菜单栏（<b>C4</b>），并在桌面右下角显示 Pet 入口。</li>
+        <li>快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 可在任意界面呼出轮盘。</li>
       </ol>
-      <p style="margin-top:14px">⚠️ 这是<b>给一个人用的</b>软件：它读的是你自己电脑上的东西。第一次运行要填你自己的来源凭据（Notion / 邮箱 / 手机等），<b>不会带任何别人的配置</b>。</p>
+      <p style="margin-top:14px">⚠️ 本软件读取本机数据。首次运行需自行填写来源凭据（Notion / 邮箱 / 手机等），<b>安装包内不含任何他人配置</b>。</p>
       <div class="cta" style="margin-top:18px">
         <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
           下载 macOS 版（.dmg，约 50 MB）</a>
       </div>
     </div></details>
-    <details><summary>没有网能用吗</summary><div class="in">能。找东西、记录、结构流、快捷启动软件，全都离线可用 —— 因为索引和嵌入模型都在本机。只有"让模型替你写点东西"那一步需要联网。</div></details>
-    <details><summary>它怎么保证东西不外流</summary><div class="in">核心只监听 <code>127.0.0.1</code>，外面够不着；页面和核心同源。所有内容默认留在这台电脑上，只有你主动发问、而且确实需要联网时，才把那一问送出去。</div></details>
+    <details><summary>离线可用范围</summary><div class="in">检索、记录、结构流与应用切换均可离线运行：索引与嵌入模型部署在本机。仅内容生成环节需要网络。</div></details>
+    <details><summary>数据边界</summary><div class="in">核心仅监听 <code>127.0.0.1</code>，不对外暴露；页面与核心同源。所有内容默认留存于本机，仅在主动发起生成请求且确需网络时发出该次请求。</div></details>
   </div>
 </div></div></section>
 
@@ -516,6 +587,25 @@ const tick = () => {
   if (el) el.textContent = '本地时间 ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
 };
 tick(); setInterval(tick, 1000);
+// 全部功能那一列：指针压到哪条哪条变黑并展开说明；没人动时自己往下走一条
+(() => {
+  const box = document.getElementById('flist');
+  if (!box) return;
+  const items = [...box.querySelectorAll('.fi')];
+  const cnt = document.getElementById('fcount');
+  if (cnt) cnt.textContent = String(items.length);
+  let i = 0, timer = 0, hovered = false;
+  const set = (n) => { items.forEach((el, k) => el.classList.toggle('on', k === n)); i = n; };
+  const step = () => { if (hovered) return; set((i + 1) % items.length); };
+  const restart = () => { clearInterval(timer); timer = setInterval(step, 2200); };
+  items.forEach((el, k) => {
+    el.addEventListener('mouseenter', () => { hovered = true; set(k); });
+    el.addEventListener('mouseleave', () => { hovered = false; restart(); });
+  });
+  set(0); restart();
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) clearInterval(timer);
+})();
+
 // 手风琴：一次只开一个（和参考站一样）
 for (const box of document.querySelectorAll('.acc')) {
   box.querySelectorAll('details').forEach((d) => d.addEventListener('toggle', () => {
