@@ -59,7 +59,7 @@ header nav a:hover{color:var(--ink)}
 .hero .mid h2{font-size:clamp(34px,7.4vw,86px);line-height:1.06;letter-spacing:-1px;font-weight:400;margin:0}
 .hero .mid .sub{margin-top:22px;font-size:clamp(15px,1.6vw,19px);color:var(--soft);max-width:56ch}
 .hero .stage{margin-top:auto;display:grid;place-items:center;padding:clamp(16px,4vh,40px) 0 0}
-.hero .stage img{width:min(880px,96vw);border-radius:18px;border:1px solid var(--line);
+.hero .stage img,.hero .stage video{width:min(880px,96vw);border-radius:18px;border:1px solid var(--line);
   box-shadow:0 30px 70px rgba(20,26,40,.16)}
 .hero .foot{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;padding:18px 0 26px}
 
@@ -74,7 +74,9 @@ section{padding:clamp(56px,11vh,140px) 0}
 .row .txt{max-width:46ch}
 .row .txt h3{font-size:clamp(19px,2.1vw,25px);margin-bottom:10px}
 .media{background:#0e1117;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
-.media img{width:100%;height:auto}
+.media img,.media video,.stage video{width:100%;height:auto;display:block}
+/* ⚠️ Pet 那两支的底是站点这一节的暖白（webm 装不下透明通道）⇒ 不投阴影，直接融进底色 */
+.no-bg video{background:transparent}
 .no-bg{background:none!important;border:0!important}
 .no-bg img{filter:drop-shadow(0 24px 44px rgba(20,26,40,.20))}
 
@@ -159,7 +161,7 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
       <h2>它自己进化</h2>
       <p class="sub">一个<strong>不以"你问它才答"为前提</strong>的知识及操作源 Agent：它会主动替你盯着、也能照着你的话自己长出功能。多源输入（语音 / 文字 / 工作流），任何内容都能先丢进货架，再成为某条流程的一环。</p>
     </div>
-    <div class="stage"><img src="assets/g-selfimprove.gif" alt="自我进化"/></div>
+    <div class="stage"><video src="assets/g-selfimprove.webm" aria-label="自我进化" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
   <div class="wrap"><div class="foot">
     <span class="meta">macOS 13+ · 本地优先 · 数据不出本机</span>
@@ -182,7 +184,7 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
         <li><b>不好用随时删</b>：卸载进「待安装」保留 30 天，一键装回；内置功能只给「暂时关闭」—— 给「卸载」是在撒谎。</li>
       </ol>
     </div>
-    <div class="media"><img src="assets/g-selfimprove.gif" alt="自我进化的操作界面"/></div>
+    <div class="media"><video src="assets/g-selfimprove.webm" aria-label="自我进化的操作界面" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 </div></section>
 
@@ -190,7 +192,7 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
 <section id="proactive" style="padding-top:0"><div class="wrap">
   <div class="sec-head"><span class="eyebrow">(2). PROACTIVE</span><span class="meta">第二重要</span></div>
   <div class="two">
-    <div class="media"><img src="assets/g-proactive.gif" alt="主动式"/></div>
+    <div class="media"><video src="assets/g-proactive.webm" aria-label="主动式" muted loop autoplay playsinline preload="metadata"></video></div>
     <div>
       <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">不是"你问它才答"，是它主动找你。</h2>
       <ul class="plain">
@@ -280,29 +282,29 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
     <div class="no">(4a).</div>
     <div class="txt"><h3>语音</h3>
       <p>点一下开始说，再点一下结束 —— <b>音频不出本机</b>，识别在本机做。说完它把结果并成文字，你可以直接改。</p></div>
-    <div class="media"><img src="assets/g-voice.gif" alt="语音"/></div>
+    <div class="media"><video src="assets/g-voice.webm" aria-label="语音" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="row">
     <div class="no">(4b).</div>
     <div class="txt"><h3>文字</h3>
       <p>直接打字。下面那几个按钮是"去哪找"：换一个来源、或者一路往下问。答的时候会告诉你<b>它是从哪儿看到的</b>。</p></div>
-    <div class="media"><img src="assets/g-text.gif" alt="文字"/></div>
+    <div class="media"><video src="assets/g-text.webm" aria-label="文字" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="row">
     <div class="no">(4c).</div>
     <div class="txt"><h3>结构流</h3>
       <p>把"要做的事"画成一张图：一块一块，块之间有<b>类型化的端口</b> —— 颜色不同就是类型不同，<b>两边对得上才连得起来</b>。这就是"线到底有什么意义"的答案：如果每个口什么都收，线就只是装饰。</p></div>
-    <div class="media"><img src="assets/g-flow.gif" alt="结构流"/></div>
+    <div class="media"><video src="assets/g-flow.webm" aria-label="结构流" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="three" style="margin-top:34px">
-    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+    <div class="card"><div class="ph"><video src="assets/g-flow.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
       <h3>三种版式</h3><p><b>卡片</b>（自由画布，x/y 就是位置）· <b>Nuggets</b>（紧凑网格）· <b>3D</b>（有厚度的影子）。同一张图，三种看法。</p></div></div>
-    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+    <div class="card"><div class="ph"><video src="assets/g-flow.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
       <h3>三种线</h3><p><b>实线</b>=数据流 · <b>虚线</b>=先后顺序 · <b>点线</b>=条件（判断为真才往下走）。一眼分得出这几种关系。</p></div></div>
-    <div class="card"><div class="ph"><img src="assets/g-flow.gif" alt=""/></div><div class="bd">
+    <div class="card"><div class="ph"><video src="assets/g-flow.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
       <h3>没填完也能跑</h3><p>它按拓扑序一块一块执行：<b>没填的部分跳过，填好的照跑</b>。不用等一张完美的图。</p></div></div>
   </div>
 </div></section>
@@ -316,7 +318,7 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
       <p>你手上所有的<b>知识及操作源</b>都收在左下角：Notion、邮件、手机、Figma、飞书。点一下扇开，选一个就切过去 —— 左边那一栏会跟着染成它的颜色，现在在哪个源上一眼看得出来。</p>
       <p>也可以停在最中间的「融合」，那是不挑来源、全都看的模式。</p>
     </div>
-    <div class="media"><img src="assets/g-sources.gif" alt="来源扇区"/></div>
+    <div class="media"><video src="assets/g-sources.webm" aria-label="来源扇区" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 </div></section>
 
@@ -328,28 +330,28 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
     <div class="no">(6a).</div>
     <div class="txt"><h3>检索</h3>
       <p>按意思找，也按词找 —— 你记得多少就说多少。命中处<b>开窗给你看上下文</b>，点开是全文，还能<b>一键跳回那个软件</b>。</p></div>
-    <div class="media"><img src="assets/g-search.gif" alt="检索"/></div>
+    <div class="media"><video src="assets/g-search.webm" aria-label="检索" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="row">
     <div class="no">(6b).</div>
     <div class="txt"><h3>记录栏</h3>
       <p>它做过的事都在这儿（只增不改）。本地按词搜、多选、批量删除 —— <b>删的只是流水，会话留着</b>。</p></div>
-    <div class="media"><img src="assets/g-record.gif" alt="记录"/></div>
+    <div class="media"><video src="assets/g-record.webm" aria-label="记录" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="row">
     <div class="no">(6c).</div>
     <div class="txt"><h3>按软件看</h3>
       <p>每个软件一块：它带来了多少内容、带来了哪些功能。想知道"我到底从哪个来源拿了多少东西"，看这一屏。</p></div>
-    <div class="media"><img src="assets/g-bysource.gif" alt="按软件"/></div>
+    <div class="media"><video src="assets/g-bysource.webm" aria-label="按软件" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
   <div class="row">
     <div class="no">(6d).</div>
     <div class="txt"><h3>货架</h3>
-      <p>右下角。**任何东西都能先搁进去**：拖一段话、拖一个文件、拖一张图、⌘V 粘贴，或者选中一段再点它。攒完之后它是一整段材料 —— 可以送去回答，也可以直接变成工作流里的一环。</p></div>
-    <div class="media"><img src="assets/g-shelf.gif" alt="货架"/></div>
+      <p>右下角。<b>任何东西都能先搁进去</b>：拖一段话、拖一个文件、拖一张图、⌘V 粘贴，或者选中一段再点它。攒完之后它是一整段材料 —— 可以送去回答，也可以直接变成工作流里的一环。</p></div>
+    <div class="media"><video src="assets/g-shelf.webm" aria-label="货架" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
 
 </div></section>
@@ -363,9 +365,9 @@ footer .fin{margin-top:44px;font-size:12px;letter-spacing:.36px;text-transform:u
       <p>鼠标放上去就展开一圈<b>你正在开着的软件</b>，指针压到哪个哪个亮，中轴写着它的名字。<b>敲字母直接切过去</b>（C 就是 Chrome），打字就筛选；全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出。</p>
       <p>右键是一张<b>勾选清单</b>：列出正在运行的软件，勾几个一起退掉 —— 退出是破坏性动作，所以按钮是红的、没勾时点不动、退完还会回来告诉你哪几个没退成。</p>
     </div>
-    <div class="media no-bg"><img src="assets/g-wheel.gif" alt="桌面 Pet"/></div>
+    <div class="media no-bg"><video src="assets/g-wheel.webm" aria-label="桌面 Pet" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
-  <div class="media no-bg" style="margin-top:30px;max-width:640px"><img src="assets/g-quit.gif" alt="右键勾选退出"/></div>
+  <div class="media no-bg" style="margin-top:30px;max-width:640px"><video src="assets/g-quit.webm" aria-label="右键勾选退出" muted loop autoplay playsinline preload="metadata"></video></div>
 </div></section>
 
 <!-- 全屏字样 -->
