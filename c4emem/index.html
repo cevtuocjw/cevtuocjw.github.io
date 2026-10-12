@@ -3,175 +3,165 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Cevtuo C4emem — 住在你自己机器里的知识及操作源</title>
-<meta name="description" content="Cevtuo C4emem 是一个本地优先的知识及操作源。它先看着、先记着，等你开口时已经知道去哪儿找；也能照你的话自己长出功能。数据全部留在这台电脑上。"/>
+<title>Cevtuo C4emem — 住在你自己机器里、会自己长大的知识及操作源</title>
+<meta name="description" content="Cevtuo C4emem 住在你自己的机器里主动成长。安静，但一直在；不等你来找它，需要的时候它也可以主动来问你、来帮你。"/>
 <link rel="icon" href="assets/logo.png"/>
 <style>
+/* ══ 版面参考 twks.ch/en/agency：#fff 底、近黑字、超大字重、发丝分隔线、
+      左标签/右内容的双栏、① 编号的手风琴、箭头链接。整个站**一页到底**。 */
 :root{
-  --bg:#FFFCF8; --ink:#12161d; --soft:#5c6373; --faint:#8d94a3;
-  --line:rgba(18,22,29,.10); --line2:rgba(18,22,29,.06);
-  --accent:#5d7a00; --lime:#d7f24a;
+  --bg:#fff; --ink:#111; --soft:#575757; --faint:#9b9b9b;
+  --line:rgba(17,17,17,.16); --line2:rgba(17,17,17,.09);
+  --lime:#d7f24a;
   --ease:cubic-bezier(.32,.72,0,1);
-  --gutter:clamp(18px,4vw,60px); --maxw:1240px;
+  --gutter:clamp(16px,2.6vw,40px); --maxw:1400px;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{margin:0;background:var(--bg);color:var(--ink);
-  font:400 18px/1.62 -apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
-  letter-spacing:.36px;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
+  font:400 17px/1.5 -apple-system,BlinkMacSystemFont,"Helvetica Neue","Inter","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,video{max-width:100%;display:block}
 a{color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
-.eyebrow{font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:var(--soft);margin:0 0 18px}
-.meta{font-size:13px;color:var(--faint);letter-spacing:.2px}
-h1{font-size:18px;font-weight:400;letter-spacing:.36px;margin:0;max-width:34ch}
-h2.statement{font-size:clamp(26px,4.2vw,48px);font-weight:400;line-height:1.24;letter-spacing:-.2px;margin:0;max-width:26ch}
-h3{font-size:18px;font-weight:400;margin:0 0 8px}
-p{margin:0 0 16px;color:var(--soft)}
+.rule{border-top:1px solid var(--line)}
+
+/* 顶栏：**很小**，全小写，和 twks 一样 */
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,#fff 92%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:46px;gap:20px}
+header .brand,header a{font-size:15px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+header nav{display:flex;gap:clamp(12px,2vw,26px)}
+header nav a{color:var(--soft);transition:color .2s var(--ease)}
+header nav a:hover{color:var(--ink)}
+@media (max-width:760px){header nav{display:none}}
+
+/* 大字 */
+.disp{font-size:clamp(30px,5.4vw,72px);line-height:1.04;letter-spacing:-.035em;font-weight:500;margin:0}
+h2.big{font-size:clamp(26px,4.2vw,52px);line-height:1.02;letter-spacing:-.035em;font-weight:400;
+  margin:0;text-transform:lowercase}
+h3.mid{font-size:clamp(18px,2.1vw,24px);line-height:1.2;letter-spacing:-.02em;font-weight:500;margin:0 0 12px}
+p{margin:0 0 15px;color:var(--soft);max-width:62ch}
 p.lead{color:var(--ink)}
 b{font-weight:500;color:var(--ink)}
-code{background:rgba(18,22,29,.05);border:1px solid var(--line2);border-radius:6px;padding:1px 6px;font-size:.9em}
+code{background:rgba(17,17,17,.05);border-radius:5px;padding:1px 6px;font-size:.88em}
+.eyebrow{font-size:14px;letter-spacing:-.005em;color:var(--faint);margin:0}
 
-header{position:sticky;top:0;z-index:20;height:42px;display:flex;align-items:center;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--line2)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;width:100%}
-header .brand{font-size:12px;letter-spacing:.36px;text-transform:uppercase}
-header nav{display:flex;gap:clamp(10px,2.4vw,30px)}
-header nav a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft);transition:color .18s var(--ease)}
-header nav a:hover{color:var(--ink)}
+/* 双栏：左标签 / 右内容 */
+.cols{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.55fr);gap:clamp(18px,3.4vw,64px);align-items:start}
+.cols.narrow{grid-template-columns:minmax(0,.8fr) minmax(0,1fr)}
+section{padding:clamp(52px,8.5vh,116px) 0}
+section.tight{padding-top:clamp(30px,5vh,64px)}
 
-/* ── Hero：标题居中 ─────────────────────────────────────── */
-.hero{position:relative;min-height:92svh;display:flex;flex-direction:column;justify-content:space-between;padding:clamp(28px,6vh,70px) 0 0;overflow:hidden}
-.hero .glow{position:absolute;inset:-20% -10% auto -10%;height:120%;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(60% 60% at 18% 22%,rgba(215,242,74,.34),transparent 62%),
-    radial-gradient(55% 60% at 82% 12%,rgba(120,160,255,.20),transparent 60%),
-    radial-gradient(70% 70% at 50% 100%,rgba(255,225,180,.34),transparent 66%);
-  filter:blur(6px)}
-.hero .wrap{position:relative;z-index:1;width:100%}
-.hero .top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap}
-.hero .links{display:flex;gap:clamp(12px,3vw,30px);flex-wrap:wrap;align-items:center}
-.hero .links a{font-size:12px;letter-spacing:.36px;text-transform:uppercase;text-decoration:none;color:var(--soft)}
-.dlbtn{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:var(--ink);
-  border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:13px;background:#fff;
-  box-shadow:0 6px 18px rgba(20,26,40,.07);transition:transform .18s var(--ease),box-shadow .18s var(--ease)}
-.dlbtn:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(20,26,40,.11)}
-.dlbtn svg{width:14px;height:14px;flex:none;margin-top:-1px}
-.hero .mid{margin:clamp(34px,8vh,104px) auto 0;max-width:1000px;text-align:center}
-.hero .mid h2{font-size:clamp(38px,8.4vw,96px);line-height:1.04;letter-spacing:-1.6px;font-weight:400;margin:0}
-.hero .mid .tag{margin:14px 0 0;font-size:clamp(13px,1.5vw,16px);letter-spacing:.36px;text-transform:uppercase;color:var(--faint)}
-.hero .mid .sub{margin:24px auto 0;font-size:clamp(15px,1.6vw,19px);color:var(--soft);max-width:52ch}
-.hero .stage{margin-top:auto;display:grid;place-items:center;padding:clamp(16px,4vh,40px) 0 0}
-.hero .stage video{width:min(880px,96vw);border-radius:18px;border:1px solid var(--line);
-  box-shadow:0 30px 70px rgba(20,26,40,.16)}
-.hero .foot{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:18px 0 26px}
+/* 箭头链接（twks 的 →→） */
+.arrowlink{display:inline-flex;align-items:center;gap:.5em;font-size:15px;text-decoration:none;
+  border-bottom:1px solid var(--line);padding-bottom:2px;transition:border-color .2s var(--ease)}
+.arrowlink:hover{border-color:var(--ink)}
+.arrowlink i{font-style:normal;transition:transform .28s var(--ease)}
+.arrowlink:hover i{transform:translateX(6px)}
 
-section{padding:clamp(56px,11vh,140px) 0}
-.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;
-  padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:36px}
+/* 按钮 */
+.dlbtn{display:inline-flex;align-items:center;gap:9px;text-decoration:none;color:#fff;background:var(--ink);
+  border-radius:999px;padding:10px 20px;font-size:15px;transition:transform .22s var(--ease),opacity .22s var(--ease)}
+.dlbtn:hover{transform:translateY(-2px)}
+.dlbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.dlbtn svg{width:15px;height:15px;flex:none}
+.cta{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 
-/* 编号式 */
-.row{display:grid;grid-template-columns:64px minmax(0,1fr) minmax(0,1.08fr);gap:clamp(14px,3vw,48px);
-  align-items:start;padding:clamp(24px,5vh,50px) 0;border-bottom:1px solid var(--line2)}
-.row:last-of-type{border-bottom:0}
-.row .no{font-size:13px;color:var(--faint);padding-top:3px}
-.row .txt{max-width:48ch}
-.row .txt h3{font-size:clamp(19px,2.1vw,25px);margin-bottom:10px}
-.media{background:#0e1117;border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+/* ① 编号手风琴（twks /agency 那一列） */
+.acc{border-top:1px solid var(--line)}
+.acc details{border-bottom:1px solid var(--line)}
+.acc summary{cursor:pointer;list-style:none;display:flex;align-items:baseline;gap:14px;
+  padding:16px 0;font-size:clamp(17px,1.9vw,21px);letter-spacing:-.02em}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .n{flex:none;width:23px;height:23px;border-radius:50%;background:var(--ink);color:#fff;
+  font-size:12.5px;display:grid;place-items:center;transform:translateY(1px)}
+.acc details[open] summary{font-weight:500}
+.acc .b{padding:0 0 20px 37px;color:var(--soft);max-width:66ch}
+.acc .b p:last-child{margin-bottom:0}
+
+/* 媒体 */
+.media{background:#0e1117;border-radius:6px;overflow:hidden}
 .media video{width:100%;height:auto;display:block}
-.no-bg{background:none!important;border:0!important}
-.no-bg video{background:transparent}
-
-.steps{counter-reset:s;margin:0;padding:0;list-style:none}
-.steps li{counter-increment:s;position:relative;padding:0 0 18px 44px;color:var(--soft)}
-.steps li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;
-  display:grid;place-items:center;font-size:12.5px;color:var(--ink);background:var(--lime);border:1px solid rgba(18,22,29,.12)}
-.steps li b{color:var(--ink)}
-
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,54px);align-items:start}
-.two.flip{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
-.three{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(16px,2.4vw,28px)}
-ul.plain{margin:0;padding-left:18px}
-ul.plain li{margin-bottom:11px;color:var(--soft);font-size:15.5px}
-
-/* ── 结构流：整屏，视频作背景，字压在上面 ─────────────── */
-.flowbig{position:relative;min-height:104svh;display:grid;align-items:center;
-  color:#eef1f6;background:#0b0d11;overflow:hidden;padding:clamp(80px,14vh,150px) 0}
-/* ⚠️ 背景是**一张软件截图**，里面有字 —— 压在上面的字会跟它打架。
-   所以：背景**虚化一点**（让它读成"肌理"而不是"内容"）+ **遮罩压得更沉**。
-   判据不是"看着还行"，是**正文那几行必须能一眼读出来**（截图里对过）。 */
-.flowbig>.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
-  opacity:.34;filter:blur(5px) saturate(.82);transform:scale(1.06)}
-.flowbig>.veil{position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,rgba(8,10,14,.92) 0%,rgba(8,10,14,.82) 46%,rgba(8,10,14,.95) 100%)}
-.flowbig .wrap{position:relative;z-index:1}
-.flowbig .eyebrow,.flowbig p{color:rgba(238,241,246,.74)}
-.flowbig h2.statement{color:#fff;max-width:20ch}
-.flowbig .lead{color:rgba(238,241,246,.92)}
-.flowbig .intro{max-width:60ch;font-size:clamp(15px,1.6vw,18px)}
-.flowbig .steps{margin-top:30px;max-width:56ch}
-.flowbig .steps li{color:rgba(238,241,246,.76)}
-.flowbig .steps li b{color:#fff}
-/* ⚠️⚠️ 深色底上的 `<b>` 必须显式给白色 —— 全局那条 `b{color:var(--ink)}` 是**近黑**，
-   压在深色上就是**彻底看不见**：正文里那半句话凭空消失，只剩一个孤零零的句号。
-   （截图里对出来的；"看着有字"和"字看得见"是两回事。） */
-.flowbig b{color:#fff}
-.flowbig .three{margin-top:clamp(40px,7vh,72px)}
-.flowbig .card{background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.14);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.flowbig .card .bd h3{color:#fff}
-.flowbig .card .bd p{color:rgba(238,241,246,.72);margin:0}
-.flowbig .card .ph{background:#0b0d11}
+.media.free{background:none;border-radius:0}
+.media.free video{background:transparent}
+.stage video{width:100%;border-radius:6px;background:#0e1117}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:clamp(12px,1.6vw,22px)}
+.grid .media{margin-bottom:12px}
+.grid h3{font-size:15px;font-weight:500;margin:0 0 5px}
+.grid p{font-size:14px;color:var(--soft);margin:0;max-width:none}
 
 /* 架构图 */
-.arch{background:#0e1117;border-radius:18px;padding:clamp(18px,3vw,34px);border:1px solid var(--line)}
+.arch{background:#0e1117;border-radius:8px;padding:clamp(16px,2.4vw,30px)}
 .arch svg{width:100%;height:auto;display:block}
-.archbox{display:grid;gap:18px}
-.archbox .cap{display:flex;align-items:center;gap:12px;color:var(--soft);font-size:14px}
-.archbox .cap svg{width:20px;height:20px;flex:none;color:var(--ink);opacity:.8}
+.capline{display:flex;align-items:flex-start;gap:11px;color:var(--soft);font-size:14.5px;margin-top:14px}
+.capline svg{width:19px;height:19px;flex:none;margin-top:2px;color:var(--ink)}
 
-.display{min-height:62svh;display:grid;place-items:center;text-align:center;padding:40px 0}
-.display .t{font-size:clamp(32px,8.6vw,104px);line-height:1.02;letter-spacing:-.5px;text-transform:uppercase}
-.display .c{font-size:13px;color:var(--faint);margin-top:20px;letter-spacing:.36px}
+/* ══ (4) 结构流：整屏深色，演示视频虚化当背景 ══
+   ⚠️ 背景是**一张软件截图**（里面有字），压在上面的字会跟它打架 ⇒
+      背景虚化 + 遮罩压沉；判据是**正文一眼能读出来**，不是"看着还行"。
+   ⚠️ 这一节的 `<b>` 必须显式给白色 —— 全局没有任何给深色底的 b 颜色规则，
+      不写就是近黑压近黑：**那半句话彻底看不见**（上一版就栽在这，正文里只剩一个孤零零的句号）。 */
+.flowbig{position:relative;background:#0b0d11;color:#eef1f6;overflow:hidden;padding:clamp(90px,15vh,170px) 0}
+/* ⚠️ 读者要的是"**把录的操作过程当背景**"，压太沉就等于没放 ⇒
+   在上面那版的 .93/.84/.96 基础上放开一档，同时靠 blur 把它的"字"糊掉，
+   这样它读成肌理、正文仍然一眼能读。 */
+.flowbig>.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:.46;filter:blur(6px) saturate(.85);transform:scale(1.06)}
+.flowbig>.veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(8,10,14,.88) 0%,rgba(8,10,14,.76) 46%,rgba(8,10,14,.93) 100%)}
+.flowbig .wrap{position:relative;z-index:1}
+.flowbig b{color:#fff}
+.flowbig .acc{border-top-color:rgba(255,255,255,.24)}
+.flowbig .acc details{border-bottom-color:rgba(255,255,255,.16)}
+.flowbig .acc summary{color:#fff}
+.flowbig .acc summary .n{background:#fff;color:#0b0d11}
+.flowbig .acc .b{color:rgba(255,255,255,.74)}
+.flowbig .acc .b b{color:#fff}
+.flowbig .grid h3{color:#fff}
+.flowbig .grid p{color:rgba(255,255,255,.7)}
+.flowbig .media{background:rgba(255,255,255,.06)}
 
-.card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
-.card .ph{aspect-ratio:16/10;background:#0e1117;overflow:hidden;display:grid;place-items:center}
-.card .ph video{width:100%;height:100%;object-fit:cover;object-position:top center}
-.card .bd{padding:16px 18px 20px}
-.card .bd h3{font-size:16px;margin-bottom:6px}
-.card .bd p{font-size:13.5px;margin:0}
+/* 全屏字样 */
+.display{padding:clamp(70px,16vh,190px) 0;border-top:1px solid var(--line)}
+.display .t{font-size:clamp(40px,11vw,168px);line-height:.94;letter-spacing:-.05em;font-weight:500;
+  text-transform:lowercase;margin:0}
+.display .c{font-size:15px;color:var(--faint);margin-top:18px}
 
-/* 货架：每一类拖动一格 */
-.grid6{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:clamp(12px,1.8vw,20px)}
-.grid6 .card .bd{padding:13px 15px 16px}
-.grid6 .card .bd h3{font-size:14.5px;margin-bottom:4px}
-.grid6 .card .bd p{font-size:12.8px}
-
-.fold{margin:0 0 14px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
-.fold>summary{cursor:pointer;list-style:none;padding:16px 20px;font-size:15px;display:flex;justify-content:space-between;align-items:center}
-.fold>summary::-webkit-details-marker{display:none}
-.fold>summary::after{content:"＋";color:var(--faint)}
-.fold[open]>summary::after{content:"－"}
-.fold .in{padding:0 20px 20px;font-size:14px;color:var(--soft)}
+/* 折起 */
+.fold{border-top:1px solid var(--line)}
+.fold details{border-bottom:1px solid var(--line)}
+.fold summary{cursor:pointer;list-style:none;padding:18px 0;font-size:clamp(16px,1.8vw,20px);
+  display:flex;justify-content:space-between;gap:16px;align-items:baseline;letter-spacing:-.02em}
+.fold summary::-webkit-details-marker{display:none}
+.fold summary::after{content:"＋";color:var(--faint);font-size:15px}
+.fold details[open] summary::after{content:"－"}
+.fold .in{padding:0 0 22px;color:var(--soft);font-size:15.5px;max-width:70ch}
 .fold ol{padding-left:20px;margin:0}
 .fold li{margin-bottom:9px}
 
-footer{border-top:1px solid var(--line);padding:clamp(40px,8vh,90px) 0 60px}
-footer .fin{font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:var(--faint);
-  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* 时间那一行（twks 有个实时钟，照做） */
+.nowline{display:flex;gap:clamp(14px,3vw,40px);flex-wrap:wrap;font-size:14px;color:var(--faint);
+  border-top:1px solid var(--line);padding-top:14px}
 
-@media (max-width:860px){
-  .row{grid-template-columns:34px minmax(0,1fr)}
-  .row .media{grid-column:2;margin-top:14px}
-  .two,.two.flip{grid-template-columns:minmax(0,1fr)}
-  .hero{min-height:auto}
-  .hero .mid{margin-top:clamp(26px,6vh,56px)}
+footer{border-top:1px solid var(--line);padding:clamp(38px,7vh,80px) 0 54px}
+footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* 入场动画（twks 那种"滚到了才浮上来"） */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
+
+@media (max-width:900px){
+  .cols,.cols.narrow{grid-template-columns:minmax(0,1fr);gap:22px}
+  h2.big{font-size:clamp(24px,7vw,40px)}
 }
 </style>
 </head>
 <body>
 
 <header><div class="wrap">
-  <span class="brand">CEVTUO C4EMEM</span>
+  <a class="brand" href="#top">cevtuo c4emem</a>
   <nav>
     <a href="#evolve">自我进化</a>
     <a href="#proactive">主动式</a>
@@ -180,300 +170,316 @@ footer .fin{font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:v
     <a href="#shelf">货架</a>
     <a href="#install">安装</a>
   </nav>
+  <a class="arrowlink" href="#install">下载 <i>→→</i></a>
 </div></header>
 
 <!-- ═══ 第一屏 ═══ -->
-<section class="hero">
-  <div class="glow"></div>
+<section class="hero" id="top" style="padding-top:clamp(40px,7vh,90px)">
   <div class="wrap">
-    <div class="top">
-      <h1>它住在你自己的机器里。安静，但一直在。</h1>
-      <div class="links">
-        <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
-          下载 macOS
-        </a>
+    <div class="cols" style="grid-template-columns:minmax(0,.42fr) minmax(0,1.9fr)">
+      <p class="eyebrow" style="padding-top:14px">swiss-made<br>local-first</p>
+      <div class="rv">
+        <h1 class="disp">C4emem 住在你自己的机器里主动成长。安静，但一直在，不等你来找它，需要的时候它也可以主动来询问来帮你。</h1>
       </div>
     </div>
-    <div class="mid">
-      <h2>Cevtuo C4emem</h2>
-      <p class="tag">它会自己长大</p>
-      <p class="sub">它不等你问才动。它先看着、先记着 —— 等你开口的时候，它已经知道该去哪一份材料里找。<br/>
-      你不用注册，也不用把东西交给谁。它就待在这台电脑上。</p>
+    <div class="cols" style="grid-template-columns:minmax(0,.42fr) minmax(0,1.9fr);margin-top:clamp(24px,4vh,44px)">
+      <p class="eyebrow">它会自己修改<br>和长大的 Agent 软件</p>
+      <div>
+        <div class="cta rv">
+          <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
+            下载 macOS 版</a>
+          <a class="dlbtn ghost" href="#flow">先看看它能做什么</a>
+        </div>
+        <div class="nowline" style="margin-top:clamp(24px,4vh,44px)">
+          <span id="clock">本地时间 --:--:--</span>
+          <span>macOS 13+</span>
+          <span>数据不出本机</span>
+          <span>.dmg 约 50 MB</span>
+        </div>
+      </div>
     </div>
-    <div class="stage"><video src="assets/g-selfimprove.webm" aria-label="自我进化" muted loop autoplay playsinline preload="metadata"></video></div>
   </div>
-  <div class="wrap"><div class="foot">
-    <span class="meta">macOS 13+ · 本地优先 · 数据不出本机</span>
-    <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">下载 macOS 版（.dmg，50 MB）</a>
-  </div></div>
+  <div class="wrap" style="margin-top:clamp(30px,6vh,70px)">
+    <div class="stage rv"><video src="assets/g-selfimprove.webm" aria-label="自我进化" muted loop autoplay playsinline preload="metadata"></video></div>
+  </div>
 </section>
 
 <!-- ═══ (1) 自我进化 ═══ -->
-<section id="evolve"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(1). 自我进化</span><span class="meta">最重要的一件事</span></div>
-  <div class="two">
-    <div>
-      <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">你说一句话，它长一样东西出来。</h2>
-      <p class="lead">比如你说：「让 Notion 里的东西更好用一点」。</p>
-      <ol class="steps">
-        <li><b>它先看清楚你手上有什么</b>。本机装了哪些软件、Notion 里有哪几个库 —— 每天自己重看一遍。</li>
-        <li><b>它先给方案，不动手</b>。会告诉你"我可以加一张『把这一周的笔记按主题聚拢』的卡片"，并且说清楚它会出现在哪儿。</li>
-        <li><b>你点头它才做。</b>改配置（卸掉一样、把某样标成主动式）它自己就能做完；改代码之前，一定会先给你看。</li>
-        <li><b>做好就是真的在</b>。不是多一个入口，而是这个功能该出现的每个地方都有它 —— 侧栏、左下角、设置、卡片。</li>
-        <li><b>不好用随时收回。</b>卸下的进「待安装」，留 30 天，一键装回；内置的那几样只给「暂时关闭」—— 给「卸载」是在骗人。</li>
-      </ol>
+<section id="evolve" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(1) 自我进化</h2>
+      <p class="lead" style="margin-top:14px">你说一句话，它长一样东西出来。</p>
+      <p class="eyebrow" style="margin-top:10px">最重要的一件事</p></div>
+    <div class="rv">
+      <p class="lead">举一个真实的例子：你说「<b>我想让 Notion 里的东西更好用一点</b>」。</p>
+      <div class="acc">
+        <details open><summary><span class="n">1</span>它先看清楚你手上有什么</summary>
+          <div class="b"><p>本机装了哪些软件、Notion 里有哪几个库 —— 每天自己重看一遍，所以它不会问你"你有哪些来源"这种问题。</p></div></details>
+        <details><summary><span class="n">2</span>它先给方案，不动手</summary>
+          <div class="b"><p>会告诉你"我可以加一张『把这一周的笔记按主题聚拢』的卡片"，并且说清楚它会出现在哪儿 —— 侧栏、卡片，还是设置里。</p></div></details>
+        <details><summary><span class="n">3</span>你点头它才做</summary>
+          <div class="b"><p>改配置（卸掉一样、把某样标成主动式）它自己就能做完；改代码之前，一定会先给你看。这两件事它分得很清。</p></div></details>
+        <details><summary><span class="n">4</span>做好就是真的在</summary>
+          <div class="b"><p>不是多一个入口，而是这个功能该出现的每个地方都有它 —— 侧栏、左下角来源扇区、设置、卡片。</p></div></details>
+        <details><summary><span class="n">5</span>不好用随时收回</summary>
+          <div class="b"><p>卸下的进「待安装」，留 30 天，一键装回；内置的那几样只给「暂时关闭」—— 给「卸载」是在骗人。</p></div></details>
+      </div>
+      <div class="media" style="margin-top:26px"><video src="assets/g-selfimprove.webm" aria-label="自我进化的操作界面" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
-    <div class="media"><video src="assets/g-selfimprove.webm" aria-label="自我进化的操作界面" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
 <!-- ═══ (2) 主动式 ═══ -->
-<section id="proactive" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(2). 主动式</span><span class="meta">第二重要</span></div>
-  <div class="two flip">
-    <div class="media"><video src="assets/g-proactive.webm" aria-label="主动式" muted loop autoplay playsinline preload="metadata"></video></div>
-    <div>
-      <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">它不等你问。</h2>
-      <ul class="plain">
-        <li><b>先在你自己的机器上判断。</b>你切到了哪个软件、剪贴板刚才换了什么 —— 它自己看得见。这一步不花钱，也不出这台电脑。</li>
-        <li><b>真到该开口的时候</b>，才去问一次模型。所以它安静，也省。</li>
-        <li><b>吵不吵由你说了算。</b>最短间隔、每天的上限、静默的时段，都在设置里，随时可以关掉。</li>
-        <li><b>答应过的事是算数的。</b>被你勾成「主动式」的东西，下一次它真的会带上 —— 不是给你看一个勾。</li>
-      </ul>
+<section id="proactive" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(2) 主动式</h2>
+      <p class="eyebrow" style="margin-top:14px">第二重要</p></div>
+    <div class="rv">
+      <h3 class="mid">它不等你问。</h3>
+      <div class="acc">
+        <details open><summary><span class="n">1</span>先在你自己的机器上判断</summary>
+          <div class="b"><p>你切到了哪个软件、剪贴板刚才换了什么 —— 它自己看得见。这一步不花钱，也不出这台电脑。</p></div></details>
+        <details><summary><span class="n">2</span>真到该开口的时候才问一次</summary>
+          <div class="b"><p>检测在你机器上做，决策走你的规则，<b>只有真要开口时才调模型</b>。所以它安静，也省。</p></div></details>
+        <details><summary><span class="n">3</span>吵不吵由你说了算</summary>
+          <div class="b"><p>最短间隔、每天的上限、静默的时段、哪一类只提醒一次 —— 都在设置里，随时可以关掉。</p></div></details>
+        <details><summary><span class="n">4</span>答应过的事是算数的</summary>
+          <div class="b"><p>被你勾成「主动式」的东西，下一次它真的会带上 —— 不是给你看一个勾。待办板（状态会被你改）和流水（只增不改）是两张表，不混在一起。</p></div></details>
+      </div>
+      <div class="media" style="margin-top:26px"><video src="assets/g-proactive.webm" aria-label="主动式" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
-<!-- ═══ (3) 两种输入 ═══ -->
-<section id="input" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(3). 你怎么说</span><span class="meta">说，或者写</span></div>
-
-  <div class="row">
-    <div class="no">(3a).</div>
-    <div class="txt"><h3>说</h3>
-      <p>点一下开始，再点一下结束。<b>声音不出这台机器</b>，转成字以后你可以直接改 —— 说错了不算数。</p></div>
-    <div class="media"><video src="assets/g-voice.webm" aria-label="语音" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-
-  <div class="row">
-    <div class="no">(3b).</div>
-    <div class="txt"><h3>写</h3>
-      <p>直接打字。下面那几颗按钮是"去哪儿找"：换一个来源，或者顺着往下再问一层。它答的时候会告诉你<b>这句话是从哪儿看到的</b>。</p></div>
-    <div class="media"><video src="assets/g-text.webm" aria-label="文字" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-</div></section>
+<!-- ═══ (3) 你怎么说 ═══ -->
+<section id="input" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(3) 你怎么说</h2>
+      <p class="eyebrow" style="margin-top:14px">说，或者写</p></div>
+    <div class="grid rv">
+      <div><div class="media"><video src="assets/g-voice.webm" aria-label="语音" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3>说</h3><p>点一下开始，再点一下结束。<b>声音不出这台机器</b>，转成字以后你可以直接改 —— 说错了不算数。</p></div>
+      <div><div class="media"><video src="assets/g-text.webm" aria-label="文字" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3>写</h3><p>直接打字。下面那几颗按钮是"去哪儿找"：换一个来源，或者顺着往下再问一层。它答的时候会告诉你<b>这句话是从哪儿看到的</b>。</p></div>
+    </div>
+  </div></div>
+</section>
 
 <!-- ═══ (4) 结构流：整屏，视频当背景 ═══ -->
 <section id="flow" class="flowbig">
   <video class="bg" src="assets/g-flow-full.webm" aria-label="一条结构流从头跑到尾" muted loop autoplay playsinline preload="metadata"></video>
   <div class="veil"></div>
   <div class="wrap">
-    <p class="eyebrow">(4). 结构流</p>
-    <h2 class="statement">把一件要做的事，摊开成一张图。</h2>
-    <p class="intro lead">有些事一句话说不清楚 —— 那就把它画出来。一块一块摆，块与块之间用线接上。<br/>
-    看着麻烦，其实是在逼自己说清：<b>什么把它点着、去哪一份材料里看、由谁来做、结果放到哪儿</b>。</p>
-    <ol class="steps">
-      <li>放下一块<b>事件</b>：什么让这件事开始。</li>
-      <li>接上一块<b>来源</b>：去看哪一份东西 —— 笔记、邮件、手机、网上。</li>
-      <li>接上一块<b>动作</b>：让谁来做。比如「总结」，比如「问一句」。</li>
-      <li>最后是<b>去处</b>：结论放进货架、写成文件、还是发到手机上。</li>
-      <li>然后按<b>运行</b>。它按先后一块一块走完 —— <b>没填的块跳过，填好的照跑</b>，不必等一张完美的图。</li>
-    </ol>
-    <p class="intro" style="margin-top:22px">端口是分颜色的，<b>两边对得上才连得起来</b>。这不是装饰：如果每个口什么都收，线就只是画着好看。</p>
-
-    <div class="three">
-      <div class="card"><div class="ph"><video src="assets/g-flow-modes.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-        <h3>同一张图，三种看法</h3><p><b>卡片</b>是自由画布，位置就是位置；<b>Nuggets</b> 收成紧凑的格子；<b>3D</b> 给它一层有厚度的影子。想看清结构的时候，换个看法就行。</p></div></div>
-      <div class="card"><div class="ph"><video src="assets/g-flow-lines.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-        <h3>三种线，三种意思</h3><p><b>实线</b>是把上一块的结论递下去；<b>虚线</b>只说先后，不递东西；<b>点线</b>是一个条件 —— 判断为真才往下走。</p></div></div>
-      <div class="card"><div class="ph"><video src="assets/g-flow-run.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-        <h3>没填完也能跑</h3><p>不用等一张全都填满的图。<b>缺的地方跳过，写好的地方照走</b> —— 先跑起来，再慢慢补。</p></div></div>
+    <div class="cols">
+      <div>
+        <p class="eyebrow" style="color:rgba(255,255,255,.55)">(4) 结构流</p>
+        <h2 class="big" style="color:#fff;margin-top:14px">把一件要做的事<br/>摊开成一张图</h2>
+      </div>
+      <div>
+        <p class="lead" style="color:rgba(255,255,255,.9)">有些事一句话说不清楚 —— 那就把它画出来。一块一块摆，块与块之间用线接上。<br/>
+        看着麻烦，其实是在逼自己说清：<b>什么把它点着、去哪一份材料里看、由谁来做、结果放到哪儿</b>。</p>
+        <div class="acc acc-dark">
+          <details open><summary><span class="n">1</span>放下一块<b>事件</b>：什么让这件事开始</summary><div class="b"><p>手动跑、到点了、切到某个软件、剪贴板换了东西、手机来了通知。</p></div></details>
+          <details><summary><span class="n">2</span>接上一块<b>来源</b>：去看哪一份东西</summary><div class="b"><p>笔记、邮件、手机通知流、Figma、剪贴板，或者直接上网找。</p></div></details>
+          <details><summary><span class="n">3</span>接上一块<b>动作</b>：让谁来做</summary><div class="b"><p>比如「总结」，比如「问一句」，比如「查词 / 翻译」。</p></div></details>
+          <details><summary><span class="n">4</span>最后是<b>去处</b>：结论放到哪儿</summary><div class="b"><p>放进货架、写成文件、写回 Notion、发到手机，或者只是弹个通知。</p></div></details>
+          <details><summary><span class="n">5</span>然后按<b>运行</b></summary><div class="b"><p>它按先后一块一块走完 —— <b>没填的块跳过，填好的照跑</b>，不必等一张完美的图。</p></div></details>
+        </div>
+        <p style="color:rgba(255,255,255,.72);margin-top:18px">端口是分颜色的，<b>两边对得上才连得起来</b>。这不是装饰：如果每个口什么都收，线就只是画着好看。</p>
+      </div>
+    </div>
+    <div class="grid" style="margin-top:clamp(34px,6vh,60px)">
+      <div><div class="media"><video src="assets/g-flow-modes.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3 style="color:#fff">同一张图，三种看法</h3><p style="color:rgba(255,255,255,.7)"><b>卡片</b>是自由画布，位置就是位置；<b>Nuggets</b> 收成紧凑的格子；<b>3D</b> 给它一层有厚度的影子。</p></div>
+      <div><div class="media"><video src="assets/g-flow-lines.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3 style="color:#fff">三种线，三种意思</h3><p style="color:rgba(255,255,255,.7)"><b>实线</b>把上一块的结论递下去；<b>虚线</b>只说先后，不递东西；<b>点线</b>是一个条件 —— 判断为真才往下走。</p></div>
+      <div><div class="media"><video src="assets/g-flow-run.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+        <h3 style="color:#fff">没填完也能跑</h3><p style="color:rgba(255,255,255,.7)">不用等一张全都填满的图。缺的地方跳过，写好的地方照走 —— 先跑起来，再慢慢补。</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ (5) 架构：放在整页中间 ═══ -->
-<section id="arch"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(5). 它是怎么搭的</span><span class="meta">为什么这么拆</span></div>
-  <div class="two" style="grid-template-columns:minmax(0,1fr) minmax(0,1.3fr)">
-    <div>
-      <h3 style="font-size:clamp(18px,2.2vw,24px)">一个本地核心，加一层很薄的壳。</h3>
+<!-- ═══ (5) 架构 ═══ -->
+<section id="arch" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(5) 它是怎么搭的</h2>
+      <p class="eyebrow" style="margin-top:14px">为什么这么拆</p></div>
+    <div class="rv">
+      <h3 class="mid">一个本地核心，加一层很薄的壳。</h3>
       <p>核心是一个跑在 <code>127.0.0.1:8770</code> 上的本地服务 —— 找东西、生成、主动式，全在里面。<br/>
       外面那层壳很薄：菜单栏、窗口、桌面 Pet、以及网页和原生之间的那座桥。它只做网页做不到的那几件事。</p>
       <p>这样拆的好处很实在：核心只讲 HTTP，<b>手机端、小程序、别的壳都能复用同一套</b>；而换掉外壳，业务一行都不用重写。</p>
-      <div class="archbox" style="margin-top:22px">
-        <div class="cap">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
-          <span>外壳是 macOS 原生（Swift）—— 只负责系统才做得到的那几件事。</span>
-        </div>
-        <div class="cap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.6v3M12 18.4v3M2.6 12h3M18.4 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg>
-          <span>核心是通用的 HTTP 服务（Bun）—— 换个壳，它照样跑。</span>
-        </div>
+      <div class="arch" style="margin-top:22px">
+        <svg viewBox="0 0 900 520" role="img" aria-label="C4emem 架构图">
+          <defs>
+            <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+              <path d="M0,0 L7,3 L0,6" fill="none" stroke="#8d94a3" stroke-width="1.2"/></marker>
+            <style>
+              .bx{fill:#161a22;stroke:#39404e;stroke-width:1.1}
+              .bx2{fill:#1d2430;stroke:#4a5468;stroke-width:1.1}
+              .tt{fill:#e9ecf4;font:400 15px -apple-system,"PingFang SC",sans-serif}
+              .ts{fill:#98a1b3;font:400 12.5px -apple-system,"PingFang SC",sans-serif}
+              .ln{stroke:#8d94a3;stroke-width:1.2;fill:none;marker-end:url(#ar)}
+              .lm{fill:#d7f24a}
+            </style>
+          </defs>
+          <text x="20" y="34" class="tt">这台电脑（离线可用）</text>
+          <rect x="20" y="50" width="860" height="300" rx="14" fill="none" stroke="#2a3038" stroke-dasharray="5 5"/>
+          <rect class="bx" x="46" y="86" width="212" height="86" rx="10"/>
+          <g transform="translate(62,110) scale(0.86)"><path fill="#e9ecf4" d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></g>
+          <text x="92" y="116" class="tt">macOS 外壳（Swift）</text>
+          <text x="92" y="140" class="ts">菜单栏 · 窗口 · 桌面 Pet</text>
+          <text x="92" y="158" class="ts">全局快捷键 · 网页↔原生桥</text>
+          <rect class="bx2" x="46" y="212" width="212" height="112" rx="10"/>
+          <text x="66" y="240" class="tt">本地核心（Bun）</text>
+          <text x="66" y="262" class="ts">HTTP · 127.0.0.1:8770</text>
+          <text x="66" y="282" class="ts">检索 · 生成 · 主动式 · 功能注册表</text>
+          <text x="66" y="302" class="ts">SQLite（流水 / 待办 / 块 / 会话）</text>
+          <rect class="bx" x="330" y="86" width="240" height="112" rx="10"/>
+          <text x="350" y="114" class="tt">找东西</text>
+          <text x="350" y="138" class="ts">按词找 ＋ 按意思找，两路合排</text>
+          <text x="350" y="158" class="ts">索引与嵌入模型都在本机</text>
+          <text x="350" y="178" class="ts">断网照样能找</text>
+          <rect class="bx" x="646" y="86" width="212" height="112" rx="10"/>
+          <text x="666" y="114" class="tt">东西从哪来</text>
+          <text x="666" y="138" class="ts">Notion（四个库合一格）</text>
+          <text x="666" y="158" class="ts">企业邮箱 · 手机（ADB）</text>
+          <text x="666" y="178" class="ts">Figma · 飞书</text>
+          <rect class="bx" x="330" y="250" width="240" height="74" rx="10"/>
+          <text x="350" y="278" class="tt">写东西</text>
+          <text x="350" y="300" class="ts">只有需要时才联网</text>
+          <path class="ln" d="M258 129 H326"/><path class="ln" d="M642 129 H570"/>
+          <path class="ln" d="M450 226 V246"/><path class="ln" d="M258 268 H326"/><path class="ln" d="M150 172 V208"/>
+          <circle class="lm" cx="292" cy="129" r="3.5"/><circle class="lm" cx="606" cy="129" r="3.5"/>
+          <circle class="lm" cx="292" cy="268" r="3.5"/><circle class="lm" cx="150" cy="190" r="3.5"/>
+          <text x="20" y="392" class="ts">默认不出这台电脑。只有你主动问、而且确实需要联网时，才把那一问送出去。</text>
+        </svg>
+      </div>
+      <div class="capline">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
+        <span>外壳是 macOS 原生（Swift）—— 只负责系统才做得到的那几件事。</span>
+      </div>
+      <div class="capline">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="3.4"/><path d="M12 2.6v3M12 18.4v3M2.6 12h3M18.4 12h3M5.4 5.4l2.1 2.1M16.5 16.5l2.1 2.1M18.6 5.4l-2.1 2.1M7.5 16.5l-2.1 2.1"/></svg>
+        <span>核心是通用的 HTTP 服务（Bun）—— 换个壳，它照样跑。</span>
       </div>
     </div>
-    <div class="arch">
-      <svg viewBox="0 0 900 520" role="img" aria-label="C4emem 架构图">
-        <defs>
-          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-            <path d="M0,0 L7,3 L0,6" fill="none" stroke="#8d94a3" stroke-width="1.2"/>
-          </marker>
-          <style>
-            .bx{fill:#161a22;stroke:#39404e;stroke-width:1.1}
-            .bx2{fill:#1d2430;stroke:#4a5468;stroke-width:1.1}
-            .tt{fill:#e9ecf4;font:400 15px -apple-system,"PingFang SC",sans-serif}
-            .ts{fill:#98a1b3;font:400 12.5px -apple-system,"PingFang SC",sans-serif}
-            .ln{stroke:#8d94a3;stroke-width:1.2;fill:none;marker-end:url(#ar)}
-            .lm{fill:#d7f24a}
-            .ap{fill:#e9ecf4}
-          </style>
-        </defs>
-        <text x="20" y="34" class="tt">这台电脑（离线可用）</text>
-        <rect x="20" y="50" width="860" height="300" rx="14" fill="none" stroke="#2a3038" stroke-dasharray="5 5"/>
-
-        <rect class="bx" x="46" y="86" width="212" height="86" rx="10"/>
-        <g transform="translate(62,110) scale(0.86)">
-          <path class="ap" d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/>
-        </g>
-        <text x="92" y="116" class="tt">macOS 外壳（Swift）</text>
-        <text x="92" y="140" class="ts">菜单栏 · 窗口 · 桌面 Pet</text>
-        <text x="92" y="158" class="ts">全局快捷键 · 网页↔原生桥</text>
-
-        <rect class="bx2" x="46" y="212" width="212" height="112" rx="10"/>
-        <text x="66" y="240" class="tt">本地核心（Bun）</text>
-        <text x="66" y="262" class="ts">HTTP · 127.0.0.1:8770</text>
-        <text x="66" y="282" class="ts">检索 · 生成 · 主动式 · 功能注册表</text>
-        <text x="66" y="302" class="ts">SQLite（流水 / 待办 / 块 / 会话）</text>
-
-        <rect class="bx" x="330" y="86" width="240" height="112" rx="10"/>
-        <text x="350" y="114" class="tt">找东西</text>
-        <text x="350" y="138" class="ts">按词找 ＋ 按意思找，两路合排</text>
-        <text x="350" y="158" class="ts">索引与嵌入模型都在本机</text>
-        <text x="350" y="178" class="ts">断网照样能找</text>
-
-        <rect class="bx" x="646" y="86" width="212" height="112" rx="10"/>
-        <text x="666" y="114" class="tt">东西从哪来</text>
-        <text x="666" y="138" class="ts">Notion（四个库合一格）</text>
-        <text x="666" y="158" class="ts">企业邮箱 · 手机（ADB）</text>
-        <text x="666" y="178" class="ts">Figma · 飞书</text>
-
-        <rect class="bx" x="330" y="250" width="240" height="74" rx="10"/>
-        <text x="350" y="278" class="tt">写东西</text>
-        <text x="350" y="300" class="ts">只有需要时才联网</text>
-
-        <path class="ln" d="M258 129 H326"/>
-        <path class="ln" d="M642 129 H570"/>
-        <path class="ln" d="M450 226 V246"/>
-        <path class="ln" d="M258 268 H326"/>
-        <path class="ln" d="M150 172 V208"/>
-        <circle class="lm" cx="292" cy="129" r="3.5"/><circle class="lm" cx="606" cy="129" r="3.5"/>
-        <circle class="lm" cx="292" cy="268" r="3.5"/><circle class="lm" cx="150" cy="190" r="3.5"/>
-
-        <text x="20" y="392" class="ts">默认不出这台电脑。只有你主动问、而且确实需要联网时，才把那一问送出去。</text>
-      </svg>
-    </div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
 <!-- ═══ (6) 来源 ═══ -->
-<section id="sources" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(6). 东西从哪来</span><span class="meta">一颗按钮，九个来源</span></div>
-  <div class="two">
-    <div>
-      <h3 style="font-size:clamp(18px,2.2vw,24px)">你现在在看哪儿，一眼就知道。</h3>
+<section id="sources" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(6) 东西从哪来</h2>
+      <p class="eyebrow" style="margin-top:14px">一颗按钮，九个来源</p></div>
+    <div class="rv">
+      <h3 class="mid">你现在在看哪儿，一眼就知道。</h3>
       <p>手上的东西都收在左下角那颗按钮里：Notion、邮箱、手机、Figma、飞书。点一下扇开，选一个就切过去 —— 左边那一栏会跟着染成它的颜色。</p>
       <p>停在最中间那格是「融合」：不挑来源，全都看。什么时候该专一、什么时候该合起来看，由你当场决定。</p>
+      <div class="media" style="margin-top:22px"><video src="assets/g-sources.webm" aria-label="来源扇区" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
-    <div class="media"><video src="assets/g-sources.webm" aria-label="来源扇区" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
-<!-- ═══ (7) 检索：只有这一件，讲细 ═══ -->
-<section id="all" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(7). 找东西</span><span class="meta">这一件，值得讲细</span></div>
-  <div class="two flip">
-    <div class="media"><video src="assets/g-search.webm" aria-label="检索" muted loop autoplay playsinline preload="metadata"></video></div>
-    <div>
-      <h2 class="statement" style="font-size:clamp(22px,3vw,36px);margin-bottom:20px">你记得多少，就说多少。</h2>
+<!-- ═══ (7) 找东西 ═══ -->
+<section id="all" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(7) 找东西</h2>
+      <p class="eyebrow" style="margin-top:14px">这一件，值得讲细</p></div>
+    <div class="rv">
+      <h3 class="mid">你记得多少，就说多少。</h3>
       <p class="lead">搜索最难的地方从来不是"找得到"，而是<b>你根本想不起当初是怎么记的</b>。所以这里同时按两条路找，再把两边的结果合起来排。</p>
-      <ul class="plain">
-        <li><b>按词找。</b>你还记得那句话里的某个字眼 —— 那就先把它们捞出来。这一路讲究的是"确有此事"。</li>
-        <li><b>按意思找。</b>你只记得"有一篇讲玻璃的"，字面上却一个字都不对 —— 这一路也能找到它。字面不打架的时候，它比按词找更有用。</li>
-        <li><b>两路合排，也各自留着手印。</b>结果会告诉你这条是靠哪一路捞上来的，不会把两种命中混成一个说不清的数字。</li>
-        <li><b>命中处开一扇窗。</b>不给你一整篇，先给你<b>它出现在哪一段、上下文是什么</b>。想细看再点开全文。</li>
-        <li><b>一键回到它来的地方。</b>看完能直接跳回那个软件里去改 —— 找东西的终点不是"看完"，是"接着做事"。</li>
-        <li><b>它自己知道自己有多心虚。</b>材料很勉强的时候，它会明说"这条不太可信"，并问你要不要再上网找一遍 —— 而不是把一句没把握的话讲得像结论。</li>
-      </ul>
+      <div class="acc">
+        <details open><summary><span class="n">1</span>按词找</summary>
+          <div class="b"><p>你还记得那句话里的某个字眼 —— 那就先把它们捞出来。这一路讲究的是"确有此事"。</p></div></details>
+        <details><summary><span class="n">2</span>按意思找</summary>
+          <div class="b"><p>你只记得"有一篇讲玻璃的"，字面上却一个字都不对 —— 这一路也能找到它。字面不打架的时候，它比按词找更有用。</p></div></details>
+        <details><summary><span class="n">3</span>两路合排，也各自留着手印</summary>
+          <div class="b"><p>结果会告诉你这条是靠哪一路捞上来的，不会把两种命中混成一个说不清的数字。</p></div></details>
+        <details><summary><span class="n">4</span>命中处开一扇窗</summary>
+          <div class="b"><p>不给你一整篇，先给你<b>它出现在哪一段、上下文是什么</b>。想细看再点开全文。</p></div></details>
+        <details><summary><span class="n">5</span>一键回到它来的地方</summary>
+          <div class="b"><p>看完能直接跳回那个软件里去改 —— 找东西的终点不是"看完"，是"接着做事"。</p></div></details>
+        <details><summary><span class="n">6</span>它自己知道自己有多心虚</summary>
+          <div class="b"><p>材料很勉强的时候，它会明说"这条不太可信"，并问你要不要再上网找一遍 —— 而不是把一句没把握的话讲得像结论。</p></div></details>
+      </div>
       <p style="margin-top:18px">顺带一句实话：库是<b>你自己的库</b>。同一个词在别人机器上搜出来的东西，和你这里完全是两回事 —— 这正是它留在这台电脑上的意义。</p>
+      <div class="media" style="margin-top:22px"><video src="assets/g-search.webm" aria-label="检索" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
-<!-- ═══ (8) 货架：每一类拖动各演一遍 ═══ -->
-<section id="shelf" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(8). 货架</span><span class="meta">什么都能先搁进去</span></div>
-  <div class="two" style="margin-bottom:clamp(28px,5vh,52px)">
-    <div>
-      <h3 style="font-size:clamp(18px,2.2vw,24px)">先收着，等想法成形再说。</h3>
+<!-- ═══ (8) 货架 ═══ -->
+<section id="shelf" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(8) 货架</h2>
+      <p class="eyebrow" style="margin-top:14px">什么都能先搁进去</p></div>
+    <div class="rv">
+      <h3 class="mid">先收着，等想法成形再说。</h3>
       <p>右下角那颗球。收集东西的时候，你多半还不知道它将来要干什么 —— 那就先放进去。<b>攒够了它就是一整段材料</b>：可以送去回答，也可以直接变成结构流里的一块。</p>
-      <p>入口不止一个，因为顺手的方式本来就不止一种。下面这几格，是<b>每一种都真的走了一遍</b>录下来的。</p>
+      <p>入口不止一个，因为顺手的方式本来就不止一种。下面每一格，都是<b>那一种真的走了一遍</b>录下来的。</p>
+      <div class="media" style="margin-top:22px"><video src="assets/g-shelf.webm" aria-label="把一条记录拖进货架，再送进结构流" muted loop autoplay playsinline preload="metadata"></video></div>
+      <div class="grid" style="margin-top:clamp(22px,3.5vh,38px)">
+        <div><div class="media"><video src="assets/g-shelf-file.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3>拖一个文件进来</h3><p>从桌面直接拽进来。名字和它是个什么，都留着。</p></div>
+        <div><div class="media"><video src="assets/g-shelf-image.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3>拖一张图进来</h3><p>图会带一张缩略图 —— 一眼认得出是哪张，不用点开。</p></div>
+        <div><div class="media"><video src="assets/g-shelf-paste.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3>⌘V 直接贴上</h3><p>刚复制的那一段，不用切窗口。⚠️ 光标在输入框里时 ⌘V 还是"粘字"，它不抢。</p></div>
+        <div><div class="media"><video src="assets/g-shelf-select.webm" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3>选中，再点它</h3><p>最万能的一条：不挑元素、不挑位置、不挑浏览器。选中一段，点那颗球。</p></div>
+      </div>
     </div>
-    <div class="media"><video src="assets/g-shelf.webm" aria-label="把一条记录拖进货架，再送进结构流" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-  <div class="grid6">
-    <div class="card"><div class="ph"><video src="assets/g-shelf-file.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>拖一个文件进来</h3><p>从桌面直接拽进来。名字和它是个什么，都留着。</p></div></div>
-    <div class="card"><div class="ph"><video src="assets/g-shelf-image.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>拖一张图进来</h3><p>图会带一张缩略图 —— 一眼认得出是哪张，不用点开。</p></div></div>
-    <div class="card"><div class="ph"><video src="assets/g-shelf-paste.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>⌘V 直接贴上</h3><p>刚复制的那一段，不用切窗口。⚠️ 光标在输入框里时 ⌘V 还是"粘字"，它不抢。</p></div></div>
-    <div class="card"><div class="ph"><video src="assets/g-shelf-select.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>选中，再点它</h3><p>最万能的一条：不挑元素、不挑位置、不挑浏览器。选中一段，点那颗球。</p></div></div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
 <!-- ═══ (9) 桌面 Pet ═══ -->
-<section id="pet" style="padding-top:0"><div class="wrap">
-  <div class="sec-head"><span class="eyebrow">(9). 桌面那个小家伙</span><span class="meta">它替你管着所有软件</span></div>
-  <div class="two">
-    <div>
-      <h3 style="font-size:clamp(18px,2.2vw,24px)">鼠标放上去，一圈软件摊开。</h3>
+<section id="pet" class="rule">
+  <div class="wrap"><div class="cols">
+    <div class="rv"><h2 class="big">(9) 桌面那个小家伙</h2>
+      <p class="eyebrow" style="margin-top:14px">它替你管着所有软件</p></div>
+    <div class="rv">
+      <h3 class="mid">鼠标放上去，一圈软件摊开。</h3>
       <p>那一圈是你<b>正开着的软件</b>，指针压到哪个哪个亮，中间写着它的名字。<b>敲字母直接切过去</b>（C 就是 Chrome），打别的字就是筛选。全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code>，在哪儿都能叫出来。</p>
       <p>右键是一张<b>勾选清单</b>：列出正在运行的东西，勾几个一起退掉。退出是不可逆的，所以按钮是红的、一个都没勾的时候点不动、退完还会回来告诉你哪几个没退成。</p>
       <p>它自己长什么样，也可以换 —— 一块卡片，或者一颗矿石。</p>
+      <div class="grid" style="margin-top:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+        <div><div class="media free" style="max-width:420px"><video src="assets/g-wheel.webm" aria-label="桌面 Pet 的轮盘" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3 style="margin-top:14px">鼠标放上去就展开</h3><p>一圈正在运行的软件，敲角上那个字母直接切过去。</p></div>
+        <div><div class="media free" style="max-width:420px"><video src="assets/g-quit.webm" aria-label="右键勾选退出" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3 style="margin-top:14px">右键 = 一笔勾掉</h3><p>勾几个一起退。退完还会回来告诉你哪几个没退成。</p></div>
+        <div><div class="media free" style="max-width:420px"><video src="assets/g-pet-forms.webm" aria-label="五种样子" muted loop autoplay playsinline preload="metadata"></video></div>
+          <h3 style="margin-top:14px">五种样子</h3><p>卡片 · 珍珠 · 银 · 铅 · 锌。换一个，它就在原地变一个。</p></div>
+      </div>
     </div>
-    <div class="media no-bg"><video src="assets/g-wheel.webm" aria-label="桌面 Pet 的轮盘" muted loop autoplay playsinline preload="metadata"></video></div>
-  </div>
-  <div class="three" style="margin-top:34px;max-width:860px">
-    <div class="card"><div class="ph" style="background:none"><video src="assets/g-pet-forms.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>五种样子</h3><p>卡片 · 珍珠 · 银 · 铅 · 锌。换一个，它就在原地变一个。</p></div></div>
-    <div class="card"><div class="ph" style="background:none"><video src="assets/g-quit.webm" muted loop autoplay playsinline preload="metadata"></video></div><div class="bd">
-      <h3>右键 = 一笔勾掉</h3><p>列出正在运行的，勾几个一起退。退完还会回来告诉你哪几个没退成。</p></div></div>
-  </div>
-</div></section>
+  </div></div>
+</section>
 
 <!-- 全屏字样 -->
-<section class="display"><div>
-  <div class="t">Local first</div>
-  <div class="c">东西不出这台电脑 · 断网也能用</div>
+<section class="display"><div class="wrap">
+  <p class="t rv">local first</p>
+  <p class="c">东西不出这台电脑 · 断网也能用</p>
 </div></section>
 
 <!-- 哲学 -->
-<section style="padding-top:0"><div class="wrap" style="max-width:1000px">
-  <p class="eyebrow">我们怎么想这件事</p>
-  <p style="font-size:clamp(20px,2.6vw,32px);line-height:1.4;color:var(--ink);margin-bottom:22px">
-    一样工具的分量，不在它能接上多少个服务，而在它<b>替你想到了多少你没想到的</b>。</p>
-  <p>所以我们只在意两件事：它主动递过来的东西，和它自己长大的能力。剩下都是这两件事的副产品。</p>
-  <p>判断一个来源能不能接的时候，先分清它是<b>一份内容</b>、还是<b>一双手</b> —— 这两件事分不清，答案就一定是错的。所以界面上每一句"我们暂时做不到"，都写成一句人话，而不是一个转圈。</p>
-  <p>还有一件小事，但我们一直守着：<b>删除永远不静默</b>。任何能删的东西，都留一条回头的路。</p>
-</div></section>
+<section class="rule"><div class="wrap"><div class="cols">
+  <div class="rv"><h2 class="big">我们怎么想<br/>这件事</h2></div>
+  <div class="rv">
+    <p style="font-size:clamp(20px,2.6vw,34px);line-height:1.28;letter-spacing:-.03em;color:var(--ink);max-width:30ch;margin-bottom:26px">
+      一样工具的分量，不在它能接上多少个服务，而在它<b>替你想到了多少你没想到的</b>。</p>
+    <p>所以我们只在意两件事：它主动递过来的东西，和它自己长大的能力。剩下都是这两件事的副产品。</p>
+    <p>判断一个来源能不能接的时候，先分清它是<b>一份内容</b>、还是<b>一双手</b> —— 这两件事分不清，答案就一定是错的。所以界面上每一句"我们暂时做不到"，都写成一句人话，而不是一个转圈。</p>
+    <p>还有一件小事，但我们一直守着：<b>删除永远不静默</b>。任何能删的东西，都留一条回头的路。</p>
+  </div>
+</div></div></section>
 
 <!-- 安装 -->
-<section id="install" style="padding-top:0"><div class="wrap">
-  <p class="eyebrow">安装</p>
-  <details class="fold" open><summary>下载与安装<span class="meta">macOS 13+</span></summary>
-    <div class="in">
+<section id="install" class="rule"><div class="wrap"><div class="cols">
+  <div class="rv"><h2 class="big">安装</h2>
+    <p class="eyebrow" style="margin-top:14px">macOS 13+</p></div>
+  <div class="fold rv">
+    <details open><summary>下载与安装</summary><div class="in">
       <ol>
         <li>下载 <b>Cevtuo C4emem.app</b>（当前为内部构建，尚未公证签名）。</li>
         <li>第一次打开如果被拦：右键 → <b>打开</b>；或到「系统设置 → 隐私与安全性」里点"仍要打开"。</li>
@@ -481,19 +487,41 @@ footer .fin{font-size:12px;letter-spacing:.36px;text-transform:uppercase;color:v
         <li>快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 随处呼出轮盘；鼠标放到小家伙上也会展开。</li>
       </ol>
       <p style="margin-top:14px">⚠️ 这是<b>给一个人用的</b>软件：它读的是你自己电脑上的东西。第一次运行要填你自己的来源凭据（Notion / 邮箱 / 手机等），<b>不会带任何别人的配置</b>。</p>
-    </div>
-  </details>
-  <details class="fold"><summary>没有网能用吗<span class="meta">离线</span></summary>
-    <div class="in">能。找东西、记录、结构流、快捷启动软件，全都离线可用 —— 因为索引和嵌入模型都在本机。只有"让模型替你写点东西"那一步需要联网。</div>
-  </details>
-  <details class="fold"><summary>它怎么保证东西不外流<span class="meta">隐私</span></summary>
-    <div class="in">核心只监听 <code>127.0.0.1</code>，外面够不着；页面和核心同源。所有内容默认留在这台电脑上，只有你主动发问、而且确实需要联网时，才把那一问送出去。</div>
-  </details>
-</div></section>
+      <div class="cta" style="margin-top:18px">
+        <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.0.dmg">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
+          下载 macOS 版（.dmg，约 50 MB）</a>
+      </div>
+    </div></details>
+    <details><summary>没有网能用吗</summary><div class="in">能。找东西、记录、结构流、快捷启动软件，全都离线可用 —— 因为索引和嵌入模型都在本机。只有"让模型替你写点东西"那一步需要联网。</div></details>
+    <details><summary>它怎么保证东西不外流</summary><div class="in">核心只监听 <code>127.0.0.1</code>，外面够不着；页面和核心同源。所有内容默认留在这台电脑上，只有你主动发问、而且确实需要联网时，才把那一问送出去。</div></details>
+  </div>
+</div></div></section>
 
-<footer id="contact"><div class="wrap">
+<footer><div class="wrap">
   <div class="fin"><span>CEVTUO CLVNCHET</span><span>CEVTUOGRND</span></div>
 </div></footer>
 
+<script>
+// 滚到了才浮上来（twks 那种入场）
+const io = new IntersectionObserver((es) => {
+  for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}, { rootMargin: '0px 0px -12% 0px', threshold: .06 });
+document.querySelectorAll('.rv').forEach((el) => io.observe(el));
+// 本地时间那一行
+const tick = () => {
+  const d = new Date();
+  const p = (n) => String(n).padStart(2, '0');
+  const el = document.getElementById('clock');
+  if (el) el.textContent = '本地时间 ' + p(d.getHours()) + ':' + p(d.getMinutes()) + ':' + p(d.getSeconds());
+};
+tick(); setInterval(tick, 1000);
+// 手风琴：一次只开一个（和参考站一样）
+for (const box of document.querySelectorAll('.acc')) {
+  box.querySelectorAll('details').forEach((d) => d.addEventListener('toggle', () => {
+    if (d.open) box.querySelectorAll('details').forEach((o) => { if (o !== d) o.open = false; });
+  }));
+}
+</script>
 </body>
 </html>
