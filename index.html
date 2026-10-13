@@ -79,6 +79,13 @@
   <symbol id="i-film" viewBox="0 0 24 24">
     <path d="M3 4h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v2h2V6H4zm14 0v2h2V6h-2zM4 16v2h2v-2H4zm14 0v2h2v-2h-2zm-12 0v2h12v-2H6zm0-8v6h12V8H6zM5 10v2h2v-2H5zm12 0v2h2v-2h-2z"/>
   </symbol>
+  <!-- ⚠️ 路径上**不要写 fill** —— `<use>` 只克隆 symbol 自己的子树，
+       而这里靠 CSS 的 `.osicon{fill:currentColor}` **继承**进去。
+       路径一旦自带 fill，继承就被顶掉，图标会变成一坨黑。 -->
+  <symbol id="i-spark" viewBox="0 0 24 24">
+    <path d="M11 2.2c.82 3.92 2.46 5.56 6.38 6.38-3.92.82-5.56 2.46-6.38 6.38-.82-3.92-2.46-5.56-6.38-6.38 3.92-.82 5.56-2.46 6.38-6.38z"/>
+    <path d="M17.6 13.6c.4 1.92 1.2 2.72 3.12 3.12-1.92.4-2.72 1.2-3.12 3.12-.4-1.92-1.2-2.72-3.12-3.12 1.92-.4 2.72-1.2 3.12-3.12z"/>
+  </symbol>
 </svg>
 
 <div class="card">
@@ -91,6 +98,13 @@
     <svg class="osicon" style="width:24px;height:24px"><use href="#i-book"/></svg>
     <span class="tx"><b>CEVTUO-RWP</b>
       <small>Web pages &amp; RSS → EPUB · macOS &amp; Windows</small></span>
+    <span class="arrow">›</span>
+  </a>
+
+  <a class="item" href="/c4emem/">
+    <svg class="osicon" style="width:24px;height:24px"><use href="#i-spark"/></svg>
+    <span class="tx"><b>Cevtuo C4emem</b>
+      <small>本地优先的知识库 AI 助手 · macOS</small></span>
     <span class="arrow">›</span>
   </a>
 
