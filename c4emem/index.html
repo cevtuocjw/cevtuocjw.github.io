@@ -46,6 +46,10 @@ p.lead{color:var(--ink)}
 b{font-weight:500;color:var(--ink)}
 code{background:rgba(17,17,17,.05);border-radius:5px;padding:1px 6px;font-size:.88em}
 .eyebrow{font-size:14px;letter-spacing:-.005em;color:var(--faint);margin:0}
+/* 品牌行：第一屏紧贴大标题下面那行 */
+.sig{font-size:clamp(14px,1.3vw,18px);letter-spacing:.01em;color:var(--faint);
+  margin:clamp(14px,2.4vh,24px) 0 0;max-width:none}
+.sig b{color:var(--ink);font-weight:500}
 
 /* 双栏：左标签 / 右内容 */
 .cols{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.55fr);gap:clamp(18px,3.4vw,64px);align-items:start}
@@ -196,6 +200,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       <p class="eyebrow" style="padding-top:14px">swiss-made<br>local-first</p>
       <div class="rv">
         <h1 class="disp">C4emem 住在你自己的机器里主动成长。安静，但一直在，不等你来找它，需要的时候它也可以主动来询问来帮你。</h1>
+        <p class="sig"><b>c4emem</b> - fore &amp; mem</p>
       </div>
     </div>
     <div class="cols" style="grid-template-columns:minmax(0,.42fr) minmax(0,1.9fr);margin-top:clamp(24px,4vh,44px)">
@@ -291,7 +296,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <div class="cols">
       <div>
         <p class="eyebrow" style="color:rgba(255,255,255,.55)">(4) 结构流</p>
-        <h2 class="big" style="color:#fff;margin-top:14px">把一件要做的事<br/>摊开成一张图</h2>
+        <h2 class="big" style="color:#fff;margin-top:14px">可拖拽式流程处理</h2>
       </div>
       <div>
         <p class="lead" style="color:rgba(255,255,255,.9)">把任务表示为有向图：节点是块，边是类型化的数据与顺序关系。<br/>
@@ -325,8 +330,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
     <div class="rv">
       <h3 class="mid">一个本地核心，加一层外壳。</h3>
       <p>核心为本地 HTTP 服务，监听 <code>127.0.0.1:8770</code>，承载检索、生成与主动式调度。<br/>
-      外壳负责菜单栏、窗口、桌面 Pet 与网页↔原生桥，仅实现网页环境无法完成的能力。</p>
-      <p>核心仅暴露 HTTP 接口，<b>移动端、小程序与其它外壳可复用同一套实现</b>；替换外壳不影响业务逻辑。</p>
+      外壳负责菜单栏、窗口、cevtuopet 与网页↔原生桥，仅实现网页环境无法完成的能力。</p>
       <div class="arch" style="margin-top:22px">
         <svg viewBox="0 0 900 520" role="img" aria-label="C4emem 架构图">
           <defs>
@@ -346,7 +350,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
           <rect class="bx" x="46" y="86" width="212" height="86" rx="10"/>
           <g transform="translate(62,110) scale(0.86)"><path fill="#e9ecf4" d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></g>
           <text x="92" y="116" class="tt">macOS 外壳（Swift）</text>
-          <text x="92" y="140" class="ts">菜单栏 · 窗口 · 桌面 Pet</text>
+          <text x="92" y="140" class="ts">菜单栏 · 窗口 · cevtuopet</text>
           <text x="92" y="158" class="ts">全局快捷键 · 网页↔原生桥</text>
           <rect class="bx2" x="46" y="212" width="212" height="112" rx="10"/>
           <text x="66" y="240" class="tt">本地核心（Bun）</text>
@@ -359,7 +363,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
           <text x="350" y="158" class="ts">索引与嵌入模型都在本机</text>
           <text x="350" y="178" class="ts">断网照样能找</text>
           <rect class="bx" x="646" y="86" width="212" height="112" rx="10"/>
-          <text x="666" y="114" class="tt">东西从哪来</text>
+          <text x="666" y="114" class="tt">数据源知识库及操作对象</text>
           <text x="666" y="138" class="ts">Notion（四个库合一格）</text>
           <text x="666" y="158" class="ts">企业邮箱 · 手机（ADB）</text>
           <text x="666" y="178" class="ts">Figma · 飞书</text>
@@ -388,12 +392,13 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <!-- ═══ (6) 来源 ═══ -->
 <section id="sources" class="rule">
   <div class="wrap"><div class="cols">
-    <div class="rv"><h2 class="big">(6) 东西从哪来</h2>
+    <div class="rv"><h2 class="big">(6) 数据源知识库及操作对象</h2>
       <p class="eyebrow" style="margin-top:14px">一颗按钮，九个来源</p></div>
     <div class="rv">
       <h3 class="mid">来源集中管理。</h3>
-      <p>已接入的来源集中于左下角面板：Notion、企业邮箱、企业微信邮件、Figma、飞书、手机。选择后导航栏按来源着色，当前来源可即时识别。</p>
-      <p>居中一项为「融合」：不限定来源，跨全部来源检索。来源过滤粒度可随时切换。</p>
+      <p>已接入的来源统一列于左下角面板：Notion、企业邮箱、企业微信邮件、Figma、手机（飞书为占位实现）。选定来源后，界面按来源着色，当前检索口径可即时辨认。</p>
+      <p>面板居中一项为「融合」：不限定来源，在全部已接入来源上同时检索；检索范围可随时收窄至单一来源。</p>
+      <p>本机已安装的应用可被扫描并列成清单，选取后即可接入，亦可为其开发专属功能。</p>
       <div class="media" style="margin-top:22px"><video src="assets/g-sources.webm" aria-label="来源扇区" muted loop autoplay playsinline preload="metadata"></video></div>
     </div>
   </div></div>
@@ -412,14 +417,14 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
           <div class="b"><p>按字面命中，适用于记得原文片段的情形。结果为字面精确匹配。</p></div></details>
         <details><summary><span class="n">2</span>按意思找</summary>
           <div class="b"><p>按语义命中，适用于仅记得主题、字面完全不同的情形。索引与嵌入模型均在本机运行。</p></div></details>
-        <details><summary><span class="n">3</span>两路合排，也各自留着手印</summary>
+        <details><summary><span class="n">3</span>融合排序，并标注各自命中路径</summary>
           <div class="b"><p>两路结果融合排序，并标注各自的命中路径，不合并为单一不可解释的分数。</p></div></details>
-        <details><summary><span class="n">4</span>命中处开一扇窗</summary>
+        <details><summary><span class="n">4</span>命中处展示上下文窗口</summary>
           <div class="b"><p>命中处展示上下文窗口，可展开全文，不直接交付整篇文档。</p></div></details>
-        <details><summary><span class="n">5</span>一键回到它来的地方</summary>
+        <details><summary><span class="n">5</span>结果可跳转回来源</summary>
           <div class="b"><p>结果可跳转回来源应用，检索到操作的路径不中断。</p></div></details>
-        <details><summary><span class="n">6</span>它自己知道自己有多心虚</summary>
-          <div class="b"><p>材料不足时标注低可信度，并提供联网检索选项；置信度不达标的内容不作结论输出。</p></div></details>
+        <details><summary><span class="n">6</span>可全库搜索及分析</summary>
+          <div class="b"><p>检索范围覆盖全部已接入来源。材料不足时标注低可信度，并提供联网检索选项；置信度不达标的内容不作结论输出。</p></div></details>
       </div>
       <p style="margin-top:18px">索引基于本机语料构建。<b>同一查询在不同设备上的结果互不相同</b>，这是本地化存储的直接结果。</p>
       <div class="media" style="margin-top:22px"><video src="assets/g-search.webm" aria-label="检索" muted loop autoplay playsinline preload="metadata"></video></div>
@@ -451,18 +456,20 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
   </div></div>
 </section>
 
-<!-- ═══ (9) 桌面 Pet ═══ -->
+<!-- ═══ (9) cevtuopet ═══ -->
 <section id="pet" class="rule">
   <div class="wrap"><div class="cols">
-    <div class="rv"><h2 class="big">(9) 桌面那个小家伙</h2>
-      <p class="eyebrow" style="margin-top:14px">应用切换与批量退出</p></div>
+    <div class="rv"><h2 class="big">(9) cevtuopet</h2>
+      <p class="eyebrow" style="margin-top:14px">应用启动 · 语音入口 · 批量退出</p></div>
     <div class="rv">
-      <h3 class="mid">应用切换由单个入口承载。</h3>
-      <p>悬停展开当前运行的应用程序，指针所在项高亮并在中轴显示名称。<b>按字母直接切换</b>（C 对应 Chrome），其余字符进入筛选。全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 在任意界面可用。</p>
-      <p>右键展开<b>运行中应用清单</b>：勾选后可批量退出。退出不可逆，因此按钮以红色标识、未勾选时禁用、执行后回报未成功的条目。</p>
-      <p>外观提供五种形态：卡片、珍珠、银、铅、锌。</p>
+      <h3 class="mid">一个入口承载多种操作。</h3>
+      <p>悬停展开一圈扇区，每个应用占一格；指针压在哪个扇区上，哪一格高亮并在中轴显示名称。<b>直接敲字母即可切过去</b>（C 对应 Chrome），其余字符进入筛选，Esc 收起。全局快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 在任意界面可用。</p>
+      <p>面板下方的药丸在<b>正在运行</b>与<b>全部应用</b>之间切换 —— 不只列出已打开的，能启动的都在这里。整体可拖动挪位置。</p>
+      <p>右键展开<b>运行中应用清单</b>：勾选后可批量退出。退出不可逆，因此入口以红色标识、未勾选时禁用、执行后回报未成功的条目。</p>
+      <h3 class="mid" style="margin-top:26px">可在「Pet 设置…」中调整的项目。</h3>
+      <p><b>形态</b>：卡片 · 珍珠 · 银 · 铅 · 锌。<b>点它做什么</b>：弹出应用轮盘 / 开始与结束说话 / 打开 C4emem 窗口 / 打开指定的某个软件。<b>轮盘大小</b>：小 · 中 · 大。<b>字母角标</b>：在图标角上标一个字母，敲它即直接切换。<b>切换后是否保留面板</b>：需要连续打开多个时勾选。改动即时生效。</p>
       <div class="grid" style="margin-top:24px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <div><div class="media free" style="max-width:420px"><video src="assets/g-wheel.webm" aria-label="桌面 Pet 的轮盘" muted loop autoplay playsinline preload="metadata"></video></div>
+        <div><div class="media free" style="max-width:420px"><video src="assets/g-wheel.webm" aria-label="cevtuopet 的轮盘" muted loop autoplay playsinline preload="metadata"></video></div>
           <h3 style="margin-top:14px">应用轮盘</h3><p>悬停展开运行中应用，按角标字母直接切换。</p></div>
         <div><div class="media free" style="max-width:420px"><video src="assets/g-quit.webm" aria-label="右键勾选退出" muted loop autoplay playsinline preload="metadata"></video></div>
           <h3 style="margin-top:14px">批量退出</h3><p>勾选后统一退出，并回报未成功的条目。</p></div>
@@ -490,6 +497,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       <span class="fi">手机<em>ADB</em><span class="d">机型、电量、存储与相册，以及通知流。经 ADB 连接。</span></span>
       <span class="fi">飞书<em>未接入</em><span class="d">文档与消息。当前为占位实现，调用时返回明确的未实现错误，不返回空结果。</span></span>
       <span class="fi">跨来源 · 融合<span class="d">不限定来源，在全部已接入来源上同时检索。</span></span>
+      <span class="fi">更多应用<em>可接入</em><span class="d">扫描本机已安装的应用并列成清单，选取后即可接入，或为其开发专属功能。</span></span>
 
       <p class="fg">输入</p>
       <span class="fi">语音<span class="d">识别在本机完成，音频不外传；结果转为可编辑文本。</span></span>
@@ -523,7 +531,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       <span class="fi">记录栏<span class="d">只增的操作流水，支持本地检索、多选与批量删除；删除仅作用于流水。</span></span>
       <span class="fi">货架<span class="d">暂存任意内容，可送入回答或作为结构流的一个块。</span></span>
       <span class="fi">用量<span class="d">调用次数与 token 统计。</span></span>
-      <span class="fi">桌面 Pet<span class="d">应用轮盘、右键批量退出、五种外观、全局快捷键 ⌥⌘C / ⌥⌘4。</span></span>
+      <span class="fi">cevtuopet<span class="d">应用轮盘（正在运行 / 全部应用）、右键批量退出、五种形态；可改为语音入口或指定软件入口。全局快捷键 ⌥⌘C / ⌥⌘4。</span></span>
 
     </div></div>
   </div></div>
@@ -556,7 +564,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       <ol>
         <li>下载 <b>Cevtuo C4emem.app</b>（当前为内部构建，尚未公证签名）。</li>
         <li>首次启动如被系统拦截：右键 → <b>打开</b>；或在「系统设置 → 隐私与安全性」中选择"仍要打开"。</li>
-        <li>应用常驻菜单栏（<b>C4</b>），并在桌面右下角显示 Pet 入口。</li>
+        <li>应用常驻菜单栏（<b>C4</b>），并在桌面右下角显示 cevtuopet 入口。</li>
         <li>快捷键 <code>⌥⌘C</code> / <code>⌥⌘4</code> 可在任意界面呼出轮盘。</li>
       </ol>
       <p style="margin-top:14px">⚠️ 本软件读取本机数据。首次运行需自行填写来源凭据（Notion / 邮箱 / 手机等），<b>安装包内不含任何他人配置</b>。</p>
