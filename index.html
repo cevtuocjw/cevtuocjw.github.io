@@ -82,6 +82,10 @@
   <!-- ⚠️ 路径上**不要写 fill** —— `<use>` 只克隆 symbol 自己的子树，
        而这里靠 CSS 的 `.osicon{fill:currentColor}` **继承**进去。
        路径一旦自带 fill，继承就被顶掉，图标会变成一坨黑。 -->
+  <symbol id="i-pencil" viewBox="0 0 24 24">
+    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
+    <path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+  </symbol>
   <symbol id="i-spark" viewBox="0 0 24 24">
     <path d="M11 2.2c.82 3.92 2.46 5.56 6.38 6.38-3.92.82-5.56 2.46-6.38 6.38-.82-3.92-2.46-5.56-6.38-6.38 3.92-.82 5.56-2.46 6.38-6.38z"/>
     <path d="M17.6 13.6c.4 1.92 1.2 2.72 3.12 3.12-1.92.4-2.72 1.2-3.12 3.12-.4-1.92-1.2-2.72-3.12-3.12 1.92-.4 2.72-1.2 3.12-3.12z"/>
@@ -105,6 +109,13 @@
     <svg class="osicon" style="width:24px;height:24px"><use href="#i-spark"/></svg>
     <span class="tx"><b>Cevtuo C4emem</b>
       <small>本地优先的知识库 AI 助手 · macOS</small></span>
+    <span class="arrow">›</span>
+  </a>
+
+  <a class="item" href="/cevtuopet/">
+    <svg class="osicon" style="width:24px;height:24px"><use href="#i-pencil"/></svg>
+    <span class="tx"><b>CEVTUO Pet</b>
+      <small>桌面宠物 · 一圈正在跑的软件 · 接你自己的 key · macOS</small></span>
     <span class="arrow">›</span>
   </a>
 

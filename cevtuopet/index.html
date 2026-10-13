@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CEVTUO Pet — 桌面上那个会帮你做事的小家伙</title>
+<meta name="description" content="CEVTUO Pet：桌面宠物 · 一圈正在运行的软件 · 接你自己的 API key，跟它说话，它真的把东西做出来。macOS。"/>
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32"/>
+<link rel="icon" href="assets/favicon-16.png" sizes="16x16"/>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<style>
+:root{
+  --bg:#fff; --ink:#111; --soft:#575757; --faint:#9b9b9b;
+  --line:rgba(17,17,17,.16); --line2:rgba(17,17,17,.09);
+  --lime:#d7f24a; --plate:#1b1a1f;
+  --gutter:clamp(16px,2.6vw,40px); --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:400 17px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue","Inter","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
+  letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+.rule{border-top:1px solid var(--line)}
+header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,#fff 92%,transparent);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:46px;gap:20px}
+header a{font-size:15px;text-decoration:none}
+header .brand{display:flex;align-items:center;gap:8px;font-weight:600}
+header .brand img{width:22px;height:22px}
+.hero{padding:clamp(34px,7vh,86px) 0 clamp(26px,5vh,56px)}
+.eyebrow{font-size:13px;line-height:1.5;color:var(--faint);margin:0;text-transform:lowercase}
+.disp{font-size:clamp(28px,4.6vw,52px);line-height:1.16;letter-spacing:-.03em;font-weight:600;margin:10px 0 0;max-width:16em}
+.sig{font-size:14px;color:var(--soft);margin:14px 0 0}
+.cols{display:grid;gap:clamp(16px,3vw,40px)}
+.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(20px,4vh,34px)}
+.dlbtn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;
+  text-decoration:none;font-size:15px;font-weight:560;padding:13px 20px;border-radius:999px;transition:transform .18s}
+.dlbtn:hover{transform:translateY(-1px)}
+.dlbtn svg{width:17px;height:17px}
+.dlbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.nowline{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--faint);margin-top:18px}
+.stage{border:1px solid var(--line2);border-radius:16px;overflow:hidden;background:#f6f6f4}
+.stage img{width:100%}
+.cap{font-size:13px;color:var(--faint);margin:8px 2px 0}
+section.blk{padding:clamp(30px,6vh,72px) 0}
+h2{font-size:clamp(20px,2.6vw,30px);letter-spacing:-.025em;margin:0 0 10px;font-weight:600}
+p.lead{font-size:17px;color:var(--soft);margin:0;max-width:44em}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:24px}
+.card{border:1px solid var(--line2);border-radius:14px;padding:18px}
+.card b{display:block;font-size:15.5px;margin-bottom:6px}
+.card p{margin:0;font-size:14px;color:var(--soft);line-height:1.6}
+.tag{display:inline-block;font-size:11.5px;letter-spacing:.02em;color:var(--soft);
+  border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin-bottom:10px}
+details.fold{border:1px solid var(--line2);border-radius:14px;padding:14px 18px;margin-top:22px}
+details.fold summary{cursor:pointer;font-weight:560;font-size:15.5px}
+details.fold ol{margin:14px 0 4px;padding-left:20px;font-size:14.5px;color:var(--soft);line-height:1.85}
+details.fold code{background:#f2f2f0;border-radius:5px;padding:1px 5px;font-size:13px}
+footer{border-top:1px solid var(--line);margin-top:clamp(30px,6vh,64px);padding:26px 0 46px;
+  font-size:13px;color:var(--faint)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
+.warn{border-left:3px solid var(--lime);padding:2px 0 2px 14px;font-size:14.5px;color:var(--soft);margin-top:18px}
+@media(max-width:720px){.cols{grid-template-columns:1fr!important}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <a class="brand" href="/"><img src="assets/logo.png" alt=""><span>CEVTUO Pet</span></a>
+  <a href="#install">安装 ›</a>
+</div></header>
+
+<!-- ═══ hero ═══ -->
+<section class="hero"><div class="wrap">
+  <div class="cols" style="grid-template-columns:minmax(0,.36fr) minmax(0,2fr)">
+    <p class="eyebrow" style="padding-top:12px">桌面宠物<br>本地优先</p>
+    <div>
+      <h1 class="disp">桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；跟它说一句，它把东西真的做出来。</h1>
+      <p class="sig"><b>cevtuo-pet</b> — 和 C4emem 共用同一个引擎</p>
+    </div>
+  </div>
+  <div class="cols" style="grid-template-columns:minmax(0,.36fr) minmax(0,2fr);margin-top:clamp(22px,4vh,42px)">
+    <p class="eyebrow">macOS 13+<br>数据不出本机</p>
+    <div>
+      <div class="cta">
+        <a class="dlbtn" href="https://github.com/cevtuocjw/cevtuo-c4emem/releases/latest/download/Cevtuo-Pet.dmg">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
+          下载 macOS 版</a>
+        <a class="dlbtn ghost" href="#what">它是什么</a>
+      </div>
+      <div class="nowline">
+        <span>macOS 13+</span><span>菜单栏 / Dock 随你</span><span>用你自己的 API key</span>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ═══ 它是什么 ═══ -->
+<section class="blk rule" id="what"><div class="wrap">
+  <p class="eyebrow">01 — 它是什么</p>
+  <h2>不是装饰，是一只手</h2>
+  <p class="lead">它一直待在桌面上。鼠标放上去就摊开一圈，左边是你<b>正在运行</b>的软件 —— 点一个就把它叫到最前面，
+  连找 Dock 那一步都省了。右边是它自己的入口。</p>
+  <div class="cards">
+    <div class="card"><span class="tag">多 APP</span><b>一整圈正在跑的软件</b>
+      <p>展开就是一整圈，按软件名的首字母敲一下就直接切过去 —— 全程不用碰鼠标。<br>
+      右键 = 完整的那个清单：勾几个、一起退掉。</p></div>
+    <div class="card"><span class="tag">单个 APP</span><b>只认一个软件</b>
+      <p>它就不展开那一圈了，点一下直接切过去。适合"一天就盯着一个东西用"。</p></div>
+    <div class="card"><span class="tag">常驻</span><b>菜单栏 / Dock</b>
+      <p>两个开关自己挑。<b>至少留一个</b> —— 两个都关掉就没有入口能把它叫回来了。</p></div>
+  </div>
+</div></section>
+
+<!-- ═══ 设置 ═══ -->
+<section class="blk rule"><div class="wrap">
+  <p class="eyebrow">02 — 设置</p>
+  <h2>一眼能看完的一页</h2>
+  <p class="lead">模式、模型、常驻、跟它说 —— 全在一页里，没有藏在三级菜单后面的东西。</p>
+  <div class="stage" style="margin-top:22px"><img src="assets/settings.jpg" alt="CEVTUO Pet 的设置页"></div>
+  <p class="cap">CEVTUO Pet 设置 · 模式 / 你自己的 API key / 常驻开关 / 跟它说</p>
+</div></section>
+
+<!-- ═══ 跟它说 ═══ -->
+<section class="blk rule"><div class="wrap">
+  <p class="eyebrow">03 — 跟它说</p>
+  <h2>聊完，它真的把东西做出来</h2>
+  <p class="lead">不是"给你一份步骤就完了"。你跟它把"读哪里、做成什么样"聊清楚，
+  它会给你一份<b>可执行的做法</b>，摊开摆在你面前 —— 按一下，它真去读、真去索引，
+  然后<b>把读到多少条报给你</b>。</p>
+  <div class="warn">
+    <b>报告的是真数。</b>「新读到 12 篇 · 现在共 48 段」是它刚从你的磁盘上数出来的，
+    不是"已完成"三个字。做不成的会<b>如实说做不成</b>，并说清能做的是哪一半。
+  </div>
+  <div class="cards">
+    <div class="card"><b>现在能做的两种</b>
+      <p>· 读一个<b>本地文件夹</b> —— 挑一个目录，它把里面的文档索引成一个新来源，之后在搜索里搜得到。<br>
+         · 读一个<b>网址</b> —— 抓下来抽成正文进库。</p></div>
+    <div class="card"><b>做不了的会直说</b>
+      <p>要连一个在线服务、要调一个接口那种，它会明说"这一步现在做不了"，
+      而不是给你一份看起来很像回事、其实跑不起来的东西。</p></div>
+    <div class="card"><b>和 C4emem 是同一个引擎</b>
+      <p>你在这里聊出来的东西，在 <a href="/c4emem/">C4emem</a> 里也在。
+      两个 App 共用同一个本机核心、同一份数据。</p></div>
+  </div>
+</div></section>
+
+<!-- ═══ 安装 ═══ -->
+<section class="blk rule" id="install"><div class="wrap">
+  <p class="eyebrow">04 — 安装</p>
+  <h2>装它</h2>
+  <details class="fold" open>
+    <summary>三步</summary>
+    <ol>
+      <li>下载上面那个 <code>.dmg</code>，打开，把 <b>CEVTUO Pet</b> 拖进「应用程序」。</li>
+      <li>第一次打开会被 Gatekeeper 拦一下 —— 右键那个图标 →「打开」→ 再确认一次就行（本机自用没有做公证）。</li>
+      <li>打开之后点菜单栏那颗小图标 →「<b>设置…</b>」，在「模型」那一格填<b>你自己的</b> API key。</li>
+    </ol>
+  </details>
+  <div class="warn" style="margin-top:16px">
+    <b>这个软件里没有任何人的 key。</b>包里带的是模板（只有变量名，没有值）。
+    你填的 key 住在你自己的机器上（<code>~/.c4emem/settings.json</code>），不会发给别人。
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>CEVTUO GRND · CEVTUO CLVNCHET</span>
+  <span><a href="/">← 所有应用</a></span>
+</div></footer>
+
+</body>
+</html>
