@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Cevtuo C4emem — 本地优先、可自我扩展的知识及操作源</title>
 <meta name="description" content="Cevtuo C4emem：本地优先的知识及操作源。检索、生成与主动式调度在本机完成，支持按对话生成功能。数据不出本机。"/>
+<!-- ⭐ 图标 = **那张 CEVTUO 卡片**，和 App 图标同一个底稿（`app/icon.html`）——
+     一处源，两边长得一模一样。读者 2026-10-13：「applogo、网站logo 都应该是那个扑克牌」。
+     ⚠️ 原来只挂了一张 512 的 png，浏览器标签那一格是**糊的**（16/32 要单独给）。 -->
 <link rel="icon" href="assets/logo.png"/>
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<link rel="icon" sizes="32x32" href="assets/favicon-32.png"/>
+<link rel="icon" sizes="16x16" href="assets/favicon-16.png"/>
 <style>
 /* ══ 版面参考 twks.ch/en/agency：#fff 底、近黑字、超大字重、发丝分隔线、
       左标签/右内容的双栏、① 编号的手风琴、箭头链接。整个站**一页到底**。 */
@@ -31,6 +37,9 @@ header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,#fff 92%,tr
   backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:46px;gap:20px}
 header .brand,header a{font-size:15px;letter-spacing:-.01em;text-decoration:none;color:var(--ink)}
+/* 头部那颗标就是 App 图标本身（深色圆角块 + 卡片），22px；2x 屏用 88 的那张 */
+.brand{display:flex;align-items:center;gap:8px}
+.brand .mark{width:22px;height:22px;border-radius:6px;display:block;flex:none}
 header nav{display:flex;gap:clamp(12px,2vw,26px)}
 header nav a{color:var(--soft);transition:color .2s var(--ease)}
 header nav a:hover{color:var(--ink)}
@@ -180,7 +189,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
 <body>
 
 <header><div class="wrap">
-  <a class="brand" href="#top">cevtuo c4emem</a>
+  <a class="brand" href="#top"><img class="mark" src="assets/logo-88.png" alt=""><span>cevtuo c4emem</span></a>
   <nav>
     <a href="#evolve">自我进化</a>
     <a href="#proactive">主动式</a>
@@ -207,7 +216,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       <p class="eyebrow">会自我修改<br>与成长的 Agent 软件</p>
       <div>
         <div class="cta rv">
-          <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.2.dmg">
+          <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem.dmg">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
             下载 macOS 版</a>
           <a class="dlbtn ghost" href="#flow">功能一览</a>
@@ -569,7 +578,7 @@ footer .fin{font-size:14px;color:var(--faint);display:flex;justify-content:space
       </ol>
       <p style="margin-top:14px">⚠️ 本软件读取本机数据。首次运行需自行填写来源凭据（Notion / 邮箱 / 手机等），<b>安装包内不含任何他人配置</b>。</p>
       <div class="cta" style="margin-top:18px">
-        <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem-0.1.2.dmg">
+        <a class="dlbtn" href="https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest/download/Cevtuo-C4emem.dmg">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
           下载 macOS 版（.dmg，约 50 MB）</a>
       </div>
