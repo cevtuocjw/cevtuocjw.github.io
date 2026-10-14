@@ -174,6 +174,10 @@
     <div class="card"><span class="tag">模型文件</span><b>glb / gltf / fbx / usdz 直接就是一只</b>
       <p>拖进来、或者贴一个<b>模型的网址</b>（服务端去取，页面不用管跨域）。
       <b>没有"再做出来"那一步</b> —— 传完预览里已经在转，名字默认取文件名。</p></div>
+    <div class="card"><span class="tag">压缩包</span><b>下载来的 .zip / .rar 直接拖进来</b>
+      <p>不用自己解压。App 会**自己拆**：zip 里套着 rar 也再拆一层，
+      然后把里面的<b>模型和贴图一起挑出来</b>（贴图会自己贴到材质上）。
+      多个模型时取最大的那个。</p></div>
     <div class="card"><span class="tag">全离线</span><b>深度是在你机器上算的</b>
       <p>用的是 <b>Depth Anything V2 (Small)</b> 的 ONNX 版 + onnxruntime(WASM) + three.js，
       <b>34MB 已经打进包里</b>。一张图约 4 秒，<b>不联网、不上传任何东西</b>。</p></div>
