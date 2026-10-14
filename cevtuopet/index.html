@@ -1,178 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CEVTUO Pet — 桌面上那个会帮你做事的小家伙</title>
-<meta name="description" content="CEVTUO Pet：桌面宠物 · 一圈正在运行的软件 · 接你自己的 API key，跟它说话，它真的把东西做出来。macOS。"/>
-<link rel="icon" href="assets/favicon-32.png" sizes="32x32"/>
-<link rel="icon" href="assets/favicon-16.png" sizes="16x16"/>
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEVTUO-PET — 桌面上那个小家伙</title>
+<meta name="description" content="CEVTUO-PET：macOS 桌面宠物。摸一下就摊开一圈正在运行的软件；给它随便一张 2D 图，它在本机算出深浅、重建成能转的真 3D。">
+<link rel="icon" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
-:root{
-  --bg:#fff; --ink:#111; --soft:#575757; --faint:#9b9b9b;
-  --line:rgba(17,17,17,.16); --line2:rgba(17,17,17,.09);
-  --lime:#d7f24a; --plate:#1b1a1f;
-  --gutter:clamp(16px,2.6vw,40px); --maxw:1180px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);
-  font:400 17px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue","Inter","PingFang SC","Hiragino Sans GB",Arial,sans-serif;
-  letter-spacing:-.011em;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-img{max-width:100%;display:block}
-a{color:inherit}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
-.rule{border-top:1px solid var(--line)}
-header{position:sticky;top:0;z-index:30;background:color-mix(in srgb,#fff 92%,transparent);
-  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line2)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:46px;gap:20px}
-header a{font-size:15px;text-decoration:none}
-header .brand{display:flex;align-items:center;gap:8px;font-weight:600}
-header .brand img{width:22px;height:22px}
-.hero{padding:clamp(34px,7vh,86px) 0 clamp(26px,5vh,56px)}
-.eyebrow{font-size:13px;line-height:1.5;color:var(--faint);margin:0;text-transform:lowercase}
-.disp{font-size:clamp(28px,4.6vw,52px);line-height:1.16;letter-spacing:-.03em;font-weight:600;margin:10px 0 0;max-width:16em}
-.sig{font-size:14px;color:var(--soft);margin:14px 0 0}
-.cols{display:grid;gap:clamp(16px,3vw,40px)}
-.cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:clamp(20px,4vh,34px)}
-.dlbtn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;
-  text-decoration:none;font-size:15px;font-weight:560;padding:13px 20px;border-radius:999px;transition:transform .18s}
-.dlbtn:hover{transform:translateY(-1px)}
-.dlbtn svg{width:17px;height:17px}
-.dlbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.nowline{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:var(--faint);margin-top:18px}
-.stage{border:1px solid var(--line2);border-radius:16px;overflow:hidden;background:#f6f6f4}
-.stage img{width:100%}
-.cap{font-size:13px;color:var(--faint);margin:8px 2px 0}
-section.blk{padding:clamp(30px,6vh,72px) 0}
-h2{font-size:clamp(20px,2.6vw,30px);letter-spacing:-.025em;margin:0 0 10px;font-weight:600}
-p.lead{font-size:17px;color:var(--soft);margin:0;max-width:44em}
-.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-top:24px}
-.card{border:1px solid var(--line2);border-radius:14px;padding:18px}
-.card b{display:block;font-size:15.5px;margin-bottom:6px}
-.card p{margin:0;font-size:14px;color:var(--soft);line-height:1.6}
-.tag{display:inline-block;font-size:11.5px;letter-spacing:.02em;color:var(--soft);
-  border:1px solid var(--line);border-radius:999px;padding:2px 9px;margin-bottom:10px}
-details.fold{border:1px solid var(--line2);border-radius:14px;padding:14px 18px;margin-top:22px}
-details.fold summary{cursor:pointer;font-weight:560;font-size:15.5px}
-details.fold ol{margin:14px 0 4px;padding-left:20px;font-size:14.5px;color:var(--soft);line-height:1.85}
-details.fold code{background:#f2f2f0;border-radius:5px;padding:1px 5px;font-size:13px}
-footer{border-top:1px solid var(--line);margin-top:clamp(30px,6vh,64px);padding:26px 0 46px;
-  font-size:13px;color:var(--faint)}
-footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
-.warn{border-left:3px solid var(--lime);padding:2px 0 2px 14px;font-size:14.5px;color:var(--soft);margin-top:18px}
-@media(max-width:720px){.cols{grid-template-columns:1fr!important}}
+  :root{
+    --ink:#141414; --soft:#4a4a4a; --faint:#8a8a8a; --line:#e6e4df;
+    --paper:#fbfaf8; --card:#fff; --lime:#d7f24a; --accent:#7aa93c;
+    --max:1080px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font:16px/1.72 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    letter-spacing:.005em}
+  a{color:inherit}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+  header{border-bottom:1px solid var(--line);position:sticky;top:0;background:rgba(251,250,248,.86);
+    backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);z-index:20}
+  header .wrap{display:flex;align-items:center;justify-content:space-between;height:62px}
+  .brand{display:flex;align-items:center;gap:11px;text-decoration:none;font-weight:600;letter-spacing:.01em}
+  .brand img{width:32px;height:32px;display:block}
+  header nav{display:flex;gap:20px;font-size:14.5px;color:var(--soft)}
+  header nav a{text-decoration:none}
+  header nav a:hover{color:var(--ink)}
+
+  .hero{padding:clamp(40px,8vh,86px) 0 clamp(20px,4vh,36px)}
+  .eyebrow{font-size:12.5px;letter-spacing:.10em;text-transform:uppercase;color:var(--faint);margin:0 0 10px}
+  h1{font-size:clamp(27px,4.4vw,46px);line-height:1.24;margin:0;font-weight:640;letter-spacing:-.015em}
+  .sig{margin:16px 0 0;color:var(--faint);font-size:14.5px}
+  .cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;align-items:center}
+  .dlbtn{display:inline-flex;align-items:center;gap:9px;background:var(--ink);color:#fff;text-decoration:none;
+    padding:12px 20px;border-radius:11px;font-weight:560;font-size:15.5px;transition:transform .12s,opacity .12s}
+  .dlbtn:hover{transform:translateY(-1px);opacity:.92}
+  .dlbtn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .dlbtn svg{width:17px;height:17px}
+  .nowline{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:13px;color:var(--faint)}
+  .nowline span::before{content:'·';margin-right:8px;color:#c9c6c0}
+
+  section.blk{padding:clamp(34px,6vh,62px) 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(20px,2.6vw,28px);margin:0 0 12px;font-weight:620;letter-spacing:-.01em}
+  .lead{color:var(--soft);max-width:60ch;margin:0 0 22px;font-size:15.5px}
+  .lead b{color:var(--ink)}
+
+  .stage{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#12141a}
+  .stage video{display:block;width:100%;height:auto;background:#12141a}
+  .cap{font-size:13px;color:var(--faint);margin:9px 0 0}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:760px){.pair{grid-template-columns:1fr}}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:16px;margin-top:6px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 16px}
+  .card b{display:block;font-size:16px;margin-bottom:7px;letter-spacing:-.005em}
+  .card p{margin:0;color:var(--soft);font-size:14.3px;line-height:1.68}
+  .card p + p{margin-top:8px}
+  .tag{display:inline-block;font-size:11.5px;letter-spacing:.06em;color:var(--accent);
+    border:1px solid rgba(122,169,60,.4);border-radius:999px;padding:1px 9px;margin-bottom:9px}
+
+  .gifs{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-end;margin-top:4px}
+  .gifs figure{margin:0;text-align:center}
+  .gifs img{width:200px;height:200px;display:block;border-radius:16px;
+    background:radial-gradient(120% 90% at 25% 15%,#3b4b63,#232a38 45%,#171a22);border:1px solid var(--line)}
+  .gifs figcaption{font-size:12.5px;color:var(--faint);margin-top:8px}
+
+  .kbd{font:inherit;font-size:12.5px;border:1px solid #d5d2cc;border-bottom-width:2px;border-radius:5px;
+    padding:0 6px;background:#fff}
+  code{background:#f2f1ee;border-radius:5px;padding:1px 5px;font-size:13.5px}
+
+  details.fold{border:1px solid var(--line);border-radius:13px;background:#fff;padding:0 18px;margin-top:8px}
+  details.fold summary{cursor:pointer;padding:15px 0;font-weight:560;list-style:none}
+  details.fold summary::-webkit-details-marker{display:none}
+  details.fold summary::after{content:'⌄';float:right;color:var(--faint);transition:transform .15s}
+  details.fold[open] summary::after{transform:rotate(180deg)}
+  details.fold ol{margin:0 0 16px;padding-left:1.3em;color:var(--soft);font-size:14.5px}
+  details.fold li{margin:7px 0}
+
+  .warn{border-left:3px solid var(--lime);padding:3px 0 3px 14px;font-size:14.5px;color:var(--soft);margin-top:18px}
+  footer{border-top:1px solid var(--line);margin-top:clamp(30px,6vh,64px);padding:26px 0 46px;
+    font-size:13px;color:var(--faint)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center}
 </style>
 </head>
 <body>
 
 <header><div class="wrap">
-  <a class="brand" href="/"><img src="assets/logo.png" alt=""><span>CEVTUO Pet</span></a>
-  <a href="#install">安装 ›</a>
+  <a class="brand" href="/"><img src="assets/logo.png" alt=""><span>CEVTUO-PET</span></a>
+  <nav><a href="#what">它是什么</a><a href="#make">造一只</a><a href="#install">安装</a></nav>
 </div></header>
 
 <!-- ═══ hero ═══ -->
 <section class="hero"><div class="wrap">
-  <div class="cols" style="grid-template-columns:minmax(0,.36fr) minmax(0,2fr)">
-    <p class="eyebrow" style="padding-top:12px">桌面宠物<br>本地优先</p>
-    <div>
-      <h1 class="disp">桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；跟它说一句，它把东西真的做出来。</h1>
-      <p class="sig"><b>cevtuo-pet</b> — 和 C4emem 共用同一个引擎</p>
-    </div>
+  <p class="eyebrow">macOS 13+ · 本地优先 · 数据不出本机</p>
+  <h1>桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；<br class="br">给它一张 2D 图，它在本机算出深浅，重建成能转的真 3D。</h1>
+  <p class="sig"><b>CEVTUO-PET</b> — 和 Cevtuo C4emem 共用同一个引擎</p>
+  <div class="cta">
+    <a class="dlbtn" href="https://github.com/cevtuocjw/cevtuo-c4emem/releases/latest/download/Cevtuo-Pet.dmg">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
+      下载 macOS 版</a>
+    <a class="dlbtn ghost" href="#make">看看它怎么造一只 3D</a>
   </div>
-  <div class="cols" style="grid-template-columns:minmax(0,.36fr) minmax(0,2fr);margin-top:clamp(22px,4vh,42px)">
-    <p class="eyebrow">macOS 13+<br>数据不出本机</p>
-    <div>
-      <div class="cta">
-        <a class="dlbtn" href="https://github.com/cevtuocjw/cevtuo-c4emem/releases/latest/download/Cevtuo-Pet.dmg">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.7 12.9c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.8-2-1.6-.2-3.1.9-3.9.9-.8 0-2.1-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.3 2.6 1.3-.1 1.8-.9 3.4-.9 1.6 0 2 .9 3.4.8 1.4 0 2.3-1.3 3.2-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.8-1.1-2.9-4.2zM14.4 5.3c.7-.9 1.2-2.1 1.1-3.3-1.1.1-2.4.8-3.2 1.7-.7.8-1.3 2-1.1 3.2 1.2.1 2.5-.7 3.2-1.6z"/></svg>
-          下载 macOS 版</a>
-        <a class="dlbtn ghost" href="#what">它是什么</a>
-      </div>
-      <div class="nowline">
-        <span>macOS 13+</span><span>菜单栏 / Dock 随你</span><span>用你自己的 API key</span>
-      </div>
-    </div>
-  </div>
+  <div class="nowline"><span>菜单栏 / Dock 随你</span><span>用你自己的 API key</span><span>3D 全在本机算</span></div>
 </div></section>
 
 <!-- ═══ 它是什么 ═══ -->
-<section class="blk rule" id="what"><div class="wrap">
+<section class="blk" id="what"><div class="wrap">
   <p class="eyebrow">01 — 它是什么</p>
   <h2>不是装饰，是一只手</h2>
   <p class="lead">它一直待在桌面上。鼠标放上去就摊开一圈，左边是你<b>正在运行</b>的软件 —— 点一个就把它叫到最前面，
   连找 Dock 那一步都省了。右边是它自己的入口。</p>
-  <div class="cards">
+  <div class="stage"><video src="assets/demo-wheel.webm" controls preload="metadata" muted loop playsinline></video></div>
+  <p class="cap">摸一下 → 一圈正在跑的软件摊开 → 敲首字母直接切过去</p>
+
+  <div class="cards" style="margin-top:24px">
     <div class="card"><span class="tag">多 APP</span><b>一整圈正在跑的软件</b>
-      <p>展开就是一整圈，按软件名的首字母敲一下就直接切过去 —— 全程不用碰鼠标。<br>
-      右键 = 完整的那个清单：勾几个、一起退掉。</p></div>
+      <p>展开就是一整圈，按软件名的首字母敲一下就直接切过去 —— 全程不用碰鼠标。</p>
+      <p>只列<b>真的在运行</b>的那些：退掉的软件<b>不会</b>留在圈里（这一条专门验过）。</p></div>
     <div class="card"><span class="tag">单个 APP</span><b>只认一个软件</b>
       <p>它就不展开那一圈了，点一下直接切过去。适合"一天就盯着一个东西用"。</p></div>
     <div class="card"><span class="tag">常驻</span><b>菜单栏 / Dock</b>
       <p>两个开关自己挑。<b>至少留一个</b> —— 两个都关掉就没有入口能把它叫回来了。</p></div>
-    <div class="card"><span class="tag">造一只｜新</span><b>一张 2D 图，变成真的 3D</b>
-      <p>给一张图（本地上传，或者一个网页链接），它<b>先抠掉背景，再量出这张图的深浅</b>，
-      然后重建成一个<b>能转的立体</b> —— 不是把同一张图叠几层那种"假厚度"。</p>
-      <p>深度是<b>在本机算的</b>（Depth Anything V2 + three.js，34MB 已经打进包里），
-      一次四秒左右，全程不联网、不上传任何东西。</p></div>
+    <div class="card"><span class="tag">右键</span><b>完整清单</b>
+      <p>右键点它，是完整的那个列表：勾几个、一起退掉。</p></div>
   </div>
 </div></section>
 
-<!-- ═══ 设置 ═══ -->
-<section class="blk rule"><div class="wrap">
-  <p class="eyebrow">02 — 设置</p>
-  <h2>一眼能看完的一页</h2>
-  <p class="lead">模式、<b>它长什么样</b>（卡片 / 珍珠 / 银 / 铅 / 锌，还有你自己造的那些）、模型、常驻、<b>一起造一只新的</b>（含老的那只一键「做成 3D」）、跟它说 —— 全在一页里，没有藏在三级菜单后面的东西。</p>
-  <div class="stage" style="margin-top:22px"><img src="assets/settings.jpg" alt="CEVTUO Pet 的设置页"></div>
-  <p class="cap">CEVTUO Pet 设置 · 模式 / 形态切换 / 你自己的 API key / 常驻开关 / 造一只新的 / 跟它说</p>
+<!-- ═══ 形态 ═══ -->
+<section class="blk"><div class="wrap">
+  <p class="eyebrow">02 — 它长什么样</p>
+  <h2>六种形态，还有你自己造的</h2>
+  <p class="lead">卡片 / 珍珠 / 银 / 铅 / 锌，加上你和它一起做出来的那些。<b>每一种都能转，也都能定住。</b></p>
+  <div class="stage"><video src="assets/demo-forms.webm" controls preload="metadata" muted loop playsinline></video></div>
+  <p class="cap">依次换过去：卡片 → 珍珠 → 银（转）→ 银（不转）→ 锌 → 铅</p>
+
+  <div class="cards" style="margin-top:24px">
+    <div class="card"><span class="tag">转 / 不转</span><b>一键定住，真的定住</b>
+      <p>⚠️ 这件事比看起来难：「银 / 铅 / 锌」原本是<b>动图 WebP</b>（无限循环），
+      CSS 停不掉它 —— 你把「不转」打开，它<b>照转不误</b>。现在这三种也走 3D，贴图只取一帧。</p>
+      <p>验收判据是<b>像素</b>：不转的那两张截图<b>逐字节相同</b>；而且还要证明"那不是一张空图"。</p></div>
+  </div>
 </div></section>
 
-<!-- ═══ 跟它说 ═══ -->
-<section class="blk rule"><div class="wrap">
-  <p class="eyebrow">03 — 跟它说</p>
-  <h2>聊完，它真的把东西做出来</h2>
-  <p class="lead">不是"给你一份步骤就完了"。你跟它把"读哪里、做成什么样"聊清楚，
-  它会给你一份<b>可执行的做法</b>，摊开摆在你面前 —— 按一下，它真去读、真去索引，
-  然后<b>把读到多少条报给你</b>。</p>
-  <div class="warn">
-    <b>报告的是真数。</b>「新读到 12 篇 · 现在共 48 段」是它刚从你的磁盘上数出来的，
-    不是"已完成"三个字。做不成的会<b>如实说做不成</b>，并说清能做的是哪一半。
+<!-- ═══ 造一只 ═══ -->
+<section class="blk" id="make"><div class="wrap">
+  <p class="eyebrow">03 — 一起造一只新的</p>
+  <h2>随便一张 2D 图 → 能转的真 3D</h2>
+  <p class="lead">给它一张图，它<b>抠掉背景</b>、<b>在本机算出这张图的深浅</b>，然后重建成一只可以转的立体。
+  不是把同一张图叠几层那种"假厚度"。</p>
+  <div class="stage"><video src="assets/demo-make.webm" controls preload="metadata" muted loop playsinline></video></div>
+  <p class="cap">选一张图 → 抠底 → 量深度（约 4 秒）→ 预览里那一只已经在转 → 起个名字装上去</p>
+
+  <div class="pairs" style="margin-top:22px">
+    <div class="gifs">
+      <figure><img src="assets/demo-rose-3d.gif" alt="银玫瑰在转" loading="lazy">
+        <figcaption>自己造的：银玫瑰</figcaption></figure>
+      <figure><img src="assets/demo-silver-3d.gif" alt="银在转" loading="lazy">
+        <figcaption>内置的：银</figcaption></figure>
+    </div>
   </div>
-  <div class="cards">
-    <div class="card"><b>现在能做的两种</b>
-      <p>· 读一个<b>本地文件夹</b> —— 挑一个目录，它把里面的文档索引成一个新来源，之后在搜索里搜得到。<br>
-         · 读一个<b>网址</b> —— 抓下来抽成正文进库。</p></div>
-    <div class="card"><b>做不了的会直说</b>
-      <p>要连一个在线服务、要调一个接口那种，它会明说"这一步现在做不了"，
-      而不是给你一份看起来很像回事、其实跑不起来的东西。</p></div>
-    <div class="card"><b>和 C4emem 是同一个引擎</b>
-      <p>你在这里聊出来的东西，在 <a href="/c4emem/">C4emem</a> 里也在。
-      两个 App 共用同一个本机核心、同一份数据。</p></div>
+
+  <div class="cards" style="margin-top:24px">
+    <div class="card"><span class="tag">四个入口</span><b>怎么给都行</b>
+      <p><span class="kbd">⌘V</span> 直接粘贴（截图之后最顺手）· 把文件<b>拖到窗口任何地方</b> ·
+      点「选文件」· 贴一个网址（<b>直接给图片地址也认</b>，没写 <code>https://</code> 会自动补）。</p></div>
+    <div class="card"><span class="tag">抠底</span><b>抠不动就不抠，不会卡住</b>
+      <p>本来就是透明底的<b>直接用</b>；背景太杂抠不动 ⇒ <b>原样不抠</b>照样能做 3D。
+      只有"连图都读不动"才算失败。</p></div>
+    <div class="card"><span class="tag">全离线</span><b>深度是在你机器上算的</b>
+      <p>用的是 <b>Depth Anything V2 (Small)</b> 的 ONNX 版 + onnxruntime(WASM) + three.js，
+      <b>34MB 已经打进包里</b>。一张图约 4 秒，<b>不联网、不上传任何东西</b>。</p></div>
+    <div class="card"><span class="tag">老的那些</span><b>一键补成 3D</b>
+      <p>在 3D 这条路做出来之前做的宠物，列表里会多一个「<b>做成 3D</b>」按钮，点一下就补上。</p></div>
   </div>
 </div></section>
 
 <!-- ═══ 安装 ═══ -->
-<section class="blk rule" id="install"><div class="wrap">
+<section class="blk" id="install"><div class="wrap">
   <p class="eyebrow">04 — 安装</p>
-  <h2>装它</h2>
-  <details class="fold" open>
-    <summary>三步</summary>
+  <h2>两步</h2>
+  <details class="fold" open><summary>安装说明（点开／收起）</summary>
     <ol>
-      <li>下载上面那个 <code>.dmg</code>，打开，把 <b>CEVTUO Pet</b> 拖进「应用程序」。</li>
-      <li>第一次打开会被 Gatekeeper 拦一下 —— 右键那个图标 →「打开」→ 再确认一次就行（本机自用没有做公证）。</li>
-      <li>打开之后点菜单栏那颗小图标 →「<b>设置…</b>」，在「模型」那一格填<b>你自己的</b> API key。</li>
+      <li>下载上面那个 <code>.dmg</code>，打开，把 <b>CEVTUO-PET</b> 拖进「应用程序」。</li>
+      <li>第一次打开会被 Gatekeeper 拦一下（没做开发者签名）。<b>右键点它 → 打开</b>，
+        再确认一次就好；之后双击就行。</li>
+      <li>它在<b>菜单栏</b>有一颗图标（一枚圈 + 一朵小花）；设置页从那里进。</li>
+      <li>要用"跟它说 / 造一只新的"这些功能，得填<b>你自己的 API key</b> ——
+        设置页里那一栏。key 只存在你自己的 <code>~/.c4emem/</code>，<b>不进包、不上传</b>。</li>
     </ol>
   </details>
-  <div class="warn" style="margin-top:16px">
-    <b>这个软件里没有任何人的 key。</b>包里带的是模板（只有变量名，没有值）。
-    你填的 key 住在你自己的机器上（<code>~/.c4emem/settings.json</code>），不会发给别人。
-  </div>
+  <div class="warn">和 <b>Cevtuo C4emem</b> 共用同一个引擎和同一份数据。两个一起用没问题 ——
+    它们会复用同一个后台进程，不会互相抢库。</div>
 </div></section>
 
 <footer><div class="wrap">
-  <span>CEVTUO GRND · CEVTUO CLVNCHET</span>
-  <span><a href="/">← 所有应用</a></span>
+  <span>CEVTUO-PET · 本地优先</span>
+  <span>CEVTUO CLVNCHET / CEVTUOGRND</span>
 </div></footer>
 
 </body>
