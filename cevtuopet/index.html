@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>CEVTUO-PET — 桌面上那个小家伙</title>
-<meta name="description" content="CEVTUO-PET：macOS 桌面宠物。摸一下就摊开一圈正在运行的软件；给它随便一张 2D 图，它在本机算出深浅、重建成能转的真 3D。">
+<meta name="description" content="CEVTUO-PET：macOS 桌面宠物。摸一下就摊开一圈正在运行的软件；给它随便一张 2D 图，它在本机算出深浅、重建成能转的真 3D；模型文件（glb / gltf / fbx / usdz）拖进来直接就是一只宠物。">
 <link rel="icon" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <style>
@@ -95,7 +95,7 @@
 <!-- ═══ hero ═══ -->
 <section class="hero"><div class="wrap">
   <p class="eyebrow">macOS 13+ · 本地优先 · 数据不出本机</p>
-  <h1>桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；<br class="br">给它一张 2D 图，它在本机算出深浅，重建成能转的真 3D。</h1>
+  <h1>桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；<br class="br">给它一张 2D 图，它在本机算出深浅，重建成能转的真 3D；<b>给它一个模型文件（glb / fbx / usdz）也一样能当宠物</b>。</h1>
   <p class="sig"><b>CEVTUO-PET</b> — 和 Cevtuo C4emem 共用同一个引擎</p>
   <div class="cta">
     <a class="dlbtn" href="https://github.com/cevtuocjw/cevtuo-c4emem/releases/latest/download/Cevtuo-Pet.dmg">
@@ -147,9 +147,11 @@
 <!-- ═══ 造一只 ═══ -->
 <section class="blk" id="make"><div class="wrap">
   <p class="eyebrow">03 — 一起造一只新的</p>
-  <h2>随便一张 2D 图 → 能转的真 3D</h2>
+  <h2>随便一张 2D 图 → 能转的真 3D；<br class="br">或者直接给它一个模型文件</h2>
   <p class="lead">给它一张图，它<b>抠掉背景</b>、<b>在本机算出这张图的深浅</b>，然后重建成一只可以转的立体。
-  不是把同一张图叠几层那种"假厚度"。</p>
+  不是把同一张图叠几层那种"假厚度"。<br>
+  手上有现成的模型？<b>把 <code>.glb</code> / <code>.gltf</code> / <code>.fbx</code> / <code>.usdz</code>
+  拖进来就是一只</b> —— 模型本来就是 3D，传完直接能用，不用再算什么。</p>
   <div class="stage"><video src="assets/demo-make.webm" controls preload="metadata" muted loop playsinline></video></div>
   <p class="cap">选一张图 → 抠底 → 量深度（约 4 秒）→ 预览里那一只已经在转 → 起个名字装上去</p>
 
@@ -169,6 +171,9 @@
     <div class="card"><span class="tag">抠底</span><b>抠不动就不抠，不会卡住</b>
       <p>本来就是透明底的<b>直接用</b>；背景太杂抠不动 ⇒ <b>原样不抠</b>照样能做 3D。
       只有"连图都读不动"才算失败。</p></div>
+    <div class="card"><span class="tag">模型文件</span><b>glb / gltf / fbx / usdz 直接就是一只</b>
+      <p>拖进来、或者贴一个<b>模型的网址</b>（服务端去取，页面不用管跨域）。
+      <b>没有"再做出来"那一步</b> —— 传完预览里已经在转，名字默认取文件名。</p></div>
     <div class="card"><span class="tag">全离线</span><b>深度是在你机器上算的</b>
       <p>用的是 <b>Depth Anything V2 (Small)</b> 的 ONNX 版 + onnxruntime(WASM) + three.js，
       <b>34MB 已经打进包里</b>。一张图约 4 秒，<b>不联网、不上传任何东西</b>。</p></div>
