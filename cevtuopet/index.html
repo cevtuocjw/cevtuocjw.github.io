@@ -175,12 +175,26 @@
       <p>拖进来、或者贴一个<b>模型的网址</b>（服务端去取，页面不用管跨域）。
       <b>没有"再做出来"那一步</b> —— 传完预览里已经在转，名字默认取文件名。</p></div>
     <div class="card"><span class="tag">压缩包</span><b>下载来的 .zip / .rar 直接拖进来</b>
-      <p>不用自己解压。App 会<b>自己一路拆到底</b>（最多三层）—— 实测你从 Sketchfab
-      下的包长这样：<code>xxx.zip</code> → <code>source/yyy.zip</code> →
-      <code>yyy.obj + yyy.mtl + 贴图</code>。</p>
-      <p>里面的 <b><code>.obj</code> 会在本机转成 GLB</b>（18 万顶点那只：38MB 文本 → 18MB 二进制），
-      <b>并且把贴图烤进文件里</b> —— 于是"贴图找不到"这一类问题整个消失。
-      多个模型时取最大的那个。</p></div>
+      <p>不用自己解压、不用自己挑文件。App 会<b>自己一路拆到底</b>（最多三层）。
+      已经拿真包验过的三种形状：</p>
+      <p><code>zip → rar</code>，模型是 <b>fbx</b>，贴图在外面 ·
+      <code>zip → zip</code>，模型是 <b>obj + mtl</b> ·
+      <code>zip → rar</code>，模型是 <b>obj、<u>没有 mtl</u></b>。</p>
+      <p>里面的 <b><code>.obj</code> 会在本机转成 GLB</b>，并且把<b>颜色贴图烤进文件里</b>
+      —— 于是"贴图找不到"这一类问题整个消失。</p></div>
+    <div class="card"><span class="tag">没有 .mtl</span><b>颜色是我们自己认出来的</b>
+      <p>有些包（比如那个汉堡）里<b>根本没有 <code>.mtl</code></b> —— <code>.obj</code> 里那句
+      <code>mtllib Burger.mtl</code> 指向一个不存在的文件。那样旧版会渲染成<b>灰白模型</b>，
+      而且<b>一个错都不报</b>。</p>
+      <p>现在按名字自己认：<code>*_BaseColor / *_Albedo / *_Diffuse / *_Color</code> 加分，
+      <code>*_Normal / *_Roughness / *_Metallic / *_AO / *_ORM</code> 减分，同分取体量大的那张。</p>
+      <p>⚠️ 判据不是"挑到了没有"，是<b>挑对没有</b>：包里的图看着全是法线那一类时，
+      <b>宁可不贴</b>（把法线图当颜色贴上去，整只会比灰白更糟），并把这句话如实说出来。</p></div>
+    <div class="card"><span class="tag">不浪费</span><b>只把用得到的图烤进去</b>
+      <p>包里常常带一整套 PBR 贴图，而只有颜色那张真的用得上。
+      <b>只烤真正引用到的那几张</b> —— 实测汉堡那只 <b>18.1MB → 12.3MB</b>。</p>
+      <p>另外 <code>.gltf</code>（JSON 那种）的顶点数据在<b>另一个 <code>.bin</code> 文件</b>里，
+      它也一起存下来，否则模型<b>载不进来</b>。</p></div>
     <div class="card"><span class="tag">全离线</span><b>深度是在你机器上算的</b>
       <p>用的是 <b>Depth Anything V2 (Small)</b> 的 ONNX 版 + onnxruntime(WASM) + three.js，
       <b>34MB 已经打进包里</b>。一张图约 4 秒，<b>不联网、不上传任何东西</b>。</p></div>
