@@ -95,7 +95,7 @@
 <!-- ═══ hero ═══ -->
 <section class="hero"><div class="wrap">
   <p class="eyebrow">macOS 13+ · 本地优先 · 数据不出本机</p>
-  <h1>桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；<br class="br">给它一张 2D 图，它在本机算出深浅，重建成能转的真 3D；<b>给它一个模型文件（glb / fbx / usdz）也一样能当宠物</b>。</h1>
+  <h1>桌面上那个小家伙。摸一下，一圈正在运行的软件摊开在你手指底下；<br class="br">给它一张 2D 图，它在本机算出深浅，重建成能转的真 3D；<b>给它一个模型文件（glb / gltf / fbx / usdz / <b>obj</b>）也一样能当宠物</b>。</h1>
   <p class="sig"><b>CEVTUO-PET</b> — 和 Cevtuo C4emem 共用同一个引擎</p>
   <div class="cta">
     <a class="dlbtn" href="https://github.com/cevtuocjw/cevtuo-c4emem/releases/latest/download/Cevtuo-Pet.dmg">
@@ -171,18 +171,28 @@
     <div class="card"><span class="tag">抠底</span><b>抠不动就不抠，不会卡住</b>
       <p>本来就是透明底的<b>直接用</b>；背景太杂抠不动 ⇒ <b>原样不抠</b>照样能做 3D。
       只有"连图都读不动"才算失败。</p></div>
-    <div class="card"><span class="tag">模型文件</span><b>glb / gltf / fbx / usdz 直接就是一只</b>
+    <div class="card"><span class="tag">模型文件</span><b>glb / gltf / fbx / usdz / obj 直接就是一只</b>
       <p>拖进来、或者贴一个<b>模型的网址</b>（服务端去取，页面不用管跨域）。
       <b>没有"再做出来"那一步</b> —— 传完预览里已经在转，名字默认取文件名。</p></div>
     <div class="card"><span class="tag">压缩包</span><b>下载来的 .zip / .rar 直接拖进来</b>
-      <p>不用自己解压。App 会**自己拆**：zip 里套着 rar 也再拆一层，
-      然后把里面的<b>模型和贴图一起挑出来</b>（贴图会自己贴到材质上）。
+      <p>不用自己解压。App 会<b>自己一路拆到底</b>（最多三层）—— 实测你从 Sketchfab
+      下的包长这样：<code>xxx.zip</code> → <code>source/yyy.zip</code> →
+      <code>yyy.obj + yyy.mtl + 贴图</code>。</p>
+      <p>里面的 <b><code>.obj</code> 会在本机转成 GLB</b>（18 万顶点那只：38MB 文本 → 18MB 二进制），
+      <b>并且把贴图烤进文件里</b> —— 于是"贴图找不到"这一类问题整个消失。
       多个模型时取最大的那个。</p></div>
     <div class="card"><span class="tag">全离线</span><b>深度是在你机器上算的</b>
       <p>用的是 <b>Depth Anything V2 (Small)</b> 的 ONNX 版 + onnxruntime(WASM) + three.js，
       <b>34MB 已经打进包里</b>。一张图约 4 秒，<b>不联网、不上传任何东西</b>。</p></div>
     <div class="card"><span class="tag">老的那些</span><b>一键补成 3D</b>
       <p>在 3D 这条路做出来之前做的宠物，列表里会多一个「<b>做成 3D</b>」按钮，点一下就补上。</p></div>
+    <div class="card"><span class="tag">看哪儿</span><b>抬起头来，能看见顶面</b>
+      <p>以前它只绕竖轴转，<b>不论怎么转都看不到上面</b>。现在设置里多了一个「<b>看哪儿</b>」滑杆
+      （0° 平视 → 60° 高俯），<b>一边转一边就能抬头</b>。</p>
+      <p>抬头之后相机<b>自动退远</b> —— 否则上下两条边会被切掉，而那<b>不会报错</b>。</p></div>
+    <div class="card"><span class="tag">列表</span><b>每一格是它自己的样子</b>
+      <p>以前模型那一格垫的是一张<b>通用卡片</b>，于是蘑菇 / 兰花 / 披萨在列表里<b>长得一模一样</b>。
+      现在每一格是<b>真渲染出来的缩略图</b>（老的那些会自动补拍）。</p></div>
   </div>
 </div></section>
 
@@ -202,6 +212,17 @@
   </details>
   <div class="warn">和 <b>Cevtuo C4emem</b> 共用同一个引擎和同一份数据。两个一起用没问题 ——
     它们会复用同一个后台进程，不会互相抢库。</div>
+</div></section>
+
+<section class="blk"><div class="wrap">
+  <p class="eyebrow">另见</p>
+  <h2>它和一个知识库住在一起</h2>
+  <p class="lead">CEVTUO-PET 和 <b>Cevtuo C4emem</b> 共用同一个引擎、同一份数据 ——
+    两个 App 各装各的，也能一起用。</p>
+  <div class="cta" style="justify-content:flex-start">
+    <a class="dlbtn ghost" href="/c4emem/">去看 Cevtuo C4emem →</a>
+    <a class="dlbtn ghost" href="/">回 apps.cevtuogrnd.com</a>
+  </div>
 </div></section>
 
 <footer><div class="wrap">
