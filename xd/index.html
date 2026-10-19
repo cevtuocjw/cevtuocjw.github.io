@@ -100,6 +100,15 @@
   .rec-card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
     text-transform:uppercase;color:#a6a39b;margin-left:6px}
 
+  .featwrap{background:var(--ink);color:#fff}
+  .featwrap .sec-head{border-color:#2a2a2a}
+  .featwrap .sec-head p{color:#9c9a94}
+  .featgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#262626;border:1px solid #262626}
+  .feat{background:#111;padding:20px 18px 22px;min-height:132px}
+  .feat .k{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8f8d87;text-transform:uppercase}
+  .feat b{display:block;font-size:17px;margin:6px 0 6px}
+  .feat p{color:#a9a7a0;font-size:13px;line-height:1.5;margin:0}
+
   .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
   .step{border-top:1px solid var(--line);padding-top:20px}
   .step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent)}
@@ -138,6 +147,7 @@
     .hero{grid-template-columns:1fr;padding-top:46px}
     .watch{order:-1}
     .apps .grid{grid-template-columns:1fr}
+    .featgrid{grid-template-columns:1fr}
     .rec .recgrid{grid-template-columns:repeat(2,1fr)}
     .chain{grid-template-columns:1fr;gap:18px}
     .dlbox{grid-template-columns:1fr}
@@ -159,6 +169,7 @@
     <a class="brand" href="/">CEVTUO<sup>®</sup> <span>XD</span></a>
     <nav class="navlinks">
       <a href="#apps">Apps</a>
+      <a href="#phone">Phone app</a>
       <a href="#recordings">Recordings</a>
       <a href="#chain">How it works</a>
       <a href="#download">Download</a>
@@ -281,6 +292,30 @@
             flag on start, so any power-off goes straight back to Watch.</p>
           <ul><li>dual boot</li><li>visit mode</li><li>one tap</li></ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="featwrap" id="phone">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>The phone side.<br>It writes.</h2>
+        <p>The watch performs; the phone arranges. Hum a melody and the phone turns it
+          into four tracks, then lets you reshape them live.</p>
+      </div>
+      <div class="featgrid">
+        <div class="feat"><span class="k">01 · input</span><b>Hum → notes</b><p>Native mic capture, YIN pitch detection, median-of-five stabilisation. No cloud.</p></div>
+        <div class="feat"><span class="k">02 · takes</span><b>Four takes A/B/C/D</b><p>Each pass is a real arrangement with its own seed. Audition and keep one.</p></div>
+        <div class="feat"><span class="k">03 · instruments</span><b>14 instruments</b><p>Drums, bass, chords and lead each pick their own sound: 808, Reese, pad, strings, brass, marimba, choir…</p></div>
+        <div class="feat"><span class="k">04 · harmony</span><b>7 scales + chord names</b><p>Major, minor, dorian, phrygian, lydian, mixolydian. Every bar shows its chord.</p></div>
+        <div class="feat"><span class="k">05 · live</span><b>10 knobs</b><p>Filter, drive, space, swing, chaos, energy, octave, tone, crush, detune — all while it plays.</p></div>
+        <div class="feat"><span class="k">06 · gesture</span><b>Jog / stutter / click</b><p>A platter you can scratch, a gate stutter, and a metronome that follows BPM.</p></div>
+        <div class="feat"><span class="k">07 · pads</span><b>Chord pads + arp</b><p>The eight pads switch between drums, synth notes and the current chord progression.</p></div>
+        <div class="feat"><span class="k">08 · listening</span><b>Hear your beat</b><p>Tap the pads for four beats; the phone quantises the hits into a 16-step pattern.</p></div>
+        <div class="feat"><span class="k">09 · ai</span><b>Inspire AI</b><p>One tap gives a title, a concept and a playable arrangement — LLM or local cards.</p></div>
+        <div class="feat"><span class="k">10 · ai</span><b>AI Live</b><p>Let it run: every pass is kept, mutated and played again while you listen.</p></div>
+        <div class="feat"><span class="k">11 · language</span><b>Talk to it</b><p>“Bass on 808, wilder, then play.” It patches every parameter and executes the action.</p></div>
+        <div class="feat"><span class="k">12 · export</span><b>Standard .mid</b><p>A real MIDI file with tempo, programs and note events, saved to Downloads.</p></div>
       </div>
     </div>
   </section>
