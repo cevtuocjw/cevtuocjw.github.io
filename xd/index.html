@@ -63,6 +63,7 @@
   @keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   section{padding:82px 0}
+  section[id]{scroll-margin-top:84px}
   .sec-head{display:flex;align-items:end;justify-content:space-between;gap:20px;
     border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:34px}
   .sec-head h2{font-size:clamp(28px,3.6vw,46px);letter-spacing:-.035em;line-height:1.02;margin:0;
@@ -86,6 +87,18 @@
     border:1px solid #333;border-radius:999px;padding:5px 9px;color:#bdbab2}
   .app .no{position:absolute;right:22px;top:20px;font-family:var(--mono);font-size:10px;
     letter-spacing:.14em;color:#5a5853}
+
+  /* Recordings —— 真机画面。233×233 是 466 面板的 2 倍降采样，
+     所以按 1:1 附近显示，别用 image-rendering:pixelated 放大成锯齿。 */
+  .rec .recgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+  .rec-card{margin:0;display:flex;flex-direction:column;gap:16px}
+  .rec-card .screen{position:relative;aspect-ratio:1/1;border-radius:50%;background:#050505;
+    overflow:hidden;box-shadow:0 0 0 9px #171717,0 0 0 10px #2e2e2e,0 24px 46px rgba(0,0,0,.26)}
+  .rec-card .screen img{width:100%;height:100%;object-fit:cover;display:block}
+  .rec-card figcaption{font-size:13.5px;line-height:1.5;color:var(--dim)}
+  .rec-card figcaption b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
+  .rec-card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:#a6a39b;margin-left:6px}
 
   .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
   .step{border-top:1px solid var(--line);padding-top:20px}
@@ -125,6 +138,7 @@
     .hero{grid-template-columns:1fr;padding-top:46px}
     .watch{order:-1}
     .apps .grid{grid-template-columns:1fr}
+    .rec .recgrid{grid-template-columns:repeat(2,1fr)}
     .chain{grid-template-columns:1fr;gap:18px}
     .dlbox{grid-template-columns:1fr}
     .navlinks{display:none}
@@ -145,6 +159,7 @@
     <a class="brand" href="/">CEVTUO<sup>®</sup> <span>XD</span></a>
     <nav class="navlinks">
       <a href="#apps">Apps</a>
+      <a href="#recordings">Recordings</a>
       <a href="#chain">How it works</a>
       <a href="#download">Download</a>
     </nav>
@@ -266,6 +281,39 @@
             flag on start, so any power-off goes straight back to Watch.</p>
           <ul><li>dual boot</li><li>visit mode</li><li>one tap</li></ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="rec" id="recordings">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>On the wrist.<br>Not a render.</h2>
+        <p>Captured over USB from the real 466×466 round panel, streamed at 233×233
+          and rebuilt into GIFs. Same firmware that ships in this repo.</p>
+      </div>
+      <div class="recgrid">
+        <figure class="rec-card">
+          <div class="screen"><img src="stem.gif" alt="Stem D on the watch" loading="lazy"></div>
+          <figcaption><b>Stem D<span class="k">live</span></b>
+            Four stem arcs, the vinyl, and the now-playing label swapping tracks.</figcaption>
+        </figure>
+        <figure class="rec-card">
+          <div class="screen"><img src="groove.gif" alt="Groove D on the watch" loading="lazy"></div>
+          <figcaption><b>Groove D<span class="k">still</span></b>
+            Eight pads, four CC faders, BPM and FX dials — the drum machine screen.</figcaption>
+        </figure>
+        <figure class="rec-card">
+          <div class="screen"><img src="cospon.gif" alt="Cospon D on the watch" loading="lazy"></div>
+          <figcaption><b>Cospon D<span class="k">live</span></b>
+            Three agent sessions arrive, then the detail sheet: context ring,
+            agent, project, tokens, limit, age.</figcaption>
+        </figure>
+        <figure class="rec-card">
+          <div class="screen"><img src="muse.gif" alt="Muse D on the watch" loading="lazy"></div>
+          <figcaption><b>Muse D<span class="k">still</span></b>
+            The second-OS entry screen on the other OTA slot.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
