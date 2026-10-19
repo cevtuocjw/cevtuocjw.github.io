@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEVTUO XD — a wearable music system</title>
+<meta name="description" content="Stem D, Groove D, Cospon D and Muse D — four apps on one round watch, wired to your Mac and phone.">
+<link rel="icon" href="/logo.png">
+<style>
+  :root{
+    --paper:#f2f0ea; --ink:#0b0b0b; --dim:#6f6d66; --line:#d9d5cb;
+    --accent:#ff4a1c; --green:#57e39b; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--paper);color:var(--ink)}
+  body{margin:0;font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+  .dim{color:var(--dim)}
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(242,240,234,.86);
+    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .navin{display:flex;align-items:center;gap:26px;height:64px}
+  .brand{font-weight:800;letter-spacing:.02em;font-size:17px;text-decoration:none}
+  .brand sup{font-size:9px;vertical-align:super;letter-spacing:.1em}
+  .brand span{color:var(--accent)}
+  .navlinks{display:flex;gap:22px;margin-left:auto}
+  .navlinks a{text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dim)}
+  .navlinks a:hover{color:var(--ink)}
+  .navbtn{text-decoration:none;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;
+    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:center;
+    padding:74px 0 50px}
+  .pill{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);
+    border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--dim);background:#fff8}
+  .pill i{width:7px;height:7px;border-radius:50%;background:var(--green);
+    box-shadow:0 0 0 4px #57e39b22}
+  h1{font-size:clamp(44px,6.6vw,88px);line-height:.95;letter-spacing:-.045em;margin:22px 0 20px;
+    font-weight:800}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{max-width:520px;color:var(--dim);font-size:17px;line-height:1.55}
+  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+  .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border-radius:999px;
+    padding:15px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+  .btn.primary{background:var(--ink);color:#fff}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink);background:#fff6}
+  .btn:hover{transform:translateY(-1px)}
+  .meta{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
+  .meta div b{display:block;font-size:22px;letter-spacing:-.02em}
+  .meta div span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);
+    text-transform:uppercase}
+  .watch{display:flex;justify-content:center}
+  .watch svg{width:min(430px,88vw);height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.22))}
+
+  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;white-space:nowrap;padding:13px 0;background:#fff5}
+  .ticker div{display:inline-block;animation:run 28s linear infinite;font-family:var(--mono);
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+  .ticker b{color:var(--ink);font-weight:600}
+  @keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:82px 0}
+  .sec-head{display:flex;align-items:end;justify-content:space-between;gap:20px;
+    border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:34px}
+  .sec-head h2{font-size:clamp(28px,3.6vw,46px);letter-spacing:-.035em;line-height:1.02;margin:0;
+    font-weight:800}
+  .sec-head p{max-width:430px;color:var(--dim);margin:0}
+
+  .apps{background:var(--ink);color:#fff}
+  .apps .sec-head{border-color:#2a2a2a}
+  .apps .sec-head p{color:#9c9a94}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#262626;
+    border:1px solid #262626}
+  .app{background:var(--ink);padding:26px 26px 30px;min-height:300px;display:flex;
+    flex-direction:column;gap:14px;position:relative;overflow:hidden}
+  .app img{width:112px;height:112px;image-rendering:auto;margin-bottom:4px}
+  .app .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#8f8d87;
+    text-transform:uppercase}
+  .app h3{font-size:28px;letter-spacing:-.03em;margin:0;line-height:1}
+  .app p{color:#a9a7a0;font-size:14.5px;line-height:1.55;margin:0;max-width:390px}
+  .app ul{list-style:none;padding:0;margin:auto 0 0;display:flex;flex-wrap:wrap;gap:7px}
+  .app li{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
+    border:1px solid #333;border-radius:999px;padding:5px 9px;color:#bdbab2}
+  .app .no{position:absolute;right:22px;top:20px;font-family:var(--mono);font-size:10px;
+    letter-spacing:.14em;color:#5a5853}
+
+  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .step{border-top:1px solid var(--line);padding-top:20px}
+  .step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent)}
+  .step h3{font-size:22px;letter-spacing:-.02em;margin:12px 0 8px}
+  .step p{color:var(--dim);font-size:14.5px;margin:0}
+  .step code{font-family:var(--mono);font-size:11px;background:#e8e5dc;padding:2px 6px;
+    border-radius:5px;color:#3b3933}
+
+  .dl{background:var(--ink);color:#fff}
+  .dl .sec-head{border-color:#2a2a2a}
+  .dl .sec-head p{color:#9c9a94}
+  .dlbox{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
+  .dlcard{border:1px solid #2f2f2f;border-radius:22px;padding:26px;background:#111}
+  .dlcard .row{display:flex;align-items:center;justify-content:space-between;gap:16px;
+    border-bottom:1px solid #262626;padding:12px 0;font-family:var(--mono);font-size:11px;
+    letter-spacing:.08em;color:#b7b4ad}
+  .dlcard .row:last-of-type{border:0}
+  .dlcard .row b{color:#fff;font-weight:600}
+  .dlcard .btn.primary{background:var(--green);color:#07130c;width:100%;justify-content:center;
+    margin-top:16px}
+  .dlcard a.mini{display:block;text-align:center;margin-top:12px;color:#8f8d87;font-family:var(--mono);
+    font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
+  pre{background:#0a0a0a;border:1px solid #242424;border-radius:14px;padding:16px 18px;
+    overflow:auto;font:12px/1.7 var(--mono);color:#cfccc4}
+  pre b{color:var(--green);font-weight:500}
+  .note{color:#8f8d87;font-size:13px;line-height:1.6;margin-top:14px}
+  .note b{color:#fff;font-weight:600}
+
+  footer{border-top:1px solid var(--line);padding:30px 0 46px;display:flex;gap:20px;
+    align-items:center;justify-content:space-between;flex-wrap:wrap}
+  footer .mono{color:var(--dim)}
+  footer a{text-decoration:none;color:var(--dim)}
+  footer a:hover{color:var(--ink)}
+
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;padding-top:46px}
+    .watch{order:-1}
+    .apps .grid{grid-template-columns:1fr}
+    .chain{grid-template-columns:1fr;gap:18px}
+    .dlbox{grid-template-columns:1fr}
+    .navlinks{display:none}
+  }
+  @media (max-width:560px){
+    .wrap{padding:0 18px}
+    section{padding:58px 0}
+    .sec-head{display:block}
+    .sec-head p{margin-top:12px}
+    .app{min-height:0}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap navin">
+    <a class="brand" href="/">CEVTUO<sup>®</sup> <span>XD</span></a>
+    <nav class="navlinks">
+      <a href="#apps">Apps</a>
+      <a href="#chain">How it works</a>
+      <a href="#download">Download</a>
+    </nav>
+    <a class="navbtn" href="#download">Get the app</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <span class="pill"><i></i> Wearable music system · 2026</span>
+      <h1>Music,<br>on your <em>wrist.</em></h1>
+      <p class="lede">Four apps on one 466px round watch — a stem mixer, a drum machine,
+        an agent console and a second OS. Wired to your Mac and your phone over one USB cable.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#download">Download for Android</a>
+        <a class="btn ghost" href="#chain">See how it connects</a>
+      </div>
+      <div class="meta">
+        <div><b>4</b><span>watch apps</span></div>
+        <div><b>16</b><span>step sequencer</span></div>
+        <div><b>&lt; 1s</b><span>USB round trip</span></div>
+      </div>
+    </div>
+
+    <div class="watch">
+      <svg viewBox="0 0 360 360" role="img" aria-label="CEVTUO XD watch">
+        <defs>
+          <radialGradient id="vinyl" cx="38%" cy="30%" r="80%">
+            <stop offset="0" stop-color="#8a141b"/>
+            <stop offset=".55" stop-color="#5a0a10"/>
+            <stop offset="1" stop-color="#220307"/>
+          </radialGradient>
+          <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2a2a2a"/>
+            <stop offset="1" stop-color="#0a0a0a"/>
+          </linearGradient>
+        </defs>
+        <rect x="139" y="2" width="82" height="58" rx="16" fill="#161616"/>
+        <rect x="139" y="300" width="82" height="58" rx="16" fill="#161616"/>
+        <circle cx="180" cy="180" r="152" fill="url(#case)" stroke="#333"/>
+        <circle cx="180" cy="180" r="140" fill="#050505"/>
+        <g fill="none" stroke-width="9" stroke-linecap="round">
+          <path d="M189 52 A128 128 0 0 1 308 171" stroke="#ffffff" opacity=".22"/>
+          <path d="M52 171 A128 128 0 0 1 171 52" stroke="#ffffff" opacity=".22"/>
+          <path d="M171 308 A128 128 0 0 1 52 189" stroke="#ffffff" opacity=".22"/>
+          <path d="M308 189 A128 128 0 0 1 189 308" stroke="#ffffff" opacity=".22"/>
+          <path d="M189 52 A128 128 0 0 1 308 171" stroke="#57e39b" stroke-dasharray="128 220"/>
+          <path d="M52 171 A128 128 0 0 1 171 52" stroke="#57e39b" stroke-dasharray="128 220"/>
+          <path d="M171 308 A128 128 0 0 1 52 189" stroke="#57e39b" stroke-dasharray="128 220"/>
+          <path d="M308 189 A128 128 0 0 1 189 308" stroke="#57e39b" stroke-dasharray="128 220"/>
+        </g>
+        <circle cx="180" cy="180" r="88" fill="url(#vinyl)" stroke="#ff8a8a" stroke-opacity=".35"/>
+        <circle cx="180" cy="180" r="74" fill="none" stroke="#fff" stroke-opacity=".08"/>
+        <circle cx="180" cy="180" r="58" fill="none" stroke="#fff" stroke-opacity=".08"/>
+        <rect x="130" y="148" width="100" height="64" rx="10" fill="#f3efe6"/>
+        <path d="M146 182c9-10 14-14 20-12 7 2 9 8 16 6 6-2 8-8 14-7"
+              fill="none" stroke="#8a141b" stroke-width="2.2" stroke-linecap="round"/>
+        <text x="180" y="205" text-anchor="middle" font-family="ui-monospace,monospace"
+              font-size="7" fill="#555">TEST SONG</text>
+        <circle cx="180" cy="180" r="3.2" fill="#d33"/>
+        <g font-family="ui-monospace,monospace" font-size="9" fill="#cfd7d2">
+          <text x="180" y="104" text-anchor="middle" opacity=".8">AUDIO IN</text>
+          <text x="180" y="262" text-anchor="middle" opacity=".7">120 BPM</text>
+        </g>
+        <circle cx="180" cy="97" r="2.6" fill="#57e39b"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="ticker">
+    <div><b>STEM D</b> — four-track mixer &nbsp;·&nbsp; <b>GROOVE D</b> — drum machine &nbsp;·&nbsp;
+      <b>COSPON D</b> — agent console &nbsp;·&nbsp; <b>MUSE D</b> — second OS &nbsp;·&nbsp;
+      <b>STEM D</b> — four-track mixer &nbsp;·&nbsp; <b>GROOVE D</b> — drum machine &nbsp;·&nbsp;
+      <b>COSPON D</b> — agent console &nbsp;·&nbsp; <b>MUSE D</b> — second OS &nbsp;·&nbsp;</div>
+  </div>
+
+  <section class="apps" id="apps">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Four apps.<br>One wrist.</h2>
+        <p>Every app is its own screen with its own job — no menus, no hierarchy.
+          Tap the launcher, the watch becomes the instrument.</p>
+      </div>
+      <div class="grid">
+        <article class="app">
+          <span class="no">01</span>
+          <img src="icons/icon_stem_d.png" alt="Stem D">
+          <span class="tag">Mixer</span>
+          <h3>Stem D</h3>
+          <p>Four white-and-green quarter arcs are the faders. A red vinyl you can
+            scratch with your finger. A white label that shows the song that's playing.</p>
+          <ul><li>4 stems</li><li>scratch</li><li>tape / FX</li><li>now playing</li></ul>
+        </article>
+        <article class="app">
+          <span class="no">02</span>
+          <img src="icons/icon_groove_d.png" alt="Groove D">
+          <span class="tag">Drum machine</span>
+          <h3>Groove D</h3>
+          <p>Eight pads, four colour faders, two pointer dials and a tape deck.
+            The 16-step sequencer on the phone drives the same MIDI port.</p>
+          <ul><li>8 pads</li><li>4 CC faders</li><li>BPM / FX dials</li><li>tape stop</li></ul>
+        </article>
+        <article class="app">
+          <span class="no">03</span>
+          <img src="icons/icon_cospon_d.png" alt="Cospon D">
+          <span class="tag">Agent console</span>
+          <h3>Cospon D</h3>
+          <p>Live CrewTower sessions on your wrist — app, agent, activity, context bar,
+            project and age. Waiting sessions light up and buzz twice.</p>
+          <ul><li>live sessions</li><li>status lights</li><li>details</li><li>haptics</li></ul>
+        </article>
+        <article class="app">
+          <span class="no">04</span>
+          <img src="icons/icon_muse.png" alt="Muse D">
+          <span class="tag">Second OS</span>
+          <h3>Muse D</h3>
+          <p>A second firmware on the other OTA slot. Visit mode: Muse clears the boot
+            flag on start, so any power-off goes straight back to Watch.</p>
+          <ul><li>dual boot</li><li>visit mode</li><li>one tap</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="chain">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>One chain.<br>Three hops.</h2>
+        <p>USB is the spine. The watch talks to the Mac over a serial bridge; the phone
+          talks to the Mac over USB (adb reverse) or Wi-Fi. Everything ends at the same port.</p>
+      </div>
+      <div class="chain">
+        <div class="step">
+          <span class="no">01 — WATCH → MAC</span>
+          <h3>Serial bridge</h3>
+          <p><code>tools/grooved-serial-midi</code> turns <code>G1 …</code> lines into CoreMIDI,
+            pushes stem/agent data to the watch, and keeps the audio DSP in sync.</p>
+        </div>
+        <div class="step">
+          <span class="no">02 — PHONE → MAC</span>
+          <h3>One port</h3>
+          <p>USB: <code>adb reverse tcp:8765 tcp:8765</code>. Wi-Fi: start the Mac server with
+            <code>GROOVED_HOST=0.0.0.0</code> and enter its IP in the app's LINK tab.</p>
+        </div>
+        <div class="step">
+          <span class="no">03 — MAC → WATCH</span>
+          <h3>Any song</h3>
+          <p>The Mac DSP processes whatever is playing — stems, FX, tape, scratch — and the
+            watch controls it in real time. Phone media shows up on the vinyl label.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="dl" id="download">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2>Get the app.</h2>
+        <p>Android 8+ · WebView UI · reads the phone's media session for the NOW page.</p>
+      </div>
+      <div class="dlbox">
+        <div class="dlcard">
+          <div class="row"><span>Package</span><b>com.cevtuo.grooved</b></div>
+          <div class="row"><span>Version</span><b>1.0 · debug</b></div>
+          <div class="row"><span>Size</span><b>113 KB</b></div>
+          <div class="row"><span>SHA-256</span><b style="font-size:9px;word-break:break-all">228e6c97d615b618b6de2062d7d04fd29d3ae9a97c4e7c9138fdb2dd4efb407e</b></div>
+          <a class="btn primary" href="GrooveD.apk" download>Download GrooveD.apk</a>
+          <a class="mini" href="https://github.com/cevtuocjw" target="_blank" rel="noopener">Source &amp; notes on GitHub</a>
+        </div>
+        <div>
+          <pre><b># phone (USB)</b>
+adb install -r GrooveD.apk
+adb reverse tcp:8765 tcp:8765
+adb shell am start -n com.cevtuo.grooved/.MainActivity
+
+<b># mac (bridge + audio)</b>
+tools/grooved.sh
+
+<b># mac (wi-fi instead of usb)</b>
+GROOVED_HOST=0.0.0.0 deno task dev</pre>
+          <p class="note"><b>NOW page</b> needs notification access: Settings → Notifications →
+            Notification access → Groove D. It reads only the media session, never notification text.</p>
+          <p class="note"><b>Watch firmware</b> is not in this download — it is built from
+            <code>device/</code> and flashed over USB with esptool. See the handoff docs in the source.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <span class="mono">CEVTUO® XD · 2026</span>
+  <span class="mono"><a href="/">← apps.cevtuogrnd.com</a></span>
+</footer>
+
+</body>
+</html>
