@@ -433,7 +433,7 @@ END</pre>
       <div>
         <p><b>HANDOFF</b>：把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写成 <code>&lt;cwd&gt;/docs/handoff-YYYYMMDD-HHMM.md</code>，并把「读 &lt;path&gt;，然后继续。」放进 Mac 剪贴板。写文件失败会返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>。</p>
         <p><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>。Claude / Cherry 没有可用的 CLI resume，也不允许后台服务合成按键；所以用一个可授权的小 App <code>COSPOND Send.app</code>：Accessibility 找到 composer → 读 AXValue，有草稿就返回 <code>DRAFT</code> 不动 → 否则 Cmd+V + Return。</p>
-        <p>第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL</code>。</p>
+        <p>第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL NOT_TRUSTED</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。空输入框时 Cherry 会把占位文案（「Agent 运行中 — Return 排队发送…」）当成 AXValue 返回，helper 已把这类占位符按空处理 —— 只有真实草稿才返回 <code>DRAFT</code>，不会覆盖你正在写的内容。CONTINUE 粘贴的是当前打开的 Cherry 对话，点之前先把目标对话切到前台。只读诊断：<code>curl 127.0.0.1:8765/api/agents/helper-check</code>，返回 <code>trusted / front / composer</code>，不会粘贴或回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL &lt;原因&gt;</code>。</p>
       </div>
       <div class="right">
         <ul class="kv">
