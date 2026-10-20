@@ -277,7 +277,7 @@
       <div>
         <p>主屏是三张会话卡：标题是项目名（如 <code>Codex</code>），副标题是 agent（如 <code>claudeCode</code>），右侧是状态和年龄；上下文进度条按 tokens / limit 计算。卡片不显示宿主 App 名，避免把“Cherry Studio”“ChatGPT”当成会话本身。</p>
         <p>点卡片进入 <b>全屏详情</b>：黑底、米白点阵字、单一橙色呼吸点。顶部是 <code>COSPON D / 项目名</code> 与状态行；左侧柱是 <code>STEPS</code> 或 <code>CHAT</code>（点一下切换），右侧柱是 <code>TURN</code> 本轮耗时。中间是最近 6 次工具调用或最近 8 条消息，内容变化时把最新一条放在中间偏下；末尾留白让最后一条能滚到中线。右上角 <code>X</code> 和黄色返回键都能退出。</p>
-        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。最新的一条排在最上面并放在屏幕中线，单条最多 199 字符——长 Bash 命令会完整换行，不再被 80 字符截断，也不用自己往下拖。这样你能看到它在读哪个文件、跑哪条命令、改哪一块，而不是只看到一句“在思考”。</p>
+        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。STEPS 视图只显示<b>最新一条</b>，并把它的中心固定在屏幕中线；左侧仍显示总数（如 6）。单条最多 199 字符——长 Bash 命令会完整换行，不再被 80 字符截断，也不用自己往下拖。这样你抬头看到的一定是它最近在做的那件事，而不是一句“在思考”。</p>
         <p><b>时间分两层</b>：顶部 <code>TOTAL</code> 是这个会话从开始到现在的总时长；右侧 <code>TURN</code> 是本轮从最后一条 user 消息开始的耗时。working 时橙色点做 900ms 明暗循环，waiting 时状态色常亮，idle 时灰色常亮。卡片状态行也带分钟。</p>
       </div>
       <div class="right">
@@ -433,7 +433,7 @@ END</pre>
       <div>
         <p><b>HANDOFF</b>：把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写成 <code>&lt;cwd&gt;/docs/handoff-YYYYMMDD-HHMM.md</code>，并把「读 &lt;path&gt;，然后继续。」放进 Mac 剪贴板。写文件失败会返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>。</p>
         <p><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>。Claude / Cherry 没有可用的 CLI resume，也不允许后台服务合成按键；所以用一个可授权的小 App <code>COSPOND Send.app</code>：Accessibility 找到 composer → 读 AXValue，有草稿就返回 <code>DRAFT</code> 不动 → 否则 Cmd+V + Return。</p>
-        <p><b>HANDOFF 不要求会话 idle</b>：agent 正在跑也能点——它只写交接文档并把提示词放进剪贴板。CONTINUE 仍然只在 idle 出现，避免在 agent 正在跑时插一条新指令。第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL NOT_TRUSTED</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。空输入框时 Cherry 会把占位文案（「Agent 运行中 — Return 排队发送…」）当成 AXValue 返回，helper 已把这类占位符按空处理 —— 只有真实草稿才返回 <code>DRAFT</code>，不会覆盖你正在写的内容。CONTINUE 粘贴的是当前打开的 Cherry 对话，点之前先把目标对话切到前台。只读诊断：<code>curl 127.0.0.1:8765/api/agents/helper-check</code>，返回 <code>trusted / front / composer</code>，不会粘贴或回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL &lt;原因&gt;</code>。</p>
+        <p><b>HANDOFF 不要求会话 idle</b>：agent 正在跑也能点。它会写交接文档、把「读 &lt;path&gt;，然后继续」放进剪贴板，并<b>通过同一个 helper 把这句话粘进当前 Cherry 输入框、按 Return</b>——所以 Cherry 会真的开始读 handoff。CONTINUE 仍然只在 idle 出现，避免在 agent 正在跑时插一条新指令。第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL NOT_TRUSTED</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。空输入框时 Cherry 会把占位文案（「Agent 运行中 — Return 排队发送…」）当成 AXValue 返回，helper 已把这类占位符按空处理 —— 只有真实草稿才返回 <code>DRAFT</code>，不会覆盖你正在写的内容。CONTINUE / HANDOFF 都作用在当前打开的 Cherry 对话上，点之前先把目标对话切到前台。Cherry 的「新任务」按钮在辅助功能层按不动（AX 和 Cmd+N 都不会真的切新聊天），所以 HANDOFF 不赌新建流程，直接在当前会话交接。只读诊断：<code>curl 127.0.0.1:8765/api/agents/helper-check</code>，返回 <code>trusted / front / composer</code>，不会粘贴或回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL &lt;原因&gt;</code>。</p>
       </div>
       <div class="right">
         <ul class="kv">
