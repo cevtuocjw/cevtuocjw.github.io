@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CEVTUO CONSPON-D</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23171310'/%3E%3Ccircle cx='16' cy='16' r='10' fill='none' stroke='%23e2d3b4' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<style>
+  :root{
+    --bg:#171310; --bg2:#1d1814; --ink:#e9e3d8; --dim:#9a9084; --mute:#6f665c;
+    --line:#3a332b; --line2:#2a241e; --paper:#211b16; --accent:#e2d3b4; --orange:#ff5a1f;
+    --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    --serif:"Bodoni 72","Didot","Times New Roman",serif;
+    --max:1240px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.75 var(--mono);
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:var(--accent);color:#171310}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 32px}
+
+  /* top bar */
+  .bar{position:fixed;inset:0 0 auto;z-index:50;height:44px;border-bottom:1px solid var(--line2);
+    background:rgba(23,19,16,.92);backdrop-filter:blur(10px)}
+  .barin{max-width:var(--max);margin:0 auto;padding:0 32px;height:44px;display:flex;align-items:center;gap:24px}
+  .bar .brand{font-size:11px;letter-spacing:.18em;text-transform:uppercase}
+  .bar .brand b{color:var(--accent);font-weight:600}
+  .bar .mid{margin:0 auto;display:flex;align-items:center;gap:10px;color:var(--mute);font-size:9px;letter-spacing:.24em}
+  .bar .mid i{display:block;width:34px;height:1px;background:var(--accent)}
+  .bar .right{display:flex;gap:18px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim)}
+  .bar .right a:hover{color:var(--ink)}
+  @media(max-width:760px){.bar .mid{display:none}.barin{padding:0 18px}}
+
+  /* hero */
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;
+    border-bottom:1px solid var(--line2);padding:110px 0 60px}
+  .hero .ghost{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-size:clamp(90px,18vw,300px);line-height:.8;letter-spacing:-.06em;
+    color:transparent;-webkit-text-stroke:1px #453b31;user-select:none;white-space:nowrap}
+  .hero .inner{position:relative;z-index:2;text-align:center;width:100%}
+  .chapter{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent)}
+  .chapter span{color:var(--mute)}
+  .hero h1{font-family:var(--mono);font-size:clamp(28px,5vw,64px);letter-spacing:.14em;font-weight:400;
+    margin:18px 0 8px;text-transform:uppercase}
+  .hero h1 em{font-style:normal;color:var(--orange)}
+  .hero .sub{max-width:620px;margin:0 auto;color:var(--dim);font-size:12px;line-height:2}
+  .hero .meta{margin-top:26px;display:flex;justify-content:center;gap:26px;flex-wrap:wrap;
+    font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+  .hero .meta b{color:var(--ink);font-weight:400}
+  .hero .stage{margin:42px auto 0;width:min(420px,80vw);position:relative}
+  .hero .stage video{width:100%;display:block;border:1px solid var(--line);background:#000;image-rendering:pixelated}
+  .hero .stage .cap{position:absolute;left:-1px;bottom:-26px;font-size:8px;letter-spacing:.18em;color:var(--mute)}
+  .hero .stage:before{content:"";position:absolute;inset:-18px;border:1px solid var(--line2);pointer-events:none}
+  .scrollhint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:var(--mute);
+    font-size:8px;letter-spacing:.26em;text-transform:uppercase}
+
+  /* toc */
+  .tocsec{padding:110px 0 80px;border-bottom:1px solid var(--line2)}
+  .tochead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:40px}
+  .tochead h2{font-family:var(--serif);font-size:clamp(42px,7vw,96px);line-height:.9;font-weight:400;
+    letter-spacing:-.04em;margin:0;color:var(--accent)}
+  .viewbtns{display:flex;gap:8px;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+  .viewbtns button{background:none;border:1px solid var(--line);color:var(--mute);padding:8px 12px;
+    font:inherit;letter-spacing:inherit;cursor:pointer}
+  .viewbtns button.on{color:#171310;background:var(--accent);border-color:var(--accent)}
+  .toc{display:grid;grid-template-columns:1fr 1.05fr 1fr;gap:32px;align-items:start}
+  .toc .col{display:flex;flex-direction:column;gap:26px}
+  .toc .center{position:sticky;top:80px;border:1px solid var(--line);background:var(--paper);padding:12px}
+  .toc .center img,.toc .center video{width:100%;display:block;background:#000}
+  .toc .center .cc{display:flex;justify-content:space-between;font-size:8px;letter-spacing:.16em;
+    color:var(--mute);margin-top:10px;text-transform:uppercase}
+  .toc-item{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line2);
+    transition:opacity .2s ease,transform .2s ease}
+  .toc-item:hover{opacity:.72;transform:translateX(4px)}
+  .toc-item .no{font-size:9px;letter-spacing:.12em;color:var(--accent);padding-top:2px}
+  .toc-item h3{margin:0;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+  .toc-item p{margin:3px 0 0;font-size:9.5px;line-height:1.6;color:var(--mute)}
+  body.view-diag .toc{display:block}
+  body.view-diag .toc .center{display:none}
+  body.view-diag .toc .col{display:block}
+  body.view-diag .toc-item{margin-left:calc(var(--i) * 6.4vw);border-top:0;padding:12px 0}
+  body.view-diag .toc-item:nth-child(even){margin-left:calc(var(--i) * 6.4vw + 2vw)}
+  @media(max-width:900px){
+    .toc{grid-template-columns:1fr}
+    .toc .center{position:relative;top:auto;order:-1}
+    body.view-diag .toc-item{margin-left:0!important}
+  }
+
+  /* chapters */
+  section.ch{padding:120px 0 30px;border-top:1px solid var(--line2);scroll-margin-top:60px}
+  .chhead{display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;margin-bottom:34px}
+  .chhead .no{font-size:10px;letter-spacing:.14em;color:var(--accent);padding-top:8px}
+  .chhead h2{font-family:var(--serif);font-size:clamp(40px,6vw,84px);line-height:.92;font-weight:400;
+    letter-spacing:-.03em;margin:0 0 10px;color:var(--accent)}
+  .chhead .lab{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--mute)}
+  .body{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:44px;align-items:start}
+  .body>*{min-width:0}
+  .body p{margin:0 0 16px;color:#c9c1b5;font-size:12px;line-height:2;overflow-wrap:anywhere}
+  .body p b{color:var(--ink);font-weight:600}
+  .body .right p{color:var(--dim)}
+  .rule{height:1px;background:var(--line2);margin:26px 0}
+  .kv{list-style:none;margin:0;padding:0}
+  .kv li{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:9px 0;border-top:1px solid var(--line2);
+    font-size:10px;line-height:1.7}
+  .kv li b{font-weight:400;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;font-size:9px}
+  .kv li span{color:var(--dim);overflow-wrap:anywhere;min-width:0}
+  .kv li span code{color:var(--ink);font-family:var(--mono);overflow-wrap:anywhere}
+  .note{border-left:1px solid var(--accent);padding:2px 0 2px 16px;color:var(--dim);font-size:10.5px;line-height:1.9}
+  .applogos{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:38px}
+  .applogos .app{border:1px solid var(--line);background:var(--paper);padding:16px 10px;text-align:center}
+  .applogos img{height:46px;width:auto;max-width:100%;display:block;margin:0 auto 10px;
+    filter:grayscale(.15) contrast(1.05)}
+  .applogos b{display:block;font-size:9px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;color:var(--ink)}
+  .applogos span{display:block;margin-top:3px;font-size:8px;letter-spacing:.1em;color:var(--mute)}
+  @media(max-width:760px){.applogos{grid-template-columns:repeat(3,1fr)}}
+  .tagrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .tag{font-size:8px;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line);
+    padding:5px 8px;color:var(--dim)}
+  .tag.o{color:#ffb08a;border-color:#5a2a1c}
+  .tag.g{color:#bfe8cf;border-color:#2f5541}
+
+  /* flow chart */
+  .flow{border:1px solid var(--line);background:var(--paper);padding:18px;margin-top:26px;overflow:auto}
+  .flow svg{display:block;width:100%;height:auto;min-width:760px}
+  .flow text{font-family:var(--mono);fill:var(--dim);font-size:11px}
+  .flow text.b{fill:var(--ink);font-size:12px;letter-spacing:.08em}
+  .flow text.a{fill:var(--accent);font-size:9px;letter-spacing:.12em}
+  .flow .box{fill:#1d1814;stroke:#3a332b;stroke-width:1}
+  .flow .wire{fill:none;stroke:#6f665c;stroke-width:1;marker-end:url(#arrow)}
+  .flow .wired{fill:none;stroke:#6f665c;stroke-width:1;stroke-dasharray:4 4;marker-end:url(#arrow)}
+  .seq{white-space:pre-wrap;font-size:10.5px;line-height:1.9;color:var(--dim);border:1px solid var(--line);
+    background:var(--paper);padding:18px;overflow:auto;min-width:0;overflow-wrap:anywhere;word-break:break-word}
+  .seq b{color:var(--accent);font-weight:400}
+
+  /* media */
+  .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}
+  .gallery figure{margin:0;border:1px solid var(--line);background:var(--paper);padding:8px}
+  .gallery img,.gallery video{display:block;width:100%;background:#000;filter:grayscale(.18) contrast(1.04)}
+  .gallery figcaption{display:flex;justify-content:space-between;gap:8px;margin-top:8px;font-size:8px;
+    letter-spacing:.12em;color:var(--mute);text-transform:uppercase}
+  .gallery .wide{grid-column:span 2}
+  .videos{display:grid;grid-template-columns:.62fr 1.38fr;gap:14px;margin-top:26px;align-items:start}
+  .videos figure{margin:0;border:1px solid var(--line);background:var(--paper);padding:8px}
+  .videos video{display:block;width:100%;height:440px;object-fit:contain;background:#000}
+  .videos figcaption{margin-top:8px;font-size:8px;letter-spacing:.12em;color:var(--mute)}
+  @media(max-width:900px){.body{grid-template-columns:1fr}.gallery{grid-template-columns:1fr 1fr}.videos{grid-template-columns:1fr}.videos video{height:360px}}
+  @media(max-width:620px){.gallery{grid-template-columns:1fr}.gallery .wide{grid-column:auto}.chhead{grid-template-columns:40px 1fr}}
+
+  /* install / footer */
+  .install{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  .install .card{border:1px solid var(--line);background:var(--paper);padding:20px}
+  .install h3{margin:0 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:400;color:var(--accent)}
+  .install p{color:var(--dim);font-size:10px;line-height:1.8;margin:0 0 12px}
+  .install a.btn{display:inline-block;border:1px solid var(--accent);color:var(--accent);padding:8px 12px;
+    font-size:9px;letter-spacing:.14em;text-transform:uppercase;margin:4px 6px 0 0}
+  .install a.btn:hover{background:var(--accent);color:#171310}
+  .install a.btn.o{border-color:var(--orange);color:#ffb08a}
+  @media(max-width:900px){.install{grid-template-columns:1fr}}
+  footer{border-top:1px solid var(--line2);margin-top:120px;padding:60px 0 40px}
+  footer .big{font-family:var(--serif);font-size:clamp(60px,13vw,180px);line-height:.8;color:transparent;
+    -webkit-text-stroke:1px #453b31;letter-spacing:-.04em;margin-bottom:30px}
+  footer .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--mute);font-size:9px;
+    letter-spacing:.14em;text-transform:uppercase}
+  img[src*="watch-"],video[src*="watch-"]{image-rendering:pixelated}
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body class="view-grid">
+
+<header class="bar">
+  <div class="barin">
+    <div class="brand">CEVTUO <b>CONSPON-D</b></div>
+    <div class="mid"><i></i><span>TABLE OF CONTENTS</span><i></i></div>
+    <div class="right">
+      <a href="#index">INDEX</a>
+      <a href="#install">DOWNLOAD</a>
+      <a href="/xd/">XD →</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="hero" id="top">
+  <div class="ghost">CONSPON-D</div>
+  <div class="wrap inner">
+    <div class="chapter">CHAPTER <span>00</span> — WEARABLE AGENT CONSOLE <span>/</span> 2026-10-20</div>
+    <h1>CEVTUO <em>CONSPON-D</em></h1>
+    <p class="sub">一块 M5Stack StopWatch、一部 Android 手机、一台 Mac。手表上看 agent 的实时过程，
+      按 CONTINUE / HANDOFF 让电脑继续；手机负责声音，Mac 负责计算与会话。下面是一份可索引的完整说明。</p>
+    <div class="meta">
+      <span><b>M5</b> 466 × 466</span>
+      <span><b>USB</b> AG/SESS/STEP/MSG</span>
+      <span><b>Wi-Fi</b> UDP 41234</span>
+      <span><b>Mac</b> :8765</span>
+    </div>
+    <div class="stage">
+      <video src="media/watch-demo.mp4" autoplay muted loop playsinline poster="media/watch-list.png"></video>
+      <div class="cap">COSPON D · FIRMWARE CAPTURE · CARDS → STEPS → CHAT</div>
+    </div>
+  </div>
+  <div class="scrollhint">SCROLL TO INDEX ↓</div>
+</section>
+
+<section class="tocsec" id="index">
+  <div class="wrap">
+    <div class="tochead">
+      <h2>A TABLE<br>OF CONTENTS</h2>
+      <div class="viewbtns">
+        <button id="bv-grid" class="on">GRID</button>
+        <button id="bv-diag">INDEX</button>
+      </div>
+    </div>
+    <div class="toc">
+      <div class="col">
+        <a class="toc-item" style="--i:0" href="#overview"><span class="no">I</span><div><h3>Overview</h3><p>三端是什么、为什么是手表</p></div></a>
+        <a class="toc-item" style="--i:1" href="#watch"><span class="no">II</span><div><h3>COSpon D — Watch UI</h3><p>卡片、全屏详情、STEPS、TOTAL / TURN</p></div></a>
+        <a class="toc-item" style="--i:2" href="#watchapps"><span class="no">III</span><div><h3>Stem / Groove / Muse</h3><p>另外三个手表 App</p></div></a>
+        <a class="toc-item" style="--i:3" href="#phone"><span class="no">IV</span><div><h3>Phone — GrooveD</h3><p>六个页面、声音、编曲、导出</p></div></a>
+      </div>
+      <div class="center">
+        <video src="media/watch-demo.mp4" autoplay muted loop playsinline poster="media/watch-list.png"></video>
+        <div class="cc"><span>PLATE 01</span><span>COSpon D / 466 × 466</span></div>
+      </div>
+      <div class="col">
+        <a class="toc-item" style="--i:4" href="#mac"><span class="no">V</span><div><h3>Mac — Grooved Link</h3><p>Deno 服务、串口桥、LaunchAgent</p></div></a>
+        <a class="toc-item" style="--i:5" href="#protocol"><span class="no">VI</span><div><h3>Link Protocol</h3><p>AG / SESS / STEP / MSG / PERM / END</p></div></a>
+        <a class="toc-item" style="--i:6" href="#wifi"><span class="no">VII</span><div><h3>USB &amp; Wi-Fi</h3><p>配网、NVS、自动发现 Mac</p></div></a>
+        <a class="toc-item" style="--i:7" href="#actions"><span class="no">VIII</span><div><h3>Continue / Handoff</h3><p>两个动作、helper、权限</p></div></a>
+      </div>
+    </div>
+    <div class="toc" style="margin-top:34px">
+      <div class="col">
+        <a class="toc-item" style="--i:8" href="#flow"><span class="no">IX</span><div><h3>Flow Chart</h3><p>三端全链路与两条时序</p></div></a>
+        <a class="toc-item" style="--i:9" href="#media"><span class="no">X</span><div><h3>Media</h3><p>手机 / 手表 / Mac 的截图与录屏</p></div></a>
+      </div>
+      <div class="col">
+        <a class="toc-item" style="--i:10" href="#install"><span class="no">XI</span><div><h3>Install</h3><p>APK、固件包、Mac 宿主包</p></div></a>
+        <a class="toc-item" style="--i:11" href="#notes"><span class="no">XII</span><div><h3>Notes</h3><p>边界、权限、版本</p></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="overview">
+  <div class="wrap">
+    <div class="chhead"><div class="no">I</div><div><div class="lab">Chapter 01 / Overview</div><h2>三端，一条链</h2></div></div>
+    <div class="body">
+      <div>
+        <p>CEVTUO CONSPON-D 是一套 <b>三端协作的 agent 控制台</b>：手表负责“看”和“按”，手机负责“听”和“编排”，Mac 负责“算”和“发”。它不是把聊天窗口缩小到手表上，而是把 Mac 上正在跑的 Claude Code / Codex 会话，整理成适合 466 圆屏的卡片、过程和动作。</p>
+        <p>手表端跑在 M5Stack StopWatch（ESP32-S3，16MB Flash / 8MB PSRAM）上，四个独立 App：<b>COSpon D</b>、Stem D、Groove D、Muse D。COSpon D 通过 USB 串口或 Wi-Fi 从 Mac 拿到 <code>AG / SESS / STEP / MSG / PERM / END</code> 快照；点卡片进入全屏详情，默认先看 <b>STEPS</b>（最近 6 次工具调用），左侧柱子切回 <b>CHAT</b>；顶部是整段对话的 <b>TOTAL</b>，右侧是本轮的 <b>TURN</b>。</p>
+        <p>手机端是 GrooveD（Android WebView + 原生桥），六个页面共用一套会话表和行协议：NOW、STEM、REAL-TIME、GROOVE、SEQ、LINK。它负责录音、YIN 音高、Krumhansl 调性、确定性编曲、WebAudio、SMF 导出，也负责把 Mac 地址、片段和曲名送到手表。</p>
+        <p>Mac 端没有 UI 窗口，只有一个 Deno 服务和一条 Swift 串口桥：HTTP <code>:8765</code> 提供编曲、LLM、agent 快照、审批队列和动作；串口桥把每一行协议写进手表，也把 <code>G1 …</code> 读回来变成 MIDI / 动作。数据源是 CrewTower 的机器级会话表，不额外挂第二套 hook。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Watch</b><span>M5Stack StopWatch · 466×466 · ESP32-S3 · LVGL · unscii + 12px CJK</span></li>
+          <li><b>Phone</b><span>Android WebView · AudioRecord · MediaSession · MediaProjection · SMF</span></li>
+          <li><b>Mac</b><span>Deno :8765 · Swift serial bridge · CrewTower sessions.json · LaunchAgent</span></li>
+          <li><b>Link</b><span>USB serial + Wi-Fi HTTP，同一套行协议，同一个 handle_line()</span></li>
+          <li><b>Time</b><span>turnSec（本轮） / sessionSec（整个会话）</span></li>
+        </ul>
+        <div class="rule"></div>
+        <p class="note">为什么读 CrewTower：它已经把 Claude / Codex / DSH 的会话归一成一条记录，连别的 App 里的会话也能看到。再挂一套 hook 只会得到第二份互不相干的真相。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="watch">
+  <div class="wrap">
+    <div class="chhead"><div class="no">II</div><div><div class="lab">Chapter 02 / Watch UI</div><h2>COSpon D 的屏幕</h2></div></div>
+    <div class="body">
+      <div>
+        <p>主屏是三张会话卡：标题是项目名（如 <code>Codex</code>），副标题是 agent（如 <code>claudeCode</code>），右侧是状态和年龄；上下文进度条按 tokens / limit 计算。卡片不显示宿主 App 名，避免把“Cherry Studio”“ChatGPT”当成会话本身。</p>
+        <p>点卡片进入 <b>全屏详情</b>：黑底、米白点阵字、单一橙色呼吸点。顶部是 <code>COSPON D / 项目名</code> 与状态行；左侧柱是 <code>STEPS</code> 或 <code>CHAT</code>（点一下切换），右侧柱是 <code>TURN</code> 本轮耗时。中间是最近 6 次工具调用或最近 8 条消息，内容变化时把最新一条放在中间偏下；末尾留白让最后一条能滚到中线。右上角 <code>X</code> 和黄色返回键都能退出。</p>
+        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。这样你能看到它在读哪个文件、跑哪条命令、改哪一块，而不是只看到一句“在思考”。</p>
+        <p><b>时间分两层</b>：顶部 <code>TOTAL</code> 是这个会话从开始到现在的总时长；右侧 <code>TURN</code> 是本轮从最后一条 user 消息开始的耗时。working 时橙色点做 900ms 明暗循环，waiting 时状态色常亮，idle 时灰色常亮。卡片状态行也带分钟。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Font</b><span>英文标签/数字 unscii_8 / unscii_16；中文正文 12px CJK</span></li>
+          <li><b>Layout</b><span>全屏 466×466，内容按半径 233 的圆盘约束；两侧 60px 无框文字柱</span></li>
+          <li><b>STEPS</b><span>最近 6 次 tool_use，一条一行</span></li>
+          <li><b>CHAT</b><span>最近 8 条消息，最新一条中间偏下，可滚动</span></li>
+          <li><b>Close</b><span>X / 黄色返回键 / 点背景</span></li>
+        </ul>
+        <div class="rule"></div>
+        <video src="media/watch-demo.mp4" autoplay muted loop playsinline poster="media/watch-steps.png" style="width:100%;border:1px solid var(--line);background:#000"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="watchapps">
+  <div class="wrap">
+    <div class="chhead"><div class="no">III</div><div><div class="lab">Chapter 03 / Watch Apps</div><h2>另外三个 D</h2></div></div>
+    <div class="body">
+      <div>
+        <p><b>Stem D</b>：四段弧对应四轨音量，长按静音、双击独奏；中央黑胶可搓，白色标签显示 now playing。它接收 <code>G1 STEM/MUTE/SOLO/PLATTER/MASTER/BPM</code>，把推子变化发回 Mac。</p>
+        <p><b>Groove D</b>：8 个鼓垫、4 根 CC 推子、BPM/FX 旋钮、磁带机页。触摸映射成 <code>NOTEON / NOTEOFF / CC</code>；BPM 与 FX 走同一条链路，磁带机页做停止与变速。</p>
+        <p><b>Muse D</b>：双系统分区里的第二个 OTA 槽（ota_1）。进入/返回不破坏电源轨；Muse 休息时会关掉 OLED 的 L3B 轨，所以 <code>apply-app.sh</code> 在启动前用 I2C 把 IO3/4/5/8/10 重新拉高，否则就是黑屏。</p>
+        <p>四个 App 独立注册，互不依赖；手表上的视觉统一为复古硬件语言：黑底、米白点阵、橙色 LED、细线分隔。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Stem D</b><span>四段弧 / 静音 / 独奏 / 黑胶搓盘 / now playing</span></li>
+          <li><b>Groove D</b><span>8 鼓垫 / 4 CC / BPM / FX / 磁带机</span></li>
+          <li><b>Muse D</b><span>第二个 OTA 槽 / 双系统分区 / 电源轨恢复</span></li>
+          <li><b>Shared</b><span>G1 行协议 · USB Serial/JTAG · 振动 / 屏幕录制</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="applogos">
+      <div class="app"><img src="media/cospon-d.png" alt="COSpon D"><b>COSpon D</b><span>WATCH / AGENT</span></div>
+      <div class="app"><img src="media/stem-d.png" alt="Stem D"><b>Stem D</b><span>WATCH / STEMS</span></div>
+      <div class="app"><img src="media/groove-d.png" alt="Groove D"><b>Groove D</b><span>WATCH / PADS</span></div>
+      <div class="app"><img src="media/muse-d.png" alt="Muse D"><b>Muse D</b><span>WATCH / OTA B</span></div>
+      <div class="app"><img src="media/phone-d.png" alt="GrooveD"><b>GrooveD</b><span>PHONE / APK</span></div>
+      <div class="app"><img src="media/web-d.png" alt="CEVTUO XD"><b>CEVTUO XD</b><span>MAC / WEB</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="phone">
+  <div class="wrap">
+    <div class="chhead"><div class="no">IV</div><div><div class="lab">Chapter 04 / Phone</div><h2>GrooveD 六个页面</h2></div></div>
+    <div class="body">
+      <div>
+        <p><b>NOW</b> 读取系统媒体会话：标题、歌手、封面、进度、播放态；中央圆盘 + 32 点轨道 + CEVTUO NOW AI。AI 读歌名/歌手给一句律动建议，可一键转 STEM；离线时用标题哈希给确定性建议，并明确标注“本地”。</p>
+        <p><b>STEM</b> 是作品层：HUM 用 AudioRecord 22050Hz，YIN 差分函数 + 累积均值 + 抛物线插值，5 帧中位 + 连续 2 帧一致才认音；调性用 24 个大小调 Krumhansl 模板；编曲是确定性引擎，风格表给 16 分鼓型与和弦进行；变体 4 个，变异 9 种；导出 SMF Format 0（division 480，鼓通道 9）。</p>
+        <p><b>REAL-TIME</b> 是演奏层：10 个旋钮、唱机、三段 EQ、NOISE/MAIN/VOCAL、PERFORM 穹顶和灯圈。所有参数进 WebAudio 链，同时发 CC 24–34；搓盘发 <code>PLATTER</code>。</p>
+        <p><b>GROOVE</b> 8 鼓垫 + 9 和弦垫 + XY + 4 CC；力度按触点纵向位置；能听懂鼓点、按 16 分量化、写回 STEM。<b>SEQ 2.0</b> 16 步 × 4 轨、三档力度、M/S、A–D 模式、概率/摆动/TAP、三个宏旋钮、径向灯轮。<b>LINK</b> 是控制台：六格状态、API KEY、MAC HOST、发送 Mac 地址、主题、日志。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Audio</b><span>AudioRecord 22050 · YIN · Krumhansl · WebAudio · 8 samples</span></li>
+          <li><b>MIDI</b><span>SMF Format 0 · division 480 · drum ch 9 · CC 20–34</span></li>
+          <li><b>Capture</b><span>MediaProjection AudioPlaybackCapture → four-band RMS → CC</span></li>
+          <li><b>Host</b><span>adb reverse / LAN · localStorage theme · API key to Mac</span></li>
+        </ul>
+        <div class="rule"></div>
+        <p class="note">手机端功能不依赖 Mac：播放器、唱机、鼓垫、和弦垫、音序器、本地合成与本地 MIDI 都能离线用。只有 LLM 和外部 MIDI 才需要 Mac。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="mac">
+  <div class="wrap">
+    <div class="chhead"><div class="no">V</div><div><div class="lab">Chapter 05 / Mac</div><h2>Mac 是引擎，不是窗口</h2></div></div>
+    <div class="body">
+      <div>
+        <p>Mac 端只有一个 Deno 服务和一个 Swift 串口桥。服务监听 <code>0.0.0.0:8765</code>，提供编曲、LLM、agent 快照、审批队列、动作和手机/手表的桥。它不画 UI，所有界面都在手机或手表上；本机的网页控制台只是同一份服务的另一个视图。</p>
+        <p>串口桥自动找 <code>/dev/cu.usbmodem*</code>，把服务产出的 <code>AG / SESS / STEP / MSG / PERM / NET / END</code> 逐行写进手表；同时读回手表的 <code>G1 STEM / MUTE / SOLO / PLATTER / NOTEON / NOTEOFF / CC / PERM / ACTION / MASTER / BPM</code>，转成 MIDI 或动作。</p>
+        <p>服务装在 <code>~/Library/Application Support/grooved-link/</code>，桥在 <code>grooved-bridge/</code>。不要放在 <code>~/Documents</code>：launchd 没有那个目录的 TCC 权限，进程会卡在 <code>open()</code>，看起来活着、日志正常，但端口永远不监听。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>HTTP</b><span><code>/api/studio/*</code> · <code>/api/agents/*</code> · <code>/api/groove/*</code> · <code>/health</code></span></li>
+          <li><b>Serial</b><span><code>/dev/cu.usbmodem*</code> · 115200 · line protocol</span></li>
+          <li><b>Data</b><span>CrewTower <code>sessions.json</code> · transcript JSONL · <code>~/.grooved/llm.key</code></span></li>
+          <li><b>Auto</b><span>LaunchAgent <code>com.cevtuo.grooved-link</code> / <code>-bridge</code></span></li>
+          <li><b>Logs</b><span><code>~/Library/Logs/grooved-link.log</code> · <code>grooved-serial.log</code></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="protocol">
+  <div class="wrap">
+    <div class="chhead"><div class="no">VI</div><div><div class="lab">Chapter 06 / Protocol</div><h2>一条线，三层</h2></div></div>
+    <div class="body">
+      <div>
+        <p>一次快照从 <code>AG</code> 开始，到 <code>END</code> 才提交。中间可以有 3 个会话、每个会话最多 8 条消息、6 条过程、一条待批权限。固件在 <code>AG</code> 只写 staging，<code>END</code> 才一次性重画——否则卡片会在 activity 和最新消息之间来回跳。</p>
+        <pre class="seq">AG &lt;pending&gt; &lt;count&gt;
+SESS &lt;agent&gt;|&lt;app&gt;|&lt;state&gt;|&lt;activity&gt;|&lt;tokens&gt;|&lt;limit&gt;|&lt;project&gt;|&lt;age&gt;|&lt;turnSec&gt;|&lt;sessionSec&gt;
+STEP &lt;slot&gt;|&lt;tool - description&gt;          # 最近 6 次
+MSG  &lt;slot&gt;|&lt;role&gt;|&lt;text&gt;                  # 最近 8 条
+PERM &lt;id&gt;|&lt;tool&gt;|&lt;detail&gt;                # 没有则 PERM -
+NET  &lt;mac-lan-ip&gt;
+END</pre>
+        <p>Wi-Fi 路径是 <code>GET /api/agents/watch</code>；USB 路径是串口桥逐行写。两条路最终进入同一个 <code>handle_line()</code>，所以不会长出两种行为。手表回给 Mac 的行以 <code>G1</code> 开头；审批是 <code>G1 PERM &lt;id&gt; allow|deny</code>，两个动作是 <code>G1 ACTION &lt;slot&gt; continue|handoff</code>。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>AG</b><span>快照开始：待批数 + 会话数</span></li>
+          <li><b>SESS</b><span>agent/app/state/activity/tokens/limit/project/age/turn/session</span></li>
+          <li><b>STEP</b><span>最近 6 次 tool_use，一条一行</span></li>
+          <li><b>MSG</b><span>最近 8 条 user/assistant 文本</span></li>
+          <li><b>PERM</b><span>待批 id / 工具 / 参数；PERM - 表示没有</span></li>
+          <li><b>END</b><span>提交 staging 并重画</span></li>
+          <li><b>ACT</b><span>动作回执，底栏保留 20 秒</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="wifi">
+  <div class="wrap">
+    <div class="chhead"><div class="no">VII</div><div><div class="lab">Chapter 07 / USB &amp; Wi-Fi</div><h2>换地方也不用重新配</h2></div></div>
+    <div class="body">
+      <div>
+        <p><b>USB</b> 是最稳的链路：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>（手机用），手表插上 USB 后串口桥每 2 秒写一次快照。设备名 <code>G1 HELLO stem-d / groove-d / C1 HELLO cospon</code> 用来确认谁在线。</p>
+        <p><b>Wi-Fi</b> 第一次要配网：COSPON D → <code>WIFI ON</code>，手表进入 <code>M5StopWatch-XXXX</code> 配置 AP；手机连它、填家里的 Wi-Fi；然后回到 LINK 页按「发送 Mac 地址到手表」。地址写进 NVS，之后开 Wi-Fi 自动连。</p>
+        <p><b>换地方</b>：如果那个 Wi-Fi 已经保存过，手表会自己连；连上后广播 <code>GROOVED?</code> 到 UDP <code>41234</code>，Mac 回 <code>GROOVED &lt;ip&gt; &lt;port&gt;</code>，手表自动更新 NVS。这样 Mac 的 DHCP 地址变了也不用再回手机点一次。全新的 Wi-Fi 仍需一次配网——Android 和 macOS 都不会把已保存的 Wi-Fi 密码交给 App，这一步没有安全的自动化办法。</p>
+        <p>状态行会把失败说清楚：<code>WIFI &lt;ip&gt;</code>、<code>| NO HOST</code>（没拿到 Mac 地址）、<code>| CONN FAIL</code>（连不上）、<code>| SHORT</code>（响应不完整）。底部是 <code>LIVE</code> 或具体原因，不再是统一的 <code>NO BRIDGE</code>。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>AP</b><span><code>M5StopWatch-XXXX</code> · <code>192.168.4.1</code></span></li>
+          <li><b>USB</b><span><code>/dev/cu.usbmodem*</code> · 2s 快照</span></li>
+          <li><b>Wi-Fi</b><span><code>GET /api/agents/watch</code> · 3s timeout</span></li>
+          <li><b>Discover</b><span>UDP 41234 · <code>GROOVED?</code> → <code>GROOVED &lt;ip&gt;</code></span></li>
+          <li><b>NVS</b><span><code>grooved/net</code></span></li>
+        </ul>
+        <div class="rule"></div>
+        <p class="note">Wi-Fi 快照按块读到 <code>is_complete_data_received()</code>，16KB 缓冲。单次 read 4095 字节会把 3 会话 × 8 消息的 <code>END</code> 截掉，表现就是“连上了但什么都不显示”。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="actions">
+  <div class="wrap">
+    <div class="chhead"><div class="no">VIII</div><div><div class="lab">Chapter 08 / Actions</div><h2>Continue / Handoff</h2></div></div>
+    <div class="body">
+      <div>
+        <p><b>HANDOFF</b>：把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写成 <code>&lt;cwd&gt;/docs/handoff-YYYYMMDD-HHMM.md</code>，并把「读 &lt;path&gt;，然后继续。」放进 Mac 剪贴板。写文件失败会返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>。</p>
+        <p><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>。Claude / Cherry 没有可用的 CLI resume，也不允许后台服务合成按键；所以用一个可授权的小 App <code>COSPOND Send.app</code>：Accessibility 找到 composer → 读 AXValue，有草稿就返回 <code>DRAFT</code> 不动 → 否则 Cmd+V + Return。</p>
+        <p>第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL</code>。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Trigger</b><span>state == idle 时显示两个键</span></li>
+          <li><b>Wire</b><span><code>G1 ACTION &lt;slot&gt; continue|handoff</code></span></li>
+          <li><b>Server</b><span><code>POST /api/agents/action</code></span></li>
+          <li><b>Codex</b><span><code>codex exec resume</code> · log <code>~/Library/Logs/grooved-continue.log</code></span></li>
+          <li><b>Claude</b><span><code>COSPOND Send.app</code> · Accessibility · draft check</span></li>
+          <li><b>Feedback</b><span><code>ACT &lt;slot&gt; …</code> · 20s</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="flow">
+  <div class="wrap">
+    <div class="chhead"><div class="no">IX</div><div><div class="lab">Chapter 09 / Flow Chart</div><h2>全链路与两条时序</h2></div></div>
+    <div class="flow">
+      <svg viewBox="0 0 1200 640" role="img" aria-label="Phone Mac Watch flow chart">
+        <defs>
+          <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#6f665c"/>
+          </marker>
+        </defs>
+        <text class="a" x="40" y="30">PHONE / GROOVED</text>
+        <text class="a" x="470" y="30">MAC / GROOVED LINK</text>
+        <text class="a" x="900" y="30">WATCH / COSPON-D</text>
+
+        <rect class="box" x="40" y="60" width="260" height="90"/>
+        <text class="b" x="56" y="88">NOW / STEM / RT</text>
+        <text x="56" y="110">AudioRecord · YIN · Krumhansl</text>
+        <text x="56" y="128">WebAudio · SMF export</text>
+
+        <rect class="box" x="40" y="180" width="260" height="90"/>
+        <text class="b" x="56" y="208">GROOVE / SEQ</text>
+        <text x="56" y="230">8 pads · 9 chords · 16 steps</text>
+        <text x="56" y="248">NOTEON / CC</text>
+
+        <rect class="box" x="40" y="300" width="260" height="90"/>
+        <text class="b" x="56" y="328">LINK</text>
+        <text x="56" y="350">MAC HOST · API KEY</text>
+        <text x="56" y="368">send NET / snippets</text>
+
+        <rect class="box" x="470" y="60" width="260" height="90"/>
+        <text class="b" x="486" y="88">DENO :8765</text>
+        <text x="486" y="110">studio · agents · groove</text>
+        <text x="486" y="128">LLM · actions · approval</text>
+
+        <rect class="box" x="470" y="180" width="260" height="90"/>
+        <text class="b" x="486" y="208">SERIAL BRIDGE</text>
+        <text x="486" y="230">/dev/cu.usbmodem*</text>
+        <text x="486" y="248">G1 → CoreMIDI</text>
+
+        <rect class="box" x="470" y="300" width="260" height="90"/>
+        <text class="b" x="486" y="328">CREWTOWER / CHERRY</text>
+        <text x="486" y="350">sessions.json · transcript</text>
+        <text x="486" y="368">COSPOND Send.app</text>
+
+        <rect class="box" x="900" y="60" width="260" height="90"/>
+        <text class="b" x="916" y="88">COSPON D</text>
+        <text x="916" y="110">cards · detail · STEPS</text>
+        <text x="916" y="128">TOTAL / TURN · X</text>
+
+        <rect class="box" x="900" y="180" width="260" height="90"/>
+        <text class="b" x="916" y="208">STEM / GROOVE / MUSE</text>
+        <text x="916" y="230">arcs · pads · OTA slot</text>
+        <text x="916" y="248">G1 → MIDI</text>
+
+        <rect class="box" x="900" y="300" width="260" height="90"/>
+        <text class="b" x="916" y="328">USB / Wi-Fi</text>
+        <text x="916" y="350">AG/SESS/STEP/MSG/PERM/END</text>
+        <text x="916" y="368">UDP 41234 GROOVED?</text>
+
+        <path class="wire" d="M300 105 C360 105 410 105 470 105"/>
+        <text x="318" y="96">HTTP /api/*</text>
+
+        <path class="wire" d="M300 225 C380 225 390 150 470 150"/>
+        <text x="330" y="214">snippets / NET</text>
+
+        <path class="wire" d="M730 105 C810 105 820 105 900 105"/>
+        <text x="768" y="96">GET /watch</text>
+
+        <path class="wire" d="M730 225 C810 225 820 225 900 225"/>
+        <text x="764" y="216">serial lines</text>
+
+        <path class="wire" d="M730 345 C810 345 820 345 900 345"/>
+        <text x="770" y="336">Wi-Fi HTTP</text>
+
+        <path class="wire" d="M900 382 C820 382 810 382 730 382"/>
+        <text x="768" y="404">G1 ACTION / PERM</text>
+
+        <text class="a" x="40" y="470">SEQUENCE / SNAPSHOT</text>
+        <text x="40" y="496">transcript.jsonl → readMeta() → /api/agents/watch → AG · SESS · STEP · MSG · PERM · END → COSPON D</text>
+        <text class="a" x="40" y="536">SEQUENCE / ACTION</text>
+        <text x="40" y="562">watch G1 ACTION → serial bridge → /api/agents/action → COSPOND Send.app → Cherry Return</text>
+        <text x="40" y="588">HANDOFF → docs/handoff-*.md + pbcopy → ACT &lt;slot&gt; HANDOFF READY</text>
+        <text x="40" y="614">Wi-Fi: GROOVED? (UDP 41234) → MAC IP → NVS → GET /api/agents/watch</text>
+      </svg>
+    </div>
+    <div class="body" style="margin-top:30px">
+      <div>
+        <p><b>快照链路</b>：CrewTower 把每个会话写成 <code>sessions.json</code>；服务读它，再用 transcript 补最近 8 条消息、最近 6 次工具调用、本轮起点和会话起点；<code>/api/agents/watch</code> 生成纯文本快照；USB 串口桥或 Wi-Fi HTTP 送进手表；固件在 <code>END</code> 一次性提交。</p>
+        <p><b>动作链路</b>：手表按下 CONTINUE/HANDOFF → <code>G1 ACTION</code> → 串口桥 → <code>POST /api/agents/action</code> → Codex resume 或 <code>COSPOND Send.app</code> → <code>ACT</code> 回执回手表。审批链路同理：<code>PERM</code> 下行，<code>G1 PERM allow|deny</code> 上行。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>快照</b><span>CrewTower → Deno → USB/Wi-Fi → watch → END 提交</span></li>
+          <li><b>动作</b><span>watch → bridge → Deno → Cherry/Codex → ACT</span></li>
+          <li><b>审批</b><span>hook → /request → PERM → G1 PERM → /decide</span></li>
+          <li><b>发现</b><span>watch → UDP GROOVED? → Mac → IP → NVS</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="media">
+  <div class="wrap">
+    <div class="chhead"><div class="no">X</div><div><div class="lab">Chapter 10 / Media</div><h2>截图与录屏</h2></div></div>
+    <div class="videos">
+      <figure><video src="media/phone-demo.mp4" controls muted playsinline preload="metadata" poster="media/phone-now.jpg"></video><figcaption>PHONE / GROOVED · 六个页面（实机截图串成的录屏）</figcaption></figure>
+      <figure><video src="media/mac-demo.mp4" controls muted playsinline preload="metadata" poster="media/mac-web.jpg"></video><figcaption>MAC / WEB CONSOLE · 设备 / COSPON D / GROOVE D / STUDIO</figcaption></figure>
+    </div>
+    <div class="gallery">
+      <figure class="wide"><img src="media/phone-now.jpg" alt="NOW"><figcaption><span>NOW</span><span>MEDIA SESSION</span></figcaption></figure>
+      <figure><img src="media/phone-stem.jpg" alt="STEM"><figcaption><span>STEM</span><span>YIN / ARRANGE</span></figcaption></figure>
+      <figure><img src="media/phone-realtime.jpg" alt="REAL-TIME"><figcaption><span>REAL-TIME</span><span>KNOBS / PLATTER</span></figcaption></figure>
+      <figure><img src="media/phone-groove.jpg" alt="GROOVE"><figcaption><span>GROOVE</span><span>PADS / CHORDS</span></figcaption></figure>
+      <figure><img src="media/phone-seq.jpg" alt="SEQ"><figcaption><span>SEQ 2.0</span><span>16 × 4</span></figcaption></figure>
+      <figure class="wide"><img src="media/phone-link.jpg" alt="LINK"><figcaption><span>LINK</span><span>HOST / API KEY</span></figcaption></figure>
+      <figure><img src="media/watch-list.png" alt="COSPON CARDS"><figcaption><span>COSPON D</span><span>CARDS / WORKING</span></figcaption></figure>
+      <figure><img src="media/watch-steps.png" alt="COSPON STEPS"><figcaption><span>COSPON D</span><span>STEPS / PROCESS</span></figcaption></figure>
+      <figure><img src="media/watch-chat.png" alt="COSPON CHAT"><figcaption><span>COSPON D</span><span>CHAT / CENTER</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="install">
+  <div class="wrap">
+    <div class="chhead"><div class="no">XI</div><div><div class="lab">Chapter 11 / Install</div><h2>装好，连上</h2></div></div>
+    <div class="install">
+      <div class="card">
+        <h3>Phone / APK</h3>
+        <p>下载 GrooveD.apk（1.2 MB，debug 签名），允许未知来源安装。USB 用 <code>adb reverse tcp:8765 tcp:8765</code>；Wi-Fi 在 LINK 填 Mac 局域网 IP。</p>
+        <a class="btn o" href="/xd/GrooveD.apk" download>Download APK</a>
+      </div>
+      <div class="card">
+        <h3>Watch / Firmware</h3>
+        <p>固件包包含四个 App 的 C++ 源码、unscii + CJK 字体、预编译 bin 和 flash 脚本。日常升级只写 0x20000，保留 NVS。</p>
+        <a class="btn" href="/xd/downloads/CEVTUO-XD-firmware.zip" download>Firmware ZIP</a>
+        <a class="btn" href="/xd/">XD page →</a>
+      </div>
+      <div class="card">
+        <h3>Mac / Host</h3>
+        <p>Deno 服务 + 串口桥 + LaunchAgent + CONTINUE helper。装完在辅助功能里打开 <code>COSPOND Send.app</code>，CONTINUE 才会真的按键。</p>
+        <a class="btn" href="/xd/downloads/CEVTUO-XD-mac.zip" download>Mac ZIP</a>
+        <a class="btn" href="#actions">Permission →</a>
+      </div>
+    </div>
+    <div class="body" style="margin-top:30px">
+      <div>
+        <p><b>第一次使用</b>：手机装 APK → 手表刷固件 → Mac 装宿主并 <code>bash install.sh</code> → 手机 LINK 填 Mac 地址（USB 或 Wi-Fi）→ 手表 COSPON D 打开。COSPON D 的卡片应在 2 秒内出现会话。</p>
+        <p><b>Wi-Fi 换地方</b>：已保存过的 Wi-Fi 会自动连；连上后 UDP 自动发现 Mac。全新 Wi-Fi 需要在手表 WIFI ON 后，用手机连 <code>M5StopWatch-XXXX</code> 配网一次。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>APK</b><span><code>/xd/GrooveD.apk</code></span></li>
+          <li><b>Firmware</b><span><code>/xd/downloads/CEVTUO-XD-firmware.zip</code></span></li>
+          <li><b>Mac</b><span><code>/xd/downloads/CEVTUO-XD-mac.zip</code></span></li>
+          <li><b>Logs</b><span><code>~/Library/Logs/grooved-*.log</code></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ch" id="notes">
+  <div class="wrap">
+    <div class="chhead"><div class="no">XII</div><div><div class="lab">Chapter 12 / Notes</div><h2>边界与版本</h2></div></div>
+    <div class="body">
+      <div>
+        <p><b>权限</b>：CONTINUE 的 UI 自动化需要 macOS 辅助功能授权；没有授权时服务不会假装成功，而是返回 <code>NOT_TRUSTED</code>，手表显示 FAIL，提示词留在剪贴板。helper 在检测到 composer 里已有草稿时返回 <code>DRAFT</code>，不会覆盖你正在写的内容。</p>
+        <p><b>Wi-Fi</b>：全新网络仍需一次配网；已保存网络自动连并自动发现 Mac。Wi-Fi 快照 3 秒超时，失败会在状态行写出 <code>NO HOST / CONN FAIL / SHORT</code>。</p>
+        <p><b>版本</b>：2026-10-20。手表固件 RAM 29.2% / Flash 95.3%；APK 1.2MB；Mac 宿主包含 Deno 服务、串口桥、LaunchAgent 与 helper。分发页：<code>/xd/</code>；本页：<code>/conspon-d/</code>。</p>
+      </div>
+      <div class="right">
+        <ul class="kv">
+          <li><b>Repo</b><span><code>~/Documents/Cevtuo-X-D</code></span></li>
+          <li><b>Handoff</b><span><code>docs/handoff-2026-10-20-cospon-ui.md</code></span></li>
+          <li><b>Firmware</b><span><code>device/app/app_cospon/app_cospon.cpp</code></span></li>
+          <li><b>Server</b><span><code>link/features/agents.ts</code> · <code>link/server.ts</code></span></li>
+          <li><b>Helper</b><span><code>tools/cospond-send.swift</code></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="big">CONSPON-D</div>
+    <div class="meta">
+      <span>CEVTUO · WEARABLE AGENT CONSOLE</span>
+      <span>M5Stack / Android / macOS · 2026-10-20</span>
+      <span><a href="/xd/">CEVTUO XD →</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.08 });
+  document.querySelectorAll('section.ch .chhead, .body, .flow, .media').forEach((el) => {
+    el.classList.add('reveal'); io.observe(el);
+  });
+  const g = document.getElementById('bv-grid'), d = document.getElementById('bv-diag');
+  function setView(v) {
+    document.body.classList.toggle('view-diag', v === 'diag');
+    document.body.classList.toggle('view-grid', v !== 'diag');
+    g.classList.toggle('on', v !== 'diag');
+    d.classList.toggle('on', v === 'diag');
+  }
+  g.addEventListener('click', () => setView('grid'));
+  d.addEventListener('click', () => setView('diag'));
+</script>
+</body>
+</html>
