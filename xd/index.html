@@ -3,475 +3,510 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>GROOVE D · CEVTUO XD — 手表 / 手机 / Mac 三层创作系统</title>
+<title>GROOVE D · CEVTUO XD — 手机 / 手表 / Mac</title>
 <style>
   :root{
-    --bg:#0c0e11; --panel:#15181d; --panel2:#1b1f25; --line:#2a3038;
-    --ink:#eef1f5; --dim:#9aa3ae; --muted:#6c7580;
-    --orange:#ff6a2b; --cyan:#45d6ff; --green:#57e39b; --violet:#8b6cff;
-    --radius:20px;
+    --bg:#0a0a0a; --ink:#f4f4ef; --dim:#9a9a94; --mute:#66665f;
+    --line:#242422; --card:#111110; --card2:#151513;
+    --orange:#ff4d1c; --green:#7be0a4; --blue:#5b8cff; --violet:#9a7bff;
+    --max:1240px;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:
-    radial-gradient(1200px 700px at 50% -10%, #2a3038 0%, transparent 62%),
-    radial-gradient(800px 500px at 100% 10%, #16252c 0%, transparent 58%),
-    var(--bg);
-    color:var(--ink);font:15px/1.65 -apple-system,"SF Pro Text","PingFang SC",system-ui,sans-serif}
-  a{color:var(--cyan);text-decoration:none}
-  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
-  header.nav{position:sticky;top:0;z-index:20;background:rgba(12,14,17,.82);
-    backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
-  .navin{display:flex;align-items:center;gap:20px;height:58px}
-  .brand{font-weight:900;letter-spacing:.12em;font-size:14px}
-  .brand i{color:var(--orange);font-style:normal}
-  .nav a{color:var(--dim);font-size:12px;letter-spacing:.04em}
-  .nav a:hover{color:var(--ink)}
-  .nav .sp{flex:1}
-  .nav .dl{background:var(--ink);color:#0c0e11;padding:7px 12px;border-radius:999px;font-weight:700}
-  .hero{padding:64px 0 34px;position:relative;overflow:hidden}
-  .hero:before{content:"CEVTUO D";position:absolute;right:-4%;top:-10px;font-size:clamp(90px,16vw,210px);
-    font-weight:900;letter-spacing:-.08em;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none}
-  .eyebrow{color:var(--green);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
-  h1{font-size:clamp(46px,8vw,96px);line-height:.92;letter-spacing:-.06em;margin:10px 0 12px}
-  h1 em{font-style:normal;color:var(--orange)}
-  .lede{max-width:780px;color:var(--dim);font-size:16px;line-height:1.8}
-  .actions{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 10px}
-  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;
-    border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:700;font-size:13px}
-  .btn.primary{background:linear-gradient(135deg,var(--orange),#ff2e6e);border:0;color:#fff;
-    box-shadow:0 14px 34px rgba(255,46,110,.28)}
-  .btn.ghost{background:transparent}
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px}
-  .stats div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
-  .stats b{display:block;font-size:22px;letter-spacing:-.02em}
-  .stats span{font-size:10px;letter-spacing:.12em;color:var(--muted)}
-  .toc{display:flex;flex-wrap:wrap;gap:8px;padding:20px 0 4px}
-  .toc a{font-size:11px;letter-spacing:.06em;color:var(--dim);border:1px solid var(--line);
-    padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02)}
-  .toc a:hover{color:var(--ink);border-color:#3a4654}
-  section{padding:48px 0 10px;border-top:1px solid var(--line);margin-top:26px}
-  .sec-head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:20px}
-  .sec-head h2{font-size:30px;letter-spacing:-.03em;margin:0}
-  .sec-head p{margin:0;color:var(--dim);font-size:12px;max-width:640px}
-  .kicker{font-size:10px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
-  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
-  .grid.rev{grid-template-columns:.85fr 1.15fr}
-  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
-    border-radius:var(--radius);padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
-  .card h3{margin:0 0 6px;font-size:18px;letter-spacing:-.01em}
-  .card p{margin:0 0 10px;color:var(--dim);font-size:13.5px}
-  .card ul{margin:8px 0 0;padding-left:18px;color:var(--dim);font-size:13px}
-  .card li{margin:4px 0}
-  .tag{display:inline-block;font-size:9.5px;letter-spacing:.1em;padding:3px 8px;border-radius:999px;
-    border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
-  .tag.hot{color:#ffd8c4;border-color:#67402c;background:#2a1a12}
-  .tag.ok{color:#c8ffe3;border-color:#2d5544;background:#12251c}
-  video{width:100%;display:block;border-radius:14px;background:#000;border:1px solid #20262d}
-  .media-note{font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
-  .video-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  .watchgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-  .watchgrid figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}
-  .watchgrid img{width:100%;border-radius:12px;background:#000}
-  .watchgrid figcaption{font-size:11px;color:var(--dim);margin-top:8px}
-  .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:16px}
-  table{border-collapse:collapse;width:100%;min-width:720px;font-size:12.5px}
-  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-  th{background:#12161b;color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.65 -apple-system,"Helvetica Neue","PingFang SC",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  .mono{font-family:"SFMono-Regular",ui-monospace,Menlo,monospace}
+  /* nav */
+  .nav{position:fixed;inset:0 0 auto;z-index:50;height:64px;
+    background:linear-gradient(#0a0a0a 62%,transparent);}
+  .navin{max-width:var(--max);margin:0 auto;padding:0 24px;height:64px;
+    display:flex;align-items:center;gap:26px}
+  .brand{font-weight:900;font-size:15px;letter-spacing:.12em}
+  .brand em{font-style:normal;color:var(--orange)}
+  .nav .links{display:flex;gap:24px;margin:0 auto}
+  .nav .links a{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#b9b9b2}
+  .nav .links a:hover{color:#fff}
+  .nav .cta{background:var(--orange);color:#fff;font-size:11px;font-weight:800;
+    padding:10px 16px;border-radius:999px;letter-spacing:.04em}
+  /* hero */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;
+    padding:120px 0 70px}
+  .hero:before{content:"";position:absolute;inset:0;
+    background:radial-gradient(900px 560px at 50% 42%,#171716 0%,transparent 68%)}
+  .hero .inner{position:relative;width:100%;text-align:center;z-index:2}
+  .badge{display:inline-flex;align-items:center;gap:8px;border:1px solid #2e2e2b;
+    background:#111;color:#cfcfc8;font-size:11px;padding:8px 14px;border-radius:999px}
+  .badge i{width:6px;height:6px;border-radius:50%;background:var(--green);display:block}
+  .hero h1{font-size:clamp(64px,12vw,178px);line-height:.82;letter-spacing:-.075em;
+    margin:34px 0 22px;font-weight:800}
+  .hero h1 span{display:block}
+  .hero h1 .out{color:transparent;-webkit-text-stroke:1.5px #6b6b64}
+  .hero p{max-width:620px;margin:0 auto;color:#a9a9a2;font-size:16px;line-height:1.8}
+  .hero .row{display:flex;gap:12px;justify-content:center;margin:30px 0 0;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 22px;border-radius:999px;font-size:12px;font-weight:800;letter-spacing:.02em}
+  .btn.p{background:var(--orange);color:#fff}
+  .btn.g{border:1px solid #33332f;color:#e6e6df;background:#111}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:64px auto 0;max-width:860px}
+  .stats div{text-align:center}
+  .stats b{display:block;font-size:30px;letter-spacing:-.04em}
+  .stats span{font-size:9px;letter-spacing:.18em;color:var(--mute);text-transform:uppercase}
+  .float{position:absolute;border-radius:18px;overflow:hidden;border:1px solid #2a2a27;
+    box-shadow:0 24px 60px rgba(0,0,0,.55);z-index:1;opacity:.9}
+  .float img{display:block;width:100%;height:100%;object-fit:cover}
+  .f1{width:150px;height:260px;left:3%;top:20%;transform:rotate(-8deg)}
+  .f2{width:132px;height:230px;right:4%;top:15%;transform:rotate(7deg)}
+  .f3{width:180px;height:120px;left:8%;bottom:12%;transform:rotate(5deg)}
+  .f4{width:190px;height:126px;right:7%;bottom:10%;transform:rotate(-6deg)}
+  .f5{width:120px;height:120px;left:16%;top:9%;border-radius:50%;transform:rotate(4deg)}
+  @media(max-width:900px){.float{display:none}.nav .links{display:none}}
+  /* sections */
+  section{padding:132px 0 40px;border-top:1px solid var(--line);position:relative;scroll-margin-top:90px}
+  .label{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--orange);
+    margin-bottom:24px;display:flex;align-items:center;gap:12px}
+  .label:before{content:"";width:30px;height:1px;background:var(--orange);display:block}
+  h2{font-size:clamp(42px,6.4vw,92px);line-height:.92;letter-spacing:-.06em;
+    margin:0 0 24px;font-weight:800;max-width:980px}
+  h2 em{font-style:normal;color:transparent;-webkit-text-stroke:1.2px #5c5c55}
+  .lede{max-width:680px;color:#a7a7a0;font-size:16px;line-height:1.85;margin:0 0 42px}
+  .grid2{display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:start}
+  .grid2.rev{grid-template-columns:.95fr 1.05fr}
+  .card{background:var(--card);border:1px solid #232320;border-radius:26px;overflow:hidden}
+  .card .pad{padding:26px}
+  .card h3{margin:0 0 8px;font-size:22px;letter-spacing:-.03em}
+  .card h4{margin:0 0 8px;font-size:16px}
+  .card p{margin:0 0 12px;color:#9e9e97;font-size:13.5px;line-height:1.75}
+  .card ul{margin:10px 0 0;padding-left:17px;color:#a4a49d;font-size:13px;line-height:1.8}
+  .card li{margin:5px 0}
+  .card b{color:#efefe9}
+  .media{position:relative;background:#000}
+  .media video,.media img{display:block;width:100%;height:auto}
+  .media .cap{position:absolute;left:14px;bottom:12px;font-size:9px;letter-spacing:.12em;
+    color:#fff;background:rgba(0,0,0,.62);padding:5px 8px;border-radius:999px}
+  .media.tall{display:flex;justify-content:center;background:#080808;padding:18px 0}
+  .media.tall video{width:auto;height:72vh;max-height:720px;border-radius:14px;border:1px solid #222}
+  .video3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+  .video3 .card{border-radius:20px}
+  .video3 video{background:#000}
+  .pillrow{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .pill{font-size:9px;letter-spacing:.1em;color:#b6b6ae;border:1px solid #2b2b28;
+    border-radius:999px;padding:5px 9px;background:#131312}
+  .pill.o{color:#ffd4c4;border-color:#5a2a1c;background:#1c110d}
+  .pill.g{color:#c6f5da;border-color:#25533c;background:#0f1d15}
+  .marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:22px 0;margin:60px 0 0}
+  .marquee .track{display:flex;gap:48px;white-space:nowrap;width:max-content;
+    animation:slide 32s linear infinite;font-size:12px;letter-spacing:.24em;color:#6d6d66}
+  .marquee .track b{color:#d8d8d1;font-weight:600}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  /* watch */
+  .watchgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .watchcard{background:var(--card);border:1px solid #232320;border-radius:22px;padding:14px;text-align:center}
+  .watchcard img{width:100%;border-radius:14px;background:#000;display:block;image-rendering:pixelated}
+  .watchcard span{display:block;font-size:10px;color:#9a9a93;margin-top:10px;letter-spacing:.06em}
+  .watchbig{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+  .watchbig figure{margin:0;background:#0e0e0d;border:1px solid #232320;border-radius:22px;padding:16px;text-align:center}
+  .watchbig img{width:100%;max-width:340px;border-radius:16px;image-rendering:pixelated}
+  .watchbig figcaption{font-size:11px;color:#9a9a93;margin-top:10px}
+  /* algo + table */
+  .algos{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .algos .card{border-radius:20px}
+  .algos .pad{padding:20px}
+  .algos h4{font-size:15px}
+  .algos p{font-size:12.5px;margin:0}
+  .tablewrap{border:1px solid #232320;border-radius:22px;overflow:auto;margin-top:24px}
+  table{border-collapse:collapse;width:100%;min-width:760px;font-size:12.5px}
+  th,td{padding:14px 16px;border-bottom:1px solid #232320;text-align:left;vertical-align:top}
+  th{background:#0f0f0e;color:#8f8f88;font-size:9px;letter-spacing:.18em;text-transform:uppercase}
   tr:last-child td{border-bottom:0}
-  td b{color:var(--ink)}
-  .algo{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-  .algo .card{padding:15px}
-  .algo h4{margin:0 0 6px;font-size:14px}
-  .algo p{font-size:12.5px;margin:0}
-  .quote{border-left:3px solid var(--orange);padding:10px 14px;background:#1a1410;border-radius:0 12px 12px 0;
-    color:#e6c9b8;font-size:12.5px}
-  .footer{padding:50px 0 60px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:40px}
-  .footer .brand{font-size:18px;margin-bottom:8px}
-  .pill{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--dim);
-    border:1px solid var(--line);border-radius:999px;padding:4px 10px}
-  .pill i{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
-  @media(max-width:860px){
-    .grid,.grid.rev{grid-template-columns:1fr}
-    .stats{grid-template-columns:repeat(2,1fr)}
-    .video-pair{grid-template-columns:1fr}
-    .watchgrid{grid-template-columns:repeat(2,1fr)}
-    .algo{grid-template-columns:1fr}
-    .nav a:not(.dl){display:none}
+  td:first-child{color:#fff;font-weight:700;white-space:nowrap}
+  /* footer */
+  .footer{border-top:1px solid var(--line);padding:80px 0 40px;margin-top:80px}
+  .footer .big{font-size:clamp(64px,15vw,220px);line-height:.8;letter-spacing:-.08em;font-weight:900;
+    color:transparent;-webkit-text-stroke:1.4px #3a3a35;margin:20px 0 40px}
+  .footer .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#77776f;font-size:11px}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(max-width:960px){
+    .grid2,.grid2.rev,.watchbig{grid-template-columns:1fr}
+    .algos{grid-template-columns:1fr 1fr}
+    .video3{grid-template-columns:1fr}
+    .watchgrid{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .hero{padding-top:100px}
+  }
+  @media(max-width:620px){
+    .algos{grid-template-columns:1fr}
+    .nav .cta{padding:8px 12px}
+    .media.tall video{height:62vh}
   }
 </style>
 </head>
 <body>
 
 <header class="nav">
-  <div class="wrap navin">
-    <div class="brand">CEVTUO <i>XD</i></div>
-    <a href="#now">NOW</a><a href="#stem">STEM</a><a href="#rt">REAL-TIME</a>
-    <a href="#groove">GROOVE</a><a href="#seq">SEQ</a><a href="#link">LINK</a>
-    <a href="#watch">手表</a><a href="#algo">AI / 算法</a><a href="#all">全部功能</a>
-    <span class="sp"></span>
-    <a class="dl" href="GrooveD.apk" download>下载 APK</a>
+  <div class="navin">
+    <a class="brand" href="#top">CEVTUO <em>XD</em></a>
+    <nav class="links">
+      <a href="#system">系统</a><a href="#stem">STEM</a><a href="#rt">REAL-TIME</a>
+      <a href="#beat">GROOVE / SEQ</a><a href="#watch">手表</a><a href="#ai">AI</a><a href="#all">全部功能</a>
+    </nav>
+    <a class="cta" href="GrooveD.apk" download>下载 APK</a>
   </div>
 </header>
 
-<div class="wrap hero">
-  <div class="eyebrow">CEVTUO XD · 2026-10-20</div>
-  <h1>GROOVE <em>D</em></h1>
-  <p class="lede">
-    一块 M5 手表、一部安卓手机、一台 Mac，组成一套从「哼一句」到「成一首」、再到「戴在手上演奏」的完整系统。
-    手机负责想法与声音，手表负责手上的动作，Mac 负责乐理、LLM、MIDI 与 Agent。所有页面都可以离线使用，
-    有 Mac 时再自动接上 AI 与真实 MIDI。
-  </p>
-  <div class="actions">
-    <a class="btn primary" href="GrooveD.apk" download>下载 Android APK · 1.2 MB</a>
-    <a class="btn ghost" href="#watch">看手表端</a>
-    <a class="btn ghost" href="#all">全部功能清单</a>
-  </div>
-  <div class="stats">
-    <div><b>6</b><span>手机主页面</span></div>
-    <div><b>4</b><span>手表 App</span></div>
-    <div><b>12</b><span>Dribbble 视觉参考</span></div>
-    <div><b>8</b><span>段真实录屏</span></div>
-  </div>
-  <div class="toc">
-    <a href="#now">NOW 播放器</a><a href="#stem">STEM 编曲</a><a href="#rt">REAL-TIME 唱机</a>
-    <a href="#groove">GROOVE 鼓机</a><a href="#seq">SEQ 2.0</a><a href="#link">LINK 连接</a>
-    <a href="#watch">COSPON D</a><a href="#algo">AI 与算法</a><a href="#all">功能总表</a><a href="#limits">限制</a>
-  </div>
-</div>
+<main id="top">
+  <section class="hero" style="border-top:0">
+    <div class="float f1"><img src="media/now-full.jpg" alt="NOW"></div>
+    <div class="float f2"><img src="media/stem-full.jpg" alt="STEM"></div>
+    <div class="float f3"><img src="media/realtime-deck.jpg" alt="唱机"></div>
+    <div class="float f4"><img src="media/seq-full.jpg" alt="SEQ"></div>
+    <div class="float f5"><img src="media/cospon.jpg" alt="COSPON D"></div>
+    <div class="wrap inner">
+      <div class="badge"><i></i>CEVTUO XD · 手机 / 手表 / Mac · 2026-10-20</div>
+      <h1><span>Music OS</span><span class="out">for makers</span></h1>
+      <p>一块 M5 手表、一部安卓手机、一台 Mac。从「哼一句」到「成一首」，再到「戴在手上演奏」——
+         所有页面都能离线用，有 Mac 时自动接上 AI、MIDI 与 Agent。</p>
+      <div class="row">
+        <a class="btn p" href="GrooveD.apk" download>下载 Android APK · 1.2 MB</a>
+        <a class="btn g" href="#system">看六个界面</a>
+        <a class="btn g" href="#watch">看手表端</a>
+      </div>
+      <div class="stats">
+        <div><b>6</b><span>手机主页面</span></div>
+        <div><b>4</b><span>手表 App</span></div>
+        <div><b>8</b><span>段真实录屏</span></div>
+        <div><b>12</b><span>Dribbble 参考</span></div>
+      </div>
+    </div>
+  </section>
 
-<div class="wrap">
+  <div class="wrap marquee">
+    <div class="track">
+      <span><b>NOW</b></span><span>NOW AI</span><span><b>STEM</b></span><span>YIN</span>
+      <span><b>REAL-TIME</b></span><span>搓盘</span><span><b>GROOVE</b></span><span>鼓机</span>
+      <span><b>SEQ 2.0</b></span><span>16 步</span><span><b>COSPON D</b></span><span>Agent</span>
+      <span><b>STEM</b></span><span>YIN</span><span><b>NOW</b></span><span>NOW AI</span>
+      <span><b>REAL-TIME</b></span><span>搓盘</span><span><b>GROOVE</b></span><span>鼓机</span>
+      <span><b>SEQ 2.0</b></span><span>16 步</span><span><b>COSPON D</b></span><span>Agent</span>
+    </div>
+  </div>
 
-<section id="now">
-  <div class="sec-head">
-    <div><div class="kicker">01 · NOW</div><h2>播放器，也是 CEVTUO NOW AI</h2></div>
-    <p>打开 App 的默认页面。白色玻璃播放器、点阵轨道、专辑封面、MUSE/CEVTUO NOW AI，以及一个真正会转的中央圆盘。</p>
-  </div>
-  <div class="grid">
-    <div>
-      <video src="media/now-full.webm" poster="media/now-full.jpg" controls muted playsinline preload="metadata"></video>
-      <div class="media-note">全屏录屏 · 412×960 · 浅色 → 夜间 → 浅色 · 圆盘 AI 面板</div>
-    </div>
-    <div class="card">
-      <h3>它做什么</h3>
-      <p>读手机当前播放的媒体会话：标题、歌手、专辑、进度、播放态。中央圆盘是可视化的核心，也是 CEVTUO NOW AI 的入口。</p>
-      <ul>
-        <li><b>中央圆盘</b>：32 点轨道、彩色核心、外圈进度环。点一下打开 CEVTUO NOW AI；再点一下收起。</li>
-        <li><b>CEVTUO NOW AI</b>：把歌名/歌手发给 Mac 的 <code>/api/studio/ask</code>，返回一句律动建议与 style/BPM/swing/chaos/energy 参数；点「做成律动」直接生成编排并切到 STEM。</li>
-        <li><b>离线建议</b>：Mac 没起时用标题哈希给出确定性的本地建议，并明确标注「Mac 未连接」，不假装是 AI。</li>
-        <li><b>专辑封面</b>：原生桥读 <code>METADATA_KEY_ALBUM_ART</code>/<code>ART</code>，缩到 168px JPEG 下行；没有封面时显示彩色核心。</li>
-        <li><b>小封面卡</b>：圆盘下方 46px 封面 + 歌名 + 实时波形，不用很大。</li>
-        <li><b>走带</b>：上一首 / 暂停 / 下一首 / 拖动 seek；右下角黑灰环形 MASTER，指针绕圆心转。</li>
-        <li><b>XL</b>：放大播放器；<b>耳机贴片</b>、3×3 点阵、背后超大 “Music” 水印都保留。</li>
-        <li><b>顶部玻璃字</b>：CEVTUO D，白色半透明 + 细描边；夜间模式自动变暗。</li>
-        <li><b>主题</b>：右上角月亮/太阳，一键浅色/夜间；选择会记住。</li>
-      </ul>
-      <div><span class="tag hot">默认首页</span><span class="tag">专辑封面</span><span class="tag">CEVTUO NOW AI</span><span class="tag ok">离线可用</span></div>
-    </div>
-  </div>
-</section>
 
-<section id="stem">
-  <div class="sec-head">
-    <div><div class="kicker">02 · STEM</div><h2>把一句哼唱变成四轨作品</h2></div>
-    <p>哼唱 → 音高 → 调性 → 鼓/贝斯/和弦/旋律 → 播放 / 变体 / MIDI。</p>
-  </div>
-  <div class="grid rev">
-    <div class="card">
-      <h3>AI Studio</h3>
-      <p>所有按钮都能用，Mac 没起时也会降级而不是只报错。</p>
-      <ul>
-        <li><b>HUM 哼唱</b>：原生 AudioRecord 22050Hz，YIN 基频估计；5 帧中位 + 连续 2 帧一致才认音。</li>
-        <li><b>风格</b>：Lo-Fi / Boom Bap / House / Trap / Breakbeat，每个风格有自己的鼓型与和弦进行。</li>
-        <li><b>调式</b>：AUTO + 6 种调式；AUTO 用 Krumhansl 24 调打分。</li>
-        <li><b>音色</b>：鼓/贝斯/和弦/旋律四角色分别可选 8 种左右；采样 + WebAudio 合成混合。</li>
-        <li><b>编曲</b>：确定性引擎，同 seed + 参数 + 哼唱永远给同一份结果。</li>
-        <li><b>播放</b>：手机出声的同时发 MIDI；一键成曲把编排和播放串起来。</li>
-        <li><b>变体 / 再变一版</b>：4 个变体；busy/sparse/swing/straight/up/down/wild/hard/soft 九种变异。</li>
-        <li><b>保留 / 丢弃</b>：只有保留才写历史；历史最多 20 条。</li>
-        <li><b>哼唱做贝斯</b>：把哼唱下移八度当贝斯，而不是只取和弦根音。</li>
-        <li><b>导出 .mid</b>：自写 SMF，Format 0，division 480，鼓通道 9。</li>
-        <li><b>对话修改</b>：一句中文 → LLM 参数；失败走关键词规则。</li>
-        <li><b>灵感 AI</b>：CEVTUO Groove AI，一次给概念 + 参数 + 自动播放；没有 key 时用本地灵感卡。</li>
-        <li><b>AI LIVE</b>：自然播完 → 自动保留 → wild 变异 → 继续播。</li>
-      </ul>
-      <div><span class="tag">YIN</span><span class="tag">Krumhansl</span><span class="tag">确定性编曲</span><span class="tag ok">离线降级</span></div>
+  <section id="why">
+    <div class="wrap">
+      <div class="label reveal">00 / WHY</div>
+      <h2 class="reveal">不是另一个鼓机 App<br><em>是一套能落地的系统</em></h2>
+      <p class="lede reveal">很多音乐 App 只做“一个页面里的一个玩具”。这套东西的每条链都能落到真实动作：
+        哼唱真的变成音符，音符真的变成 MIDI，MIDI 真的进手表，手表的按键真的回到 Mac 上的 Agent。</p>
+      <div class="algos">
+        <div class="card reveal"><div class="pad"><h4>离线优先</h4><p>播放器、唱机、鼓垫、和弦垫、音序器、本地合成、本地 MIDI 都不依赖 Mac。AI 和 LLM 才需要 Mac；连不上时会明确说“本地建议/本地随机”，不假装是在线结果。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>确定性</h4><p>编曲不是抽奖：同一个 seed、同一组参数、同一段哼唱，永远给同一份结果。变体、九种变异、对话修改、灵感 AI 都走同一个引擎，所以“再生成一次”和“改一个参数”是可解释的。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>一条链</h4><p>手机负责想法与声音，手表负责手上的动作，Mac 负责乐理、LLM、MIDI 与 Agent。三端用同一套行协议和同一份会话表，不各自维护第二套真相。</p></div></div>
+      </div>
     </div>
-    <div>
-      <video src="media/stem-full.webm" poster="media/stem-full.jpg" controls muted playsinline preload="metadata"></video>
-      <div class="media-note">全屏录屏 · 编曲 → 钢琴卷帘 / 和弦弧 → 播放</div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="rt">
-  <div class="sec-head">
-    <div><div class="kicker">03 · REAL-TIME</div><h2>唱机、10 个旋钮、一个会亮的玻璃穹顶</h2></div>
-    <p>按 Vinyl Record Store / Neumorphic Dark Knobs / Knob 03 / Knóbz 重做；搓盘、EQ、底噪、表演键全部接进音频链。</p>
-  </div>
-  <div class="video-pair">
-    <div><video src="media/realtime-deck.webm" poster="media/realtime-deck.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · 奶油唱机：红胶、唱臂、三段 EQ、NOISE/MAIN/VOCAL</div></div>
-    <div><video src="media/realtime-knobs.webm" poster="media/realtime-knobs.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · 10 个新拟物旋钮 + LCD + FILTER 对数拖动</div></div>
-  </div>
-  <div class="grid" style="margin-top:14px">
-    <div class="card">
-      <h3>唱机（VINYL DECK）</h3>
-      <ul>
-        <li><b>红胶 + 凹槽 + 可转标签</b>：标签中间是用户 logo，下面一行是当前歌名（来自媒体会话，超过 10 字截断）。</li>
-        <li><b>唱臂</b>：相对黑胶本身定位，展开折叠屏/换宽度也始终在唱片边缘。</li>
-        <li><b>搓盘</b>：拖动角度跟手，松手有惯性；播放时慢转，停着也慢转。</li>
-        <li><b>三段 EQ</b>：LOW=lowshelf 200Hz、MID=lowshelf/peaking 1.1kHz、HIGH=highshelf 3.8kHz，真的进音频链。</li>
-        <li><b>NOISE</b>：真实黑胶底噪（高通噪声），<b>MAIN</b>=MASTER，<b>VOCAL</b>=2.8kHz presence。</li>
-        <li><b>波形</b>：面板底部一条实时波形，来源是主链 AnalyserNode。</li>
-      </ul>
+  <section id="system">
+    <div class="wrap">
+      <div class="label reveal">01 / SYSTEM</div>
+      <h2 class="reveal">一个系统<br><em>六个界面</em></h2>
+      <p class="lede reveal">每个页面都不是孤岛：NOW 里生成的律动会进 STEM，STEM 的编排会进 GROOVE 和 SEQ，
+        REAL-TIME 的搓盘和旋钮会变成 MIDI，LINK 把 Mac、手表和 Agent 串起来。</p>
+      <div class="grid2">
+        <div class="card reveal"><div class="media"><video src="media/now-full.webm" poster="media/now-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">NOW · 全屏</span></div>
+          <div class="pad"><h3>NOW</h3><p>默认首页。白色玻璃播放器、32 点轨道、专辑封面、进度环和 CEVTUO NOW AI。点中央圆盘，AI 读歌名/歌手，给一句律动建议，再一键做成 STEM 编排。</p></div></div>
+        <div class="card reveal"><div class="media"><video src="media/stem-full.webm" poster="media/stem-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">STEM · 全屏</span></div>
+          <div class="pad"><h3>STEM</h3><p>哼唱 → YIN 音高 → Krumhansl 调性 → 四轨编曲。五个风格、七种调式、每角色八种音色；变体、九种变异、导出 MIDI、AI LIVE。</p></div></div>
+      </div>
+      <div class="grid2" style="margin-top:18px">
+        <div class="card reveal"><div class="media"><video src="media/realtime-deck.webm" poster="media/realtime-deck.jpg" controls muted playsinline preload="metadata"></video><span class="cap">REAL-TIME · 局部</span></div><div class="pad"><h3>REAL-TIME</h3><p>红胶、唱臂、三段 EQ、NOISE/MAIN/VOCAL；10 个新拟物旋钮真的接进音频链，搓盘和旋钮都会发 MIDI。</p></div></div>
+        <div class="card reveal"><div class="media"><video src="media/groove-full.webm" poster="media/groove-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">GROOVE · 全屏</span></div><div class="pad"><h3>GROOVE</h3><p>8 个彩色玻璃鼓垫、9 个彩色正圆和弦垫、XY 垫、4 根 CC 推子；能敲、能听回 16 步、能写回 STEM。</p></div></div>
+      </div>
+      <div class="grid2 rev" style="margin-top:18px">
+        <div class="card reveal"><div class="media"><video src="media/seq-full.webm" poster="media/seq-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">SEQ 2.0 · 全屏</span></div><div class="pad"><h3>SEQ 2.0</h3><p>16 步 × 4 轨、三档力度、M/S、A–D 模式库、概率/摆动/TAP、三个宏旋钮、径向灯轮；Mac 不在也能本地生成。</p></div></div>
+        <div class="card reveal"><div class="media"><video src="media/link-full.webm" poster="media/link-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">LINK · 全屏</span></div><div class="pad"><h3>LINK</h3><p>六格状态、Agent 1/0、API KEY、MAC HOST、发送 Mac 地址到手表、日志、主题；手机是整套系统的控制台。</p></div></div>
+      </div>
     </div>
-    <div class="card">
-      <h3>旋钮与表演</h3>
-      <ul>
-        <li><b>Neumorphic 旋钮</b>：凸起外环、刻入刻度、凹井、SVG 进度弧、旋转白点。</li>
-        <li><b>FILTER 手感</b>：rAF 合帧 + SVG dasharray + 对数映射 + 10Hz 步长；低频段不再一格一跳。</li>
-        <li><b>10 个参数</b>：FILTER / DRIVE / SPACE / SWING / CHAOS / ENERGY / OCTAVE / TONE / CRUSH / DETUNE。</li>
-        <li><b>LCD</b>：显示最后动的旋钮与值，另有 32 段频谱。</li>
-        <li><b>PERFORM 穹顶</b>：74px 铜色玻璃 + 斜向高光 + 白色指针 + 34 点点阵；拖动旋转，灯圈按指针方向亮，角度映射 ENERGY。</li>
-        <li><b>STUTTER / CLICK / JOG 0</b>：玻璃胶囊 + LED 点；STUTTER 是 8 段方波门。</li>
-        <li><b>OUT 电平 / MIDI 监视</b>：AnalyserNode + 发送环形缓冲。</li>
-      </ul>
-    </div>
-  </div>
-  <div style="margin-top:14px"><video src="media/perform.webm" poster="media/perform.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · PERFORM：指针转到哪里，灯圈哪里亮；拖动时 ENERGY 跟着走</div></div>
-</section>
+  </section>
 
-<section id="groove">
-  <div class="sec-head">
-    <div><div class="kicker">04 · GROOVE</div><h2>鼓机、彩色圆垫、手上的律动</h2></div>
-    <p>Cruz GR 的彩色玻璃垫 + Music Wave 的彩色正圆和弦垫；既能敲，也能把敲击听回 16 步。</p>
-  </div>
-  <div class="grid">
-    <div><video src="media/groove-full.webm" poster="media/groove-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 8 鼓垫 → 9 个和弦圆垫 → XY 垫</div></div>
-    <div class="card">
-      <h3>功能</h3>
-      <ul>
-        <li><b>8 个彩色玻璃垫</b>：KICK/SNR/HAT/OPEN/CLAP/TOM/CRSH/RIDE，左上名称、右上音名、底部力度条。</li>
-        <li><b>力度</b>：按触点纵向位置；VEL 三档 FIXED / HUMANIZE / RANGE。</li>
-        <li><b>BANK</b>：DRUM（GM 鼓）/ SYNTH（音阶）/ CHORD（当前编排和弦）。</li>
-        <li><b>ARP</b>：和弦垫 70ms 琶音，同时发 MIDI。</li>
-        <li><b>9 个彩色正圆和弦垫</b>：C/Am/F/G/Dm/Em/E7/Bm7/Gm，按下本地合成 + MIDI。</li>
-        <li><b>XY 垫</b>：X→CC1、Y→CC74。</li>
-        <li><b>4 根 CC 推子</b>：CC1/7/10/11。</li>
-        <li><b>生成 16 步 / 加花 / 听懂鼓点 / 写回 STEM</b>：听懂鼓点记录击打时间，按 16 分格量化填格。</li>
-        <li><b>TAPE STOP / PANIC</b>：磁带停与全通道 panic。</li>
-      </ul>
-      <div><span class="tag">4×2 玻璃垫</span><span class="tag">彩色圆垫</span><span class="tag">XY</span><span class="tag ok">本地发声</span></div>
+  <section id="stem">
+    <div class="wrap">
+      <div class="label reveal">02 / STEM</div>
+      <h2 class="reveal">一句哼唱<br><em>一首完整的歌</em></h2>
+      <p class="lede reveal">不是随机拼贴：音高是 YIN 算的，调性是 Krumhansl 算的，编曲是确定性引擎。
+        同一段哼唱、同一组参数，永远给同一份结果。哼唱不是“装饰”：它会被拆成音高/时值，再按风格表落到鼓、贝斯、和弦、旋律四轨；你也可以选择只保留其中一轨。</p>
+      <div class="grid2">
+        <div class="card reveal"><div class="pad">
+          <h3>从声音到四轨</h3>
+          <ul>
+            <li><b>HUM</b>：原生 AudioRecord 22050Hz；YIN 差分函数 + 累积均值 + 抛物线插值；5 帧中位 + 连续 2 帧一致才认音。</li>
+            <li><b>调性</b>：12 音级按音长加权，和 24 个大小调 Krumhansl 权重相关，取最高分；可手动覆盖 7 种调式。</li>
+            <li><b>编曲</b>：风格表给 16 分鼓型与和弦进行；chaos 加装饰音/力度抖动，energy 乘全轨，swing 推奇数 16 分。</li>
+            <li><b>音色</b>：鼓/贝斯/和弦/旋律四角色各 8 种左右；采样 + WebAudio 合成；Reese +22 音分、Acid Q=12。</li>
+            <li><b>变体</b>：4 个变体；busy/sparse/swing/straight/up/down/wild/hard/soft 九种变异。</li>
+            <li><b>MIDI</b>：自写 SMF Format 0，division 480，鼓通道 9；文件布局逐字节按规范。</li>
+          </ul>
+          <div class="pillrow"><span class="pill o">YIN</span><span class="pill">Krumhansl</span><span class="pill">确定性</span><span class="pill g">离线降级</span></div>
+        </div></div>
+        <div class="card reveal"><div class="media tall"><video src="media/stem-full.webm" poster="media/stem-full.jpg" controls muted playsinline preload="metadata"></video></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="rt">
+    <div class="wrap">
+      <div class="label reveal">03 / REAL-TIME</div>
+      <h2 class="reveal">搓盘、旋钮、灯光<br><em>都在手上</em></h2>
+      <p class="lede reveal">按 Vinyl Record Store、Neumorphic Dark Knobs、Knóbz、Knob 03 重做。
+        FILTER 的旋转改成 rAF 合帧 + 对数映射；PERFORM 的灯圈按指针方向亮。<br>LOW 是 200Hz lowshelf、MID 是 1.1kHz、HIGH 是 3.8kHz highshelf；NOISE 是真实黑胶底噪，MAIN 是主音量，VOCAL 是 2.8kHz presence。所有参数都真的进音频链，不是只改一个数字。</p>
+      <div class="video3">
+        <div class="card reveal"><video src="media/realtime-deck.webm" poster="media/realtime-deck.jpg" controls muted playsinline preload="metadata"></video><div class="pad"><h4>唱机</h4><p>红胶凹槽、标签 logo + 歌名、唱臂、三段 EQ、底噪和 presence；搓盘发 PLATTER，松手有惯性。</p></div></div>
+        <div class="card reveal"><video src="media/realtime-knobs.webm" poster="media/realtime-knobs.jpg" controls muted playsinline preload="metadata"></video><div class="pad"><h4>10 个旋钮</h4><p>凸起外环、刻入刻度、凹井、SVG 弧、旋转白点；FILTER 对数拖动，低频段不再一格一跳。</p></div></div>
+        <div class="card reveal"><video src="media/perform.webm" poster="media/perform.jpg" controls muted playsinline preload="metadata"></video><div class="pad"><h4>PERFORM</h4><p>74px 铜色玻璃穹顶 + 34 点灯圈；指针转到哪里，哪里亮，角度同时映射 ENERGY。</p></div></div>
+      </div>
+      <div class="pillrow"><span class="pill">rAF 合帧</span><span class="pill">对数 FILTER</span><span class="pill">SVG 弧</span><span class="pill">MIDI CC</span><span class="pill g">真机验证</span></div>
+    </div>
+  </section>
+
+  <section id="beat">
+    <div class="wrap">
+      <div class="label reveal">04 / GROOVE + SEQ</div>
+      <h2 class="reveal">鼓机、和弦<br><em>16 步</em></h2>
+      <div class="grid2">
+        <div class="card reveal"><div class="media"><video src="media/groove-full.webm" poster="media/groove-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">GROOVE · 全屏</span></div><div class="pad"><h3>GROOVE</h3><p>8 个彩色玻璃垫（KICK/SNR/HAT/OPEN/CLAP/TOM/CRSH/RIDE），力度看触点纵向位置；BANK 切 DRUM/SYNTH/CHORD；9 个彩色正圆和弦垫、XY 垫、4 根 CC 推子；听懂鼓点并按 16 分格量化。</p></div></div>
+        <div class="card reveal"><div class="media"><video src="media/seq-full.webm" poster="media/seq-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">SEQ 2.0 · 全屏</span></div><div class="pad"><h3>SEQ 2.0</h3><p>16 步 × 4 轨，三档力度，M/S，A–D 模式库；CLEAR/RANDOM/加花/左右移/COPY/PASTE；PROB/SWING/TAP；三个宏旋钮同时写进 AI 参数；径向轮 72 根刻度随主题换色。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="watch">
+    <div class="wrap">
+      <div class="label reveal">05 / WATCH</div>
+      <h2 class="reveal">手表<br><em>不只是一个表盘</em></h2>
+      <p class="lede reveal">M5 手表上是四个 App：Stem D、Groove D、COSPON D、Muse D。
+        COSPON D 现在的卡片只显示项目与 agent，不再显示宿主 App 名；展开后以对话为主，最多 8 条，自动换行、可滚动。</p>
+      <div class="watchgrid">
+        <div class="watchcard reveal"><img src="media/stem.gif" alt="Stem D"><span>Stem D · 四段弧 / 黑胶</span></div>
+        <div class="watchcard reveal"><img src="media/groove.gif" alt="Groove D"><span>Groove D · 鼓垫 / CC</span></div>
+        <div class="watchcard reveal"><img src="media/cospon.gif" alt="COSPON D"><span>COSPON D · 最近消息</span></div>
+        <div class="watchcard reveal"><img src="media/muse.gif" alt="Muse D"><span>Muse D · 第二个 OTA 槽</span></div>
+      </div>
+      <div class="watchbig">
+        <figure class="reveal"><img src="media/cospon-detail.gif" alt="COSPON D 详情"><figcaption>展开：对话占满中段，8 条消息自动换行；一轮结束出现 CONTINUE / HANDOFF</figcaption></figure>
+        <div class="card reveal"><div class="pad">
+          <h3>两个键，在一轮结束时出现</h3>
+          <ul>
+            <li><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;id&gt;</code> 继续；其它 agent 把「继续处理」提示词放进 Mac 剪贴板，粘贴即可继续。</li>
+            <li><b>HANDOFF</b>：把会话、最近对话、项目与下一步写成 <code>docs/handoff-时间.md</code>，并把「读这份文档，然后继续」复制到剪贴板。</li>
+            <li><b>ALLOW / DENY</b>：有待批权限时单独浮层出现，按下发 <code>G1 PERM &lt;id&gt; allow|deny</code>。</li>
+            <li><b>WIFI ON / OFF</b>：一个键双向；开时连 Wi-Fi 并轮询 <code>/api/agents/watch</code>，关时断开站点/配置 AP。</li>
+          </ul>
+          <p>消息选择：服务端先倒着收 32 条，滤掉图片占位、续接摘要、工具结果和中断提示，再取最后 8 条；每条 70 字，按 UTF-8 字节裁到手表缓冲区。这样最新的 assistant 回复不会被几条 user 消息挤掉。</p>
+          <p>字体覆盖 ASCII、中文、中文标点和全角符号；服务端与串口桥都会过滤没有字形的字符，所以不会再出现一排长方形。换行由 LVGL 的 WRAP + 自适应高度负责，不再用固定高度裁掉后半句。</p>
+          <div class="pillrow"><span class="pill">8 条消息</span><span class="pill">自动换行</span><span class="pill">可滚动</span><span class="pill g">两个键</span></div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="actions">
+    <div class="wrap">
+      <div class="label reveal">05.5 / ROUND END</div>
+      <h2 class="reveal">一轮结束<br><em>只给你两个键</em></h2>
+      <p class="lede reveal">这两个键只在会话状态是 <code>idle</code>（这一轮结束）时出现，不跟 ALLOW/DENY 抢位置。
+        按下之后手表发 <code>G1 ACTION &lt;slot&gt; continue|handoff</code>，Mac 桥转到 <code>/api/agents/action</code>，
+        再把回执以 <code>ACT</code> 行送回手表。</p>
+      <div class="grid2">
+        <div class="card reveal"><div class="pad"><h3>CONTINUE · 继续处理</h3>
+          <p>服务端把「继续处理。先读当前会话上下文，接着把未完成的做完；完成后简要汇报。」复制到 Mac 剪贴板。</p>
+          <ul>
+            <li><b>Codex 会话</b>：直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>，后台跑，日志写 <code>~/Library/Logs/grooved-continue.log</code>。</li>
+            <li><b>其它 agent</b>：没有可用的 CLI resume，所以只把提示词放进剪贴板；手表显示 <code>CONTINUE READY</code>，粘贴到对话框即可继续。</li>
+            <li>不静默：成功/失败都会以 <code>ACT</code> 行回手表，失败不会假装成功。</li>
+          </ul></div></div>
+        <div class="card reveal"><div class="pad"><h3>HANDOFF · 交接给下一个窗口</h3>
+          <p>服务端把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写进
+            <code>&lt;cwd&gt;/docs/handoff-YYYYMMDD-HHMM.md</code>，并把「读 &lt;path&gt;，然后继续。」复制到剪贴板。</p>
+          <ul>
+            <li>Markdown 里保留原始对话，不压缩成一句摘要；下一个窗口能直接读。</li>
+            <li>文件写失败时返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>，不会只报“成功”。</li>
+            <li>交接内容不包含宿主 App 名；只写项目、agent 和工作本身。</li>
+          </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ai">
+    <div class="wrap">
+      <div class="label reveal">06 / AI + ALGORITHMS</div>
+      <h2 class="reveal">不是魔法<br><em>是能验的算法</em></h2>
+      <div class="algos">
+        <div class="card reveal"><div class="pad"><h4>YIN 音高</h4><p>差分函数、累积均值归一化、第一个低于 0.20 的谷、抛物线插值；5 帧中位 + 连续 2 帧一致。离线 110–880Hz 全对。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>Krumhansl 调性</h4><p>12 音级直方图按音长加权，和 24 个大小调模板相关，取最高分；可被 7 种调式覆盖。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>确定性编曲</h4><p>风格表 + 16 分鼓型 + 和弦进行；chaos/energy/swing/humanize/transpose 都是可复现的变换；同 seed 同结果。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>WebAudio 链路</h4><p>input → 三段 EQ → filter → crush → drive → out；另有 delay/feedback/wet 与 analyser；采样 + 振荡器混合。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>MediaProjection → CC</h4><p>AudioPlaybackCapture + 一阶低通切 200/800/3000Hz 四段，RMS → 0..127，快起慢落，20Hz 发 CC20–23。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>SMF 导出</h4><p>Format 0、division 480；16 分=120 tick；tempo → program change → note on/off → end of track；鼓通道 9。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>NOW AI / Groove AI</h4><p>NOW AI 调 <code>/api/studio/ask</code>，把歌名/歌手 + 参数交给 LLM；离线用标题哈希给确定性建议。Groove AI 调 <code>/api/studio/inspire</code>，无 key 用本地灵感卡。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>CrewTower → COSPON D</h4><p>直接读 CrewTower 的机器级会话表，不另挂一套 hook；服务端加最近消息、待批队列、继续/交接动作。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>USB / Wi-Fi 同一协议</h4><p><code>AG/SESS/MSG/PERM/NET/END</code> 一套行协议；USB 串口和 Wi-Fi HTTP 都送进同一个 <code>handle_line()</code>，不会长出两种行为。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>视觉算法</h4><p>黑胶 52 圈凹槽 + 旋转高光；新拟物外环/凹井/刻度 + SVG 弧；34 点灯圈按角度距离点亮；SEQ 72 根刻度按主题换色。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>主题与系统栏</h4><p>默认浅色，夜间按钮写 localStorage；状态栏/导航栏随页面与主题换色；WebView 避开 110px 顶部 cutout + 39px 导航。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>离线降级</h4><p>Mac 不在：NOW AI 用本地建议；SEQ/GROOVE 按风格密度本地随机并标注；播放器、唱机、鼓垫、和弦垫、音序器、本地 MIDI 全部可用。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+
+  <section id="design">
+    <div class="wrap">
+      <div class="label reveal">06.5 / DESIGN</div>
+      <h2 class="reveal">十二个参考<br><em>每个至少两个落点</em></h2>
+      <p class="lede reveal">不是“看一眼像”，而是把参考拆成可复用的组件，再接到真实数据上。下面这些都能在页面里找到对应的 DOM、canvas 或 CSS。</p>
+      <div class="algos">
+        <div class="card reveal"><div class="pad"><h4>NOW · Music Play / Music</h4><p>全幅封面底色 + 32 点轨道 + 中央彩色核心；玻璃大标题、点阵、耳机贴片、超大 Music 水印。专辑封面从 MediaSession 的 Bitmap 来，没有就退回彩色核心。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>STEM · ES Polyphonic Synth</h4><p>模块化的参数卡、钢琴卷帘/和弦弧、硬件式推子与旋钮；把“哼唱 → 四轨”做成一条可见的流水线，而不是一个黑色按钮。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>REAL-TIME · Vinyl Store</h4><p>奶油唱机、红胶、凹槽、可转标签、唱臂、三段 EQ、NOISE/MAIN/VOCAL；搓盘角度跟手，松手有惯性。标签中间是用户 logo，下面是歌名。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>REAL-TIME · Neumorphic / Knóbz / Knob 03</h4><p>凸起外环、刻入刻度、凹井、SVG 弧、旋转白点；PERFORM 的玻璃穹顶、34 点灯圈、指针和 ENERGY 联动；STUTTER/CLICK/JOG 改成玻璃胶囊 + LED。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>GROOVE · Cruz GR / Music Mix</h4><p>彩色玻璃鼓垫、左上名称、右上音名、底部力度条；9 个彩色正圆和弦垫；XY 垫和 4 根 CC 推子。力度看触点纵向位置，不是随机数。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>SEQ · Mix Music / Music Wave</h4><p>径向步进轮 + 72 根细刻度；16 步 × 4 轨、三档力度、M/S、A–D 模式库；浅色/夜间换色，当前步白点。</p></div></div>
+        <div class="card reveal"><div class="pad"><h4>参考清单</h4><p style="font-size:12px;line-height:1.9">
+          Music 25645360 · Music Wave 27241914 · Music Mix 26761441 · Music Play 27260922 ·
+          Music App Dashboard 25706399 · ES Polyphonic Synth 18831756 · Cruz GR MIDI 27771393 ·
+          Mix Music 26761233 · Vinyl Record Store 23424412 · Neumorphic Dark Knobs 21408863 ·
+          Knóbz 14326768 · Knob 03 22440734。</p><p>每个参考至少落在两个地方：结构、材质、动效、控件手感，至少占两样。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="protocol">
+    <div class="wrap">
+      <div class="label reveal">06.8 / PROTOCOL</div>
+      <h2 class="reveal">一条线<br><em>串起三层</em></h2>
+      <div class="grid2">
+        <div class="card reveal"><div class="pad"><h3>行协议（USB / Wi-Fi 共用）</h3><ul>
+          <li><b>AG</b>：待批数 + 会话数，开始一次快照。</li>
+          <li><b>SESS</b>：agent / 宿主 / 状态 / 活动 / tokens / limit / 项目 / 年龄。</li>
+          <li><b>MSG</b>：最近 8 条对话，角色 + 文本。</li>
+          <li><b>PERM</b>：待批 id / 工具 / 参数；<b>PERM -</b> 表示没有。</li>
+          <li><b>NET</b>：Mac 局域网地址；<b>END</b>：快照结束，手表一次性重画；<b>ACT</b>：动作回执。</li>
+        </ul><p>USB 串口和 Wi-Fi HTTP 都送进同一个 <code>handle_line()</code>，所以两条链路不会长出两种行为。</p></div></div>
+        <div class="card reveal"><div class="pad"><h3>HTTP 端点</h3><ul>
+          <li><code>/api/agents/list</code>：会话表 + 最近消息。</li>
+          <li><code>/api/agents/watch</code>：给手表的纯文本快照。</li>
+          <li><code>/api/agents/request</code> / <code>/wait</code> / <code>/pending</code> / <code>/decide</code>：审批队列。</li>
+          <li><code>/api/agents/action</code>：CONTINUE / HANDOFF。</li>
+          <li><code>/api/studio/ask</code> / <code>/api/studio/inspire</code>：LLM 与灵感。</li>
+          <li><code>/api/groove/status</code>：局域网 IP、服务状态。</li>
+        </ul><p>所有返回都留退路：读不到就明确说读不到，不把“依赖坏了”伪装成“没有数据”。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="all">
+    <div class="wrap">
+      <div class="label reveal">07 / ALL FEATURES</div>
+      <h2 class="reveal">全部功能<br><em>一个不漏</em></h2>
+      <p class="lede reveal">表格里的每一行都对应仓库里的真实代码路径：手机 UI 在 <code>android/app/src/main/assets/index.html</code>，
+        原生桥在 <code>MainActivity.java</code>，Mac 服务在 <code>link/server.ts</code>，手表 App 在 <code>device/app/app_*/</code>，
+        协议桥在 <code>tools/grooved-serial-midi.swift</code>。没有“先写介绍再补功能”的条目。</p>
+      <div class="tablewrap reveal">
+        <table>
+          <thead><tr><th>页面 / 端</th><th>功能</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>NOW</td><td>默认首页 / 玻璃大标题 / 点阵圆盘 / 彩色核心 / 专辑封面 / 小封面卡 / 进度环 / 走带 / XL / MASTER 环 / 主题 / CEVTUO NOW AI / 离线建议</td><td>读 MediaSession；封面走原生 Bitmap；AI 可生成律动并切 STEM。</td></tr>
+            <tr><td>STEM</td><td>HUM / 风格 / 调式 / 音色 / BPM / 小节 / 编曲 / 播放 / 一键成曲 / 4 变体 / 9 变异 / 保留丢弃 / 历史 / 哼唱做贝斯 / 导出 MIDI / 对话修改 / Groove AI / AI LIVE / 和弦行</td><td>确定性乐理 + LLM；采样 + 合成；失败有本地兜底。</td></tr>
+            <tr><td>REAL-TIME</td><td>FILTER / DRIVE / SPACE / SWING / CHAOS / ENERGY / OCTAVE / TONE / CRUSH / DETUNE / LCD / 黑胶搓盘 / 唱臂 / 三段 EQ / NOISE / MAIN / VOCAL / 波形 / PERFORM 穹顶 / 灯圈 / STUTTER / CLICK / JOG 0 / OUT / MIDI 监视</td><td>全部接进音频链；搓盘发 PLATTER；旋钮发 CC 24–34。</td></tr>
+            <tr><td>GROOVE</td><td>8 鼓垫 / 力度三档 / DRUM-SYNTH-CHORD / ARP / 9 和弦圆垫 / XY / 4 CC 推子 / 生成 16 步 / 加花 / 听懂鼓点 / 写回 STEM / TAPE STOP / PANIC</td><td>彩色玻璃垫 + 彩色正圆；本地发声 + MIDI。</td></tr>
+            <tr><td>SEQ</td><td>16 步 × 4 轨 / 三档力度 / M/S / A–D 模式 / CLEAR / RANDOM / 加花 / 左右移 / COPY / PASTE / AI 生成 / SAVE / PROB / SWING / TAP / BPM± / 3 宏旋钮 / 径向轮 / 本地试听 / 和弦 chips</td><td>离线和在线都可生成；模式存 localStorage。</td></tr>
+            <tr><td>LINK</td><td>六格状态 / 手表反馈条 / Agent 1/0 + 活动 / API KEY / MAC HOST / SAVE/TEST / 日志 / 发送 Mac 地址 / 主题</td><td>手机端管理面；Wi-Fi 与 USB 两种入口。</td></tr>
+            <tr><td>COSPON D</td><td>3 张会话卡 / 详情 / 最近 8 条消息滚动 / 自动换行 / CONTINUE / HANDOFF / ALLOW / DENY / WIFI ON-OFF / HTTP 轮询 / NVS 保存 Mac 地址 / 震动提示</td><td>卡片只显示项目 + agent；不再显示宿主 App 名。</td></tr>
+            <tr><td>Stem D / Groove D / Muse D</td><td>四段弧 / 静音 / 独奏 / 黑胶搓盘 / now playing；8 鼓垫 / 4 CC / BPM/FX / 磁带机；第二个 OTA 槽</td><td>手表 → Mac 的 G1 协议；双系统分区。</td></tr>
+            <tr><td>音频 / AI</td><td>YIN / Krumhansl / 确定性编曲 / 9 变异 / WebAudio / 8 采样 / MediaProjection CC / SMF / LLM ask / inspire / 离线兜底</td><td>算法细节见上一节。</td></tr>
+            <tr><td>视觉</td><td>黑胶 / 唱臂 / 新拟物旋钮 / LCD / 玻璃穹顶 / 灯圈 / 彩色圆垫 / 玻璃垫 / 径向轮 / 玻璃大标题 / 浅色夜间 / 系统栏 / 折叠屏重排</td><td>12 个 Dribbble 参考，每个至少两个落点。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="limits">
+    <div class="wrap">
+      <div class="label reveal">08 / HONEST</div>
+      <h2 class="reveal">做到了什么<br><em>还没做到什么</em></h2>
+      <div class="grid2">
+        <div class="card reveal"><div class="pad"><h3>已验 / 已装</h3><ul>
+          <li>手机 APK 1.2MB，已装 SM-F9660；系统栏露出，WebView 避开 110px cutout。</li>
+          <li>NOW 默认首页、浅色默认、夜间按钮、CEVTUO NOW AI、无黑点、玻璃大标题。</li>
+          <li>PERFORM 74×74、34 灯点、指针、ENERGY 联动；SEQ 64 格；LINK Agent 1/0。</li>
+          <li>手表固件已用 PlatformIO 构建并刷入；COSPON D 卡片/详情、8 条消息、CONTINUE/HANDOFF、ALLOW/DENY、WIFI 双向都已编进固件。</li>
+          <li>服务端 <code>/api/agents/action</code> 已实测：HANDOFF 会写 Markdown 并复制提示词；CONTINUE 对 Codex 走 resume，其它 agent 复制提示词。</li>
+          <li>页面实测：8 个 <code>&lt;video&gt;</code> 全部 <code>readyState=4</code>，4 个手表 GIF 正常加载，0 个 4xx/5xx、0 个 pageerror。</li>
+          <li>手表固件：RAM 24.5%、Flash 95.1%，写入 + 校验通过；新增字体覆盖 ASCII、中文、中文标点和全角符号。</li>
+        </ul></div></div>
+        <div class="card reveal"><div class="pad"><h3>还没做到 / 需要你</h3><ul>
+          <li>手表 Wi-Fi 还没有在真机完整走一次：需要在手表按 WIFI、手机连配置 AP、填 Wi-Fi，再在 LINK 里发 Mac 地址。</li>
+          <li>权限浮层要真的出现，需要客户端的 PermissionRequest hook 把请求送进 <code>/api/agents/request</code>。</li>
+          <li>Claude 会话没有可用的 CLI resume，所以 CONTINUE 目前是“复制提示词”；Codex 会话可以直接 resume。</li>
+          <li>录屏是 webm（Chrome/Edge 可播）；APK 是 debug 签名；MediaProjection 每次会话要手动授权。</li>
+          <li>手表 GIF 是固件屏幕录制；COSPON 的两张用了测试数据（项目 Codex、示例对话），不是真实会话回放。</li>
+          <li>手表字体是 12px 1BPP 全 CJK 子集，极端生僻字仍可能缺字形；服务端会先把不支持的字符替换成空格，避免出现长方形。</li>
+        </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="wrap">
+      <div class="label reveal">09 / INSTALL</div>
+      <h2 class="reveal">三步<br><em>装好就能用</em></h2>
+      <div class="grid2">
+        <div class="card reveal"><div class="pad"><h3>手机</h3><ul>
+          <li>下载 <a href="GrooveD.apk" download>GrooveD.apk</a>，允许未知来源安装。</li>
+          <li>USB：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>，LINK 的 MAC HOST 填 <code>http://127.0.0.1:8765</code>。</li>
+          <li>Wi-Fi：服务监听 <code>0.0.0.0:8765</code>，LINK 填 <code>http://&lt;Mac 局域网 IP&gt;:8765</code>。</li>
+          <li>通知使用权：NOW 读媒体会话需要它，只读媒体信息。</li>
+        </ul></div></div>
+        <div class="card reveal"><div class="pad"><h3>手表 + Mac</h3><ul>
+          <li>手表 USB 连 Mac；<code>bash tools/grooved.sh status</code> 看到 server/bridge loaded、Agent 1/0。</li>
+          <li>COSPON D → WIFI → 手机连 <code>M5StopWatch-XXXX</code> 配置 AP → 填 Wi-Fi → 回 LINK 按「发送 Mac 地址到手表」。</li>
+          <li>日志：<code>~/Library/Logs/grooved-link.log</code>、<code>grooved-serial.log</code>、<code>grooved-continue.log</code>。</li>
+          <li>管理：<code>tools/grooved.sh status|start|stop|restart|install|uninstall</code>。</li>
+        </ul></div></div>
+      </div>
+      <div class="card reveal" style="margin-top:18px"><div class="pad"><h3>页面里的八段录屏</h3>
+        <ul>
+          <li><b>全屏</b>：NOW（圆盘/AI/主题）、STEM（编曲/钢琴卷帘）、GROOVE（鼓垫/和弦）、SEQ 2.0（16 步/宏）、LINK（状态/Agent）。</li>
+          <li><b>局部</b>：REAL-TIME 唱机、10 个旋钮、PERFORM 穹顶；局部片段用更小的视口，聚焦到组件本身。</li>
+          <li><b>手表</b>：Stem D / Groove D / COSPON D / Muse D 的 GIF；COSPON 详情展示 8 条消息和两个动作键。</li>
+          <li>录屏由 Playwright 驱动真实页面生成，不是后期合成；页面里的帧率、进度和文字都来自当时运行的那一份构建。</li>
+        </ul></div></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="label">CEVTUO XD · 2026-10-20</div>
+    <div class="big">GROOVE D</div>
+    <div class="meta">
+      <span>手机 / 手表 / Mac 三层创作系统</span>
+      <span>版式参考 SWSH · joinswsh.com</span>
+      <span><a href="GrooveD.apk" download>下载 APK</a></span>
     </div>
   </div>
-</section>
+</footer>
 
-<section id="seq">
-  <div class="sec-head">
-    <div><div class="kicker">05 · SEQ 2.0</div><h2>16 步、三档力度、模式库、径向灯轮</h2></div>
-    <p>Mix Music 的径向步进 + Music Wave 的细刻度轮；能写、能随机、能存 A–D、能在 Mac 没起时本地生成。</p>
-  </div>
-  <div class="grid rev">
-    <div class="card">
-      <h3>功能</h3>
-      <ul>
-        <li><b>16 步 × 4 轨</b>：KICK/SNR/HAT/CLAP；点格开关，上拖=重音，下拖=轻音。</li>
-        <li><b>三档力度</b>：0/1/2，格子右下角的白色条就是力度。</li>
-        <li><b>每轨 M/S</b>：静音 / 独奏。</li>
-        <li><b>模式 A–D</b>：本机保存；切换前自动存旧槽。</li>
-        <li><b>CLEAR / RANDOM / 加花 / 左移 / 右移 / COPY / PASTE</b>。</li>
-        <li><b>AI 生成</b>：有 Mac 时用编曲引擎；没有时按风格密度本地随机，并显示「本地随机」。</li>
-        <li><b>SAVE PAT</b>：把当前矩阵 + swing + prob 存进 localStorage。</li>
-        <li><b>PROB</b>：每步触发概率；<b>SWING</b>：奇数 16 分后推；<b>TAP</b>：最近 4 下平均间隔。</li>
-        <li><b>三个宏旋钮</b>：SWING / CHAOS / ENERGY，同时写进 AI 参数。</li>
-        <li><b>径向轮</b>：16 个点 + 72 根细刻度 + 当前步白点；浅色/夜间自动换色。</li>
-        <li><b>本地试听</b>：每一步用 WebAudio 鼓组发声，同时发 MIDI。</li>
-      </ul>
-      <div><span class="tag">模式库</span><span class="tag">三档力度</span><span class="tag">径向轮</span><span class="tag ok">离线生成</span></div>
-    </div>
-    <div><video src="media/seq-full.webm" poster="media/seq-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 播放、改格、RANDOM、宏旋钮</div></div>
-  </div>
-</section>
-
-<section id="link">
-  <div class="sec-head">
-    <div><div class="kicker">06 · LINK</div><h2>连接、Agent、API KEY、Wi-Fi</h2></div>
-    <p>手机是控制台：Mac 服务、串口桥、手表、MIDI、Agent、最后更新，一眼看到。</p>
-  </div>
-  <div class="grid">
-    <div><video src="media/link-full.webm" poster="media/link-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 六格状态、Agent 会话、发送 Mac 地址、主题切换</div></div>
-    <div class="card">
-      <h3>管理</h3>
-      <ul>
-        <li><b>六格状态</b>：Mac 服务 / 串口桥 / 手表 / MIDI / Agent / 最后更新。</li>
-        <li><b>Agent 行</b>：显示 <code>1/0</code>（会话/待批）和最近会话的 App · Agent · 状态 · 活动；读不到会明确说「CrewTower 没会话」还是「服务没起」。</li>
-        <li><b>API KEY</b>：DeepSeek key 只存本机，显示尾号与来源。</li>
-        <li><b>MAC HOST</b>：USB 用 <code>127.0.0.1</code>（adb reverse）；Wi-Fi 填 Mac 局域网 IP。</li>
-        <li><b>发送 Mac 地址到手表</b>：取 <code>/api/groove/status</code> 的 <code>lanIp</code>，通过串口发 <code>NET &lt;ip&gt;</code>，手表存进 NVS。</li>
-        <li><b>发送日志</b>：最近 36–40 条协议行。</li>
-        <li><b>主题</b>：顶栏月亮/太阳；LINK 页也能切。</li>
-        <li><b>手表反馈条</b>：四轨、MASTER、BPM、LOOP 实时显示。</li>
-      </ul>
-      <div><span class="tag">adb reverse</span><span class="tag">Wi-Fi / LAN</span><span class="tag">Agent 1/0</span><span class="tag ok">自启</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="watch">
-  <div class="sec-head">
-    <div><div class="kicker">07 · WATCH</div><h2>M5 手表：Stem / Groove / Cospon / Muse</h2></div>
-    <p>四个手表 App；COSPON D 看 Agent、滚动最近 3 条消息、ALLOW/DENY、WIFI 一键。</p>
-  </div>
-  <div class="watchgrid">
-    <figure><img src="media/cospon.gif" alt="COSPON D"><figcaption>COSPON D · Agent 卡片</figcaption></figure>
-    <figure><img src="media/stem.gif" alt="Stem D"><figcaption>Stem D · 四段弧 / 黑胶</figcaption></figure>
-    <figure><img src="media/groove.gif" alt="Groove D"><figcaption>Groove D · 鼓垫 / CC</figcaption></figure>
-    <figure><img src="media/muse.gif" alt="Muse D"><figcaption>Muse D · 第二个 OTA 槽</figcaption></figure>
-  </div>
-  <div class="grid" style="margin-top:16px">
-    <div class="card">
-      <h3>COSPON D 新增</h3>
-      <ul>
-        <li><b>最近 3 条消息</b>：详情页独立滚动区，显示 user/assistant 最新 3 条；卡片活动行在为空时也会退回最新消息，不再只显示 (no activity)。</li>
-        <li><b>ALLOW / DENY 两个键</b>：有待批权限时浮层出现；按下写 <code>G1 PERM &lt;id&gt; allow|deny</code>，Mac 桥转成 <code>/api/agents/decide</code>，审批队列唤醒 hook。没有待批时自动隐藏。</li>
-        <li><b>WIFI 一键</b>：按 WIFI → HAL 打开 Wi-Fi；没凭据时进入配置 AP（手表显示 AP SSID / 192.168.4.1），手机连上后填 Wi-Fi；连上后每 2 秒 HTTP 拉 <code>/api/agents/watch</code>，和 USB 用同一套行协议。</li>
-        <li><b>Mac 地址</b>：LINK 页「发送 Mac 地址到手表」→ <code>NET &lt;ip&gt;</code> → 手表 NVS，重启不丢。</li>
-      </ul>
-      <div class="quote">语音键：按你的要求「如果很难实现就不实现」，这一轮没有做。手表端留给下一窗口的两个键是 ALLOW / DENY；语音输入可作为第三键，在一轮对话结束（idle）时出现。</div>
-    </div>
-    <div class="card">
-      <h3>其它手表 App</h3>
-      <ul>
-        <li><b>Stem D</b>：四段弧=四轨音量；长按静音、双击独奏；中央黑胶可搓；白色标签读 now playing。</li>
-        <li><b>Groove D</b>：8 个鼓垫、4 根 CC 推子、BPM/FX 旋钮、磁带机页。</li>
-        <li><b>Muse D</b>：第二个 OTA 槽入口；双系统分区 + 电源轨恢复。</li>
-        <li><b>手表 → Mac</b>：<code>G1 STEM/MUTE/SOLO/MASTER/BPM/LOOP/FX/START/STOP</code>；Mac → 手表：<code>NP/SESS/AG/MSG/PERM/NET</code>。</li>
-      </ul>
-      <p class="media-note">手表 GIF 来自固件 CAP1 屏幕录制协议；COSPON 新界面已刷入，视频为旧版界面示意。</p>
-    </div>
-  </div>
-</section>
-
-<section id="algo">
-  <div class="sec-head">
-    <div><div class="kicker">08 · UNDER THE HOOD</div><h2>AI、算法、音频链路与视觉算法</h2></div>
-    <p>这一节把「它为什么能用」写清楚：每个算法做什么、在哪、怎么验。</p>
-  </div>
-  <div class="algo">
-    <div class="card"><h4>YIN 音高检测</h4><p>不用全局自相关（纯周期信号每个周期倍数都高，取最大会落到大 lag）。YIN 用差分函数、累积均值归一化、取第一个 d'<0.20 的谷、抛物线插值；再叠 5 帧中位 + 连续 2 帧一致（±1 半音）。离线 110/220/330/440/660/880Hz 全对。</p></div>
-    <div class="card"><h4>调性与调式</h4><p>12 音级直方图按音长加权；与 12 大调 / 12 小调的 Krumhansl 权重相关，取最高分；可被 7 种调式覆盖。和弦名由级数算根/三/五，按实际移调落到音名。</p></div>
-    <div class="card"><h4>确定性编曲引擎</h4><p>风格表给出 16 分鼓型与和弦进行；chaos 加额外帽子/装饰音/力度抖动；energy 乘全轨力度；swing 推奇数 16 分；humanize 微移 step/力度；transpose 移非鼓轨；同一 seed 永远同一份。变体/变异/对话/灵感都走它。</p></div>
-    <div class="card"><h4>WebAudio 合成</h4><p>鼓组/贝斯/和弦/旋律各有一套波形与包络；Reese +22 音分失谐、Sub 900Hz 滤波、Acid Q=12；marimba/pluck/strings/choir 等用采样，其余用振荡器。主链：input → 三段 EQ → filter → crush → drive → out；另有一条 delay/feedback/wet 与 analyser。</p></div>
-    <div class="card"><h4>MediaProjection → CC 20–23</h4><p>AudioPlaybackCapture 抓本机播放；一阶低通在 200/800/3000Hz 切四段，RMS → 0..127；快起慢落；20Hz 发 CC。Android 14+ 先 startForeground 再 getMediaProjection，并请求整个屏幕。</p></div>
-    <div class="card"><h4>MIDI 导出</h4><p>Format 0、division 480（16 分=120 tick）；tempo meta → 每轨 program change → note on/off → end of track；鼓通道 9、贝斯 1、和弦 2、旋律 3；文件布局必须 <code>[MTrk][长度][事件]</code>。</p></div>
-    <div class="card"><h4>CEVTUO NOW AI / Groove AI</h4><p>NOW AI 调 <code>/api/studio/ask</code>，把歌名/歌手 + 当前参数交给 LLM，返回一句解释 + patch；离线用标题哈希的确定性建议。Groove AI 调 <code>/api/studio/inspire</code>，没有 key 时用本地灵感卡。两者都明确标注来源。</p></div>
-    <div class="card"><h4>CrewTower → COSPON D</h4><p>CrewTower 已做机器级会话采集（Claude/Codex/DSH，含 Cherry Studio），Cospon D 直接读它的 sessions.json，不另挂一套 hook。服务端加最近 3 条消息（读 transcriptPath）、待批队列 <code>/request</code> <code>/wait</code> <code>/pending</code> <code>/decide</code>；手表用 <code>PERM</code> 行走决定。</p></div>
-    <div class="card"><h4>手表 Wi-Fi 协议</h4><p>USB 与 Wi-Fi 共用同一套文本行：<code>AG / SESS / MSG / PERM / NET</code>。<code>/api/agents/watch</code> 输出同样的行；手表连上 Wi-Fi 后每 2 秒 HTTP GET 并逐行喂给同一个 <code>handle_line()</code>，所以两条链路不会长出两种行为。</p></div>
-    <div class="card"><h4>视觉算法</h4><p>黑胶：径向渐变 + 52 圈凹槽 + 旋转高光 + 标签 logo（darken 融白底）。新拟物旋钮：外环凸起/凹井/刻度 mask + SVG 弧 + rAF。PERFORM：34 点按角度距离点亮，span 随 RMS 变宽。SEQ 轮：72 根刻度按主题换色。所有视觉都有 DOM/canvas 断言。</p></div>
-    <div class="card"><h4>Layout / 主题 / 系统栏</h4><p>默认浅色 `data-theme=light`，夜间按钮写 localStorage；浅色主题显式补回全部激活态。状态栏/导航栏颜色跟随页面与主题；WebView 避开 110px 顶部 cutout + 39px 导航，页面 innerHeight 903 vs 整屏 960。折叠屏用 ResizeObserver + 切页重新量黑胶和灯圈。</p></div>
-    <div class="card"><h4>离线降级</h4><p>Mac 没起：编曲/变体/对话不可用，但 SEQ/GROOVE 生成会按风格密度本地随机并标注；NOW AI 用本地建议；主题、播放器、唱机、鼓垫、和弦垫、音序器、本地 MIDI 全部可用。降级不会假装成在线结果。</p></div>
-  </div>
-</section>
-
-<section id="all">
-  <div class="sec-head">
-    <div><div class="kicker">09 · ALL FEATURES</div><h2>全部功能清单</h2></div>
-    <p>按页面分组；打勾的是这一版已经能操作、能录到的。</p>
-  </div>
-  <div class="tablewrap">
-    <table>
-      <thead><tr><th>页面 / 端</th><th>功能</th><th>说明</th></tr></thead>
-      <tbody>
-        <tr><td><b>NOW</b></td><td>默认首页 / 玻璃大标题 / 点阵圆盘 / 彩色核心 / 专辑封面 / 小封面卡 / 进度环 / 走带 / XL / MASTER 环 / 主题 / CEVTUO NOW AI / 离线建议</td><td>读 MediaSession；封面走原生 Bitmap；AI 可生成律动并切 STEM。</td></tr>
-        <tr><td><b>STEM</b></td><td>HUM / 风格 / 调式 / 音色 / BPM / 小节 / 编曲 / 播放 / 一键成曲 / 4 变体 / 9 变异 / 保留丢弃 / 历史 / 哼唱做贝斯 / 导出 MIDI / 对话修改 / Groove AI / AI LIVE / 和弦行</td><td>确定性乐理 + LLM；采样 + 合成；失败有本地兜底。</td></tr>
-        <tr><td><b>REAL-TIME</b></td><td>FILTER / DRIVE / SPACE / SWING / CHAOS / ENERGY / OCTAVE / TONE / CRUSH / DETUNE / LCD / 黑胶搓盘 / 唱臂 / 三段 EQ / NOISE / MAIN / VOCAL / 波形 / PERFORM 穹顶 / 灯圈 / STUTTER / CLICK / JOG 0 / OUT / MIDI 监视</td><td>全部接进音频链；搓盘发 PLATTER；旋钮发 CC 24–34。</td></tr>
-        <tr><td><b>GROOVE</b></td><td>8 鼓垫 / 力度三档 / DRUM-SYNTH-CHORD / ARP / 9 和弦圆垫 / XY / 4 CC 推子 / 生成 16 步 / 加花 / 听懂鼓点 / 写回 STEM / TAPE STOP / PANIC</td><td>彩色玻璃垫 + 彩色正圆；本地发声 + MIDI。</td></tr>
-        <tr><td><b>SEQ</b></td><td>16 步 × 4 轨 / 三档力度 / M/S / A–D 模式 / CLEAR / RANDOM / 加花 / 左右移 / COPY / PASTE / AI 生成 / SAVE / PROB / SWING / TAP / BPM± / 3 宏旋钮 / 径向轮 / 本地试听 / 和弦 chips</td><td>离线和在线都可生成；模式存 localStorage。</td></tr>
-        <tr><td><b>LINK</b></td><td>六格状态 / 手表反馈条 / Agent 1/0 + 活动 / API KEY / MAC HOST / SAVE/TEST / 日志 / 发送 Mac 地址 / 主题</td><td>手机端管理面；Wi-Fi 与 USB 两种入口。</td></tr>
-        <tr><td><b>COSPON D</b></td><td>3 张会话卡 / 详情 / 最近 3 条消息滚动 / ALLOW / DENY / WIFI 一键 / HTTP 轮询 / NVS 保存 Mac 地址 / 震动提示</td><td>USB 串口或 Wi-Fi；权限浮层只在有待批时出现。</td></tr>
-        <tr><td><b>Stem D</b></td><td>四段弧 / 静音 / 独奏 / 黑胶搓盘 / now playing 标签</td><td>手表 → Mac 的 G1 协议。</td></tr>
-        <tr><td><b>Groove D</b></td><td>8 鼓垫 / 4 CC / BPM/FX / 磁带机</td><td>与手机 GROOVE 同一套 CC/音符协议。</td></tr>
-        <tr><td><b>Muse D</b></td><td>第二个 OTA 槽入口 / 双系统 / 电源轨恢复</td><td>OTA 分区表 ota_0 4.5MB / ota_1 4MB。</td></tr>
-        <tr><td><b>音频 / AI</b></td><td>YIN / Krumhansl / 确定性编曲 / 9 变异 / WebAudio / 8 采样 / MediaProjection CC / SMF / LLM ask / inspire / 离线兜底</td><td>算法细节见上一节。</td></tr>
-        <tr><td><b>视觉</b></td><td>黑胶 / 唱臂 / 新拟物旋钮 / LCD / 玻璃穹顶 / 灯圈 / 彩色圆垫 / 玻璃垫 / 径向轮 / 玻璃大标题 / 浅色夜间 / 系统栏 / 折叠屏重排</td><td>12 个 Dribbble 参考，每个至少两个落点。</td></tr>
-      </tbody>
-    </table>
-  </div>
-</section>
-
-<section id="limits">
-  <div class="sec-head">
-    <div><div class="kicker">10 · HONEST NOTES</div><h2>限制与需要你确认的事</h2></div>
-    <p>不把「没验过」写成「已完成」。</p>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <h3>已验 / 已装</h3>
-      <ul>
-        <li>手机 APK 1.2MB，签名未变，已装到 SM-F9660。</li>
-        <li>系统栏：WebView screenY=110、innerHeight=918，状态栏那一行已露出来。</li>
-        <li>NOW 默认首页、浅色默认、夜间按钮、CEVTUO NOW AI、无黑点、大玻璃字、圆盘 255×255。</li>
-        <li>PERFORM 74×74、34 灯点、指针、ENERGY 联动；SEQ 64 格、M8 轨按钮；LINK Agent 1/0。</li>
-        <li>手表固件已用 PlatformIO 构建并刷入（40 秒写入 + 校验）。桥已发 MSG/PERM，审批队列 <code>decide</code> 已通。</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>还没做到 / 需要你</h3>
-      <ul>
-        <li><b>语音键没做</b>：按「很难就不实现」跳过；手表麦克风 + 端侧 ASR 是单独一轮。</li>
-        <li><b>手表 Wi-Fi 未在真机走通一次</b>：代码已刷入，需在手表按 WIFI，手机连 <code>M5StopWatch-XXXX</code> 配置 Wi-Fi，并在 LINK 里按「发送 Mac 地址到手表」（USB 连着时）；之后拔线即可轮询。</li>
-        <li><b>权限浮层</b>需要 Claude/Codex 的 PermissionRequest hook 把请求送进 <code>/api/agents/request</code>；队列和手表键已就绪。</li>
-        <li>封面取决于播放器是否给 Bitmap；只给 ART_URI 的 App 会显示彩色核心。</li>
-        <li>录屏是 webm（Chromium/Chrome/Edge 可播；Safari 可能不支持）。</li>
-        <li>APK 是 debug 签名；安装时需允许未知来源。MediaProjection 每次会话要手动授权。</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="install">
-  <div class="sec-head">
-    <div><div class="kicker">11 · INSTALL</div><h2>安装与连接</h2></div>
-    <p>手机、手表、Mac 三步。</p>
-  </div>
-  <div class="grid">
-    <div class="card">
-      <h3>手机</h3>
-      <ul>
-        <li>下载 <a href="GrooveD.apk" download>GrooveD.apk</a>，允许未知来源安装。</li>
-        <li>USB：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>，LINK 的 MAC HOST 填 <code>http://127.0.0.1:8765</code>。</li>
-        <li>Wi-Fi：Mac 的 <code>tools/grooved.sh install</code> 已让服务监听 <code>0.0.0.0:8765</code>；LINK 填 <code>http://&lt;Mac 局域网 IP&gt;:8765</code>。</li>
-        <li>通知使用权：NOW 页读媒体会话需要它；只读媒体信息。</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>手表 + Mac</h3>
-      <ul>
-        <li>手表 USB 连 Mac；<code>bash tools/grooved.sh status</code> 看到 server/bridge loaded、Agent 1/0。</li>
-        <li>Cospon D → WIFI → 手机连配置 AP → 填 Wi-Fi → 回 LINK 按「发送 Mac 地址到手表」。之后可拔线。</li>
-        <li>日志：<code>~/Library/Logs/grooved-link.log</code>、<code>grooved-serial.log</code>。</li>
-        <li>管理：<code>tools/grooved.sh status|start|stop|restart|install|uninstall</code>。</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<div class="footer wrap">
-  <div class="brand">CEVTUO <i style="color:var(--orange);font-style:normal">XD</i></div>
-  <div>GROOVE D · 2026-10-20 · 手机 / 手表 / Mac 三层创作系统</div>
-  <div style="margin-top:10px">
-    <span class="pill"><i></i>APK 已装真机</span>
-    <span class="pill"><i></i>手表固件已刷</span>
-    <span class="pill"><i></i>Agent 1/0</span>
-  </div>
-  <p style="max-width:760px;margin-top:18px;color:var(--muted)">
-    这页的所有介绍都对应仓库里的真实代码路径：手机 UI 在 <code>android/app/src/main/assets/index.html</code>，
-    原生桥在 <code>MainActivity.java</code>，Mac 服务在 <code>link/server.ts</code>，手表 App 在
-    <code>device/app/app_*/</code>，协议桥在 <code>tools/grooved-serial-midi.swift</code>。
-    录屏由 Playwright 驱动真实页面生成，局部片段用较小的视口聚焦到组件。
-  </p>
-</div>
-
-</div>
+<script>
+  const io = new IntersectionObserver((es) => {
+    for (const e of es) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+</script>
 </body>
 </html>
