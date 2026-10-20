@@ -277,7 +277,7 @@
       <div>
         <p>主屏是三张会话卡：标题是项目名（如 <code>Codex</code>），副标题是 agent（如 <code>claudeCode</code>），右侧是状态和年龄；上下文进度条按 tokens / limit 计算。卡片不显示宿主 App 名，避免把“Cherry Studio”“ChatGPT”当成会话本身。</p>
         <p>点卡片进入 <b>全屏详情</b>：黑底、米白点阵字、单一橙色呼吸点。顶部是 <code>COSPON D / 项目名</code> 与状态行；左侧柱是 <code>STEPS</code> 或 <code>CHAT</code>（点一下切换），右侧柱是 <code>TURN</code> 本轮耗时。中间是最近 6 次工具调用或最近 8 条消息，内容变化时把最新一条放在中间偏下；末尾留白让最后一条能滚到中线。右上角 <code>X</code> 和黄色返回键都能退出。</p>
-        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。这样你能看到它在读哪个文件、跑哪条命令、改哪一块，而不是只看到一句“在思考”。</p>
+        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。最新的一条排在最上面并放在屏幕中线，单条最多 199 字符——长 Bash 命令会完整换行，不再被 80 字符截断，也不用自己往下拖。这样你能看到它在读哪个文件、跑哪条命令、改哪一块，而不是只看到一句“在思考”。</p>
         <p><b>时间分两层</b>：顶部 <code>TOTAL</code> 是这个会话从开始到现在的总时长；右侧 <code>TURN</code> 是本轮从最后一条 user 消息开始的耗时。working 时橙色点做 900ms 明暗循环，waiting 时状态色常亮，idle 时灰色常亮。卡片状态行也带分钟。</p>
       </div>
       <div class="right">
@@ -566,7 +566,7 @@ END</pre>
       <figure><img src="media/phone-seq.jpg" alt="SEQ"><figcaption><span>SEQ 2.0</span><span>16 × 4</span></figcaption></figure>
       <figure class="wide"><img src="media/phone-link.jpg" alt="LINK"><figcaption><span>LINK</span><span>HOST / API KEY</span></figcaption></figure>
       <figure><img src="media/watch-list.png" alt="COSPON CARDS"><figcaption><span>COSPON D</span><span>CARDS / WORKING</span></figcaption></figure>
-      <figure><img src="media/watch-steps.png" alt="COSPON STEPS"><figcaption><span>COSPON D</span><span>STEPS / PROCESS</span></figcaption></figure>
+      <figure><img src="media/watch-steps.png" alt="COSPON STEPS"><figcaption><span>COSPON D</span><span>STEPS / LATEST FIRST</span></figcaption></figure>
       <figure><img src="media/watch-chat.png" alt="COSPON CHAT"><figcaption><span>COSPON D</span><span>CHAT / CENTER</span></figcaption></figure>
     </div>
   </div>
