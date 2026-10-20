@@ -123,6 +123,28 @@
   th{background:#0f0f0e;color:#8f8f88;font-size:9px;letter-spacing:.18em;text-transform:uppercase}
   tr:last-child td{border-bottom:0}
   td:first-child{color:#fff;font-weight:700;white-space:nowrap}
+  /* app matrix + screenshots */
+  .kicker{font-size:11px;letter-spacing:.30em;text-transform:uppercase;color:#8a8a82;margin:26px 0 12px}
+  .appgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:12px}
+  .appcard{background:var(--card);border:1px solid #232320;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px}
+  .apphead{display:flex;align-items:center;gap:14px}
+  .apphead img{width:58px;height:58px;border-radius:16px;background:#0b0b0a;object-fit:cover;border:1px solid #262622}
+  .apphead b{display:block;font-size:19px;letter-spacing:-.02em}
+  .apphead span{display:block;font-size:10px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase;margin-top:3px}
+  .appcard p{margin:0;font-size:12.5px;line-height:1.7;color:#9e9e97}
+  .appcard ul{margin:0;padding-left:16px;color:#9e9e97;font-size:12px;line-height:1.75}
+  .applinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:6px}
+  .applinks a{font-size:10.5px;font-weight:700;border:1px solid #2e2e2a;border-radius:999px;padding:7px 11px;color:#dcdcd5}
+  .applinks a.dl{background:var(--orange);border-color:var(--orange);color:#fff}
+  .shotgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .shot{margin:0;background:var(--card);border:1px solid #232320;border-radius:20px;overflow:hidden}
+  .shot img{display:block;width:100%;height:560px;object-fit:cover;object-position:top;background:#0b0b0a}
+  .shot.rt img{object-position:center 42%}
+  .shot figcaption{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px}
+  .shot figcaption b{font-size:14px}
+  .shot figcaption span{font-size:11px;color:#90908a;line-height:1.6}
+  @media(max-width:960px){.appgrid,.shotgrid{grid-template-columns:1fr 1fr}}
+  @media(max-width:620px){.appgrid,.shotgrid{grid-template-columns:1fr}.shot img{height:520px}}
   /* footer */
   .footer{border-top:1px solid var(--line);padding:80px 0 40px;margin-top:80px}
   .footer .big{font-size:clamp(64px,15vw,220px);line-height:.8;letter-spacing:-.08em;font-weight:900;
@@ -152,8 +174,8 @@
   <div class="navin">
     <a class="brand" href="#top">CEVTUO <em>XD</em></a>
     <nav class="links">
-      <a href="#system">系统</a><a href="#stem">STEM</a><a href="#rt">REAL-TIME</a>
-      <a href="#beat">GROOVE / SEQ</a><a href="#watch">手表</a><a href="#ai">AI</a><a href="#install">安装</a><a href="#all">全部功能</a>
+      <a href="#apps">应用</a><a href="#system">手机</a><a href="#watch">手表</a>
+      <a href="#web">Mac / Web</a><a href="#shots">截图</a><a href="#all">全部功能</a><a href="#install">安装</a>
     </nav>
     <a class="cta" href="GrooveD.apk" download>下载 APK</a>
   </div>
@@ -168,7 +190,8 @@
     <div class="float f5"><img src="media/cospon.jpg" alt="COSPON D"></div>
     <div class="wrap inner">
       <div class="badge"><i></i>CEVTUO XD · 手机 / 手表 / Mac · 2026-10-20</div>
-      <h1><span>Music OS</span><span class="out">for makers</span></h1>
+      <div class="kicker">Music AI OS for makers</div>
+      <h1><span>CEVTUO</span><span class="out">XD</span></h1>
       <p>系统由三端组成：M5Stack StopWatch 手表（ESP32-S3 固件）、Android 手机 App（WebView + 原生桥）、
          Mac 端 Deno 服务。手机负责音频采集、编曲、实时处理和导出；手表负责演奏控件与 agent 状态显示；
          Mac 提供乐理引擎、LLM、CoreMIDI 和串口桥。手机端功能不依赖 Mac，只有 LLM 与外部 MIDI 需要连接。</p>
@@ -196,6 +219,57 @@
     </div>
   </div>
 
+  <section id="apps">
+    <div class="wrap">
+      <div class="label reveal">00 / APPS</div>
+      <h2 class="reveal">应用矩阵<br><em>手机 · 手表 · Mac / Web</em></h2>
+      <p class="lede reveal">这个页面是给电脑浏览器看的（手机也能打开）；真正运行的是下面六个应用。
+        每个卡片都能跳到对应章节，下载链接放在同一张卡片里。</p>
+      <div class="appgrid">
+        <div class="appcard reveal">
+          <a class="apphead" href="#system"><img src="logos/phone-d.png" alt="GrooveD"><div><b>GrooveD</b><span>Android 手机应用</span></div></a>
+          <p>六个页面共用同一份会话表与行协议。</p>
+          <ul>
+            <li>STEM：YIN 哼唱 → 四轨编曲 → MIDI</li>
+            <li>REAL-TIME：10 旋钮 + 唱机，接 WebAudio 并输出 CC</li>
+            <li>GROOVE / SEQ：8 鼓垫、9 和弦垫、16 步 × 4 轨</li>
+            <li>LINK：USB / Wi-Fi 地址、密钥、日志</li>
+          </ul>
+          <div class="applinks"><a href="#system">看六个页面 →</a><a href="#shots">看截图 →</a><a class="dl" href="GrooveD.apk" download>下载 APK</a></div>
+        </div>
+        <div class="appcard reveal">
+          <a class="apphead" href="#watch"><img src="logos/stem-d.png" alt="Stem D"><div><b>Stem D</b><span>手表 · 四段弧</span></div></a>
+          <p>四轨音量、静音 / 独奏、中央黑胶搓盘、now playing。</p>
+          <ul><li>四段弧 = 四轨</li><li>长按静音，双击独奏</li><li>黑胶可搓，松手有惯性</li></ul>
+          <div class="applinks"><a href="#watch">看手表端 →</a><a class="dl" href="downloads/CEVTUO-XD-firmware.zip" download>下载固件包</a></div>
+        </div>
+        <div class="appcard reveal">
+          <a class="apphead" href="#watch"><img src="logos/groove-d.png" alt="Groove D"><div><b>Groove D</b><span>手表 · 鼓垫 / CC</span></div></a>
+          <p>8 个鼓垫、4 根 CC 推子、BPM / FX 旋钮、磁带机页。</p>
+          <ul><li>触摸映射 NOTEON / NOTEOFF / CC</li><li>BPM 与 FX 同链路</li><li>磁带机页做停止与变速</li></ul>
+          <div class="applinks"><a href="#watch">看手表端 →</a><a class="dl" href="downloads/CEVTUO-XD-firmware.zip" download>下载固件包</a></div>
+        </div>
+        <div class="appcard reveal">
+          <a class="apphead" href="#watch"><img src="logos/cospon-d.png" alt="COSpon D"><div><b>COSPON D</b><span>手表 · Agent</span></div></a>
+          <p>三张会话卡、最近 8 条对话、ALLOW / DENY、CONTINUE / HANDOFF、WIFI 双向。</p>
+          <ul><li>快照 AG → END 一次性提交</li><li>对话自动换行、可滚动</li><li>状态行会写出 NO HOST / CONN FAIL / SHORT</li></ul>
+          <div class="applinks"><a href="#watch">看手表端 →</a><a href="#actions">看两个动作 →</a><a class="dl" href="downloads/CEVTUO-XD-firmware.zip" download>下载固件包</a></div>
+        </div>
+        <div class="appcard reveal">
+          <a class="apphead" href="#watch"><img src="logos/muse-d.png" alt="Muse D"><div><b>Muse D</b><span>手表 · 第二个 OTA 槽</span></div></a>
+          <p>双系统分区里的第二个槽位，进入 / 返回不破坏电源轨。</p>
+          <ul><li>ota_0 = Watch，ota_1 = Muse</li><li>切换不格式 NVS</li><li>与其它三个 App 独立安装</li></ul>
+          <div class="applinks"><a href="#watch">看手表端 →</a><a class="dl" href="downloads/CEVTUO-XD-firmware.zip" download>下载固件包</a></div>
+        </div>
+        <div class="appcard reveal">
+          <a class="apphead" href="#web"><img src="logos/web-d.png" alt="CEVTUO XD Web"><div><b>CEVTUO XD Web</b><span>Mac · 网页控制台</span></div></a>
+          <p>Mac 服务在 8765 端口提供的 Web UI。</p>
+          <ul><li>设备 / Cospon D / Groove D / Stem</li><li>Now Playing / Studio / MIDI</li><li>agent 会话与审批队列</li></ul>
+          <div class="applinks"><a href="#web">看 Mac 端 →</a><a class="dl" href="downloads/CEVTUO-XD-mac.zip" download>下载 Mac 宿主包</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section id="why">
     <div class="wrap">
@@ -231,6 +305,23 @@
       <div class="grid2 rev" style="margin-top:18px">
         <div class="card reveal"><div class="media"><video src="media/seq-full.webm" poster="media/seq-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">SEQ 2.0 · 全屏</span></div><div class="pad"><h3>SEQ 2.0</h3><p>16 步 × 4 轨、三档力度、M/S、A–D 模式库、概率/摆动/TAP、三个宏旋钮、径向灯轮；Mac 不在也能本地生成。</p></div></div>
         <div class="card reveal"><div class="media"><video src="media/link-full.webm" poster="media/link-full.jpg" controls muted playsinline preload="metadata"></video><span class="cap">LINK · 全屏</span></div><div class="pad"><h3>LINK</h3><p>六格状态、Agent 1/0、API KEY、MAC HOST、发送 Mac 地址到手表、日志、主题；手机是整套系统的控制台。</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <div class="wrap">
+      <div class="label reveal">01.5 / SCREENS</div>
+      <h2 class="reveal">手机端截图<br><em>六个页面的实际运行</em></h2>
+      <p class="lede reveal">截图来自 SM-F9660 上的 <code>com.cevtuo.grooved</code>，2026-10-20 实机截屏；
+        不是设计稿，也不是合成图。</p>
+      <div class="shotgrid">
+        <figure class="shot reveal"><img src="shots/now.jpg" alt="NOW" loading="lazy"><figcaption><b>NOW</b><span>系统媒体会话、32 点轨道、中央圆盘与 CEVTUO NOW AI。</span></figcaption></figure>
+        <figure class="shot reveal"><img src="shots/stem.jpg" alt="STEM" loading="lazy"><figcaption><b>STEM</b><span>HUM、风格 / 调式 / 音色、编曲与播放、钢琴卷帘与和弦弧。</span></figcaption></figure>
+        <figure class="shot rt reveal"><img src="shots/realtime.jpg" alt="REAL-TIME" loading="lazy"><figcaption><b>REAL-TIME</b><span>10 个旋钮、FILTER 读数、唱机与黑胶。</span></figcaption></figure>
+        <figure class="shot reveal"><img src="shots/groove.jpg" alt="GROOVE" loading="lazy"><figcaption><b>GROOVE</b><span>8 鼓垫、9 和弦圆垫、XY 与 CC 推子。</span></figcaption></figure>
+        <figure class="shot reveal"><img src="shots/seq.jpg" alt="SEQ" loading="lazy"><figcaption><b>SEQ 2.0</b><span>16 步 × 4 轨、三档力度、径向轮与宏旋钮。</span></figcaption></figure>
+        <figure class="shot reveal"><img src="shots/link.jpg" alt="LINK" loading="lazy"><figcaption><b>LINK</b><span>六格状态、API KEY、MAC HOST、发送 Mac 地址与日志。</span></figcaption></figure>
       </div>
     </div>
   </section>
@@ -313,6 +404,7 @@
             <li><b>WIFI ON / OFF</b>：一个键双向；开时连 Wi-Fi 并轮询 <code>/api/agents/watch</code>，关时断开站点/配置 AP。</li>
           </ul>
           <p>消息选择：服务端先倒着收 32 条，滤掉图片占位、续接摘要、工具结果和中断提示，再取最后 8 条；每条 70 字，按 UTF-8 字节裁到手表缓冲区。这样最新的 assistant 回复不会被几条 user 消息挤掉。</p>
+          <p>一轮进行中、assistant 的文本还没落盘时，服务端会把最近一次 <code>thinking</code> / <code>tool_use</code> 补成一条「AI 正在调用 …」的消息。所以展开后不会只剩用户自己说的话。</p>
           <p>字体覆盖 ASCII、中文、中文标点和全角符号；服务端与串口桥都会过滤没有字形的字符，所以不会再出现一排长方形。换行由 LVGL 的 WRAP + 自适应高度负责，不再用固定高度裁掉后半句。</p>
           <p>Wi-Fi 轮询按块读满整个 HTTP 响应再解析；旧实现单次读 4095 字节，快照超过这个长度时 <code>END</code> 永远到不了，表现就是“Wi-Fi 连上了但什么都不显示”。状态行现在会写出 <code>NO HOST</code>、<code>CONN FAIL</code>、<code>SHORT</code>，底部显示 <code>LIVE</code> 或 <code>NO BRIDGE</code>。</p>
           <div class="pillrow"><span class="pill">8 条消息</span><span class="pill">自动换行</span><span class="pill">可滚动</span><span class="pill g">两个键</span></div>
@@ -320,6 +412,7 @@
       </div>
     </div>
   </section>
+
 
 
   <section id="actions">
@@ -336,6 +429,8 @@
             <li><b>Codex 会话</b>：直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>，后台跑，日志写 <code>~/Library/Logs/grooved-continue.log</code>。</li>
             <li><b>其它 agent</b>：没有可用的 CLI resume，所以只把提示词放进剪贴板；手表显示 <code>CONTINUE READY</code>，粘贴到对话框即可继续。</li>
             <li>不静默：成功/失败都会以 <code>ACT</code> 行回手表，失败不会假装成功。</li>
+            <li>回执在底栏保留 20 秒：<code>ACT CONTINUE READY</code> / <code>ACT HANDOFF READY</code> / <code>ACT … FAIL</code>。旧版直接写详情状态行，而状态行每 2 秒被快照覆盖一次，所以看不见。</li>
+            <li>剪贴板写入会回读校验；launchd 里 <code>pbcopy</code> 退出 0 但剪贴板为空的情况，会改用 <code>osascript</code> 再写一次。</li>
           </ul></div></div>
         <div class="card reveal"><div class="pad"><h3>HANDOFF · 交接给下一个窗口</h3>
           <p>服务端把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写进
@@ -345,6 +440,29 @@
             <li>文件写失败时返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>，不会只报“成功”。</li>
             <li>交接内容不包含宿主 App 名；只写项目、agent 和工作本身。</li>
           </ul></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="web">
+    <div class="wrap">
+      <div class="label reveal">05.8 / MAC / WEB</div>
+      <h2 class="reveal">Mac 端<br><em>网页控制台</em></h2>
+      <p class="lede reveal">Mac 服务启动后在 <code>8765</code> 端口提供网页控制台（标题 <code>Cevtuo-X-D</code>）。
+        它和手机 App 不是同一份代码：这里看设备状态、agent 会话、MIDI 与 Studio 路由；手机 App 负责采集与演奏。</p>
+      <div class="grid2">
+        <div class="card reveal"><div class="media"><img src="shots/mac-web.jpg" alt="Mac 网页控制台"></div>
+          <div class="pad"><h3>CEVTUO XD Web</h3><p>六个页签：设备 / Cospon D / Groove D / Stem / Now Playing / Studio / MIDI。
+            地址是 <code>http://&lt;Mac 局域网 IP&gt;:8765/</code>。</p></div></div>
+        <div class="card reveal"><div class="pad"><h3>它做什么</h3><ul>
+          <li><b>设备</b>：BPM、电平、连接状态。</li>
+          <li><b>COSpon D</b>：agent 会话、上下文、审批队列。</li>
+          <li><b>Groove D / Stem</b>：推子、鼓垫、四段弧的镜像。</li>
+          <li><b>Now Playing / Studio / MIDI</b>：媒体信息、编曲结果、MIDI 路由。</li>
+        </ul>
+        <p>它是 Mac 服务的一部分，不是独立 App；关掉服务就没有这个页面。</p>
+        <div class="applinks"><a class="dl" href="downloads/CEVTUO-XD-mac.zip" download>下载 Mac 宿主包</a><a href="#install">安装说明 →</a></div>
+        </div></div>
       </div>
     </div>
   </section>
@@ -443,36 +561,10 @@
     </div>
   </section>
 
-  <section id="limits">
-    <div class="wrap">
-      <div class="label reveal">08 / HONEST</div>
-      <h2 class="reveal">已验证<br><em>与未完成</em></h2>
-      <div class="grid2">
-        <div class="card reveal"><div class="pad"><h3>已验 / 已装</h3><ul>
-          <li>手机 APK 1.2MB，已装 SM-F9660；系统栏露出，WebView 避开 110px cutout。</li>
-          <li>NOW 默认首页、浅色默认、夜间按钮、CEVTUO NOW AI、无黑点、玻璃大标题。</li>
-          <li>PERFORM 74×74、34 灯点、指针、ENERGY 联动；SEQ 64 格；LINK Agent 1/0。</li>
-          <li>手表固件已用 PlatformIO 重新构建并刷入（RAM 28.3%、Flash 95.2%）；COSPON D 卡片/详情、8 条消息、CONTINUE/HANDOFF、ALLOW/DENY、WIFI 双向都已编进固件。</li>
-          <li>COSPON D 的 Wi-Fi 轮询已改成读取完整响应体：旧实现只读 4095 字节，而 3 个会话 × 8 条消息的快照可超过 6KB，<code>END</code> 被截断后快照永远不提交。</li>
-          <li>服务端 <code>/api/agents/action</code> 已实测：HANDOFF 会写 Markdown 并复制提示词；CONTINUE 对 Codex 走 resume，其它 agent 复制提示词。</li>
-          <li>页面实测：8 个 <code>&lt;video&gt;</code> 全部 <code>readyState=4</code>，4 个手表 GIF 正常加载，0 个 4xx/5xx、0 个 pageerror。</li>
-          <li>手表固件：RAM 24.5%、Flash 95.1%，写入 + 校验通过；新增字体覆盖 ASCII、中文、中文标点和全角符号。</li>
-        </ul></div></div>
-        <div class="card reveal"><div class="pad"><h3>还没做到 / 需要你</h3><ul>
-          <li>手表 Wi-Fi 的代码路径已修并刷入，但还需要在真机完整走一次：按 WIFI、手机连配置 AP、填 Wi-Fi、在 LINK 发 Mac 地址，再拔掉 USB 观察轮询。状态行会显示 <code>NO HOST</code> / <code>CONN FAIL</code> / <code>SHORT</code>，不会只剩一块空屏。</li>
-          <li>权限浮层要真的出现，需要客户端的 PermissionRequest hook 把请求送进 <code>/api/agents/request</code>。</li>
-          <li>Claude 会话没有可用的 CLI resume，所以 CONTINUE 目前是“复制提示词”；Codex 会话可以直接 resume。</li>
-          <li>录屏是 webm（Chrome/Edge 可播）；APK 是 debug 签名；MediaProjection 每次会话要手动授权。</li>
-          <li>手表 GIF 是固件屏幕录制；COSPON 的两张用了测试数据（项目 Codex、示例对话），不是真实会话回放。</li>
-          <li>手表字体是 12px 1BPP 全 CJK 子集，极端生僻字仍可能缺字形；服务端会先把不支持的字符替换成空格，避免出现长方形。</li>
-        </ul></div></div>
-      </div>
-    </div>
-  </section>
 
   <section id="install">
     <div class="wrap">
-      <div class="label reveal">09 / INSTALL</div>
+      <div class="label reveal">08 / INSTALL</div>
       <h2 class="reveal">安装<br><em>与运行</em></h2>
       <div class="grid2">
         <div class="card reveal"><div class="pad"><h3>手机</h3><ul>
