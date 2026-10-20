@@ -383,7 +383,8 @@
     <div class="wrap">
       <div class="label reveal">05 / WATCH</div>
       <h2 class="reveal">手表端<br><em>四个 App</em></h2>
-      <p class="lede reveal">手表固件包含 Stem D、Groove D、COSPON D、Muse D 四个独立 App。
+      <p class="lede reveal">手表界面用复古硬件语言：纯黑屏、米白点阵字、单一橙色呼吸点。
+        固件包含 Stem D、Groove D、COSPON D、Muse D 四个独立 App。
         COSPON D 的卡片标题是项目名，副标题是 agent，不显示宿主 App；展开后显示最近 8 条对话，
         自动换行并可滚动。数据来自 Mac：USB 串口每 2 秒推送一次快照；Wi-Fi 模式下手表主动轮询
         <code>/api/agents/watch</code>。</p>
@@ -402,6 +403,9 @@
             <li><b>HANDOFF</b>：把会话、最近对话、项目与下一步写成 <code>docs/handoff-时间.md</code>，并把「读这份文档，然后继续」复制到剪贴板。</li>
             <li><b>ALLOW / DENY</b>：有待批权限时单独浮层出现，按下发 <code>G1 PERM &lt;id&gt; allow|deny</code>。</li>
             <li><b>WIFI ON / OFF</b>：一个键双向；开时连 Wi-Fi 并轮询 <code>/api/agents/watch</code>，关时断开站点/配置 AP。</li>
+            <li><b>TURN</b>：右柱显示本轮从最后一条用户消息开始的耗时（分/秒）；卡片状态行也带分钟。</li>
+            <li><b>STEPS</b>：点左侧 <code>CTX</code> 柱切换 <code>CHAT ↔ STEPS</code>，STEPS 里是最近 6 次工具调用。</li>
+            <li><b>居中</b>：内容变化时把最新一条对话放在列表中线，不再永远贴底；内容不变时不打断你的滚动。</li>
           </ul>
           <p>消息选择：服务端先倒着收 32 条，滤掉图片占位、续接摘要、工具结果和中断提示，再取最后 8 条；每条 70 字，按 UTF-8 字节裁到手表缓冲区。这样最新的 assistant 回复不会被几条 user 消息挤掉。</p>
           <p>一轮进行中、assistant 的文本还没落盘时，服务端会把最近一次 <code>thinking</code> / <code>tool_use</code> 补成一条「AI 正在调用 …」的消息。所以展开后不会只剩用户自己说的话。</p>
