@@ -403,9 +403,10 @@
             <li><b>HANDOFF</b>：把会话、最近对话、项目与下一步写成 <code>docs/handoff-时间.md</code>，并把「读这份文档，然后继续」复制到剪贴板。</li>
             <li><b>ALLOW / DENY</b>：有待批权限时单独浮层出现，按下发 <code>G1 PERM &lt;id&gt; allow|deny</code>。</li>
             <li><b>WIFI ON / OFF</b>：一个键双向；开时连 Wi-Fi 并轮询 <code>/api/agents/watch</code>，关时断开站点/配置 AP。</li>
-            <li><b>TURN</b>：右柱显示本轮从最后一条用户消息开始的耗时（分/秒）；卡片状态行也带分钟。</li>
-            <li><b>STEPS</b>：点左侧 <code>CTX</code> 柱切换 <code>CHAT ↔ STEPS</code>，STEPS 里是最近 6 次工具调用。</li>
-            <li><b>居中</b>：内容变化时把最新一条对话放在列表中线，不再永远贴底；内容不变时不打断你的滚动。</li>
+            <li><b>TOTAL / TURN</b>：顶部显示整个对话的总时长；右柱 TURN 才是本轮从最后一条用户消息开始的耗时。</li>
+            <li><b>STEPS</b>：详情默认就是 STEPS，最近 6 次工具调用一条一条列出；点左侧柱子切换 <code>CHAT ↔ STEPS</code>。</li>
+            <li><b>居中</b>：内容变化时把最新一条对话放在列表中间偏下，不再永远贴底；内容不变时不打断你的滚动。</li>
+            <li><b>关闭</b>：右上角 <code>X</code> 或黄色返回键退出详情；详情是全屏，不再画一个小圆圈。</li>
           </ul>
           <p>消息选择：服务端先倒着收 32 条，滤掉图片占位、续接摘要、工具结果和中断提示，再取最后 8 条；每条 70 字，按 UTF-8 字节裁到手表缓冲区。这样最新的 assistant 回复不会被几条 user 消息挤掉。</p>
           <p>一轮进行中、assistant 的文本还没落盘时，服务端会把最近一次 <code>thinking</code> / <code>tool_use</code> 补成一条「AI 正在调用 …」的消息。所以展开后不会只剩用户自己说的话。</p>
@@ -576,6 +577,8 @@
           <li>USB：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>，LINK 的 MAC HOST 填 <code>http://127.0.0.1:8765</code>。</li>
           <li>Wi-Fi：服务监听 <code>0.0.0.0:8765</code>，LINK 填 <code>http://&lt;Mac 局域网 IP&gt;:8765</code>。</li>
           <li>通知使用权：NOW 读媒体会话需要它，只读媒体信息。</li>
+          <li><b>CONTINUE 权限</b>：Mac 上一次性把 <code>~/Applications/COSPOND Send.app</code> 加进「系统设置 → 隐私与安全性 → 辅助功能」并打开。macOS 不允许后台服务合成键盘事件；没有这个授权，手表会显示 <code>CONTINUE FAIL</code>，提示词仍在剪贴板里。</li>
+          <li><b>Wi-Fi 自动找 Mac</b>：手表连上 Wi-Fi 后会广播 <code>GROOVED?</code>，Mac 自动回自己的 IP，不用再回手机点「发送 Mac 地址」。换到已保存过的 Wi-Fi 会自己连；全新 Wi-Fi 仍需一次配网。</li>
         </ul></div></div>
         <div class="card reveal"><div class="pad"><h3>手表固件</h3><ul>
           <li>下载 <a href="downloads/CEVTUO-XD-firmware.zip" download>固件包</a>：四个 App 的 C++ 源码、12px CJK 字体、图标、预编译 bin、烧写脚本。</li>
