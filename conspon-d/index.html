@@ -439,6 +439,7 @@ END</pre>
         <ul class="kv">
           <li><b>Handoff</b><span>任何状态都显示；working 时也能点</span></li>
           <li><b>Continue</b><span>idle 时显示；working 时等这一轮结束</span></li>
+          <li><b>Press</b><span>按下即动作，不等抬手（圆屏容易把 click 判成滑动）</span></li>
           <li><b>Wire</b><span><code>G1 ACTION &lt;slot&gt; continue|handoff</code></span></li>
           <li><b>Server</b><span><code>POST /api/agents/action</code></span></li>
           <li><b>Codex</b><span><code>codex exec resume</code> · log <code>~/Library/Logs/grooved-continue.log</code></span></li>
