@@ -1,164 +1,103 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CEVTUO XD — a wearable music system</title>
-<meta name="description" content="Stem D, Groove D, Cospon D and Muse D — four apps on one round watch, wired to your Mac and phone.">
-<link rel="icon" href="/logo.png">
+<title>GROOVE D · CEVTUO XD — 手表 / 手机 / Mac 三层创作系统</title>
 <style>
   :root{
-    --paper:#f2f0ea; --ink:#0b0b0b; --dim:#6f6d66; --line:#d9d5cb;
-    --accent:#ff4a1c; --green:#57e39b; --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
-    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --bg:#0c0e11; --panel:#15181d; --panel2:#1b1f25; --line:#2a3038;
+    --ink:#eef1f5; --dim:#9aa3ae; --muted:#6c7580;
+    --orange:#ff6a2b; --cyan:#45d6ff; --green:#57e39b; --violet:#8b6cff;
+    --radius:20px;
   }
   *{box-sizing:border-box}
-  html{background:var(--paper);color:var(--ink)}
-  body{margin:0;font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
-  a{color:inherit}
-  .wrap{max-width:1240px;margin:0 auto;padding:0 28px}
-  .mono{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
-  .dim{color:var(--dim)}
-  header.nav{position:sticky;top:0;z-index:20;background:rgba(242,240,234,.86);
-    backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-  .navin{display:flex;align-items:center;gap:26px;height:64px}
-  .brand{font-weight:800;letter-spacing:.02em;font-size:17px;text-decoration:none}
-  .brand sup{font-size:9px;vertical-align:super;letter-spacing:.1em}
-  .brand span{color:var(--accent)}
-  .navlinks{display:flex;gap:22px;margin-left:auto}
-  .navlinks a{text-decoration:none;font-family:var(--mono);font-size:11px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--dim)}
-  .navlinks a:hover{color:var(--ink)}
-  .navbtn{text-decoration:none;background:var(--ink);color:#fff;padding:11px 18px;border-radius:999px;
-    font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-  .hero{display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:center;
-    padding:74px 0 50px}
-  .pill{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);
-    border-radius:999px;padding:7px 13px;font-family:var(--mono);font-size:10px;
-    letter-spacing:.12em;text-transform:uppercase;color:var(--dim);background:#fff8}
-  .pill i{width:7px;height:7px;border-radius:50%;background:var(--green);
-    box-shadow:0 0 0 4px #57e39b22}
-  h1{font-size:clamp(44px,6.6vw,88px);line-height:.95;letter-spacing:-.045em;margin:22px 0 20px;
-    font-weight:800}
-  h1 em{font-style:normal;color:var(--accent)}
-  .lede{max-width:520px;color:var(--dim);font-size:17px;line-height:1.55}
-  .ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
-  .btn{display:inline-flex;align-items:center;gap:10px;text-decoration:none;border-radius:999px;
-    padding:15px 22px;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase}
-  .btn.primary{background:var(--ink);color:#fff}
-  .btn.ghost{border:1px solid var(--line);color:var(--ink);background:#fff6}
-  .btn:hover{transform:translateY(-1px)}
-  .meta{display:flex;gap:26px;margin-top:34px;flex-wrap:wrap}
-  .meta div b{display:block;font-size:22px;letter-spacing:-.02em}
-  .meta div span{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--dim);
-    text-transform:uppercase}
-  .watch{display:flex;justify-content:center}
-  .watch svg{width:min(430px,88vw);height:auto;filter:drop-shadow(0 30px 50px rgba(0,0,0,.22))}
-
-  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-    overflow:hidden;white-space:nowrap;padding:13px 0;background:#fff5}
-  .ticker div{display:inline-block;animation:run 28s linear infinite;font-family:var(--mono);
-    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
-  .ticker b{color:var(--ink);font-weight:600}
-  @keyframes run{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-
-  section{padding:82px 0}
-  section[id]{scroll-margin-top:84px}
-  .sec-head{display:flex;align-items:end;justify-content:space-between;gap:20px;
-    border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:34px}
-  .sec-head h2{font-size:clamp(28px,3.6vw,46px);letter-spacing:-.035em;line-height:1.02;margin:0;
-    font-weight:800}
-  .sec-head p{max-width:430px;color:var(--dim);margin:0}
-
-  .apps{background:var(--ink);color:#fff}
-  .apps .sec-head{border-color:#2a2a2a}
-  .apps .sec-head p{color:#9c9a94}
-  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:#262626;
-    border:1px solid #262626}
-  .app{background:var(--ink);padding:26px 26px 30px;min-height:300px;display:flex;
-    flex-direction:column;gap:14px;position:relative;overflow:hidden}
-  .app img{width:112px;height:112px;image-rendering:auto;margin-bottom:4px}
-  .app .tag{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:#8f8d87;
-    text-transform:uppercase}
-  .app h3{font-size:28px;letter-spacing:-.03em;margin:0;line-height:1}
-  .app p{color:#a9a7a0;font-size:14.5px;line-height:1.55;margin:0;max-width:390px}
-  .app ul{list-style:none;padding:0;margin:auto 0 0;display:flex;flex-wrap:wrap;gap:7px}
-  .app li{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
-    border:1px solid #333;border-radius:999px;padding:5px 9px;color:#bdbab2}
-  .app .no{position:absolute;right:22px;top:20px;font-family:var(--mono);font-size:10px;
-    letter-spacing:.14em;color:#5a5853}
-
-  /* Recordings —— 真机画面。233×233 是 466 面板的 2 倍降采样，
-     所以按 1:1 附近显示，别用 image-rendering:pixelated 放大成锯齿。 */
-  .rec .recgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
-  .rec-card{margin:0;display:flex;flex-direction:column;gap:16px}
-  .rec-card .screen{position:relative;aspect-ratio:1/1;border-radius:50%;background:#050505;
-    overflow:hidden;box-shadow:0 0 0 9px #171717,0 0 0 10px #2e2e2e,0 24px 46px rgba(0,0,0,.26)}
-  .rec-card .screen img{width:100%;height:100%;object-fit:cover;display:block}
-  .rec-card figcaption{font-size:13.5px;line-height:1.5;color:var(--dim)}
-  .rec-card figcaption b{display:block;color:var(--ink);font-size:15px;margin-bottom:3px}
-  .rec-card .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
-    text-transform:uppercase;color:#a6a39b;margin-left:6px}
-
-  .featwrap{background:var(--ink);color:#fff}
-  .featwrap .sec-head{border-color:#2a2a2a}
-  .featwrap .sec-head p{color:#9c9a94}
-  .featgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#262626;border:1px solid #262626}
-  .feat{background:#111;padding:20px 18px 22px;min-height:132px}
-  .feat .k{font-family:var(--mono);font-size:9px;letter-spacing:.14em;color:#8f8d87;text-transform:uppercase}
-  .feat b{display:block;font-size:17px;margin:6px 0 6px}
-  .feat p{color:#a9a7a0;font-size:13px;line-height:1.5;margin:0}
-
-  .chain{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-  .step{border-top:1px solid var(--line);padding-top:20px}
-  .step .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--accent)}
-  .step h3{font-size:22px;letter-spacing:-.02em;margin:12px 0 8px}
-  .step p{color:var(--dim);font-size:14.5px;margin:0}
-  .step code{font-family:var(--mono);font-size:11px;background:#e8e5dc;padding:2px 6px;
-    border-radius:5px;color:#3b3933}
-
-  .dl{background:var(--ink);color:#fff}
-  .dl .sec-head{border-color:#2a2a2a}
-  .dl .sec-head p{color:#9c9a94}
-  .dlbox{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start}
-  .dlcard{border:1px solid #2f2f2f;border-radius:22px;padding:26px;background:#111}
-  .dlcard .row{display:flex;align-items:center;justify-content:space-between;gap:16px;
-    border-bottom:1px solid #262626;padding:12px 0;font-family:var(--mono);font-size:11px;
-    letter-spacing:.08em;color:#b7b4ad}
-  .dlcard .row:last-of-type{border:0}
-  .dlcard .row b{color:#fff;font-weight:600}
-  .dlcard .btn.primary{background:var(--green);color:#07130c;width:100%;justify-content:center;
-    margin-top:16px}
-  .dlcard a.mini{display:block;text-align:center;margin-top:12px;color:#8f8d87;font-family:var(--mono);
-    font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none}
-  pre{background:#0a0a0a;border:1px solid #242424;border-radius:14px;padding:16px 18px;
-    overflow:auto;font:12px/1.7 var(--mono);color:#cfccc4}
-  pre b{color:var(--green);font-weight:500}
-  .note{color:#8f8d87;font-size:13px;line-height:1.6;margin-top:14px}
-  .note b{color:#fff;font-weight:600}
-
-  footer{border-top:1px solid var(--line);padding:30px 0 46px;display:flex;gap:20px;
-    align-items:center;justify-content:space-between;flex-wrap:wrap}
-  footer .mono{color:var(--dim)}
-  footer a{text-decoration:none;color:var(--dim)}
-  footer a:hover{color:var(--ink)}
-
-  @media (max-width:900px){
-    .hero{grid-template-columns:1fr;padding-top:46px}
-    .watch{order:-1}
-    .apps .grid{grid-template-columns:1fr}
-    .featgrid{grid-template-columns:1fr}
-    .rec .recgrid{grid-template-columns:repeat(2,1fr)}
-    .chain{grid-template-columns:1fr;gap:18px}
-    .dlbox{grid-template-columns:1fr}
-    .navlinks{display:none}
-  }
-  @media (max-width:560px){
-    .wrap{padding:0 18px}
-    section{padding:58px 0}
-    .sec-head{display:block}
-    .sec-head p{margin-top:12px}
-    .app{min-height:0}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:
+    radial-gradient(1200px 700px at 50% -10%, #2a3038 0%, transparent 62%),
+    radial-gradient(800px 500px at 100% 10%, #16252c 0%, transparent 58%),
+    var(--bg);
+    color:var(--ink);font:15px/1.65 -apple-system,"SF Pro Text","PingFang SC",system-ui,sans-serif}
+  a{color:var(--cyan);text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+  header.nav{position:sticky;top:0;z-index:20;background:rgba(12,14,17,.82);
+    backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+  .navin{display:flex;align-items:center;gap:20px;height:58px}
+  .brand{font-weight:900;letter-spacing:.12em;font-size:14px}
+  .brand i{color:var(--orange);font-style:normal}
+  .nav a{color:var(--dim);font-size:12px;letter-spacing:.04em}
+  .nav a:hover{color:var(--ink)}
+  .nav .sp{flex:1}
+  .nav .dl{background:var(--ink);color:#0c0e11;padding:7px 12px;border-radius:999px;font-weight:700}
+  .hero{padding:64px 0 34px;position:relative;overflow:hidden}
+  .hero:before{content:"CEVTUO D";position:absolute;right:-4%;top:-10px;font-size:clamp(90px,16vw,210px);
+    font-weight:900;letter-spacing:-.08em;color:rgba(255,255,255,.035);white-space:nowrap;pointer-events:none}
+  .eyebrow{color:var(--green);font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  h1{font-size:clamp(46px,8vw,96px);line-height:.92;letter-spacing:-.06em;margin:10px 0 12px}
+  h1 em{font-style:normal;color:var(--orange)}
+  .lede{max-width:780px;color:var(--dim);font-size:16px;line-height:1.8}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin:26px 0 10px}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:14px;
+    border:1px solid var(--line);background:var(--panel);color:var(--ink);font-weight:700;font-size:13px}
+  .btn.primary{background:linear-gradient(135deg,var(--orange),#ff2e6e);border:0;color:#fff;
+    box-shadow:0 14px 34px rgba(255,46,110,.28)}
+  .btn.ghost{background:transparent}
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:26px}
+  .stats div{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .stats b{display:block;font-size:22px;letter-spacing:-.02em}
+  .stats span{font-size:10px;letter-spacing:.12em;color:var(--muted)}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;padding:20px 0 4px}
+  .toc a{font-size:11px;letter-spacing:.06em;color:var(--dim);border:1px solid var(--line);
+    padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02)}
+  .toc a:hover{color:var(--ink);border-color:#3a4654}
+  section{padding:48px 0 10px;border-top:1px solid var(--line);margin-top:26px}
+  .sec-head{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:20px}
+  .sec-head h2{font-size:30px;letter-spacing:-.03em;margin:0}
+  .sec-head p{margin:0;color:var(--dim);font-size:12px;max-width:640px}
+  .kicker{font-size:10px;letter-spacing:.2em;color:var(--cyan);text-transform:uppercase}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}
+  .grid.rev{grid-template-columns:.85fr 1.15fr}
+  .card{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);
+    border-radius:var(--radius);padding:18px;box-shadow:0 18px 40px rgba(0,0,0,.25)}
+  .card h3{margin:0 0 6px;font-size:18px;letter-spacing:-.01em}
+  .card p{margin:0 0 10px;color:var(--dim);font-size:13.5px}
+  .card ul{margin:8px 0 0;padding-left:18px;color:var(--dim);font-size:13px}
+  .card li{margin:4px 0}
+  .tag{display:inline-block;font-size:9.5px;letter-spacing:.1em;padding:3px 8px;border-radius:999px;
+    border:1px solid var(--line);color:var(--muted);margin:2px 4px 2px 0}
+  .tag.hot{color:#ffd8c4;border-color:#67402c;background:#2a1a12}
+  .tag.ok{color:#c8ffe3;border-color:#2d5544;background:#12251c}
+  video{width:100%;display:block;border-radius:14px;background:#000;border:1px solid #20262d}
+  .media-note{font-size:10px;color:var(--muted);margin-top:6px;letter-spacing:.04em}
+  .video-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .watchgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .watchgrid figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:10px;text-align:center}
+  .watchgrid img{width:100%;border-radius:12px;background:#000}
+  .watchgrid figcaption{font-size:11px;color:var(--dim);margin-top:8px}
+  .tablewrap{overflow:auto;border:1px solid var(--line);border-radius:16px}
+  table{border-collapse:collapse;width:100%;min-width:720px;font-size:12.5px}
+  th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+  th{background:#12161b;color:var(--dim);font-size:10px;letter-spacing:.12em;text-transform:uppercase}
+  tr:last-child td{border-bottom:0}
+  td b{color:var(--ink)}
+  .algo{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .algo .card{padding:15px}
+  .algo h4{margin:0 0 6px;font-size:14px}
+  .algo p{font-size:12.5px;margin:0}
+  .quote{border-left:3px solid var(--orange);padding:10px 14px;background:#1a1410;border-radius:0 12px 12px 0;
+    color:#e6c9b8;font-size:12.5px}
+  .footer{padding:50px 0 60px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);margin-top:40px}
+  .footer .brand{font-size:18px;margin-bottom:8px}
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:10px;color:var(--dim);
+    border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+  .pill i{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block}
+  @media(max-width:860px){
+    .grid,.grid.rev{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .video-pair{grid-template-columns:1fr}
+    .watchgrid{grid-template-columns:repeat(2,1fr)}
+    .algo{grid-template-columns:1fr}
+    .nav a:not(.dl){display:none}
   }
 </style>
 </head>
@@ -166,264 +105,373 @@
 
 <header class="nav">
   <div class="wrap navin">
-    <a class="brand" href="/">CEVTUO<sup>®</sup> <span>XD</span></a>
-    <nav class="navlinks">
-      <a href="#apps">Apps</a>
-      <a href="#phone">Phone app</a>
-      <a href="#recordings">Recordings</a>
-      <a href="#chain">How it works</a>
-      <a href="#download">Download</a>
-    </nav>
-    <a class="navbtn" href="#download">Get the app</a>
+    <div class="brand">CEVTUO <i>XD</i></div>
+    <a href="#now">NOW</a><a href="#stem">STEM</a><a href="#rt">REAL-TIME</a>
+    <a href="#groove">GROOVE</a><a href="#seq">SEQ</a><a href="#link">LINK</a>
+    <a href="#watch">手表</a><a href="#algo">AI / 算法</a><a href="#all">全部功能</a>
+    <span class="sp"></span>
+    <a class="dl" href="GrooveD.apk" download>下载 APK</a>
   </div>
 </header>
 
-<main>
-  <div class="wrap hero">
+<div class="wrap hero">
+  <div class="eyebrow">CEVTUO XD · 2026-10-20</div>
+  <h1>GROOVE <em>D</em></h1>
+  <p class="lede">
+    一块 M5 手表、一部安卓手机、一台 Mac，组成一套从「哼一句」到「成一首」、再到「戴在手上演奏」的完整系统。
+    手机负责想法与声音，手表负责手上的动作，Mac 负责乐理、LLM、MIDI 与 Agent。所有页面都可以离线使用，
+    有 Mac 时再自动接上 AI 与真实 MIDI。
+  </p>
+  <div class="actions">
+    <a class="btn primary" href="GrooveD.apk" download>下载 Android APK · 1.2 MB</a>
+    <a class="btn ghost" href="#watch">看手表端</a>
+    <a class="btn ghost" href="#all">全部功能清单</a>
+  </div>
+  <div class="stats">
+    <div><b>5</b><span>手机主页面</span></div>
+    <div><b>4</b><span>手表 App</span></div>
+    <div><b>12</b><span>Dribbble 视觉参考</span></div>
+    <div><b>344</b><span>常驻断言</span></div>
+  </div>
+  <div class="toc">
+    <a href="#now">NOW 播放器</a><a href="#stem">STEM 编曲</a><a href="#rt">REAL-TIME 唱机</a>
+    <a href="#groove">GROOVE 鼓机</a><a href="#seq">SEQ 2.0</a><a href="#link">LINK 连接</a>
+    <a href="#watch">COSPON D</a><a href="#algo">AI 与算法</a><a href="#all">功能总表</a><a href="#limits">限制</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="now">
+  <div class="sec-head">
+    <div><div class="kicker">01 · NOW</div><h2>播放器，也是 CEVTUO NOW AI</h2></div>
+    <p>打开 App 的默认页面。白色玻璃播放器、点阵轨道、专辑封面、MUSE/CEVTUO NOW AI，以及一个真正会转的中央圆盘。</p>
+  </div>
+  <div class="grid">
     <div>
-      <span class="pill"><i></i> Wearable music system · 2026</span>
-      <h1>Music,<br>on your <em>wrist.</em></h1>
-      <p class="lede">Four apps on one 466px round watch — a stem mixer, a drum machine,
-        an agent console and a second OS. Wired to your Mac and your phone over one USB cable.</p>
-      <div class="ctas">
-        <a class="btn primary" href="#download">Download for Android</a>
-        <a class="btn ghost" href="#chain">See how it connects</a>
-      </div>
-      <div class="meta">
-        <div><b>4</b><span>watch apps</span></div>
-        <div><b>16</b><span>step sequencer</span></div>
-        <div><b>&lt; 1s</b><span>USB round trip</span></div>
-      </div>
+      <video src="media/now-full.webm" poster="media/now-full.jpg" controls muted playsinline preload="metadata"></video>
+      <div class="media-note">全屏录屏 · 412×960 · 浅色 → 夜间 → 浅色 · 圆盘 AI 面板</div>
     </div>
-
-    <div class="watch">
-      <svg viewBox="0 0 360 360" role="img" aria-label="CEVTUO XD watch">
-        <defs>
-          <radialGradient id="vinyl" cx="38%" cy="30%" r="80%">
-            <stop offset="0" stop-color="#8a141b"/>
-            <stop offset=".55" stop-color="#5a0a10"/>
-            <stop offset="1" stop-color="#220307"/>
-          </radialGradient>
-          <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#2a2a2a"/>
-            <stop offset="1" stop-color="#0a0a0a"/>
-          </linearGradient>
-        </defs>
-        <rect x="139" y="2" width="82" height="58" rx="16" fill="#161616"/>
-        <rect x="139" y="300" width="82" height="58" rx="16" fill="#161616"/>
-        <circle cx="180" cy="180" r="152" fill="url(#case)" stroke="#333"/>
-        <circle cx="180" cy="180" r="140" fill="#050505"/>
-        <g fill="none" stroke-width="9" stroke-linecap="round">
-          <path d="M189 52 A128 128 0 0 1 308 171" stroke="#ffffff" opacity=".22"/>
-          <path d="M52 171 A128 128 0 0 1 171 52" stroke="#ffffff" opacity=".22"/>
-          <path d="M171 308 A128 128 0 0 1 52 189" stroke="#ffffff" opacity=".22"/>
-          <path d="M308 189 A128 128 0 0 1 189 308" stroke="#ffffff" opacity=".22"/>
-          <path d="M189 52 A128 128 0 0 1 308 171" stroke="#57e39b" stroke-dasharray="128 220"/>
-          <path d="M52 171 A128 128 0 0 1 171 52" stroke="#57e39b" stroke-dasharray="128 220"/>
-          <path d="M171 308 A128 128 0 0 1 52 189" stroke="#57e39b" stroke-dasharray="128 220"/>
-          <path d="M308 189 A128 128 0 0 1 189 308" stroke="#57e39b" stroke-dasharray="128 220"/>
-        </g>
-        <circle cx="180" cy="180" r="88" fill="url(#vinyl)" stroke="#ff8a8a" stroke-opacity=".35"/>
-        <circle cx="180" cy="180" r="74" fill="none" stroke="#fff" stroke-opacity=".08"/>
-        <circle cx="180" cy="180" r="58" fill="none" stroke="#fff" stroke-opacity=".08"/>
-        <rect x="130" y="148" width="100" height="64" rx="10" fill="#f3efe6"/>
-        <path d="M146 182c9-10 14-14 20-12 7 2 9 8 16 6 6-2 8-8 14-7"
-              fill="none" stroke="#8a141b" stroke-width="2.2" stroke-linecap="round"/>
-        <text x="180" y="205" text-anchor="middle" font-family="ui-monospace,monospace"
-              font-size="7" fill="#555">TEST SONG</text>
-        <circle cx="180" cy="180" r="3.2" fill="#d33"/>
-        <g font-family="ui-monospace,monospace" font-size="9" fill="#cfd7d2">
-          <text x="180" y="104" text-anchor="middle" opacity=".8">AUDIO IN</text>
-          <text x="180" y="262" text-anchor="middle" opacity=".7">120 BPM</text>
-        </g>
-        <circle cx="180" cy="97" r="2.6" fill="#57e39b"/>
-      </svg>
+    <div class="card">
+      <h3>它做什么</h3>
+      <p>读手机当前播放的媒体会话：标题、歌手、专辑、进度、播放态。中央圆盘是可视化的核心，也是 CEVTUO NOW AI 的入口。</p>
+      <ul>
+        <li><b>中央圆盘</b>：32 点轨道、彩色核心、外圈进度环。点一下打开 CEVTUO NOW AI；再点一下收起。</li>
+        <li><b>CEVTUO NOW AI</b>：把歌名/歌手发给 Mac 的 <code>/api/studio/ask</code>，返回一句律动建议与 style/BPM/swing/chaos/energy 参数；点「做成律动」直接生成编排并切到 STEM。</li>
+        <li><b>离线建议</b>：Mac 没起时用标题哈希给出确定性的本地建议，并明确标注「Mac 未连接」，不假装是 AI。</li>
+        <li><b>专辑封面</b>：原生桥读 <code>METADATA_KEY_ALBUM_ART</code>/<code>ART</code>，缩到 168px JPEG 下行；没有封面时显示彩色核心。</li>
+        <li><b>小封面卡</b>：圆盘下方 46px 封面 + 歌名 + 实时波形，不用很大。</li>
+        <li><b>走带</b>：上一首 / 暂停 / 下一首 / 拖动 seek；右下角黑灰环形 MASTER，指针绕圆心转。</li>
+        <li><b>XL</b>：放大播放器；<b>耳机贴片</b>、3×3 点阵、背后超大 “Music” 水印都保留。</li>
+        <li><b>顶部玻璃字</b>：CEVTUO D，白色半透明 + 细描边；夜间模式自动变暗。</li>
+        <li><b>主题</b>：右上角月亮/太阳，一键浅色/夜间；选择会记住。</li>
+      </ul>
+      <div><span class="tag hot">默认首页</span><span class="tag">专辑封面</span><span class="tag">CEVTUO NOW AI</span><span class="tag ok">离线可用</span></div>
     </div>
   </div>
+</section>
 
-  <div class="ticker">
-    <div><b>STEM D</b> — four-track mixer &nbsp;·&nbsp; <b>GROOVE D</b> — drum machine &nbsp;·&nbsp;
-      <b>COSPON D</b> — agent console &nbsp;·&nbsp; <b>MUSE D</b> — second OS &nbsp;·&nbsp;
-      <b>STEM D</b> — four-track mixer &nbsp;·&nbsp; <b>GROOVE D</b> — drum machine &nbsp;·&nbsp;
-      <b>COSPON D</b> — agent console &nbsp;·&nbsp; <b>MUSE D</b> — second OS &nbsp;·&nbsp;</div>
+<section id="stem">
+  <div class="sec-head">
+    <div><div class="kicker">02 · STEM</div><h2>把一句哼唱变成四轨作品</h2></div>
+    <p>哼唱 → 音高 → 调性 → 鼓/贝斯/和弦/旋律 → 播放 / 变体 / MIDI。</p>
   </div>
-
-  <section class="apps" id="apps">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Four apps.<br>One wrist.</h2>
-        <p>Every app is its own screen with its own job — no menus, no hierarchy.
-          Tap the launcher, the watch becomes the instrument.</p>
-      </div>
-      <div class="grid">
-        <article class="app">
-          <span class="no">01</span>
-          <img src="icons/icon_stem_d.png" alt="Stem D">
-          <span class="tag">Mixer</span>
-          <h3>Stem D</h3>
-          <p>Four white-and-green quarter arcs are the faders. A red vinyl you can
-            scratch with your finger. A white label that shows the song that's playing.</p>
-          <ul><li>4 stems</li><li>scratch</li><li>tape / FX</li><li>now playing</li></ul>
-        </article>
-        <article class="app">
-          <span class="no">02</span>
-          <img src="icons/icon_groove_d.png" alt="Groove D">
-          <span class="tag">Drum machine</span>
-          <h3>Groove D</h3>
-          <p>Eight pads, four colour faders, two pointer dials and a tape deck.
-            The 16-step sequencer on the phone drives the same MIDI port.</p>
-          <ul><li>8 pads</li><li>4 CC faders</li><li>BPM / FX dials</li><li>tape stop</li></ul>
-        </article>
-        <article class="app">
-          <span class="no">03</span>
-          <img src="icons/icon_cospon_d.png" alt="Cospon D">
-          <span class="tag">Agent console</span>
-          <h3>Cospon D</h3>
-          <p>Live CrewTower sessions on your wrist — app, agent, activity, context bar,
-            project and age. Waiting sessions light up and buzz twice.</p>
-          <ul><li>live sessions</li><li>status lights</li><li>details</li><li>haptics</li></ul>
-        </article>
-        <article class="app">
-          <span class="no">04</span>
-          <img src="icons/icon_muse.png" alt="Muse D">
-          <span class="tag">Second OS</span>
-          <h3>Muse D</h3>
-          <p>A second firmware on the other OTA slot. Visit mode: Muse clears the boot
-            flag on start, so any power-off goes straight back to Watch.</p>
-          <ul><li>dual boot</li><li>visit mode</li><li>one tap</li></ul>
-        </article>
-      </div>
+  <div class="grid rev">
+    <div class="card">
+      <h3>AI Studio</h3>
+      <p>所有按钮都能用，Mac 没起时也会降级而不是只报错。</p>
+      <ul>
+        <li><b>HUM 哼唱</b>：原生 AudioRecord 22050Hz，YIN 基频估计；5 帧中位 + 连续 2 帧一致才认音。</li>
+        <li><b>风格</b>：Lo-Fi / Boom Bap / House / Trap / Breakbeat，每个风格有自己的鼓型与和弦进行。</li>
+        <li><b>调式</b>：AUTO + 6 种调式；AUTO 用 Krumhansl 24 调打分。</li>
+        <li><b>音色</b>：鼓/贝斯/和弦/旋律四角色分别可选 8 种左右；采样 + WebAudio 合成混合。</li>
+        <li><b>编曲</b>：确定性引擎，同 seed + 参数 + 哼唱永远给同一份结果。</li>
+        <li><b>播放</b>：手机出声的同时发 MIDI；一键成曲把编排和播放串起来。</li>
+        <li><b>变体 / 再变一版</b>：4 个变体；busy/sparse/swing/straight/up/down/wild/hard/soft 九种变异。</li>
+        <li><b>保留 / 丢弃</b>：只有保留才写历史；历史最多 20 条。</li>
+        <li><b>哼唱做贝斯</b>：把哼唱下移八度当贝斯，而不是只取和弦根音。</li>
+        <li><b>导出 .mid</b>：自写 SMF，Format 0，division 480，鼓通道 9。</li>
+        <li><b>对话修改</b>：一句中文 → LLM 参数；失败走关键词规则。</li>
+        <li><b>灵感 AI</b>：CEVTUO Groove AI，一次给概念 + 参数 + 自动播放；没有 key 时用本地灵感卡。</li>
+        <li><b>AI LIVE</b>：自然播完 → 自动保留 → wild 变异 → 继续播。</li>
+      </ul>
+      <div><span class="tag">YIN</span><span class="tag">Krumhansl</span><span class="tag">确定性编曲</span><span class="tag ok">离线降级</span></div>
     </div>
-  </section>
-
-  <section class="featwrap" id="phone">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>The phone side.<br>It writes.</h2>
-        <p>The watch performs; the phone arranges. Hum a melody and the phone turns it
-          into four tracks, then lets you reshape them live.</p>
-      </div>
-      <div class="featgrid">
-        <div class="feat"><span class="k">01 · input</span><b>Hum → notes</b><p>Native mic capture, YIN pitch detection, median-of-five stabilisation. No cloud.</p></div>
-        <div class="feat"><span class="k">02 · takes</span><b>Four takes A/B/C/D</b><p>Each pass is a real arrangement with its own seed. Audition and keep one.</p></div>
-        <div class="feat"><span class="k">03 · instruments</span><b>14 instruments</b><p>Drums, bass, chords and lead each pick their own sound: 808, Reese, pad, strings, brass, marimba, choir…</p></div>
-        <div class="feat"><span class="k">04 · harmony</span><b>7 scales + chord names</b><p>Major, minor, dorian, phrygian, lydian, mixolydian. Every bar shows its chord.</p></div>
-        <div class="feat"><span class="k">05 · live</span><b>10 knobs</b><p>Filter, drive, space, swing, chaos, energy, octave, tone, crush, detune — all while it plays.</p></div>
-        <div class="feat"><span class="k">06 · gesture</span><b>Jog / stutter / click</b><p>A platter you can scratch, a gate stutter, and a metronome that follows BPM.</p></div>
-        <div class="feat"><span class="k">07 · pads</span><b>Chord pads + arp</b><p>The eight pads switch between drums, synth notes and the current chord progression.</p></div>
-        <div class="feat"><span class="k">08 · listening</span><b>Hear your beat</b><p>Tap the pads for four beats; the phone quantises the hits into a 16-step pattern.</p></div>
-        <div class="feat"><span class="k">09 · ai</span><b>Inspire AI</b><p>One tap gives a title, a concept and a playable arrangement — LLM or local cards.</p></div>
-        <div class="feat"><span class="k">10 · ai</span><b>AI Live</b><p>Let it run: every pass is kept, mutated and played again while you listen.</p></div>
-        <div class="feat"><span class="k">11 · language</span><b>Talk to it</b><p>“Bass on 808, wilder, then play.” It patches every parameter and executes the action.</p></div>
-        <div class="feat"><span class="k">12 · export</span><b>Standard .mid</b><p>A real MIDI file with tempo, programs and note events, saved to Downloads.</p></div>
-      </div>
+    <div>
+      <video src="media/stem-full.webm" poster="media/stem-full.jpg" controls muted playsinline preload="metadata"></video>
+      <div class="media-note">全屏录屏 · 编曲 → 钢琴卷帘 / 和弦弧 → 播放</div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="rec" id="recordings">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>On the wrist.<br>Not a render.</h2>
-        <p>Captured over USB from the real 466×466 round panel, streamed at 233×233
-          and rebuilt into GIFs. Same firmware that ships in this repo.</p>
-      </div>
-      <div class="recgrid">
-        <figure class="rec-card">
-          <div class="screen"><img src="stem.gif" alt="Stem D on the watch" loading="lazy"></div>
-          <figcaption><b>Stem D<span class="k">live</span></b>
-            Four stem arcs, the vinyl, and the now-playing label swapping tracks.</figcaption>
-        </figure>
-        <figure class="rec-card">
-          <div class="screen"><img src="groove.gif" alt="Groove D on the watch" loading="lazy"></div>
-          <figcaption><b>Groove D<span class="k">still</span></b>
-            Eight pads, four CC faders, BPM and FX dials — the drum machine screen.</figcaption>
-        </figure>
-        <figure class="rec-card">
-          <div class="screen"><img src="cospon.gif" alt="Cospon D on the watch" loading="lazy"></div>
-          <figcaption><b>Cospon D<span class="k">live</span></b>
-            Three agent sessions arrive, then the detail sheet: context ring,
-            agent, project, tokens, limit, age.</figcaption>
-        </figure>
-        <figure class="rec-card">
-          <div class="screen"><img src="muse.gif" alt="Muse D on the watch" loading="lazy"></div>
-          <figcaption><b>Muse D<span class="k">still</span></b>
-            The second-OS entry screen on the other OTA slot.</figcaption>
-        </figure>
-      </div>
+<section id="rt">
+  <div class="sec-head">
+    <div><div class="kicker">03 · REAL-TIME</div><h2>唱机、10 个旋钮、一个会亮的玻璃穹顶</h2></div>
+    <p>按 Vinyl Record Store / Neumorphic Dark Knobs / Knob 03 / Knóbz 重做；搓盘、EQ、底噪、表演键全部接进音频链。</p>
+  </div>
+  <div class="video-pair">
+    <div><video src="media/realtime-deck.webm" poster="media/realtime-deck.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · 奶油唱机：红胶、唱臂、三段 EQ、NOISE/MAIN/VOCAL</div></div>
+    <div><video src="media/realtime-knobs.webm" poster="media/realtime-knobs.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · 10 个新拟物旋钮 + LCD + FILTER 对数拖动</div></div>
+  </div>
+  <div class="grid" style="margin-top:14px">
+    <div class="card">
+      <h3>唱机（VINYL DECK）</h3>
+      <ul>
+        <li><b>红胶 + 凹槽 + 可转标签</b>：标签中间是用户 logo，下面一行是当前歌名（来自媒体会话，超过 10 字截断）。</li>
+        <li><b>唱臂</b>：相对黑胶本身定位，展开折叠屏/换宽度也始终在唱片边缘。</li>
+        <li><b>搓盘</b>：拖动角度跟手，松手有惯性；播放时慢转，停着也慢转。</li>
+        <li><b>三段 EQ</b>：LOW=lowshelf 200Hz、MID=lowshelf/peaking 1.1kHz、HIGH=highshelf 3.8kHz，真的进音频链。</li>
+        <li><b>NOISE</b>：真实黑胶底噪（高通噪声），<b>MAIN</b>=MASTER，<b>VOCAL</b>=2.8kHz presence。</li>
+        <li><b>波形</b>：面板底部一条实时波形，来源是主链 AnalyserNode。</li>
+      </ul>
     </div>
-  </section>
-
-  <section id="chain">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>One chain.<br>Three hops.</h2>
-        <p>USB is the spine. The watch talks to the Mac over a serial bridge; the phone
-          talks to the Mac over USB (adb reverse) or Wi-Fi. Everything ends at the same port.</p>
-      </div>
-      <div class="chain">
-        <div class="step">
-          <span class="no">01 — WATCH → MAC</span>
-          <h3>Serial bridge</h3>
-          <p><code>tools/grooved-serial-midi</code> turns <code>G1 …</code> lines into CoreMIDI,
-            pushes stem/agent data to the watch, and keeps the audio DSP in sync.</p>
-        </div>
-        <div class="step">
-          <span class="no">02 — PHONE → MAC</span>
-          <h3>One port</h3>
-          <p>USB: <code>adb reverse tcp:8765 tcp:8765</code>. Wi-Fi: start the Mac server with
-            <code>GROOVED_HOST=0.0.0.0</code> and enter its IP in the app's LINK tab.</p>
-        </div>
-        <div class="step">
-          <span class="no">03 — MAC → WATCH</span>
-          <h3>Any song</h3>
-          <p>The Mac DSP processes whatever is playing — stems, FX, tape, scratch — and the
-            watch controls it in real time. Phone media shows up on the vinyl label.</p>
-        </div>
-      </div>
+    <div class="card">
+      <h3>旋钮与表演</h3>
+      <ul>
+        <li><b>Neumorphic 旋钮</b>：凸起外环、刻入刻度、凹井、SVG 进度弧、旋转白点。</li>
+        <li><b>FILTER 手感</b>：rAF 合帧 + SVG dasharray + 对数映射 + 10Hz 步长；低频段不再一格一跳。</li>
+        <li><b>10 个参数</b>：FILTER / DRIVE / SPACE / SWING / CHAOS / ENERGY / OCTAVE / TONE / CRUSH / DETUNE。</li>
+        <li><b>LCD</b>：显示最后动的旋钮与值，另有 32 段频谱。</li>
+        <li><b>PERFORM 穹顶</b>：74px 铜色玻璃 + 斜向高光 + 白色指针 + 34 点点阵；拖动旋转，灯圈按指针方向亮，角度映射 ENERGY。</li>
+        <li><b>STUTTER / CLICK / JOG 0</b>：玻璃胶囊 + LED 点；STUTTER 是 8 段方波门。</li>
+        <li><b>OUT 电平 / MIDI 监视</b>：AnalyserNode + 发送环形缓冲。</li>
+      </ul>
     </div>
-  </section>
+  </div>
+  <div style="margin-top:14px"><video src="media/perform.webm" poster="media/perform.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">局部录屏 · PERFORM：指针转到哪里，灯圈哪里亮；拖动时 ENERGY 跟着走</div></div>
+</section>
 
-  <section class="dl" id="download">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>Get the app.</h2>
-        <p>Android 8+ · WebView UI · reads the phone's media session for the NOW page.</p>
-      </div>
-      <div class="dlbox">
-        <div class="dlcard">
-          <div class="row"><span>Package</span><b>com.cevtuo.grooved</b></div>
-          <div class="row"><span>Version</span><b>1.0 · debug</b></div>
-          <div class="row"><span>Size</span><b>113 KB</b></div>
-          <div class="row"><span>SHA-256</span><b style="font-size:9px;word-break:break-all">228e6c97d615b618b6de2062d7d04fd29d3ae9a97c4e7c9138fdb2dd4efb407e</b></div>
-          <a class="btn primary" href="GrooveD.apk" download>Download GrooveD.apk</a>
-          <div class="note" style="margin-top:14px"><b>New · AI Studio</b> — hum a melody, pick an instrument per role, roll the dice, get four takes (A/B/C/D), shape them live with arc knobs and a platter, keep or drop each pass, export a standard <code>.mid</code>. The NOW tab is a full player component in the style of the Music OS references.</div>
-          <a class="mini" href="https://github.com/cevtuocjw" target="_blank" rel="noopener">Source &amp; notes on GitHub</a>
-        </div>
-        <div>
-          <pre><b># phone (USB)</b>
-adb install -r GrooveD.apk
-adb reverse tcp:8765 tcp:8765
-adb shell am start -n com.cevtuo.grooved/.MainActivity
-
-<b># mac (bridge + audio)</b>
-tools/grooved.sh
-
-<b># mac (wi-fi instead of usb)</b>
-GROOVED_HOST=0.0.0.0 deno task dev</pre>
-          <p class="note"><b>NOW page</b> needs notification access: Settings → Notifications →
-            Notification access → Groove D. It reads only the media session, never notification text.</p>
-          <p class="note"><b>Watch firmware</b> is not in this download — it is built from
-            <code>device/</code> and flashed over USB with esptool. See the handoff docs in the source.</p>
-        </div>
-      </div>
+<section id="groove">
+  <div class="sec-head">
+    <div><div class="kicker">04 · GROOVE</div><h2>鼓机、彩色圆垫、手上的律动</h2></div>
+    <p>Cruz GR 的彩色玻璃垫 + Music Wave 的彩色正圆和弦垫；既能敲，也能把敲击听回 16 步。</p>
+  </div>
+  <div class="grid">
+    <div><video src="media/groove-full.webm" poster="media/groove-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 8 鼓垫 → 9 个和弦圆垫 → XY 垫</div></div>
+    <div class="card">
+      <h3>功能</h3>
+      <ul>
+        <li><b>8 个彩色玻璃垫</b>：KICK/SNR/HAT/OPEN/CLAP/TOM/CRSH/RIDE，左上名称、右上音名、底部力度条。</li>
+        <li><b>力度</b>：按触点纵向位置；VEL 三档 FIXED / HUMANIZE / RANGE。</li>
+        <li><b>BANK</b>：DRUM（GM 鼓）/ SYNTH（音阶）/ CHORD（当前编排和弦）。</li>
+        <li><b>ARP</b>：和弦垫 70ms 琶音，同时发 MIDI。</li>
+        <li><b>9 个彩色正圆和弦垫</b>：C/Am/F/G/Dm/Em/E7/Bm7/Gm，按下本地合成 + MIDI。</li>
+        <li><b>XY 垫</b>：X→CC1、Y→CC74。</li>
+        <li><b>4 根 CC 推子</b>：CC1/7/10/11。</li>
+        <li><b>生成 16 步 / 加花 / 听懂鼓点 / 写回 STEM</b>：听懂鼓点记录击打时间，按 16 分格量化填格。</li>
+        <li><b>TAPE STOP / PANIC</b>：磁带停与全通道 panic。</li>
+      </ul>
+      <div><span class="tag">4×2 玻璃垫</span><span class="tag">彩色圆垫</span><span class="tag">XY</span><span class="tag ok">本地发声</span></div>
     </div>
-  </section>
-</main>
+  </div>
+</section>
 
-<footer class="wrap">
-  <span class="mono">CEVTUO® XD · 2026</span>
-  <span class="mono"><a href="/">← apps.cevtuogrnd.com</a></span>
-</footer>
+<section id="seq">
+  <div class="sec-head">
+    <div><div class="kicker">05 · SEQ 2.0</div><h2>16 步、三档力度、模式库、径向灯轮</h2></div>
+    <p>Mix Music 的径向步进 + Music Wave 的细刻度轮；能写、能随机、能存 A–D、能在 Mac 没起时本地生成。</p>
+  </div>
+  <div class="grid rev">
+    <div class="card">
+      <h3>功能</h3>
+      <ul>
+        <li><b>16 步 × 4 轨</b>：KICK/SNR/HAT/CLAP；点格开关，上拖=重音，下拖=轻音。</li>
+        <li><b>三档力度</b>：0/1/2，格子右下角的白色条就是力度。</li>
+        <li><b>每轨 M/S</b>：静音 / 独奏。</li>
+        <li><b>模式 A–D</b>：本机保存；切换前自动存旧槽。</li>
+        <li><b>CLEAR / RANDOM / 加花 / 左移 / 右移 / COPY / PASTE</b>。</li>
+        <li><b>AI 生成</b>：有 Mac 时用编曲引擎；没有时按风格密度本地随机，并显示「本地随机」。</li>
+        <li><b>SAVE PAT</b>：把当前矩阵 + swing + prob 存进 localStorage。</li>
+        <li><b>PROB</b>：每步触发概率；<b>SWING</b>：奇数 16 分后推；<b>TAP</b>：最近 4 下平均间隔。</li>
+        <li><b>三个宏旋钮</b>：SWING / CHAOS / ENERGY，同时写进 AI 参数。</li>
+        <li><b>径向轮</b>：16 个点 + 72 根细刻度 + 当前步白点；浅色/夜间自动换色。</li>
+        <li><b>本地试听</b>：每一步用 WebAudio 鼓组发声，同时发 MIDI。</li>
+      </ul>
+      <div><span class="tag">模式库</span><span class="tag">三档力度</span><span class="tag">径向轮</span><span class="tag ok">离线生成</span></div>
+    </div>
+    <div><video src="media/seq-full.webm" poster="media/seq-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 播放、改格、RANDOM、宏旋钮</div></div>
+  </div>
+</section>
 
+<section id="link">
+  <div class="sec-head">
+    <div><div class="kicker">06 · LINK</div><h2>连接、Agent、API KEY、Wi-Fi</h2></div>
+    <p>手机是控制台：Mac 服务、串口桥、手表、MIDI、Agent、最后更新，一眼看到。</p>
+  </div>
+  <div class="grid">
+    <div><video src="media/link-full.webm" poster="media/link-full.jpg" controls muted playsinline preload="metadata"></video><div class="media-note">全屏录屏 · 六格状态、Agent 会话、发送 Mac 地址、主题切换</div></div>
+    <div class="card">
+      <h3>管理</h3>
+      <ul>
+        <li><b>六格状态</b>：Mac 服务 / 串口桥 / 手表 / MIDI / Agent / 最后更新。</li>
+        <li><b>Agent 行</b>：显示 <code>1/0</code>（会话/待批）和最近会话的 App · Agent · 状态 · 活动；读不到会明确说「CrewTower 没会话」还是「服务没起」。</li>
+        <li><b>API KEY</b>：DeepSeek key 只存本机，显示尾号与来源。</li>
+        <li><b>MAC HOST</b>：USB 用 <code>127.0.0.1</code>（adb reverse）；Wi-Fi 填 Mac 局域网 IP。</li>
+        <li><b>发送 Mac 地址到手表</b>：取 <code>/api/groove/status</code> 的 <code>lanIp</code>，通过串口发 <code>NET &lt;ip&gt;</code>，手表存进 NVS。</li>
+        <li><b>发送日志</b>：最近 36–40 条协议行。</li>
+        <li><b>主题</b>：顶栏月亮/太阳；LINK 页也能切。</li>
+        <li><b>手表反馈条</b>：四轨、MASTER、BPM、LOOP 实时显示。</li>
+      </ul>
+      <div><span class="tag">adb reverse</span><span class="tag">Wi-Fi / LAN</span><span class="tag">Agent 1/0</span><span class="tag ok">自启</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="watch">
+  <div class="sec-head">
+    <div><div class="kicker">07 · WATCH</div><h2>M5 手表：Stem / Groove / Cospon / Muse</h2></div>
+    <p>四个手表 App；COSPON D 看 Agent、滚动最近 3 条消息、ALLOW/DENY、WIFI 一键。</p>
+  </div>
+  <div class="watchgrid">
+    <figure><img src="media/cospon.gif" alt="COSPON D"><figcaption>COSPON D · Agent 卡片</figcaption></figure>
+    <figure><img src="media/stem.gif" alt="Stem D"><figcaption>Stem D · 四段弧 / 黑胶</figcaption></figure>
+    <figure><img src="media/groove.gif" alt="Groove D"><figcaption>Groove D · 鼓垫 / CC</figcaption></figure>
+    <figure><img src="media/muse.gif" alt="Muse D"><figcaption>Muse D · 第二个 OTA 槽</figcaption></figure>
+  </div>
+  <div class="grid" style="margin-top:16px">
+    <div class="card">
+      <h3>COSPON D 新增</h3>
+      <ul>
+        <li><b>最近 3 条消息</b>：详情页独立滚动区，显示 user/assistant 最新 3 条；卡片活动行在为空时也会退回最新消息，不再只显示 (no activity)。</li>
+        <li><b>ALLOW / DENY 两个键</b>：有待批权限时浮层出现；按下写 <code>G1 PERM &lt;id&gt; allow|deny</code>，Mac 桥转成 <code>/api/agents/decide</code>，审批队列唤醒 hook。没有待批时自动隐藏。</li>
+        <li><b>WIFI 一键</b>：按 WIFI → HAL 打开 Wi-Fi；没凭据时进入配置 AP（手表显示 AP SSID / 192.168.4.1），手机连上后填 Wi-Fi；连上后每 2 秒 HTTP 拉 <code>/api/agents/watch</code>，和 USB 用同一套行协议。</li>
+        <li><b>Mac 地址</b>：LINK 页「发送 Mac 地址到手表」→ <code>NET &lt;ip&gt;</code> → 手表 NVS，重启不丢。</li>
+      </ul>
+      <div class="quote">语音键：按你的要求「如果很难实现就不实现」，这一轮没有做。手表端留给下一窗口的两个键是 ALLOW / DENY；语音输入可作为第三键，在一轮对话结束（idle）时出现。</div>
+    </div>
+    <div class="card">
+      <h3>其它手表 App</h3>
+      <ul>
+        <li><b>Stem D</b>：四段弧=四轨音量；长按静音、双击独奏；中央黑胶可搓；白色标签读 now playing。</li>
+        <li><b>Groove D</b>：8 个鼓垫、4 根 CC 推子、BPM/FX 旋钮、磁带机页。</li>
+        <li><b>Muse D</b>：第二个 OTA 槽入口；双系统分区 + 电源轨恢复。</li>
+        <li><b>手表 → Mac</b>：<code>G1 STEM/MUTE/SOLO/MASTER/BPM/LOOP/FX/START/STOP</code>；Mac → 手表：<code>NP/SESS/AG/MSG/PERM/NET</code>。</li>
+      </ul>
+      <p class="media-note">手表 GIF 来自固件 CAP1 屏幕录制协议；COSPON 新界面已刷入，视频为旧版界面示意。</p>
+    </div>
+  </div>
+</section>
+
+<section id="algo">
+  <div class="sec-head">
+    <div><div class="kicker">08 · UNDER THE HOOD</div><h2>AI、算法、音频链路与视觉算法</h2></div>
+    <p>这一节把「它为什么能用」写清楚：每个算法做什么、在哪、怎么验。</p>
+  </div>
+  <div class="algo">
+    <div class="card"><h4>YIN 音高检测</h4><p>不用全局自相关（纯周期信号每个周期倍数都高，取最大会落到大 lag）。YIN 用差分函数、累积均值归一化、取第一个 d'<0.20 的谷、抛物线插值；再叠 5 帧中位 + 连续 2 帧一致（±1 半音）。离线 110/220/330/440/660/880Hz 全对。</p></div>
+    <div class="card"><h4>调性与调式</h4><p>12 音级直方图按音长加权；与 12 大调 / 12 小调的 Krumhansl 权重相关，取最高分；可被 7 种调式覆盖。和弦名由级数算根/三/五，按实际移调落到音名。</p></div>
+    <div class="card"><h4>确定性编曲引擎</h4><p>风格表给出 16 分鼓型与和弦进行；chaos 加额外帽子/装饰音/力度抖动；energy 乘全轨力度；swing 推奇数 16 分；humanize 微移 step/力度；transpose 移非鼓轨；同一 seed 永远同一份。变体/变异/对话/灵感都走它。</p></div>
+    <div class="card"><h4>WebAudio 合成</h4><p>鼓组/贝斯/和弦/旋律各有一套波形与包络；Reese +22 音分失谐、Sub 900Hz 滤波、Acid Q=12；marimba/pluck/strings/choir 等用采样，其余用振荡器。主链：input → 三段 EQ → filter → crush → drive → out；另有一条 delay/feedback/wet 与 analyser。</p></div>
+    <div class="card"><h4>MediaProjection → CC 20–23</h4><p>AudioPlaybackCapture 抓本机播放；一阶低通在 200/800/3000Hz 切四段，RMS → 0..127；快起慢落；20Hz 发 CC。Android 14+ 先 startForeground 再 getMediaProjection，并请求整个屏幕。</p></div>
+    <div class="card"><h4>MIDI 导出</h4><p>Format 0、division 480（16 分=120 tick）；tempo meta → 每轨 program change → note on/off → end of track；鼓通道 9、贝斯 1、和弦 2、旋律 3；文件布局必须 <code>[MTrk][长度][事件]</code>。</p></div>
+    <div class="card"><h4>CEVTUO NOW AI / Groove AI</h4><p>NOW AI 调 <code>/api/studio/ask</code>，把歌名/歌手 + 当前参数交给 LLM，返回一句解释 + patch；离线用标题哈希的确定性建议。Groove AI 调 <code>/api/studio/inspire</code>，没有 key 时用本地灵感卡。两者都明确标注来源。</p></div>
+    <div class="card"><h4>CrewTower → COSPON D</h4><p>CrewTower 已做机器级会话采集（Claude/Codex/DSH，含 Cherry Studio），Cospon D 直接读它的 sessions.json，不另挂一套 hook。服务端加最近 3 条消息（读 transcriptPath）、待批队列 <code>/request</code> <code>/wait</code> <code>/pending</code> <code>/decide</code>；手表用 <code>PERM</code> 行走决定。</p></div>
+    <div class="card"><h4>手表 Wi-Fi 协议</h4><p>USB 与 Wi-Fi 共用同一套文本行：<code>AG / SESS / MSG / PERM / NET</code>。<code>/api/agents/watch</code> 输出同样的行；手表连上 Wi-Fi 后每 2 秒 HTTP GET 并逐行喂给同一个 <code>handle_line()</code>，所以两条链路不会长出两种行为。</p></div>
+    <div class="card"><h4>视觉算法</h4><p>黑胶：径向渐变 + 52 圈凹槽 + 旋转高光 + 标签 logo（darken 融白底）。新拟物旋钮：外环凸起/凹井/刻度 mask + SVG 弧 + rAF。PERFORM：34 点按角度距离点亮，span 随 RMS 变宽。SEQ 轮：72 根刻度按主题换色。所有视觉都有 DOM/canvas 断言。</p></div>
+    <div class="card"><h4>Layout / 主题 / 系统栏</h4><p>默认浅色 `data-theme=light`，夜间按钮写 localStorage；浅色主题显式补回全部激活态。状态栏/导航栏颜色跟随页面与主题；WebView 避开 110px 顶部 cutout + 39px 导航，页面 innerHeight 903 vs 整屏 960。折叠屏用 ResizeObserver + 切页重新量黑胶和灯圈。</p></div>
+    <div class="card"><h4>离线降级</h4><p>Mac 没起：编曲/变体/对话不可用，但 SEQ/GROOVE 生成会按风格密度本地随机并标注；NOW AI 用本地建议；主题、播放器、唱机、鼓垫、和弦垫、音序器、本地 MIDI 全部可用。降级不会假装成在线结果。</p></div>
+  </div>
+</section>
+
+<section id="all">
+  <div class="sec-head">
+    <div><div class="kicker">09 · ALL FEATURES</div><h2>全部功能清单</h2></div>
+    <p>按页面分组；打勾的是这一版已经能操作、能录到的。</p>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>页面 / 端</th><th>功能</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td><b>NOW</b></td><td>默认首页 / 玻璃大标题 / 点阵圆盘 / 彩色核心 / 专辑封面 / 小封面卡 / 进度环 / 走带 / XL / MASTER 环 / 主题 / CEVTUO NOW AI / 离线建议</td><td>读 MediaSession；封面走原生 Bitmap；AI 可生成律动并切 STEM。</td></tr>
+        <tr><td><b>STEM</b></td><td>HUM / 风格 / 调式 / 音色 / BPM / 小节 / 编曲 / 播放 / 一键成曲 / 4 变体 / 9 变异 / 保留丢弃 / 历史 / 哼唱做贝斯 / 导出 MIDI / 对话修改 / Groove AI / AI LIVE / 和弦行</td><td>确定性乐理 + LLM；采样 + 合成；失败有本地兜底。</td></tr>
+        <tr><td><b>REAL-TIME</b></td><td>FILTER / DRIVE / SPACE / SWING / CHAOS / ENERGY / OCTAVE / TONE / CRUSH / DETUNE / LCD / 黑胶搓盘 / 唱臂 / 三段 EQ / NOISE / MAIN / VOCAL / 波形 / PERFORM 穹顶 / 灯圈 / STUTTER / CLICK / JOG 0 / OUT / MIDI 监视</td><td>全部接进音频链；搓盘发 PLATTER；旋钮发 CC 24–34。</td></tr>
+        <tr><td><b>GROOVE</b></td><td>8 鼓垫 / 力度三档 / DRUM-SYNTH-CHORD / ARP / 9 和弦圆垫 / XY / 4 CC 推子 / 生成 16 步 / 加花 / 听懂鼓点 / 写回 STEM / TAPE STOP / PANIC</td><td>彩色玻璃垫 + 彩色正圆；本地发声 + MIDI。</td></tr>
+        <tr><td><b>SEQ</b></td><td>16 步 × 4 轨 / 三档力度 / M/S / A–D 模式 / CLEAR / RANDOM / 加花 / 左右移 / COPY / PASTE / AI 生成 / SAVE / PROB / SWING / TAP / BPM± / 3 宏旋钮 / 径向轮 / 本地试听 / 和弦 chips</td><td>离线和在线都可生成；模式存 localStorage。</td></tr>
+        <tr><td><b>LINK</b></td><td>六格状态 / 手表反馈条 / Agent 1/0 + 活动 / API KEY / MAC HOST / SAVE/TEST / 日志 / 发送 Mac 地址 / 主题</td><td>手机端管理面；Wi-Fi 与 USB 两种入口。</td></tr>
+        <tr><td><b>COSPON D</b></td><td>3 张会话卡 / 详情 / 最近 3 条消息滚动 / ALLOW / DENY / WIFI 一键 / HTTP 轮询 / NVS 保存 Mac 地址 / 震动提示</td><td>USB 串口或 Wi-Fi；权限浮层只在有待批时出现。</td></tr>
+        <tr><td><b>Stem D</b></td><td>四段弧 / 静音 / 独奏 / 黑胶搓盘 / now playing 标签</td><td>手表 → Mac 的 G1 协议。</td></tr>
+        <tr><td><b>Groove D</b></td><td>8 鼓垫 / 4 CC / BPM/FX / 磁带机</td><td>与手机 GROOVE 同一套 CC/音符协议。</td></tr>
+        <tr><td><b>Muse D</b></td><td>第二个 OTA 槽入口 / 双系统 / 电源轨恢复</td><td>OTA 分区表 ota_0 4.5MB / ota_1 4MB。</td></tr>
+        <tr><td><b>音频 / AI</b></td><td>YIN / Krumhansl / 确定性编曲 / 9 变异 / WebAudio / 8 采样 / MediaProjection CC / SMF / LLM ask / inspire / 离线兜底</td><td>算法细节见上一节。</td></tr>
+        <tr><td><b>视觉</b></td><td>黑胶 / 唱臂 / 新拟物旋钮 / LCD / 玻璃穹顶 / 灯圈 / 彩色圆垫 / 玻璃垫 / 径向轮 / 玻璃大标题 / 浅色夜间 / 系统栏 / 折叠屏重排</td><td>12 个 Dribbble 参考，每个至少两个落点。</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="limits">
+  <div class="sec-head">
+    <div><div class="kicker">10 · HONEST NOTES</div><h2>限制与需要你确认的事</h2></div>
+    <p>不把「没验过」写成「已完成」。</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>已验 / 已装</h3>
+      <ul>
+        <li>手机 APK 1.2MB，签名未变，已装到 SM-F9660。</li>
+        <li>系统栏：WebView screenY=110、innerHeight=918，状态栏那一行已露出来。</li>
+        <li>NOW 默认首页、浅色默认、夜间按钮、CEVTUO NOW AI、无黑点、大玻璃字、圆盘 255×255。</li>
+        <li>PERFORM 74×74、34 灯点、指针、ENERGY 联动；SEQ 64 格、M8 轨按钮；LINK Agent 1/0。</li>
+        <li>手表固件已用 PlatformIO 构建并刷入（40 秒写入 + 校验）。桥已发 MSG/PERM，审批队列 <code>decide</code> 已通。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>还没做到 / 需要你</h3>
+      <ul>
+        <li><b>语音键没做</b>：按「很难就不实现」跳过；手表麦克风 + 端侧 ASR 是单独一轮。</li>
+        <li><b>手表 Wi-Fi 未在真机走通一次</b>：代码已刷入，需在手表按 WIFI，手机连 <code>M5StopWatch-XXXX</code> 配置 Wi-Fi，并在 LINK 里按「发送 Mac 地址到手表」（USB 连着时）；之后拔线即可轮询。</li>
+        <li><b>权限浮层</b>需要 Claude/Codex 的 PermissionRequest hook 把请求送进 <code>/api/agents/request</code>；队列和手表键已就绪。</li>
+        <li>封面取决于播放器是否给 Bitmap；只给 ART_URI 的 App 会显示彩色核心。</li>
+        <li>录屏是 webm（Chromium/Chrome/Edge 可播；Safari 可能不支持）。</li>
+        <li>APK 是 debug 签名；安装时需允许未知来源。MediaProjection 每次会话要手动授权。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="sec-head">
+    <div><div class="kicker">11 · INSTALL</div><h2>安装与连接</h2></div>
+    <p>手机、手表、Mac 三步。</p>
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>手机</h3>
+      <ul>
+        <li>下载 <a href="GrooveD.apk" download>GrooveD.apk</a>，允许未知来源安装。</li>
+        <li>USB：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>，LINK 的 MAC HOST 填 <code>http://127.0.0.1:8765</code>。</li>
+        <li>Wi-Fi：Mac 的 <code>tools/grooved.sh install</code> 已让服务监听 <code>0.0.0.0:8765</code>；LINK 填 <code>http://&lt;Mac 局域网 IP&gt;:8765</code>。</li>
+        <li>通知使用权：NOW 页读媒体会话需要它；只读媒体信息。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>手表 + Mac</h3>
+      <ul>
+        <li>手表 USB 连 Mac；<code>bash tools/grooved.sh status</code> 看到 server/bridge loaded、Agent 1/0。</li>
+        <li>Cospon D → WIFI → 手机连配置 AP → 填 Wi-Fi → 回 LINK 按「发送 Mac 地址到手表」。之后可拔线。</li>
+        <li>日志：<code>~/Library/Logs/grooved-link.log</code>、<code>grooved-serial.log</code>。</li>
+        <li>管理：<code>tools/grooved.sh status|start|stop|restart|install|uninstall</code>。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="footer wrap">
+  <div class="brand">CEVTUO <i style="color:var(--orange);font-style:normal">XD</i></div>
+  <div>GROOVE D · 2026-10-20 · 手机 / 手表 / Mac 三层创作系统</div>
+  <div style="margin-top:10px">
+    <span class="pill"><i></i>APK 已装真机</span>
+    <span class="pill"><i></i>手表固件已刷</span>
+    <span class="pill"><i></i>Agent 1/0</span>
+  </div>
+  <p style="max-width:760px;margin-top:18px;color:var(--muted)">
+    这页的所有介绍都对应仓库里的真实代码路径：手机 UI 在 <code>android/app/src/main/assets/index.html</code>，
+    原生桥在 <code>MainActivity.java</code>，Mac 服务在 <code>link/server.ts</code>，手表 App 在
+    <code>device/app/app_*/</code>，协议桥在 <code>tools/grooved-serial-midi.swift</code>。
+    录屏由 Playwright 驱动真实页面生成，局部片段用较小的视口聚焦到组件。
+  </p>
+</div>
+
+</div>
 </body>
 </html>
