@@ -409,7 +409,8 @@ END</pre>
     <div class="body">
       <div>
         <p><b>USB</b> 是最稳的链路：Mac 执行 <code>adb reverse tcp:8765 tcp:8765</code>（手机用），手表插上 USB 后串口桥每 2 秒写一次快照。设备名 <code>G1 HELLO stem-d / groove-d / C1 HELLO cospon</code> 用来确认谁在线。</p>
-        <p><b>Wi-Fi</b> 第一次要配网：COSPON D → <code>WIFI ON</code>，手表进入 <code>M5StopWatch-XXXX</code> 配置 AP；手机连它、填家里的 Wi-Fi；然后回到 LINK 页按「发送 Mac 地址到手表」。地址写进 NVS，之后开 Wi-Fi 自动连。</p>
+        <p><b>Wi-Fi 换网（不用数据线）</b>：Mac 上打开 <code>http://127.0.0.1:8765/</code> → <b>Wi-Fi</b> 页 → 填 Wi-Fi 名称和密码 → 发送到手环。手环每 2 秒轮询 <code>/api/device/pending</code>，取走一行 <code>WIFICFG</code> 写入 NVS 并自动重连；ContinuE / HandoFF 也会优先走 Wi-Fi。</p>
+        <p><b>第一次配网 / 手环离线</b>：COSPON D → <code>WIFI ON</code>，手表进入 <code>M5StopWatch-XXXX</code>；手机连它、打开 <code>192.168.4.1</code> 填 Wi-Fi。⚠️ ESP32-S3 只支持 <b>2.4GHz</b>；Mac 在 5GHz 时请确保路由器同时广播 2.4GHz（同名或单独名字）。</p>
         <p><b>换地方</b>：如果那个 Wi-Fi 已经保存过，手表会自己连；连上后广播 <code>GROOVED?</code> 到 UDP <code>41234</code>，Mac 回 <code>GROOVED &lt;ip&gt; &lt;port&gt;</code>，手表自动更新 NVS。这样 Mac 的 DHCP 地址变了也不用再回手机点一次。全新的 Wi-Fi 仍需一次配网——Android 和 macOS 都不会把已保存的 Wi-Fi 密码交给 App，这一步没有安全的自动化办法。</p>
         <p>状态行会把失败说清楚：<code>WIFI &lt;ip&gt;</code>、<code>| NO HOST</code>（没拿到 Mac 地址）、<code>| CONN FAIL</code>（连不上）、<code>| SHORT</code>（响应不完整）。底部是 <code>LIVE</code> 或具体原因，不再是统一的 <code>NO BRIDGE</code>。</p>
       </div>
@@ -419,7 +420,8 @@ END</pre>
           <li><b>USB</b><span><code>/dev/cu.usbmodem*</code> · 2s 快照</span></li>
           <li><b>Wi-Fi</b><span><code>GET /api/agents/watch</code> · 3s timeout</span></li>
           <li><b>Discover</b><span>UDP 41234 · <code>GROOVED?</code> → <code>GROOVED &lt;ip&gt;</code></span></li>
-          <li><b>NVS</b><span><code>grooved/net</code></span></li>
+          <li><b>NVS</b><span><code>grooved/net</code> · <code>wifi/ssid*</code></span></li>
+          <li><b>Wi-Fi 配置</b><span><code>http://127.0.0.1:8765/</code> → Wi-Fi 页</span></li>
         </ul>
         <div class="rule"></div>
         <p class="note">Wi-Fi 快照按块读到 <code>is_complete_data_received()</code>，16KB 缓冲。单次 read 4095 字节会把 3 会话 × 8 消息的 <code>END</code> 截掉，表现就是“连上了但什么都不显示”。</p>
