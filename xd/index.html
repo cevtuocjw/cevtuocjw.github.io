@@ -496,8 +496,8 @@
 
   <section id="design">
     <div class="wrap">
-      <div class="label reveal">06.5 / REFERENCES</div>
-      <h2 class="reveal">视觉参考<br><em>与实现映射</em></h2>
+      <div class="label reveal">06.5 / VISUAL IMPLEMENTATION</div>
+      <h2 class="reveal">视觉实现<br><em>与参考映射</em></h2>
       <p class="lede reveal">每个参考都被拆成可复用的组件，再接到真实数据上；下面每一项都能在代码里找到对应的 DOM、canvas 或 CSS。</p>
       <div class="algos">
         <div class="card reveal"><div class="pad"><h4>NOW · Music Play / Music</h4><p>全幅封面底色 + 32 点轨道 + 中央彩色核心；玻璃大标题、点阵、耳机贴片、超大 Music 水印。专辑封面从 MediaSession 的 Bitmap 来，没有就退回彩色核心。</p></div></div>
@@ -506,7 +506,7 @@
         <div class="card reveal"><div class="pad"><h4>REAL-TIME · Neumorphic / Knóbz / Knob 03</h4><p>凸起外环、刻入刻度、凹井、SVG 弧、旋转白点；PERFORM 的玻璃穹顶、34 点灯圈、指针和 ENERGY 联动；STUTTER/CLICK/JOG 改成玻璃胶囊 + LED。</p></div></div>
         <div class="card reveal"><div class="pad"><h4>GROOVE · Cruz GR / Music Mix</h4><p>彩色玻璃鼓垫、左上名称、右上音名、底部力度条；9 个彩色正圆和弦垫；XY 垫和 4 根 CC 推子。力度看触点纵向位置，不是随机数。</p></div></div>
         <div class="card reveal"><div class="pad"><h4>SEQ · Mix Music / Music Wave</h4><p>径向步进轮 + 72 根细刻度；16 步 × 4 轨、三档力度、M/S、A–D 模式库；浅色/夜间换色，当前步白点。</p></div></div>
-        <div class="card reveal"><div class="pad"><h4>参考清单</h4><p style="font-size:12px;line-height:1.9">
+        <div class="card reveal"><div class="pad"><h4>视觉实现</h4><p style="font-size:12px;line-height:1.9">
           Music 25645360 · Music Wave 27241914 · Music Mix 26761441 · Music Play 27260922 ·
           Music App Dashboard 25706399 · ES Polyphonic Synth 18831756 · Cruz GR MIDI 27771393 ·
           Mix Music 26761233 · Vinyl Record Store 23424412 · Neumorphic Dark Knobs 21408863 ·
@@ -559,7 +559,7 @@
             <tr><td>COSPON D</td><td>3 张会话卡 / 详情 / 最近 8 条消息滚动 / 自动换行 / CONTINUE / HANDOFF / ALLOW / DENY / WIFI ON-OFF / HTTP 轮询 / NVS 保存 Mac 地址 / 震动提示</td><td>卡片只显示项目 + agent；不再显示宿主 App 名。</td></tr>
             <tr><td>Stem D / Groove D / Muse D</td><td>四段弧 / 静音 / 独奏 / 黑胶搓盘 / now playing；8 鼓垫 / 4 CC / BPM/FX / 磁带机；第二个 OTA 槽</td><td>手表 → Mac 的 G1 协议；双系统分区。</td></tr>
             <tr><td>音频 / AI</td><td>YIN / Krumhansl / 确定性编曲 / 9 变异 / WebAudio / 8 采样 / MediaProjection CC / SMF / LLM ask / inspire / 离线兜底</td><td>算法细节见上一节。</td></tr>
-            <tr><td>视觉</td><td>黑胶 / 唱臂 / 新拟物旋钮 / LCD / 玻璃穹顶 / 灯圈 / 彩色圆垫 / 玻璃垫 / 径向轮 / 玻璃大标题 / 浅色夜间 / 系统栏 / 折叠屏重排</td><td>12 个 Dribbble 参考，每个至少两个落点。</td></tr>
+            <tr><td>视觉实现</td><td>黑胶 / 唱臂 / 新拟物旋钮 / LCD / 玻璃穹顶 / 灯圈 / 彩色圆垫 / 玻璃垫 / 径向轮 / 玻璃大标题 / 浅色夜间 / 系统栏 / 折叠屏重排</td><td>每个参考至少两个落点：结构、材质、动效、控件手感。</td></tr>
           </tbody>
         </table>
       </div>
