@@ -277,16 +277,16 @@
       <div>
         <p>主屏是三张会话卡：标题是项目名（如 <code>Codex</code>），副标题是 agent（如 <code>claudeCode</code>），右侧是状态和年龄；上下文进度条按 tokens / limit 计算。卡片不显示宿主 App 名，避免把“Cherry Studio”“ChatGPT”当成会话本身。</p>
         <p>点卡片进入 <b>全屏详情</b>：黑底、米白点阵字、单一橙色呼吸点。顶部是 <code>COSPON D / 项目名</code> 与状态行；左侧柱是 <code>STEPS</code> 或 <code>CHAT</code>（点一下切换），右侧柱是 <code>TURN</code> 本轮耗时。中间是最近 6 次工具调用或最近 8 条消息，内容变化时把最新一条放在中间偏下；末尾留白让最后一条能滚到中线。右上角 <code>X</code> 和黄色返回键都能退出。</p>
-        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。STEPS 视图只显示<b>最新一条</b>，并把它的中心固定在屏幕中线；左侧仍显示总数（如 6）。单条最多 199 字符——长 Bash 命令会完整换行，不再被 80 字符截断，也不用自己往下拖。这样你抬头看到的一定是它最近在做的那件事，而不是一句“在思考”。</p>
+        <p><b>过程是一条一条列出来的</b>：服务端从 transcript 反向取最近 6 个 <code>tool_use</code>，格式是 <code>Name - description</code>，固件用 <code>STEP &lt;slot&gt;|&lt;text&gt;</code> 收下。STEPS 视图<b>最多显示 6 条</b>，默认把<b>最新一条滚到屏幕中线</b>；内容没变时不会把你手动往上滑的位置拉回去。单条最多 199 字符——长 Bash 命令会完整换行，不再被 80 字符截断。这样既能一眼看到最近在做的事，也能往上翻看前面的过程。</p>
         <p><b>时间分两层</b>：顶部 <code>TOTAL</code> 是这个会话从开始到现在的总时长；右侧 <code>TURN</code> 是本轮从最后一条 user 消息开始的耗时。working 时橙色点做 900ms 明暗循环，waiting 时状态色常亮，idle 时灰色常亮。卡片状态行也带分钟。</p>
       </div>
       <div class="right">
         <ul class="kv">
           <li><b>Font</b><span>英文标签/数字 unscii_8 / unscii_16；中文正文 12px CJK</span></li>
           <li><b>Layout</b><span>全屏 466×466，内容按半径 233 的圆盘约束；两侧 60px 无框文字柱</span></li>
-          <li><b>STEPS</b><span>最近 6 次 tool_use，一条一行</span></li>
+          <li><b>STEPS</b><span>最多 6 条，最新一条居中，可上滑看更早</span></li>
           <li><b>CHAT</b><span>最近 8 条消息，最新一条中间偏下，可滚动</span></li>
-          <li><b>Close</b><span>X / 黄色返回键 / 点背景</span></li>
+          <li><b>Close</b><span>X / 两个侧键一起按 / 点背景</span></li>
         </ul>
         <div class="rule"></div>
         <video src="media/watch-demo.mp4" autoplay muted loop playsinline poster="media/watch-steps.png" style="width:100%;border:1px solid var(--line);background:#000"></video>
@@ -354,7 +354,9 @@
     <div class="chhead"><div class="no">V</div><div><div class="lab">Chapter 05 / Mac</div><h2>Mac 是引擎，不是窗口</h2></div></div>
     <div class="body">
       <div>
-        <p>Mac 端只有一个 Deno 服务和一个 Swift 串口桥。服务监听 <code>0.0.0.0:8765</code>，提供编曲、LLM、agent 快照、审批队列、动作和手机/手表的桥。它不画 UI，所有界面都在手机或手表上；本机的网页控制台只是同一份服务的另一个视图。</p>
+        <p>Mac 端只有一个 Deno 服务和一个 Swift 串口桥。服务监听 <code>0.0.0.0:8765</code>，提供编曲、LLM、agent 快照、审批队列、动作和手机/手表的桥。</p>
+        <p><b>在 macOS 上查看 / 操作</b>：宿主装好后，用浏览器打开 <code>http://127.0.0.1:8765/</code>。这是同一份服务的网页控制台，不依赖手机；左边是和 agent 对话，右边是设备 / COSPON D / Groove D / Stem 面板。</p>
+        <figure style="margin:18px 0 0"><img src="media/mac-web.jpg" alt="Mac 网页控制台" style="width:100%;border:1px solid var(--line)"><figcaption style="font:11px/1.4 var(--mono);color:var(--dim);margin-top:8px;display:flex;justify-content:space-between"><span>MAC / WEB CONSOLE</span><span>http://127.0.0.1:8765/</span></figcaption></figure>
         <p>串口桥自动找 <code>/dev/cu.usbmodem*</code>，把服务产出的 <code>AG / SESS / STEP / MSG / PERM / NET / END</code> 逐行写进手表；同时读回手表的 <code>G1 STEM / MUTE / SOLO / PLATTER / NOTEON / NOTEOFF / CC / PERM / ACTION / MASTER / BPM</code>，转成 MIDI 或动作。</p>
         <p>服务装在 <code>~/Library/Application Support/grooved-link/</code>，桥在 <code>grooved-bridge/</code>。不要放在 <code>~/Documents</code>：launchd 没有那个目录的 TCC 权限，进程会卡在 <code>open()</code>，看起来活着、日志正常，但端口永远不监听。</p>
       </div>
@@ -432,14 +434,14 @@ END</pre>
     <div class="body">
       <div>
         <p><b>HANDOFF</b>：把会话、项目、agent、状态、token、transcript、最近 8 条对话和「下一步」写成 <code>&lt;cwd&gt;/docs/handoff-YYYYMMDD-HHMM.md</code>，并把「读 &lt;path&gt;，然后继续。」放进 Mac 剪贴板。写文件失败会返回 <code>ok:false</code>，手表显示 <code>HANDOFF FAIL</code>。</p>
-        <p><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>。Claude / Cherry 没有可用的 CLI resume，也不允许后台服务合成按键；所以用一个可授权的小 App <code>COSPOND Send.app</code>：Accessibility 找到 composer → 读 AXValue，有草稿就返回 <code>DRAFT</code> 不动 → 否则 Cmd+V + Return。</p>
-        <p><b>HANDOFF 不要求会话 idle</b>：agent 正在跑也能点。它会写交接文档、把「读 &lt;path&gt;，然后继续」放进剪贴板，并<b>通过同一个 helper 把这句话粘进当前 Cherry 输入框、按 Return</b>——所以 Cherry 会真的开始读 handoff。CONTINUE 仍然只在 idle 出现，避免在 agent 正在跑时插一条新指令。第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL NOT_TRUSTED</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。空输入框时 Cherry 会把占位文案（「Agent 运行中 — Return 排队发送…」）当成 AXValue 返回，helper 已把这类占位符按空处理 —— 只有真实草稿才返回 <code>DRAFT</code>，不会覆盖你正在写的内容。CONTINUE / HANDOFF 都作用在当前打开的 Cherry 对话上，点之前先把目标对话切到前台。Cherry 的「新任务」按钮在辅助功能层按不动（AX 和 Cmd+N 都不会真的切新聊天），所以 HANDOFF 不赌新建流程，直接在当前会话交接。只读诊断：<code>curl 127.0.0.1:8765/api/agents/helper-check</code>，返回 <code>trusted / front / composer</code>，不会粘贴或回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL &lt;原因&gt;</code>。</p>
+        <p><b>CONTINUE</b>：Codex 会话直接 <code>codex exec resume &lt;thread-id&gt; "继续处理" -C &lt;cwd&gt; -s workspace-write --approve-for-me</code>。Claude / Cherry 没有可用的 CLI resume，也不允许后台服务合成按键；所以用一个可授权的小 App <code>COSPOND Send.app</code>：<b>先打开 Electron 的 AX 树</b>（<code>AXEnhancedUserInterface</code> / <code>AXManualAccessibility</code>，否则 composer 根本不可见）→ 找到 composer → 读 AXValue；<b>有草稿不覆盖也不丢</b>，把动作提示词接在草稿后面一起发 → 否则 Cmd+V + Return；粘贴后回读确认，失败如实返回 <code>PASTE_FAIL</code>。</p>
+        <p><b>HANDOFF 不要求会话 idle</b>：agent 正在跑也能点。它会写交接文档、把「读 &lt;path&gt;，然后继续」放进剪贴板，并<b>通过同一个 helper 把这句话粘进当前 Cherry 输入框、按 Return</b>——所以 Cherry 会真的开始读 handoff。CONTINUE 仍然只在 idle 出现，避免在 agent 正在跑时插一条新指令。第一次需要在「系统设置 → 隐私与安全性 → 辅助功能」里打开 <code>COSPOND Send.app</code>。没有授权时服务如实返回 <code>NOT_TRUSTED</code>，手表显示 <code>CONTINUE FAIL NOT_TRUSTED</code>，提示词仍在剪贴板；授权后才会真的让 Cherry 输入并回车。空输入框时 Cherry 会把占位文案（「Agent 运行中 — Return 排队发送…」）当成 AXValue 返回，helper 已把这类占位符按空处理 —— 只有真实草稿才返回 <code>DRAFT</code>，不会覆盖你正在写的内容。CONTINUE / HANDOFF 都作用在当前打开的 Cherry 对话上；键盘事件用 <code>postToPid</code> 直接发给 Cherry，所以即使它在别的 Space 也能送达，且不会误粘到别的 App。Cherry 的「新任务」按钮在辅助功能层按不动（AX 和 Cmd+N 都不会真的切新聊天），所以 HANDOFF 不赌新建流程，直接在当前会话交接。只读诊断：<code>curl 127.0.0.1:8765/api/agents/helper-check</code>，返回 <code>trusted / front / composer</code>，不会粘贴或回车。动作回执在底栏保留 20 秒：<code>CONTINUE READY / HANDOFF READY / FAIL &lt;原因&gt;</code>。</p>
       </div>
       <div class="right">
         <ul class="kv">
           <li><b>Handoff</b><span>任何状态都显示；working 时也能点</span></li>
           <li><b>Continue</b><span>idle 时显示；working 时等这一轮结束</span></li>
-          <li><b>Press</b><span>按下即动作，不等抬手（圆屏容易把 click 判成滑动）</span></li>
+          <li><b>Press</b><span>底部整条触摸带（左 CONTINUE / 右 HANDOFF）+ 侧键 A / B；按下即动作</span></li>
           <li><b>Wire</b><span><code>G1 ACTION &lt;slot&gt; continue|handoff</code></span></li>
           <li><b>Server</b><span><code>POST /api/agents/action</code></span></li>
           <li><b>Codex</b><span><code>codex exec resume</code> · log <code>~/Library/Logs/grooved-continue.log</code></span></li>
@@ -449,8 +451,8 @@ END</pre>
       </div>
     </div>
     <div class="gallery" style="grid-template-columns:1fr 1fr">
-      <figure><img src="media/watch-actions.png" alt="CONTINUE / HANDOFF · STEPS"><figcaption><span>CONTINUE / HANDOFF</span><span>STEPS · 最新 Bash 完整显示</span></figcaption></figure>
-      <figure><img src="media/watch-actions-chat.png" alt="CONTINUE / HANDOFF · CHAT"><figcaption><span>CONTINUE / HANDOFF</span><span>CHAT · 最新对话在中线偏下</span></figcaption></figure>
+      <figure><img src="media/watch-actions.png" alt="CONTINUE / HANDOFF · STEPS"><figcaption><span>CONTINUE / HANDOFF</span><span>STEPS · 最近 6 条 / 最新居中</span></figcaption></figure>
+      <figure><img src="media/watch-actions-chat.png" alt="CONTINUE / HANDOFF · CHAT"><figcaption><span>CONTINUE / HANDOFF</span><span>CHAT · 最新对话居中</span></figcaption></figure>
     </div>
   </div>
 </section>
@@ -572,7 +574,7 @@ END</pre>
       <figure><img src="media/phone-seq.jpg" alt="SEQ"><figcaption><span>SEQ 2.0</span><span>16 × 4</span></figcaption></figure>
       <figure class="wide"><img src="media/phone-link.jpg" alt="LINK"><figcaption><span>LINK</span><span>HOST / API KEY</span></figcaption></figure>
       <figure><img src="media/watch-list.png" alt="COSPON CARDS"><figcaption><span>COSPON D</span><span>CARDS / WORKING</span></figcaption></figure>
-      <figure><img src="media/watch-steps.png" alt="COSPON STEPS"><figcaption><span>COSPON D</span><span>STEPS / LATEST FIRST</span></figcaption></figure>
+      <figure><img src="media/watch-steps.png" alt="COSPON STEPS"><figcaption><span>COSPON D</span><span>STEPS / 6 条 · 最新居中</span></figcaption></figure>
       <figure><img src="media/watch-chat.png" alt="COSPON CHAT"><figcaption><span>COSPON D</span><span>CHAT / CENTER</span></figcaption></figure>
     </div>
   </div>
@@ -595,8 +597,9 @@ END</pre>
       </div>
       <div class="card">
         <h3>Mac / Host</h3>
-        <p>Deno 服务 + 串口桥 + LaunchAgent + CONTINUE helper。装完在辅助功能里打开 <code>COSPOND Send.app</code>，CONTINUE 才会真的按键。</p>
+        <p>Deno 服务 + 串口桥 + LaunchAgent + CONTINUE helper。装完后用浏览器打开 <code>http://127.0.0.1:8765/</code> 就是 macOS 上的控制台；再到辅助功能里打开 <code>COSPOND Send.app</code>，CONTINUE 才会真的按键。</p>
         <a class="btn" href="/xd/downloads/CEVTUO-XD-mac.zip" download>Mac ZIP</a>
+        <a class="btn o" href="http://127.0.0.1:8765/" target="_blank" rel="noopener">Open On Mac →</a>
         <a class="btn" href="#actions">Permission →</a>
       </div>
     </div>
