@@ -205,6 +205,33 @@
   <div class="scrollhint">SCROLL TO INDEX ↓</div>
 </section>
 
+<section class="ch" id="whatsnew" style="border-top:1px solid var(--line2)">
+  <div class="wrap">
+    <div class="chhead"><div class="no">00</div><div><div class="lab">2026-10-21 / Update</div><h2>今天新增</h2></div></div>
+    <div class="install" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+      <div class="card">
+        <h3>01 / 无线 CONTINUE · HANDOFF</h3>
+        <p>不插数据线也能用：6 秒内没有 USB 数据就自动走 Wi-Fi，直接 <code>POST /api/agents/action</code>（带 slot）。USB 和 Wi-Fi 同时到也不会执行两次（15 秒去重），失败会回 <code>FAIL &lt;原因&gt;</code>。</p>
+      </div>
+      <div class="card">
+        <h3>02 / 网页配 Wi-Fi</h3>
+        <p>Mac 打开 <code>http://127.0.0.1:8765/#wifi</code> 填 SSID + 密码，手环 2 秒内轮询取走并写进 NVS。已保存 <code>HUAWEI-7200</code> / <code>zotu_D817</code> / <code>ASSS2415</code>；手环只支持 2.4GHz。</p>
+      </div>
+      <div class="card">
+        <h3>03 / 详情页 6 条 STEPS</h3>
+        <p>同屏最多 6 条，最新一条居中；可上滑看更早，内容没变不会被 2 秒快照拉回去。滚动条从关闭改为按需显示；动作键下方新增 Wi-Fi 状态行，圆屏底部不再裁掉。</p>
+      </div>
+      <div class="card">
+        <h3>04 / 动作可靠性</h3>
+        <p>底部整条触摸带（左 CONTINUE / 右 HANDOFF）+ 侧键 A/B；按下即动作，桥回 <code>SENT</code>，2.5 秒没收到自动重发。串口桥读写分离、半行恢复，长会话不再丢 <code>G1 ACTION</code>。</p>
+      </div>
+    </div>
+    <div class="gallery" style="grid-template-columns:1fr">
+      <figure class="wide"><img src="media/mac-wifi.jpg" alt="Mac 控制台 Wi-Fi 页"><figcaption><span>MAC / WEB CONSOLE</span><span>http://127.0.0.1:8765/#wifi · 填 SSID / 密码 → 发送到手环</span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
 <section class="tocsec" id="index">
   <div class="wrap">
     <div class="tochead">
@@ -216,6 +243,7 @@
     </div>
     <div class="toc">
       <div class="col">
+        <a class="toc-item" style="--i:0" href="#whatsnew"><span class="no">00</span><div><h3>What's New — 2026-10-21</h3><p>无线 CONTINUE/HANDOFF · 网页配 Wi-Fi · 6 条 STEPS</p></div></a>
         <a class="toc-item" style="--i:0" href="#overview"><span class="no">I</span><div><h3>Overview</h3><p>三端是什么、为什么是手表</p></div></a>
         <a class="toc-item" style="--i:1" href="#watch"><span class="no">II</span><div><h3>COSpon D — Watch UI</h3><p>卡片、全屏详情、STEPS、TOTAL / TURN</p></div></a>
         <a class="toc-item" style="--i:2" href="#watchapps"><span class="no">III</span><div><h3>Stem / Groove / Muse</h3><p>另外三个手表 App</p></div></a>
