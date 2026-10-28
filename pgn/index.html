@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Cevtuo-PGN · CEVTUOGRND</title>
+<meta name="description" content="Cevtuo-PGN：把 Google News 变成一份去重、可分页、可直接粘贴的纯链接清单。Chrome 扩展。"/>
+<link rel="icon" href="icon.png"/>
+<style>
+  :root{
+    --ink:#fff;
+    --soft:rgba(255,255,255,.76);
+    --faint:rgba(255,255,255,.48);
+    --line:rgba(255,255,255,.16);
+    --panel:255,255,255;
+    --accent:#7aa7ff;
+    --accent-deep:#4f86f7;
+    --ok:#8fe3b0;
+    --r:24px;
+    --ease:cubic-bezier(.32,.72,0,1);
+  }
+  *{box-sizing:border-box}
+  html{background:#240a05}
+  body{
+    margin:0;min-height:100vh;color:var(--ink);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background-color:#240a05;
+    background-image:url("../bg.jpg");
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.16) 0%,rgba(0,0,0,.42) 55%,rgba(0,0,0,.62) 100%);
+  }
+  .wrap{position:relative;z-index:1;width:min(1080px,calc(100% - 40px));margin:0 auto;padding:28px 0 48px}
+
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:6px 4px 34px}
+  .brand{color:var(--soft);text-decoration:none;font-size:13px;letter-spacing:3px;font-weight:650}
+  .brand:hover{color:#fff}
+  .back{color:var(--faint);text-decoration:none;font-size:13.5px;padding:7px 13px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.06);transition:all .2s var(--ease)}
+  .back:hover{color:#fff;background:rgba(255,255,255,.13)}
+
+  .hero{text-align:center;padding:12px 10px 46px}
+  .icon{width:92px;height:92px;border-radius:24px;box-shadow:0 18px 44px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.18)}
+  .eyebrow{margin:22px 0 8px;color:var(--accent);font-size:11px;letter-spacing:3.5px;font-weight:700}
+  h1{margin:0;font-size:clamp(36px,6vw,58px);line-height:1.05;letter-spacing:-.02em;font-weight:760;text-shadow:0 4px 30px rgba(0,0,0,.45)}
+  .lead{max-width:590px;margin:16px auto 0;color:var(--soft);font-size:16.5px;text-shadow:0 1px 12px rgba(0,0,0,.5)}
+  .lead em{font-style:normal;color:#fff;font-weight:600}
+  .actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:14px;text-decoration:none;font-size:14.5px;font-weight:620;color:#fff;border:1px solid var(--line);background:rgba(255,255,255,.1);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);transition:transform .2s var(--ease),background .2s var(--ease)}
+  .btn:hover{transform:translateY(-2px);background:rgba(255,255,255,.17)}
+  .btn.primary{background:linear-gradient(180deg,var(--accent),var(--accent-deep));border-color:transparent;color:#07142d;box-shadow:0 12px 30px rgba(79,134,247,.35)}
+  .btn.primary:hover{background:linear-gradient(180deg,#8db4ff,#5c90fa)}
+  .meta{margin:16px 0 0;color:var(--faint);font-size:12.5px}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .card{padding:22px 21px;border:1px solid var(--line);border-radius:20px;background:rgba(var(--panel),.09);backdrop-filter:blur(24px) saturate(160%);-webkit-backdrop-filter:blur(24px) saturate(160%);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+  .card .k{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 9px;border-radius:11px;background:rgba(122,167,255,.16);color:var(--accent);font-size:12.5px;font-weight:700;letter-spacing:.02em}
+  .card h3{margin:14px 0 6px;font-size:15.5px;font-weight:660}
+  .card p{margin:0;color:var(--faint);font-size:13.2px;line-height:1.65}
+
+  .section{margin-top:56px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:18px;padding:0 4px}
+  .section-head h2{margin:0;font-size:22px;letter-spacing:-.01em}
+  .section-head p{margin:0;color:var(--faint);font-size:13px}
+
+  .work{display:grid;grid-template-columns:1fr 400px;gap:34px;align-items:center;padding:30px;border:1px solid var(--line);border-radius:28px;background:rgba(var(--panel),.07);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px)}
+  .steps{counter-reset:s}
+  .step{position:relative;padding:0 0 22px 46px}
+  .step:last-child{padding-bottom:0}
+  .step::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:1px;width:28px;height:28px;border-radius:9px;display:grid;place-items:center;background:rgba(255,255,255,.1);border:1px solid var(--line);font-size:12px;font-weight:700;color:var(--soft)}
+  .step::after{content:"";position:absolute;left:13.5px;top:32px;bottom:2px;width:1px;background:var(--line)}
+  .step:last-child::after{display:none}
+  .step b{display:block;font-size:14.5px;font-weight:640;margin-bottom:3px}
+  .step span{color:var(--faint);font-size:13.2px;line-height:1.65}
+  .step code{padding:2px 6px;border-radius:6px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.08);font:12px ui-monospace,SFMono-Regular,Menlo,monospace;color:#dfe8ff}
+
+  /* popup mock */
+  .mock{width:100%;max-width:390px;justify-self:center;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:rgba(24,25,29,.96);box-shadow:0 30px 70px rgba(0,0,0,.55)}
+  .mock-top{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;border-bottom:1px solid rgba(255,255,255,.09)}
+  .mock-logo{width:16px;height:16px;border-radius:5px;background:linear-gradient(180deg,#2b7de9,#1565c0)}
+  .mock-name{font-size:12.5px;font-weight:650}
+  .mock-count{margin-left:auto;padding:1px 7px;border-radius:999px;background:rgba(122,167,255,.16);color:var(--accent);font-size:10.5px;font-weight:700}
+  .mock-tabs{display:flex;gap:4px;padding:8px 10px 2px}
+  .mock-tab{padding:5px 9px;border-radius:999px;color:rgba(255,255,255,.5);font-size:11.5px}
+  .mock-tab.on{background:rgba(122,167,255,.16);color:var(--accent);font-weight:650}
+  .mock-limit{display:flex;align-items:center;gap:7px;padding:5px 12px 3px;color:rgba(255,255,255,.45);font-size:10.5px}
+  .mock-chip{padding:2px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-size:10.5px;color:rgba(255,255,255,.55)}
+  .mock-chip.on{background:var(--accent);border-color:transparent;color:#07142d;font-weight:700}
+  .mock-row{display:flex;gap:9px;padding:9px 12px;border-top:1px solid rgba(255,255,255,.06)}
+  .mock-check{flex:none;width:12px;height:12px;margin-top:3px;border-radius:3px;background:var(--accent);position:relative}
+  .mock-check::after{content:"";position:absolute;left:3.5px;top:1px;width:3px;height:6px;border:solid #07142d;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+  .mock-main{min-width:0;flex:1}
+  .mock-title{font-size:11.5px;line-height:1.4;font-weight:540;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .mock-url{margin-top:3px;color:#7aa7ff;font:9.5px ui-monospace,SFMono-Regular,Menlo,monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mock-src{margin-top:2px;color:rgba(255,255,255,.4);font-size:9.5px}
+  .mock-x{flex:none;color:rgba(255,255,255,.35);font-size:13px;line-height:1;padding:2px}
+  .mock-foot{padding:10px 12px;border-top:1px solid rgba(255,255,255,.09)}
+  .mock-copy{width:100%;padding:8px;border-radius:9px;background:var(--accent);color:#07142d;text-align:center;font-size:11.5px;font-weight:700}
+
+  .note{margin-top:16px;padding:16px 18px;border:1px solid var(--line);border-radius:16px;background:rgba(var(--panel),.06);color:var(--faint);font-size:12.8px;line-height:1.7}
+  .note b{color:var(--soft)}
+
+  .foot{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--faint);font-size:12px}
+  .foot a{color:var(--faint);text-decoration:none}
+  .foot a:hover{color:#fff}
+
+  @media (max-width:860px){
+    .grid{grid-template-columns:1fr 1fr}
+    .work{grid-template-columns:1fr;gap:28px}
+    .mock{order:2}
+    .steps{order:1}
+  }
+  @media (max-width:560px){
+    .wrap{width:calc(100% - 28px);padding-top:18px}
+    .grid{grid-template-columns:1fr}
+    .section{margin-top:40px}
+    .work{padding:22px 18px}
+    .actions{flex-direction:column;align-items:stretch}
+    .btn{width:100%}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a class="brand" href="/">CEVTUOGRND</a>
+    <a class="back" href="/">← Apps</a>
+  </nav>
+
+  <header class="hero">
+    <img class="icon" src="icon.png" alt="Cevtuo-PGN icon"/>
+    <p class="eyebrow">CHROME EXTENSION · v1.1.0</p>
+    <h1>Cevtuo-PGN</h1>
+    <p class="lead">把 Google News 变成一份<em>干净、去重、可直接粘贴</em>的链接清单。<br/>首页和 For you 各自成册，同一新闻只留一条。</p>
+    <div class="actions">
+      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.1.0)</a>
+      <a class="btn" href="#install">安装说明</a>
+    </div>
+    <p class="meta">Chrome / Edge · Manifest V3 · 无需账号 · 所有处理只在本机</p>
+  </header>
+
+  <section class="grid" aria-label="功能">
+    <div class="card">
+      <span class="k">01</span>
+      <h3>首页 / For you 分开</h3>
+      <p>两套独立清单，分开抓取、分开删除、分开复制。切换标签不会混在一起。</p>
+    </div>
+    <div class="card">
+      <span class="k">02</span>
+      <h3>同一新闻只留一条</h3>
+      <p>读取 Google News 自己的 story cluster id。四条同一事件的报道，只保留第一条链接。</p>
+    </div>
+    <div class="card">
+      <span class="k">20·30·50</span>
+      <h3>For you 可选条数</h3>
+      <p>按页面顺序取前 20 / 30 / 50 条，默认 30。删掉一条会自动补下一条。</p>
+    </div>
+    <div class="card">
+      <span class="k">×</span>
+      <h3>逐条删除</h3>
+      <p>不想要的单条删掉，底部可一键恢复。重新抓取时，只要链接还在，删除状态就保留。</p>
+    </div>
+    <div class="card">
+      <span class="k">⧉</span>
+      <h3>复制纯链接</h3>
+      <p>复制结果每行只有一个 <code>news.google.com/read/…</code> 链接，不带标题、来源和时间。</p>
+    </div>
+    <div class="card">
+      <span class="k">⊘</span>
+      <h3>过滤游戏内容</h3>
+      <p>Games、填字、数独、wordle 等模块不会进入清单，只保留真正的新闻文章。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2>它长这样</h2>
+      <p>工具栏弹窗 · 也可以点 ⤢ 打开大窗口</p>
+    </div>
+    <div class="work">
+      <div class="steps">
+        <div class="step">
+          <b>在 Google News 上点图标</b>
+          <span>打开 Home 或 For you 页面，点工具栏的 Cevtuo-PGN。当前页面会被自动抓取。</span>
+        </div>
+        <div class="step">
+          <b>选页、选数量、逐条删</b>
+          <span>顶部切换 <code>首页</code> / <code>For you</code>；For you 可选 20 / 30 / 50 条。取消勾选或点 × 去掉不想要的。</span>
+        </div>
+        <div class="step">
+          <b>一键复制，直接粘贴</b>
+          <span>复制的是纯链接列表，一行一条。粘贴到笔记、表格、下载器或任何需要链接的地方。</span>
+        </div>
+      </div>
+
+      <div class="mock" aria-hidden="true">
+        <div class="mock-top">
+          <span class="mock-logo"></span>
+          <span class="mock-name">Cevtuo-PGN</span>
+          <span class="mock-count">30</span>
+        </div>
+        <div class="mock-tabs">
+          <span class="mock-tab">首页 46</span>
+          <span class="mock-tab on">For you 30</span>
+        </div>
+        <div class="mock-limit">
+          For you 数量
+          <span class="mock-chip">20</span>
+          <span class="mock-chip on">30</span>
+          <span class="mock-chip">50</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-check"></span>
+          <span class="mock-main">
+            <span class="mock-title">Israel election: Exit polls suggest no clear winner</span>
+            <span class="mock-url">https://news.google.com/read/CBMiVkFVX3lxTE0…</span>
+            <span class="mock-src">BBC · 2 hours ago</span>
+          </span>
+          <span class="mock-x">×</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-check"></span>
+          <span class="mock-main">
+            <span class="mock-title">Poundland close to collapse as new directors head for exit</span>
+            <span class="mock-url">https://news.google.com/read/CBMimgFBVV95cUx…</span>
+            <span class="mock-src">Sky News · 18 hours ago</span>
+          </span>
+          <span class="mock-x">×</span>
+        </div>
+        <div class="mock-row">
+          <span class="mock-check"></span>
+          <span class="mock-main">
+            <span class="mock-title">More high winds hit parts of UK as Storm Boelo clean-up continues</span>
+            <span class="mock-url">https://news.google.com/read/CBMiXkFVX3lxTE51…</span>
+            <span class="mock-src">BBC · 2 days ago</span>
+          </span>
+          <span class="mock-x">×</span>
+        </div>
+        <div class="mock-foot"><div class="mock-copy">复制「For you」链接 (30)</div></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>去重是怎么做的：</b>Google News 的每张文章卡片都带一个 story cluster id（`channel_story_360:…` / `/stories/…`）。同一个事件的多家报道共用一个 id，Cevtuo-PGN 只保留页面顺序里的第一条，所以不会再出现同一件事的四条链接。
+    </div>
+  </section>
+
+  <section class="section" id="install">
+    <div class="section-head">
+      <h2>安装</h2>
+      <p>未上架 Chrome 应用商店 · 以未打包扩展加载</p>
+    </div>
+    <div class="work">
+      <div class="steps">
+        <div class="step">
+          <b>下载并解压</b>
+          <span>下载 <a href="cevtuo-pgn.zip" download style="color:var(--accent)">cevtuo-pgn.zip</a>，解压得到 <code>Cevtuo-PGN</code> 文件夹。文件夹不要删，Chrome 每次启动都从它读取扩展。</span>
+        </div>
+        <div class="step">
+          <b>打开扩展管理页</b>
+          <span>地址栏输入 <code>chrome://extensions</code>，打开右上角「开发者模式」。</span>
+        </div>
+        <div class="step">
+          <b>加载未打包扩展</b>
+          <span>点「加载未打包的扩展程序」，选择解压出来的 <code>Cevtuo-PGN</code> 文件夹。然后把图标固定到工具栏。</span>
+        </div>
+        <div class="step">
+          <b>打开 Google News 使用</b>
+          <span>进入已登录的 Google News，点 Cevtuo-PGN 图标即可抓取。更新扩展时，在扩展卡片上点「重新加载」。</span>
+        </div>
+      </div>
+      <div class="note" style="margin:0">
+        <b>权限说明：</b>只申请 <code>news.google.com</code> 的页面访问、脚本注入和本地存储。不会上传任何数据，不读取其他网站，不需要 Google 账号授权。<br/><br/>
+        <b>v1.1.0：</b>新增 story cluster 去重；For you 支持 20 / 30 / 50 条；插件更名为 Cevtuo-PGN。
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 cevtuo · CEVTUOGRND</span>
+    <span><a href="/">Apps</a> · <a href="cevtuo-pgn.zip" download>Download</a></span>
+  </footer>
+</div>
+</body>
+</html>
