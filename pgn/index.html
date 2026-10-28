@@ -134,11 +134,11 @@
 
   <header class="hero">
     <img class="icon" src="icon.png" alt="Cevtuo-PGN icon"/>
-    <p class="eyebrow">CHROME EXTENSION · v1.1.0</p>
+    <p class="eyebrow">CHROME EXTENSION · v1.2.0</p>
     <h1>Cevtuo-PGN</h1>
     <p class="lead">把 Google News 变成一份<em>干净、去重、可直接粘贴</em>的链接清单。<br/>首页和 For you 各自成册，同一新闻只留一条。</p>
     <div class="actions">
-      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.1.0)</a>
+      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.2.0)</a>
       <a class="btn" href="#install">安装说明</a>
     </div>
     <p class="meta">Chrome / Edge · Manifest V3 · 无需账号 · 所有处理只在本机</p>
@@ -156,9 +156,9 @@
       <p>读取 Google News 自己的 story cluster id。四条同一事件的报道，只保留第一条链接。</p>
     </div>
     <div class="card">
-      <span class="k">20·30·50</span>
-      <h3>For you 可选条数</h3>
-      <p>按页面顺序取前 20 / 30 / 50 条，默认 30。删掉一条会自动补下一条。</p>
+      <span class="k">⇣</span>
+      <h3>两边都能自己下拉</h3>
+      <p>首页和 For you 各自带「下拉抓取」：自动滚动到下一屏、合并去重。For you 会一直补到 20 / 30 / 50 条（默认 30），不需要你手动滚页面。</p>
     </div>
     <div class="card">
       <span class="k">×</span>
@@ -190,7 +190,7 @@
         </div>
         <div class="step">
           <b>选页、选数量、逐条删</b>
-          <span>顶部切换 <code>首页</code> / <code>For you</code>；For you 可选 20 / 30 / 50 条。取消勾选或点 × 去掉不想要的。</span>
+          <span>顶部切换 <code>首页</code> / <code>For you</code>。每一份清单都有自己的「⇣ 下拉抓取」；For you 可选 20 / 30 / 50 条。取消勾选或点 × 去掉不想要的。</span>
         </div>
         <div class="step">
           <b>一键复制，直接粘贴</b>
@@ -275,6 +275,7 @@
       </div>
       <div class="note" style="margin:0">
         <b>权限说明：</b>只申请 <code>news.google.com</code> 的页面访问、脚本注入和本地存储。不会上传任何数据，不读取其他网站，不需要 Google 账号授权。<br/><br/>
+        <b>v1.2.0：</b>首页与 For you 各自支持「⇣ 下拉抓取」——自动滚动、逐屏合并去重；For you 会自动补足到所选条数。<br/>
         <b>v1.1.0：</b>新增 story cluster 去重；For you 支持 20 / 30 / 50 条；插件更名为 Cevtuo-PGN。
       </div>
     </div>
