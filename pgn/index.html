@@ -134,11 +134,11 @@
 
   <header class="hero">
     <img class="icon" src="icon.png" alt="Cevtuo-PGN icon"/>
-    <p class="eyebrow">CHROME EXTENSION · v1.2.0</p>
+    <p class="eyebrow">CHROME EXTENSION · v1.3.0</p>
     <h1>Cevtuo-PGN</h1>
     <p class="lead">把 Google News 变成一份<em>干净、去重、可直接粘贴</em>的链接清单。<br/>首页和 For you 各自成册，同一新闻只留一条。</p>
     <div class="actions">
-      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.2.0)</a>
+      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.3.0)</a>
       <a class="btn" href="#install">安装说明</a>
     </div>
     <p class="meta">Chrome / Edge · Manifest V3 · 无需账号 · 所有处理只在本机</p>
@@ -167,8 +167,8 @@
     </div>
     <div class="card">
       <span class="k">⧉</span>
-      <h3>复制纯链接</h3>
-      <p>复制结果每行只有一个 <code>news.google.com/read/…</code> 链接，不带标题、来源和时间。</p>
+      <h3>复制媒体原始链接</h3>
+      <p>勾选「原始链接」后，复制前会把 <code>news.google.com/read/…</code> 解析成 BBC、Guardian 等媒体原文地址；每行一个链接，不带标题、来源和时间。解析过的链接会缓存。</p>
     </div>
     <div class="card">
       <span class="k">⊘</span>
@@ -275,6 +275,7 @@
       </div>
       <div class="note" style="margin:0">
         <b>权限说明：</b>只申请 <code>news.google.com</code> 的页面访问、脚本注入和本地存储。不会上传任何数据，不读取其他网站，不需要 Google 账号授权。<br/><br/>
+        <b>v1.3.0：</b>复制时可解析成媒体原始链接（在 Google News 页面内完成，带缓存）；解析失败会保留 Google News 链接并在状态栏说明原因。<br/>
         <b>v1.2.0：</b>首页与 For you 各自支持「⇣ 下拉抓取」——自动滚动、逐屏合并去重；For you 会自动补足到所选条数。<br/>
         <b>v1.1.0：</b>新增 story cluster 去重；For you 支持 20 / 30 / 50 条；插件更名为 Cevtuo-PGN。
       </div>
