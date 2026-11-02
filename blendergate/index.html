@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Cevtuo-Blendergate — one gate for every headless Blender job</title>
+<meta name="description" content="A serial gate for headless Blender jobs. Two run, the rest wait. One file, zero dependencies, a live status page that sleeps when nobody is watching."/>
+<link rel="icon" href="../logo.png"/>
+<style>
+  :root{
+    --ink:#12161d; --soft:#4a5261; --faint:#79839a;
+    --panel:255,255,255; --line:rgba(255,255,255,.72); --line2:rgba(120,135,160,.22);
+    --accent:#2f6feb; --ok:#2f7d4f; --warn:#9a6b12;
+    --shadow:0 14px 40px rgba(38,52,80,.16),0 2px 8px rgba(38,52,80,.08);
+    --r:26px; --ease:cubic-bezier(.32,.72,0,1);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --ink:#eef2f8; --soft:#a9b4c6; --faint:#7b8698;
+      --panel:22,28,38; --line:rgba(255,255,255,.13); --line2:rgba(255,255,255,.09);
+      --accent:#5b93ff; --ok:#6fd39a; --warn:#e0b45c;
+      --shadow:0 18px 50px rgba(0,0,0,.55),0 2px 10px rgba(0,0,0,.4);
+    }
+  }
+  *{box-sizing:border-box}
+  html{background:#2a0c06}
+  body{
+    margin:0;min-height:100vh;color:var(--ink);overflow-x:hidden;
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Helvetica Neue",Arial,sans-serif;
+    background-color:#2a0c06;
+    background-image:url("../bg.jpg");
+    background-position:center center;background-size:cover;
+    background-repeat:no-repeat;background-attachment:fixed;
+  }
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(0,0,0,.06) 0%,rgba(0,0,0,.20) 55%,rgba(0,0,0,.38) 100%);
+  }
+  .glass{
+    background:rgba(var(--panel),.62);
+    backdrop-filter:blur(30px) saturate(180%);
+    -webkit-backdrop-filter:blur(30px) saturate(180%);
+    border:1px solid var(--line);
+    box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.55);
+    border-radius:var(--r);
+  }
+  .wrap{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:56px 22px 0;
+    display:flex;flex-direction:column;min-height:100vh}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;text-align:center;padding:46px 34px 36px;overflow:hidden}
+  .logo{width:92px;height:92px;border-radius:24px;display:block;margin:0 auto 20px;
+    box-shadow:0 18px 44px rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.35)}
+  .eyebrow{margin:0 0 6px;font-size:11.5px;letter-spacing:.18em;color:var(--faint);font-weight:650}
+  h1{margin:0;font-size:clamp(30px,5vw,42px);line-height:1.15;letter-spacing:-.02em;font-weight:720}
+  .sub{margin:16px auto 0;max-width:660px;font-size:16.5px;color:var(--soft)}
+  .sub.zh{margin-top:8px;font-size:14px;color:var(--faint)}
+  .byline{margin-top:14px;font-size:13px;color:var(--faint)}
+  .byline b{color:var(--soft);font-weight:650}
+
+  .cmd{display:flex;align-items:center;gap:12px;margin:26px auto 0;max-width:790px;
+    padding:12px 14px;border-radius:14px;text-align:left;overflow-x:auto;
+    background:rgba(16,19,26,.92);border:1px solid rgba(255,255,255,.09);
+    box-shadow:0 12px 30px rgba(0,0,0,.28)}
+  .cmd .dollar{color:#6fd39a;font:14px/1 ui-monospace,SFMono-Regular,Menlo,monospace;flex:none}
+  .cmd code{flex:1;color:#e8ecf3;white-space:nowrap;
+    font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .cmd button{flex:none;font:12px/1 -apple-system,"PingFang SC",sans-serif;padding:7px 11px;
+    border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);
+    color:#dfe6f1;cursor:pointer}
+  .cmd button:hover{background:rgba(255,255,255,.16)}
+
+  .dl{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px 0 0}
+  .btn{
+    display:flex;align-items:center;gap:12px;padding:13px 20px;min-width:250px;
+    border-radius:16px;border:1px solid var(--line2);text-decoration:none;color:var(--ink);
+    background:rgba(var(--panel),.55);
+    box-shadow:0 8px 22px rgba(38,52,80,.10), inset 0 1px 0 rgba(255,255,255,.5);
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease)
+  }
+  .btn:hover{transform:translateY(-3px);text-decoration:none;
+    box-shadow:0 20px 52px rgba(38,52,80,.24), inset 0 1px 0 rgba(255,255,255,.7)}
+  .btn:active{transform:translateY(-1px) scale(.99)}
+  .btn .tx{text-align:left}
+  .btn .tx b{display:block;font-size:15.5px;font-weight:680}
+  .btn .tx small{display:block;font-size:12px;color:var(--faint)}
+  .btn.primary{background:linear-gradient(180deg,#3f7cf0,#2f6feb);border-color:transparent;color:#fff}
+  .btn.primary .tx small{color:rgba(255,255,255,.82)}
+  .note{font-size:12.5px;color:var(--faint);text-align:center;margin:16px 0 0;line-height:1.8}
+  .note .zh{display:block;color:var(--soft)}
+
+  /* ---------- terminal ---------- */
+  .terminal{margin:26px 0 0;overflow:hidden;border-radius:18px;
+    background:rgba(13,16,22,.94);border:1px solid rgba(255,255,255,.10);
+    box-shadow:0 20px 50px rgba(0,0,0,.38)}
+  .tbar{display:flex;align-items:center;gap:7px;padding:11px 14px;
+    border-bottom:1px solid rgba(255,255,255,.07)}
+  .tbar .dot{width:10px;height:10px;border-radius:50%;background:#ff5f57}
+  .tbar .dot.y{background:#febc2e}.tbar .dot.g{background:#28c840}
+  .tbar .ttl{margin-left:8px;font-size:11.5px;color:#7f8a9c;letter-spacing:.04em}
+  .terminal pre{margin:0;padding:18px 20px 22px;overflow-x:auto;color:#dbe3ee;
+    font:12.5px/1.75 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .terminal .m{color:#6fd39a}
+  .terminal .d{color:#7f8a9c}
+  .terminal .ok{color:#6fd39a}
+  .terminal .warn{color:#e0b45c}
+  .terminal .link{color:#7fb0ff}
+  .cap{margin:12px 0 0;text-align:center;font-size:12.5px;color:var(--faint)}
+
+  /* ---------- features ---------- */
+  .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(264px,1fr));
+    gap:14px;list-style:none;padding:0;margin:34px 0 0}
+  .feat{padding:22px 24px;border-radius:22px;background:rgba(var(--panel),.52);
+    border:1px solid rgba(255,255,255,.5);box-shadow:0 6px 18px rgba(38,52,80,.07);
+    backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%)}
+  @media (prefers-color-scheme: dark){
+    .feat{border-color:rgba(255,255,255,.08);box-shadow:0 8px 22px rgba(0,0,0,.3)}
+  }
+  .feat h3{margin:0 0 7px;font-size:15.5px;font-weight:680}
+  .feat p{margin:0;font-size:14px;color:var(--soft)}
+  .feat code{font-size:12.5px}
+
+  /* ---------- why ---------- */
+  .why{margin:34px 0 0;padding:30px 32px}
+  .why h2{margin:0 0 8px;font-size:20px;letter-spacing:-.01em}
+  .why p{margin:0;color:var(--soft);font-size:14.5px;max-width:720px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:20px}
+  .stat{padding:16px 18px;border-radius:16px;background:rgba(var(--panel),.5);
+    border:1px solid var(--line2)}
+  .stat b{display:block;font-size:24px;line-height:1.1;letter-spacing:-.02em}
+  .stat span{display:block;margin-top:5px;font-size:12.5px;color:var(--faint)}
+
+  /* ---------- install ---------- */
+  .install{margin:34px 0 0;padding:8px 28px 28px}
+  details.fold>summary{list-style:none;cursor:pointer;padding:20px 0 6px}
+  details.fold>summary::-webkit-details-marker{display:none}
+  details.fold>summary h2{display:inline;margin:0;font-size:19px}
+  details.fold>summary .hint{display:block;margin-top:4px;font-size:12.5px;color:var(--faint)}
+  details.fold[open]>summary .hint{display:none}
+  .inst-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:14px}
+  .inst-col h3{margin:0 0 8px;font-size:14.5px}
+  .inst-col ol{margin:0;padding-left:20px;color:var(--soft);font-size:14px}
+  .inst-col li{margin:7px 0}
+  .inst-col .zh{display:block;font-size:12.5px;color:var(--faint);margin-top:2px}
+  pre.snip{margin:8px 0 0;padding:12px 14px;border-radius:12px;overflow-x:auto;
+    background:rgba(16,19,26,.9);color:#dbe3ee;
+    font:12.5px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:rgba(120,135,160,.12);padding:1px 5px;border-radius:5px;font-size:.92em}
+
+  footer{margin-top:auto;padding:70px 0 44px;text-align:center}
+  footer img{width:72px;height:72px;border-radius:18px;opacity:.95;
+    box-shadow:0 12px 30px rgba(0,0,0,.3)}
+  .wordmark{margin:14px 0 0;font-size:12.5px;letter-spacing:.24em;font-weight:650;color:#f3e9e3}
+  .wordmark2{margin:2px 0 0;font-size:10.5px;letter-spacing:.3em;color:rgba(243,233,227,.6)}
+  footer .rule{width:54px;height:1px;margin:18px auto;background:rgba(255,255,255,.25)}
+  .fine{margin:0;font-size:11.5px;color:rgba(243,233,227,.55)}
+  .fine a{color:rgba(243,233,227,.8)}
+
+  @media (max-width:660px){
+    .wrap{padding:28px 14px 0}
+    .hero{padding:34px 20px 28px}
+    .cmd{flex-wrap:wrap}
+    .cmd code{flex:1 1 calc(100% - 34px);white-space:normal;word-break:break-all}
+    .cmd button{margin-left:auto}
+    .dl .btn{min-width:100%}
+    .why,.install{padding-left:20px;padding-right:20px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="glass hero">
+    <img class="logo" src="../logo.png" alt="CEVTUO"/>
+    <p class="eyebrow">CEVTUO · BLENDER TOOLING</p>
+    <h1>Cevtuo-Blendergate</h1>
+    <p class="sub">One gate for every headless Blender job on your machine.<br/>
+      Two run, the rest wait — no more nine windows fighting over ten cores.</p>
+    <p class="sub zh">一台机器上所有 headless Blender 作业的串行闸门：默认同时只跑 2 件，其余排队，先来先跑。</p>
+    <p class="byline">author: <b>cevtuo</b> · MIT · macOS &amp; Linux · Python 3.9+</p>
+
+    <div class="cmd">
+      <span class="dollar">$</span>
+      <code id="cmdtext">curl -fsSL https://raw.githubusercontent.com/cevtuocjw/blendergate/main/install.sh | sh</code>
+      <button id="copy" type="button">Copy</button>
+    </div>
+
+    <div class="dl">
+      <a class="btn primary" href="https://github.com/cevtuocjw/blendergate/releases/latest/download/blq.py">
+        <span class="tx"><b>Download blq.py</b><small>single file · zero dependencies</small></span>
+      </a>
+      <a class="btn" href="https://github.com/cevtuocjw/blendergate">
+        <span class="tx"><b>View on GitHub</b><small>source · releases · issues</small></span>
+      </a>
+    </div>
+
+    <p class="note">
+      GitHub downloads can be slow in mainland China —
+      <a href="https://ghproxy.net/https://raw.githubusercontent.com/cevtuocjw/blendergate/main/install.sh">ghproxy.net</a> ·
+      <a href="https://gh-proxy.com/https://raw.githubusercontent.com/cevtuocjw/blendergate/main/install.sh">gh-proxy.com</a> ·
+      <a href="https://ghfast.top/https://raw.githubusercontent.com/cevtuocjw/blendergate/main/install.sh">ghfast.top</a>
+      <span class="zh">镜像只是把 GitHub 流量中转一下，内容完全一致；介意的话请用官方链接。</span>
+    </p>
+  </header>
+
+  <section class="terminal" aria-label="sample output">
+    <div class="tbar"><span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="ttl">blq · sample output（示例输出）</span></div>
+<pre><span class="m">$</span> blq render scripts/g39-goti-g36.py -- --res 700
+<span class="d">[blq 10:42:07]</span> 状态页：<span class="link">http://127.0.0.1:8132/</span>  （随时重开：blq open）
+<span class="d">[blq 10:42:07]</span> 排队中：g39-goti-g36.py（并发上限 2）
+<span class="ok">[blq 10:42:09] 开始：g39-goti-g36.py · 槽位 1 · 等待 2s</span>
+
+<span class="m">$</span> blq status
+运行中：
+  <span class="ok">●</span> 槽位 1  g39-goti-g36.py        4m12s
+  <span class="ok">●</span> 槽位 2  g39-ysl-y-col-46.py     2m38s
+排队中：
+  · <span class="warn">blender-djula-d22.py</span>  已等 1m06s
+<span class="warn">⚠ 绕过闸门的 headless Blender 1 个：</span>
+  ! pid 48213   98.4%   3m20s  blender -b --factory-startup -P ...
+  → 这些就是互相抢核的元凶：blq kill-strays --yes</pre>
+  </section>
+  <p class="cap">同一份队列，终端和状态页看的是同一个东西。</p>
+
+  <section class="features" aria-label="features">
+    <div class="feat">
+      <h3>Two at a time</h3>
+      <p>One machine-wide limit (<code>BLQ_SLOTS</code>, default 2). The rest queue by ticket,
+        oldest first — late arrivals can never starve the ones already waiting.</p>
+    </div>
+    <div class="feat">
+      <h3>Every window, one queue</h3>
+      <p>Shells, editors and agents all share <code>~/.cache/blender-queue</code>.
+        No daemon, no config, no per-project setup.</p>
+    </div>
+    <div class="feat">
+      <h3>Never the same job twice</h3>
+      <p>If the same script is already running or queued, the new submission is skipped.
+        Change the script — or pass <code>--force</code> — to run it again.</p>
+    </div>
+    <div class="feat">
+      <h3>Strays get named</h3>
+      <p>Headless Blender processes that bypassed the gate are listed with pid, CPU and elapsed time.
+        <code>blq kill-strays --yes</code> stops them.</p>
+    </div>
+    <div class="feat">
+      <h3>A status page that sleeps</h3>
+      <p>It starts with the first job and exits after five idle minutes. When the tab is hidden it
+        stops polling entirely — no more endless 3-second reloads.</p>
+    </div>
+    <div class="feat">
+      <h3>One file, zero dependencies</h3>
+      <p>Pure Python standard library. Read it, audit it, vendor it. MIT licensed.</p>
+    </div>
+  </section>
+
+  <section class="glass why">
+    <h2>Why a gate?</h2>
+    <p>Nine jobs at once, each opening every thread it can find, do not finish faster.
+      They finish slower — and they overwrite each other's output files along the way.
+      A gate costs one line per command and turns the machine back into a predictable pipeline.</p>
+    <div class="stats">
+      <div class="stat"><b>9</b><span>windows rendering at once</span></div>
+      <div class="stat"><b>306</b><span>load average on a 10-core machine</span></div>
+      <div class="stat"><b>20×</b><span>slower per job (30 s → 10 min)</span></div>
+    </div>
+  </section>
+
+  <section class="glass install" id="install">
+    <details class="fold">
+      <summary>
+        <h2>Installation</h2>
+        <span class="hint">macOS &amp; Linux · click to expand · 点开看安装步骤</span>
+      </summary>
+
+      <div class="inst-grid">
+        <div class="inst-col">
+          <h3>1 · One line</h3>
+          <ol>
+            <li>Run the installer:
+<pre class="snip">curl -fsSL https://raw.githubusercontent.com/cevtuocjw/blendergate/main/install.sh | sh</pre>
+              <span class="zh">装到 ~/.local/bin/blq；用 BLQ_BIN=$HOME/bin 可以换目录。</span></li>
+            <li>Make sure <code>~/.local/bin</code> is in your PATH:
+<pre class="snip">export PATH="$HOME/.local/bin:$PATH"</pre>
+              <span class="zh">安装脚本发现 PATH 里没有它时会提醒你。</span></li>
+            <li>Verify:
+<pre class="snip">blq --version
+blq status</pre></li>
+          </ol>
+        </div>
+
+        <div class="inst-col">
+          <h3>2 · Requirements</h3>
+          <ol>
+            <li><b>Python 3.9+</b> — macOS system Python or Homebrew both work.</li>
+            <li><b>Blender</b> — detected at <code>/Applications/Blender.app</code>,
+              <code>~/Applications/Blender.app</code>, or on PATH.
+              Override with <code>BLENDER=/path/to/Blender</code>.</li>
+            <li><b>macOS or Linux.</b> Windows is not supported yet (the queue relies on
+              <code>fcntl</code> file locks).</li>
+          </ol>
+        </div>
+
+        <div class="inst-col">
+          <h3>3 · Manual install</h3>
+          <ol>
+            <li>Download the single file:
+<pre class="snip">curl -fsSL -o blq \
+  https://github.com/cevtuocjw/blendergate/releases/latest/download/blq.py
+chmod +x blq
+mv blq ~/.local/bin/blq</pre></li>
+            <li>Or grab the tarball from the
+              <a href="https://github.com/cevtuocjw/blendergate/releases/latest">latest release</a>.</li>
+          </ol>
+        </div>
+
+        <div class="inst-col">
+          <h3>4 · First run</h3>
+          <ol>
+            <li>Queue a render instead of calling Blender directly:
+<pre class="snip">blq render scripts/xxx.py -- --res 700</pre>
+              <span class="zh">-b --factory-startup -P 会自动带上。</span></li>
+            <li>Open the live queue:
+<pre class="snip">blq open      # http://127.0.0.1:8132/</pre></li>
+            <li>Uninstall: <code>rm ~/.local/bin/blq</code> and, if you want,
+              <code>rm -rf ~/.cache/blender-queue</code>.</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <a href="../"><img src="../logo.png" alt="CEVTUO"/></a>
+    <p class="wordmark">CEVTUO CLVNCHET</p>
+    <p class="wordmark2">CEVTUOGRND</p>
+    <div class="rule"></div>
+    <p class="fine">© 2026 cevtuo · Cevtuo-Blendergate · <a href="../">all apps</a> ·
+      <a href="https://github.com/cevtuocjw/blendergate">GitHub</a></p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy');
+  var text = document.getElementById('cmdtext');
+  if (!btn || !text) return;
+  btn.addEventListener('click', function () {
+    var s = text.textContent;
+    function done() { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1400); }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(s).then(done, fallback);
+    } else { fallback(); }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(text);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      try { document.execCommand('copy'); done(); } catch (e) {}
+    }
+  });
+})();
+</script>
+</body>
+</html>
