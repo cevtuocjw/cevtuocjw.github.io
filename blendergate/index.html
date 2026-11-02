@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Cevtuo-Blendergate — one gate for every headless Blender job</title>
-<meta name="description" content="A serial gate for headless Blender jobs. Two run, the rest wait. One file, zero dependencies, a live status page that sleeps when nobody is watching."/>
+<meta name="description" content="A serial gate for headless Blender jobs. Concurrency follows live CPU pressure, the rest queue in order, and a live status page sleeps when nobody is watching."/>
 <link rel="icon" href="../logo.png"/>
 <style>
   :root{
@@ -178,8 +178,8 @@
     <p class="eyebrow">CEVTUO · BLENDER TOOLING</p>
     <h1>Cevtuo-Blendergate</h1>
     <p class="sub">One gate for every headless Blender job on your machine.<br/>
-      Two run, the rest wait — no more nine windows fighting over ten cores.</p>
-    <p class="sub zh">一台机器上所有 headless Blender 作业的串行闸门：默认同时只跑 2 件，其余排队，先来先跑。</p>
+      Concurrency follows live CPU pressure — the queue stays in control.</p>
+    <p class="sub zh">一台机器上所有 headless Blender 作业的串行闸门：并发按整机 CPU 压力动态决定，其余排队，先来先跑。</p>
     <p class="byline">author: <b>cevtuo</b> · MIT · macOS &amp; Linux · Python 3.9+</p>
 
     <div class="cmd">
@@ -211,15 +211,17 @@
       <span class="ttl">blq · sample output（示例输出）</span></div>
 <pre><span class="m">$</span> blq render scripts/g39-goti-g36.py -- --res 700
 <span class="d">[blq 10:42:07]</span> 状态页：<span class="link">http://127.0.0.1:8132/</span>  （随时重开：blq open）
-<span class="d">[blq 10:42:07]</span> 排队中：g39-goti-g36.py（并发上限 2）
+<span class="d">[blq 10:42:07]</span> 排队中：g39-goti-g36.py（动态并发，上限 5）
 <span class="ok">[blq 10:42:09] 开始：g39-goti-g36.py · 槽位 1 · 等待 2s</span>
 
 <span class="m">$</span> blq status
 运行中：
   <span class="ok">●</span> 槽位 1  g39-goti-g36.py        4m12s
   <span class="ok">●</span> 槽位 2  g39-ysl-y-col-46.py     2m38s
+  <span class="ok">●</span> 槽位 3  blender-g39-djula-d22.py  1m44s
 排队中：
-  · <span class="warn">blender-djula-d22.py</span>  已等 1m06s
+  · <span class="warn">blender-g238.py</span>  已等 26s
+并发：动态并发 1–5 · 运行 3 件 · 整机 CPU 71%
 <span class="warn">⚠ 绕过闸门的 headless Blender 1 个：</span>
   ! pid 48213   98.4%   3m20s  blender -b --factory-startup -P ...
   → 这些就是互相抢核的元凶：blq kill-strays --yes</pre>
@@ -228,9 +230,10 @@
 
   <section class="features" aria-label="features">
     <div class="feat">
-      <h3>Two at a time</h3>
-      <p>One machine-wide limit (<code>BLQ_SLOTS</code>, default 2). The rest queue by ticket,
-        oldest first — late arrivals can never starve the ones already waiting.</p>
+      <h3>As many as the machine can take</h3>
+      <p>The gate samples CPU and memory and admits the next job only when there is room,
+        up to <code>BLQ_MAX_SLOTS</code> (default half your cores). Prefer a fixed number?
+        Set <code>BLQ_SLOTS</code>.</p>
     </div>
     <div class="feat">
       <h3>Every window, one queue</h3>
@@ -260,13 +263,13 @@
 
   <section class="glass why">
     <h2>Why a gate?</h2>
-    <p>Nine jobs at once, each opening every thread it can find, do not finish faster.
-      They finish slower — and they overwrite each other's output files along the way.
-      A gate costs one line per command and turns the machine back into a predictable pipeline.</p>
+    <p>A gate turns "however many windows I happen to have open" into a measured decision.
+      It watches real CPU pressure and admits the next job only when the machine has room.
+      You get a predictable pipeline, and the number of concurrent slots is a setting — not a guess.</p>
     <div class="stats">
-      <div class="stat"><b>9</b><span>windows rendering at once</span></div>
-      <div class="stat"><b>306</b><span>load average on a 10-core machine</span></div>
-      <div class="stat"><b>20×</b><span>slower per job (30 s → 10 min)</span></div>
+      <div class="stat"><b>1</b><span>shared queue for every window</span></div>
+      <div class="stat"><b>1–5</b><span>dynamic slots, tuned to CPU pressure</span></div>
+      <div class="stat"><b>85%</b><span>default CPU target before it holds</span></div>
     </div>
   </section>
 
@@ -326,6 +329,10 @@ mv blq ~/.local/bin/blq</pre></li>
               <span class="zh">-b --factory-startup -P 会自动带上。</span></li>
             <li>Open the live queue:
 <pre class="snip">blq open      # http://127.0.0.1:8132/</pre></li>
+            <li>Tune the gate if you want:
+<pre class="snip">BLQ_MAX_SLOTS=6 blq render scripts/xxx.py   # 上限 6
+BLQ_CPU_TARGET=0.9 blq render scripts/xxx.py # 允许更满
+BLQ_SLOTS=3 blq render scripts/xxx.py        # 固定 3 件</pre></li>
             <li>Uninstall: <code>rm ~/.local/bin/blq</code> and, if you want,
               <code>rm -rf ~/.cache/blender-queue</code>.</li>
           </ol>
