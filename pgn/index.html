@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Cevtuo-PGN · CEVTUOGRND</title>
-<meta name="description" content="Cevtuo-PGN：把 Google News 变成一份去重、可分页、可直接粘贴的纯链接清单。Chrome 扩展。"/>
+<title>Cevtuo-PGN · 任意新闻链接抓取 · CEVTUOGRND</title>
+<meta name="description" content="Cevtuo-PGN：一键抓取任意新闻网站的文章链接——Google News、NYTimes、FT、BBC… 自动去重、下拉选够、可拉到底并全选。Chrome 扩展。"/>
 <link rel="icon" href="icon.png"/>
 <style>
   :root{
@@ -91,6 +91,7 @@
   .mock-limit{display:flex;align-items:center;gap:7px;padding:5px 12px 3px;color:rgba(255,255,255,.45);font-size:10.5px}
   .mock-chip{padding:2px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-size:10.5px;color:rgba(255,255,255,.55)}
   .mock-chip.on{background:var(--accent);border-color:transparent;color:#07142d;font-weight:700}
+  .mock-pull{margin-left:auto;padding:2px 8px;border-radius:999px;background:rgba(122,167,255,.16);color:var(--accent);font-size:10.5px;font-weight:650}
   .mock-row{display:flex;gap:9px;padding:9px 12px;border-top:1px solid rgba(255,255,255,.06)}
   .mock-check{flex:none;width:12px;height:12px;margin-top:3px;border-radius:3px;background:var(--accent);position:relative}
   .mock-check::after{content:"";position:absolute;left:3.5px;top:1px;width:3px;height:6px;border:solid #07142d;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
@@ -134,11 +135,11 @@
 
   <header class="hero">
     <img class="icon" src="icon.png" alt="Cevtuo-PGN icon"/>
-    <p class="eyebrow">CHROME EXTENSION · v1.3.0</p>
+    <p class="eyebrow">CHROME EXTENSION · v2.0.1</p>
     <h1>Cevtuo-PGN</h1>
-    <p class="lead">把 Google News 变成一份<em>干净、去重、可直接粘贴</em>的链接清单。<br/>首页和 For you 各自成册，同一新闻只留一条。</p>
+    <p class="lead">把<em>任意新闻页面</em>变成一份干净、去重、可直接粘贴的链接清单。<br/>Google News、NYTimes、FT、BBC……都能一键抓；下拉选够，或者一拉到底并全选。</p>
     <div class="actions">
-      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v1.3.0)</a>
+      <a class="btn primary" href="cevtuo-pgn.zip" download>下载扩展 (v2.0.1)</a>
       <a class="btn" href="#install">安装说明</a>
     </div>
     <p class="meta">Chrome / Edge · Manifest V3 · 无需账号 · 所有处理只在本机</p>
@@ -147,33 +148,33 @@
   <section class="grid" aria-label="功能">
     <div class="card">
       <span class="k">01</span>
-      <h3>首页 / For you 分开</h3>
-      <p>两套独立清单，分开抓取、分开删除、分开复制。切换标签不会混在一起。</p>
+      <h3>任意新闻站点</h3>
+      <p>不再只认 Google News。NYTimes、FT、BBC、CNN、Guardian、Al Jazeera、SCMP……打开页面点图标就能抓。</p>
     </div>
     <div class="card">
       <span class="k">02</span>
-      <h3>同一新闻只留一条</h3>
-      <p>读取 Google News 自己的 story cluster id。四条同一事件的报道，只保留第一条链接。</p>
+      <h3>按站点分册</h3>
+      <p>Google News 的 Home / For you / Following 各一册，每个新闻站点也各一册；同站点会累积，重复自动去掉。</p>
     </div>
     <div class="card">
       <span class="k">⇣</span>
-      <h3>两边都能自己下拉</h3>
-      <p>首页和 For you 各自带「下拉抓取」：自动滚动到下一屏、合并去重。For you 会一直补到 20 / 30 / 50 条（默认 30），不需要你手动滚页面。</p>
+      <h3>下拉选够</h3>
+      <p>20 / 30 / 50 / 100 条，或「全部（拉到底）」。自动逐屏滚动、合并去重，不用自己滚页面。</p>
     </div>
     <div class="card">
-      <span class="k">×</span>
-      <h3>逐条删除</h3>
-      <p>不想要的单条删掉，底部可一键恢复。重新抓取时，只要链接还在，删除状态就保留。</p>
+      <span class="k">✓</span>
+      <h3>拉到底并全选</h3>
+      <p>选「全部」后点一次：滚到页面底部，结束后自动全选，直接复制。抓完会滚回你原来的位置。</p>
     </div>
     <div class="card">
       <span class="k">⧉</span>
-      <h3>复制媒体原始链接</h3>
-      <p>勾选「原始链接」后，复制前会把 <code>news.google.com/read/…</code> 解析成 BBC、Guardian 等媒体原文地址；每行一个链接，不带标题、来源和时间。解析过的链接会缓存。</p>
+      <h3>三层去重</h3>
+      <p>URL 规范化、标题规范化、Google News story cluster。同一链接、同一标题、同一事件都只留一条。</p>
     </div>
     <div class="card">
-      <span class="k">⊘</span>
-      <h3>过滤游戏内容</h3>
-      <p>Games、填字、数独、wordle 等模块不会进入清单，只保留真正的新闻文章。</p>
+      <span class="k">↗</span>
+      <h3>复制媒体原始链接</h3>
+      <p>Google News 条目复制前解析成 BBC、Guardian 等原文地址，成功会缓存；普通站点本来就是原文链接。解析失败会明确提示。</p>
     </div>
   </section>
 
@@ -185,12 +186,12 @@
     <div class="work">
       <div class="steps">
         <div class="step">
-          <b>在 Google News 上点图标</b>
-          <span>打开 Home 或 For you 页面，点工具栏的 Cevtuo-PGN。当前页面会被自动抓取。</span>
+          <b>在任意新闻页点图标</b>
+          <span>打开 Google News、nytimes.com、ft.com、bbc.com……点工具栏的 Cevtuo-PGN。当前页面会被自动抓取。</span>
         </div>
         <div class="step">
-          <b>选页、选数量、逐条删</b>
-          <span>顶部切换 <code>首页</code> / <code>For you</code>。每一份清单都有自己的「⇣ 下拉抓取」；For you 可选 20 / 30 / 50 条。取消勾选或点 × 去掉不想要的。</span>
+          <b>选清单、选数量、逐条删</b>
+          <span>顶部按页面/站点分册。抓取数量可选 <code>20 / 30 / 50 / 100</code> 或 <code>全部（拉到底）</code>；取消勾选或点 × 去掉不想要的。</span>
         </div>
         <div class="step">
           <b>一键复制，直接粘贴</b>
@@ -205,20 +206,19 @@
           <span class="mock-count">30</span>
         </div>
         <div class="mock-tabs">
-          <span class="mock-tab">首页 46</span>
-          <span class="mock-tab on">For you 30</span>
+          <span class="mock-tab on">GNews For you 30</span>
+          <span class="mock-tab">NYTimes 24</span>
         </div>
         <div class="mock-limit">
-          For you 数量
-          <span class="mock-chip">20</span>
-          <span class="mock-chip on">30</span>
-          <span class="mock-chip">50</span>
+          抓取数量
+          <span class="mock-chip on">全部（拉到底）</span>
+          <span class="mock-pull">⇣ 拉到底并全选</span>
         </div>
         <div class="mock-row">
           <span class="mock-check"></span>
           <span class="mock-main">
             <span class="mock-title">Israel election: Exit polls suggest no clear winner</span>
-            <span class="mock-url">https://news.google.com/read/CBMiVkFVX3lxTE0…</span>
+            <span class="mock-url">https://www.bbc.co.uk/news/articles/ck0e0jpww9wro</span>
             <span class="mock-src">BBC · 2 hours ago</span>
           </span>
           <span class="mock-x">×</span>
@@ -227,8 +227,8 @@
           <span class="mock-check"></span>
           <span class="mock-main">
             <span class="mock-title">Poundland close to collapse as new directors head for exit</span>
-            <span class="mock-url">https://news.google.com/read/CBMimgFBVV95cUx…</span>
-            <span class="mock-src">Sky News · 18 hours ago</span>
+            <span class="mock-url">https://www.theguardian.com/business/2026/nov/03/poundland-collapse</span>
+            <span class="mock-src">Guardian · 18 hours ago</span>
           </span>
           <span class="mock-x">×</span>
         </div>
@@ -236,16 +236,16 @@
           <span class="mock-check"></span>
           <span class="mock-main">
             <span class="mock-title">More high winds hit parts of UK as Storm Boelo clean-up continues</span>
-            <span class="mock-url">https://news.google.com/read/CBMiXkFVX3lxTE51…</span>
-            <span class="mock-src">BBC · 2 days ago</span>
+            <span class="mock-url">https://www.nytimes.com/2026/11/03/world/europe/storm-boelo-uk.html</span>
+            <span class="mock-src">NYTimes · 2 days ago</span>
           </span>
           <span class="mock-x">×</span>
         </div>
-        <div class="mock-foot"><div class="mock-copy">复制「For you」链接 (30)</div></div>
+        <div class="mock-foot"><div class="mock-copy">复制「GNews For you」链接 (30)</div></div>
       </div>
     </div>
     <div class="note">
-      <b>去重是怎么做的：</b>Google News 的每张文章卡片都带一个 story cluster id（`channel_story_360:…` / `/stories/…`）。同一个事件的多家报道共用一个 id，Cevtuo-PGN 只保留页面顺序里的第一条，所以不会再出现同一件事的四条链接。
+      <b>去重分三层：</b>URL 规范化（去掉 utm、smid、update 等追踪参数）、标题规范化（忽略大小写/标点/空格）、Google News story cluster（同一事件的多家报道只留第一条）。普通站点同一事件的不同标题不会强行合并——误杀风险太高。
     </div>
   </section>
 
@@ -269,14 +269,16 @@
           <span>点「加载未打包的扩展程序」，选择解压出来的 <code>Cevtuo-PGN</code> 文件夹。然后把图标固定到工具栏。</span>
         </div>
         <div class="step">
-          <b>打开 Google News 使用</b>
-          <span>进入已登录的 Google News，点 Cevtuo-PGN 图标即可抓取。更新扩展时，在扩展卡片上点「重新加载」。</span>
+          <b>打开任意新闻页使用</b>
+          <span>Google News、nytimes.com、ft.com、bbc.com……点 Cevtuo-PGN 图标即可抓取。更新扩展时，在扩展卡片上点「重新加载」。</span>
         </div>
       </div>
       <div class="note" style="margin:0">
-        <b>权限说明：</b>只申请 <code>news.google.com</code> 的页面访问、脚本注入和本地存储。不会上传任何数据，不读取其他网站，不需要 Google 账号授权。<br/><br/>
+        <b>权限说明：</b>2.0.1 需要读取 http/https 页面的访问权限，以及标签页 URL 的 <code>tabs</code> 权限。前者让同一套规则作用于任意新闻站点，后者用于在后台 Google News 标签页里解析原文地址。扩展只读取页面上的链接和 Google News 标签页，不上传、不抓正文，也不需要 Google 账号授权。<br/><br/>
+        <b>v2.0.1：</b>Google News 下拉更耐心（连续 8 轮无新内容才停，覆盖延迟加载的下一屏）；修复「勾了原始链接，复制出来还是 news.google.com」——新增 tabs 权限和活跃标签页回退，复制提示会明确显示解析成功/失败数量与原因。<br/>
+        <b>v2.0.0：</b>支持任意新闻站点；按站点/页面分册；抓取数量 20 / 30 / 50 / 100 / 全部；拉到底并全选；三层去重。<br/>
         <b>v1.3.0：</b>复制时可解析成媒体原始链接（在 Google News 页面内完成，带缓存）；解析失败会保留 Google News 链接并在状态栏说明原因。<br/>
-        <b>v1.2.0：</b>首页与 For you 各自支持「⇣ 下拉抓取」——自动滚动、逐屏合并去重；For you 会自动补足到所选条数。<br/>
+        <b>v1.2.0：</b>首页与 For you 各自支持「⇣ 下拉抓取」——自动滚动、逐屏合并去重。<br/>
         <b>v1.1.0：</b>新增 story cluster 去重；For you 支持 20 / 30 / 50 条；插件更名为 Cevtuo-PGN。
       </div>
     </div>
