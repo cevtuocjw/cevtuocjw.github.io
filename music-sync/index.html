@@ -31,7 +31,7 @@
     background:rgba(7,11,12,.88);backdrop-filter:blur(12px)}
   .barin{max-width:var(--max);margin:0 auto;padding:0 28px;height:46px;display:flex;align-items:center;gap:22px}
   .brand{display:flex;align-items:center;gap:9px;font-size:11px;letter-spacing:.18em;text-transform:uppercase}
-  .brand svg{width:22px;height:22px;flex:none}
+  .brand img{width:24px;height:24px;flex:none;object-fit:contain}
   .brand b{color:var(--teal-soft);font-weight:600}
   .bar .mid{margin:0 auto;display:flex;align-items:center;gap:10px;color:var(--mute);font-size:9px;letter-spacing:.22em}
   .bar .mid i{display:block;width:30px;height:1px;background:var(--teal);opacity:.6}
@@ -42,6 +42,9 @@
   /* hero */
   .hero{position:relative;padding:112px 0 64px;border-bottom:1px solid var(--line2)}
   .hero .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .hero-mark{display:flex;align-items:center;gap:13px;margin-bottom:20px}
+  .hero-mark img{width:54px;height:54px;object-fit:contain}
+  .hero-mark span{font:600 9px/1 var(--mono);letter-spacing:.28em;color:var(--teal-soft);text-transform:uppercase}
   @media(max-width:900px){.hero .grid{grid-template-columns:1fr;gap:36px}}
   .chapter{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--teal-soft)}
   .chapter span{color:var(--mute)}
@@ -180,6 +183,19 @@
   .lnote{font-size:11.5px;color:var(--mute);text-align:center;margin:12px 0 0}
   .lnote a{color:var(--teal-soft)}
 
+
+  /* QQ + screenshots */
+  .qqgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start}
+  .qqgrid ul{margin:18px 0 0;padding-left:18px;color:var(--dim);font-size:13px;line-height:1.9}
+  .qqgrid li{margin:8px 0}
+  .qqgrid code{font-family:var(--mono);font-size:11.5px;color:var(--teal-soft)}
+  .shot{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .shot img{display:block;width:100%;height:auto;background:#0a1011}
+  .shot figcaption{padding:10px 12px;font-size:10.5px;letter-spacing:.04em;color:var(--mute);border-top:1px solid var(--line2)}
+  .shots{columns:2;column-gap:18px}
+  .shots .shot{break-inside:avoid;margin:0 0 18px}
+  @media(max-width:900px){.qqgrid{grid-template-columns:1fr}.shots{columns:1}}
+
   footer{padding:26px 0 40px;border-top:1px solid var(--line2)}
   footer .meta{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:9px;
     letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
@@ -195,14 +211,15 @@
 <div class="bar">
   <div class="barin">
     <a class="brand" href="/music-sync/">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="11" fill="none" stroke="#2dd4bf" stroke-width="1.4"/><path d="M18 9v10a3 3 0 1 1-2-2.8V11l5-1v2l-3 .6z" fill="#2dd4bf"/></svg>
+      <img src="logo.svg" alt="CEVTUO logo">
       <span>CEVTUO-<b>MSYNC</b></span>
     </a>
     <div class="mid"><i></i><span>SPOTIFY → NETEASE</span><i></i></div>
     <div class="right">
       <a href="#what">概览</a>
       <a href="#how">流程</a>
-      <a href="#privacy">隐私</a>
+      <a href="#qq">QQ 音乐</a>
+      <a href="#shots">截图</a>
       <a href="/">← apps</a>
     </div>
   </div>
@@ -211,6 +228,7 @@
 <header class="hero">
   <div class="wrap grid">
     <div>
+      <div class="hero-mark"><img src="logo.svg" alt="CEVTUO"><span>CEVTUO-MS<span style="color:var(--teal)">Y</span>NC</span></div>
       <div class="chapter">PROJECT 06 <span>/ WEB · PWA · macOS HOST</span></div>
       <h1>MSYNC<em>.</em></h1>
       <p class="sub">把 Spotify 的收藏同步到网易云，再把「现在正在听」变成一间可以一起听的房间。朋友打开链接就能跟着听；会员曲用朋友自己的网易云账号扫码，站内同步播放。</p>
@@ -220,8 +238,8 @@
         <span><b>0</b> 个第三方播放器组件</span>
       </div>
       <div class="acts">
-        <a class="btn primary" href="#access">怎么拿到链接</a>
-        <a class="btn" href="#privacy">隐私与打码</a>
+        <a class="btn primary" href="https://syncmusic.cevtuo.com/" target="_blank" rel="noopener">打开一起听 →</a>
+        <a class="btn" href="#access">怎么拿到链接</a>
       </div>
     </div>
 
@@ -246,11 +264,11 @@
 <section class="ch" id="what">
   <div class="wrap">
     <div class="chhead"><div class="no">01</div><div><div class="lab">Chapter 1 / Overview</div><h2>它做什么</h2></div></div>
-    <p class="lede">两条链路，互相独立：收藏是「镜像」，一起听是「实时」。所有凭证只留在房主的机器上。</p>
+    <p class="lede">两条链路，互相独立：收藏是「镜像」，一起听是「实时」。所有凭证只留在 c_jw* 的机器上。</p>
     <div class="cards">
       <div class="card reveal"><div class="k">LIBRARY</div><h3>收藏同步</h3><p>Spotify「喜欢的歌曲」增量写入网易云的一个歌单。按标题、艺人、时长做双向匹配，防翻唱、防伴奏。</p><span class="tag">Spotify → NetEase</span></div>
-      <div class="card reveal"><div class="k">LIVE</div><h3>实时同听</h3><p>房主按下播放，朋友页每 1.5 秒拉一次状态；实时歌单永远只放当前这一首，打开就在最上面。</p><span class="tag">2s polling · one track</span></div>
-      <div class="card reveal"><div class="k">TOGETHER</div><h3>朋友点歌</h3><p>朋友可以搜索、排队、把自己的歌单融进来；点歌只影响队列，不碰房主的控制台。</p><span class="tag">read-only share key</span></div>
+      <div class="card reveal"><div class="k">LIVE</div><h3>实时同听</h3><p>c_jw* 按下播放，朋友页每 1.5 秒拉一次状态；实时歌单永远只放当前这一首，打开就在最上面。</p><span class="tag">2s polling · one track</span></div>
+      <div class="card reveal"><div class="k">TOGETHER</div><h3>朋友点歌</h3><p>朋友可以搜索、排队、把自己的歌单融进来；点歌只影响队列，不碰 c_jw* 的控制台。</p><span class="tag">read-only share key</span></div>
       <div class="card reveal"><div class="k">MEMBERSHIP</div><h3>会员曲</h3><p>页面里没有第三方播放器组件。朋友用自己的网易云 App 扫码一次，服务器取他的直链，仍旧进原来的播放器同步。</p><span class="tag">own account · no bypass</span></div>
       <div class="card reveal"><div class="k">PLATFORM</div><h3>网易云 / QQ 音乐</h3><p>第一次打开先选平台。网易云扫码；QQ 音乐在手机上选完自动跳一次 App，页面会提醒切回本页听同步，回来进度自动对齐。想留在网页里听，再保存一次 Cookie。</p><span class="tag">netease · qq</span></div>
     </div>
@@ -261,13 +279,13 @@
   <div class="wrap">
     <div class="chhead"><div class="no">02</div><div><div class="lab">Chapter 2 / Flow</div><h2>怎么用</h2></div></div>
     <div class="steps">
-      <div class="step reveal"><b>房主启动</b><p>面板和到公网入口的隧道一起起。<code>./scripts/start-all.sh</code></p></div>
-      <div class="step reveal"><b>拿到朋友链接</b><p>链接带一个只读的 <code>share key</code>，向房主索取；控制台密钥不公开。</p></div>
+      <div class="step reveal"><b>c_jw* 启动</b><p>面板和到公网入口的隧道一起起。<code>./scripts/start-all.sh</code></p></div>
+      <div class="step reveal"><b>拿到朋友链接</b><p>直接把 <code>https://syncmusic.cevtuo.com/</code> 发朋友；只读 key 已内置在启动页，控制台密钥不公开。</p></div>
       <div class="step reveal"><b>先选平台</b><p>第一次打开会问用网易云还是 QQ 音乐；之后可在页脚切换，选择只记在这个浏览器里。</p></div>
       <div class="step reveal"><b>会员曲登录</b><p>网易云：扫码一次。QQ 音乐：手机上选完自动跳一次 App，记得切回本页听同步；想留在网页里听才需要复制一次 Cookie。登录后页头会显示你自己的头像和昵称。</p></div>
       <div class="step reveal"><b>之后自动</b><p>直链过期/音频停住会自动重取并对齐；切回标签页立刻重同步；登录态失效自动重新出码。</p></div>
     </div>
-    <p class="note">浏览器要求一次点击才能出声：首次进入页面点一下播放键，之后跟随房主的播放状态。</p>
+    <p class="note">浏览器要求一次点击才能出声：首次进入页面点一下播放键，之后跟随 c_jw* 的播放状态。</p>
   </div>
 </section>
 
@@ -278,8 +296,8 @@
       <p class="lede" style="margin-left:52px">不解析音频、不拿任何人的会员 Cookie。扫码登录的是朋友自己的网易云账号；服务器只按这个浏览器的一个随机 token 取直链。</p>
       <ul>
         <li>页面里没有网易云播放器组件，也没有额外窗口。</li>
-        <li>登录态只存在房主的机器上，按浏览器 token 取，不写日志。</li>
-        <li>账号没有这首歌的会员时明确提示，可以「换一个账号」；不会拿房主的会员顶替。</li>
+        <li>登录态只存在 c_jw* 的机器上，按浏览器 token 取，不写日志。</li>
+        <li>账号没有这首歌的会员时明确提示，可以「换一个账号」；不会拿 c_jw* 的会员顶替。</li>
         <li>取到的直链仍然进原来的 <code>&lt;audio&gt;</code>，所以进度同步、拖动、跟随和免费曲完全一样。</li>
         <li>QQ 音乐：手机上默认一键跳进 QQ 音乐 App 播这首（朋友本来就在 App 里登录），回到网页进度自动对齐；只有想留在网页里听才需要保存一次 Cookie，按 <code>ms_qq</code> token 取。</li>
       </ul>
@@ -298,35 +316,48 @@
   </div>
 </section>
 
-<section class="ch" id="privacy">
+
+<section class="ch" id="qq">
   <div class="wrap">
-    <div class="chhead"><div class="no">04</div><div><div class="lab">Chapter 4 / Privacy</div><h2>隐私与打码</h2></div></div>
-    <p class="lede">这页是公开的分发说明，不是控制台。所有会识别到个人的东西都不在这里。</p>
-    <div class="priv">
-      <div class="card no reveal"><h3>不发布</h3><ul>
-        <li>控制台 access key</li>
-        <li>朋友链接里的 share key</li>
-        <li>服务器地址 / 隧道地址</li>
-        <li>个人昵称、设备名、头像</li>
-        <li>Spotify client ID、网易云 UID / 昵称</li>
-        <li>任何 token、cookie、数据库内容</li>
-      </ul></div>
-      <div class="card yes reveal"><h3>发布</h3><ul>
-        <li>功能说明与使用流程</li>
-        <li>打码后的界面示意</li>
-        <li>会员曲的授权边界</li>
-        <li>公开的 apps 页面本身</li>
-      </ul></div>
+    <div class="chhead"><div class="no">04</div><div><div class="lab">Chapter 4 / QQ Music</div><h2>QQ 音乐：先跳 App，再回来同步</h2></div></div>
+    <div class="qqgrid">
+      <div>
+        <p class="lede">朋友第一次选 QQ 音乐后，手机自动跳一次 QQ 音乐 App（官方 deep link）；页面会明确提醒「打开后请切回本页」。</p>
+        <ul>
+          <li>跳转用 QQ 音乐官方 <code>qqmusic://qq.com/media/playSonglist</code>，iOS / Android 已装 App 都能打开。</li>
+          <li>切回本页自动重拉进度，并提示「已回到本页」。</li>
+          <li>想在网页内出声，保存一次自己的 Cookie；QQ 未登录时不给音频直链。</li>
+          <li>登录后页头显示自己的头像和昵称；不会显示 c_jw* 的设备名。</li>
+          <li>QQ 歌单合并需要 Cookie；合并结果仍进共享的网易云歌单。</li>
+        </ul>
+      </div>
+      <figure class="shot"><img src="shots/qq.png" alt="QQ 音乐播放页"><figcaption>手机上的 QQ 音乐模式 · c_jw* 的设备在线</figcaption></figure>
     </div>
-    <p class="note">截图与二维码均为示意图；隐私字段用条纹遮罩打码，不是真实数据。朋友链接只读，向房主索取；控制台链接永远不公开。</p>
+  </div>
+</section>
+
+<section class="ch" id="shots">
+  <div class="wrap">
+    <div class="chhead"><div class="no">05</div><div><div class="lab">Chapter 5 / Screens</div><h2>系统截图</h2></div></div>
+    <p class="lede">从入口、平台选择、免费曲、会员扫码到 QQ 模式和桌面播放器。二维码已打码；头像截图来自预览环境。</p>
+    <div class="shots">
+      <figure class="shot"><img src="shots/launcher.png" alt="入口"><figcaption>入口 · syncmusic.cevtuo.com</figcaption></figure>
+      <figure class="shot"><img src="shots/chooser.png" alt="平台选择"><figcaption>首次进入 · 选择平台</figcaption></figure>
+      <figure class="shot"><img src="shots/player-free.png" alt="免费曲"><figcaption>网易云 · 免费曲直接播放</figcaption></figure>
+      <figure class="shot"><img src="shots/member.png" alt="会员曲"><figcaption>会员曲 · 扫码登录（二维码已打码）</figcaption></figure>
+      <figure class="shot"><img src="shots/qq.png" alt="QQ 音乐"><figcaption>QQ 音乐 · 跳 App 卡片</figcaption></figure>
+      <figure class="shot"><img src="shots/qq-desktop.png" alt="桌面端"><figcaption>桌面端 · QQ 音乐模式</figcaption></figure>
+      <figure class="shot"><img src="shots/avatar.png" alt="头像"><figcaption>登录后页头头像（预览环境）</figcaption></figure>
+    </div>
   </div>
 </section>
 
 <section class="access" id="access">
   <div class="wrap">
-    <h2>怎么拿到朋友链接</h2>
-    <p>朋友链接形如 <code>https://syncmusic.cevtuo.com/?k=…</code>：先选网易云 / QQ 音乐，再进入播放页。<br>链接带一个只读的 share key，能看「正在听」、点歌、融合歌单，看不到控制台。向房主索取即可；不要把控制台链接发给别人。</p>
-    <button class="btn primary" id="copy-ask">复制索取说明</button>
+    <h2>入口</h2>
+    <p>朋友直接打开 <code>https://syncmusic.cevtuo.com/</code>：先选网易云 / QQ 音乐，再进入播放页。<br>只读 key 已内置在启动页，不需要再带 <code>?k=</code>；能看「正在听」、点歌、融合歌单，看不到控制台。</p>
+    <a class="btn primary" href="https://syncmusic.cevtuo.com/" target="_blank" rel="noopener">打开一起听 →</a>
+    <button class="btn" id="copy-ask" style="margin-left:8px">复制入口</button>
     <a class="btn" href="/" style="margin-left:8px">← 返回 CEVTUOGRND</a>
   </div>
 </section>
@@ -369,13 +400,13 @@
     clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('on'), 1600);
   };
   document.getElementById('copy-ask').onclick = async () => {
-    const text = '请向房主索取 CEVTUO-MSYNC 的朋友链接（带 ?k= 只读密钥）。控制台链接不公开。';
+    const text = 'https://syncmusic.cevtuo.com/';
     try { await navigator.clipboard.writeText(text); toast('索取说明已复制'); }
     catch { toast('复制失败，请手动选中'); }
   };
 
   // 带 ?k= 的朋友链接：这里先选平台，再进真正的播放页。
-  // 启动页在 GitHub Pages（大陆可开），播放页仍在房主的 Mac 上。
+  // 启动页在 GitHub Pages（大陆可开），播放页仍在 c_jw* 的 Mac 上。
   (function () {
     const k = (new URLSearchParams(location.search).get('k') || '').trim();
     if (!k) return;
