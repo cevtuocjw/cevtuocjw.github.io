@@ -234,7 +234,7 @@
       <div class="card reveal"><div class="k">LIVE</div><h3>实时同听</h3><p>房主按下播放，朋友页每 1.5 秒拉一次状态；实时歌单永远只放当前这一首，打开就在最上面。</p><span class="tag">2s polling · one track</span></div>
       <div class="card reveal"><div class="k">TOGETHER</div><h3>朋友点歌</h3><p>朋友可以搜索、排队、把自己的歌单融进来；点歌只影响队列，不碰房主的控制台。</p><span class="tag">read-only share key</span></div>
       <div class="card reveal"><div class="k">MEMBERSHIP</div><h3>会员曲</h3><p>页面里没有第三方播放器组件。朋友用自己的网易云 App 扫码一次，服务器取他的直链，仍旧进原来的播放器同步。</p><span class="tag">own account · no bypass</span></div>
-      <div class="card reveal"><div class="k">PLATFORM</div><h3>网易云 / QQ 音乐</h3><p>第一次打开先选平台。网易云扫码；QQ 音乐在手机上直接一键跳进 App 播这首，回来网页自动对齐进度。想留在网页里听，再保存一次 Cookie。</p><span class="tag">netease · qq</span></div>
+      <div class="card reveal"><div class="k">PLATFORM</div><h3>网易云 / QQ 音乐</h3><p>第一次打开先选平台。网易云扫码；QQ 音乐在手机上选完自动跳一次 App，页面会提醒切回本页听同步，回来进度自动对齐。想留在网页里听，再保存一次 Cookie。</p><span class="tag">netease · qq</span></div>
     </div>
   </div>
 </section>
@@ -246,7 +246,7 @@
       <div class="step reveal"><b>房主启动</b><p>面板和到公网入口的隧道一起起。<code>./scripts/start-all.sh</code></p></div>
       <div class="step reveal"><b>拿到朋友链接</b><p>链接带一个只读的 <code>share key</code>，向房主索取；控制台密钥不公开。</p></div>
       <div class="step reveal"><b>先选平台</b><p>第一次打开会问用网易云还是 QQ 音乐；之后可在页脚切换，选择只记在这个浏览器里。</p></div>
-      <div class="step reveal"><b>会员曲登录</b><p>网易云：扫码一次。QQ 音乐：手机上直接跳 App 播，回来网页自动对齐；想留在网页里听才需要复制一次 Cookie。</p></div>
+      <div class="step reveal"><b>会员曲登录</b><p>网易云：扫码一次。QQ 音乐：手机上选完自动跳一次 App，记得切回本页听同步；想留在网页里听才需要复制一次 Cookie。登录后页头会显示你自己的头像和昵称。</p></div>
       <div class="step reveal"><b>之后自动</b><p>直链过期/音频停住会自动重取并对齐；切回标签页立刻重同步；登录态失效自动重新出码。</p></div>
     </div>
     <p class="note">浏览器要求一次点击才能出声：首次进入页面点一下播放键，之后跟随房主的播放状态。</p>
