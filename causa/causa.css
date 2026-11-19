@@ -260,6 +260,55 @@ section { scroll-margin-top: 0; }
 .intro .eyebrow, .index .eyebrow, .install .eyebrow, .faq .eyebrow,
 .intro-grid h3, .feature-group h3, .steps li::before, .download-card .ver { color: #a84a26; }
 
+
+/* ------------------------------------------------------------------ origin */
+
+.origin {
+  position: relative;
+  z-index: 1;
+  background: #182124;
+  color: var(--paper);
+  padding: 15vh var(--pad) 13vh;
+}
+.origin-head { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; border-bottom: 1px solid rgba(242,240,240,.18); padding-bottom: 18px; }
+.origin-spec { margin: 0; font: 400 10px/1 var(--mono); letter-spacing: .14em; color: rgba(242,240,240,.4); text-transform: uppercase; }
+.origin .eyebrow { margin: 0; }
+.origin-quote { margin: 11vh 0 12vh; max-width: 1050px; }
+.origin-quote p {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(36px, 5.4vw, 84px);
+  line-height: 1.08;
+  letter-spacing: -.03em;
+  color: var(--paper);
+}
+.origin-quote cite { display: block; margin-top: 22px; font: 400 10px/1 var(--mono); letter-spacing: .14em; color: var(--accent); font-style: normal; }
+.origin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 64px); border-top: 1px solid rgba(242,240,240,.18); padding-top: 26px; }
+.origin-grid h3, .origin-subhead h3, .origin-principles h3 {
+  margin: 0 0 12px;
+  font: 500 11px/1.3 var(--mono);
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.origin-grid p, .origin-subhead p { margin: 0; font-size: 15.5px; line-height: 1.75; color: rgba(242,240,240,.68); max-width: 34ch; }
+.origin-ledgers { display: grid; grid-template-columns: minmax(220px,.8fr) 1.2fr; gap: clamp(28px, 6vw, 100px); margin-top: 12vh; border-top: 1px solid rgba(242,240,240,.18); padding-top: 28px; }
+.ledger-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: 1fr 1fr; column-gap: 28px; }
+.ledger-list li { display: grid; grid-template-columns: 34px 1fr auto; gap: 10px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid rgba(242,240,240,.12); font-size: 13.5px; }
+.ledger-list b { font: 400 10px/1.6 var(--mono); color: var(--accent); }
+.ledger-list span { color: rgba(242,240,240,.82); }
+.ledger-list em { font: 400 9px/1 var(--mono); font-style: normal; letter-spacing: .06em; color: var(--positive); padding: 5px 7px; border: 1px solid rgba(78,190,150,.35); border-radius: 999px; white-space: nowrap; }
+.ledger-list em.no { color: rgba(242,240,240,.4); border-color: rgba(242,240,240,.18); text-decoration: line-through; }
+.origin-principles { margin-top: 12vh; border-top: 1px solid rgba(242,240,240,.18); padding-top: 28px; }
+.principle { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid rgba(242,240,240,.12); }
+.principle b { font: 400 10px/1.7 var(--mono); color: var(--accent); }
+.principle p { margin: 0; max-width: 62ch; font-size: 14.5px; line-height: 1.7; color: rgba(242,240,240,.7); }
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 12vh; background: rgba(242,240,240,.14); border-top: 1px solid rgba(242,240,240,.18); }
+.timeline div { background: #182124; padding: 18px 18px 20px 0; }
+.timeline b { display: block; font: 400 11px/1 var(--mono); letter-spacing: .12em; color: var(--accent); margin-bottom: 10px; }
+.timeline span { display: block; font-size: 12.5px; line-height: 1.6; color: rgba(242,240,240,.55); }
+
 /* --------------------------------------------------------------- chapters */
 
 .chapters {
@@ -609,6 +658,16 @@ html.motion .reveal.in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 860px) {
+  .origin-head { display: block; }
+  .origin-spec { margin-top: 10px; }
+  .origin-quote { margin: 64px 0 72px; }
+  .origin-grid { grid-template-columns: 1fr; gap: 24px; }
+  .origin-grid p { max-width: none; }
+  .origin-ledgers { grid-template-columns: 1fr; gap: 26px; margin-top: 72px; }
+  .ledger-list { grid-template-columns: 1fr; }
+  .origin-principles { margin-top: 72px; }
+  .timeline { grid-template-columns: 1fr 1fr; margin-top: 72px; }
+  .timeline div { padding: 16px 12px 18px 0; }
   .limits ol { grid-template-columns: 1fr; }
   .nav { gap: 10px; padding: 14px 18px; font-size: 9.5px; }
   .nav .links { display: none; }

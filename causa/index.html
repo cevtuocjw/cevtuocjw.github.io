@@ -26,6 +26,7 @@
   <span class="version">CAUSA 0.4.0</span>
   <nav class="links" aria-label="页面导航">
     <a href="#how">它是什么</a>
+    <a href="#origin">构想</a>
     <a href="#features">功能</a>
     <a href="#demo">演示</a>
     <a href="#install">安装</a>
@@ -80,6 +81,63 @@
       <h3>03 / 你到底准不准</h3>
       <p>0–100% 十档校准、HIT、Brier、ECE、90 天窗口、按类别筛选。样本不足 10 条时，只记录，不当作结论。</p>
     </div>
+  </div>
+</section>
+
+
+<section class="origin" id="origin" data-nav="dark">
+  <div class="origin-head">
+    <p class="eyebrow">Origin · 2026-11-18</p>
+    <p class="origin-spec">最初的产品规格书 · SPEC 0.1</p>
+  </div>
+  <blockquote class="origin-quote">
+    <p>把“这件事会怎样经过一条链，最终改变我生活里的哪个数”，写成可到期、可结算、可复核的记录。</p>
+    <cite>— SPEC.md · 2026-11-18</cite>
+  </blockquote>
+
+  <div class="origin-grid">
+    <div>
+      <h3>为什么叫 Causa</h3>
+      <p>拉丁语里的“原因、案由”，也是法律里的“事由”：一件已经立案、等待证据、到期必须给出结论的事。不叫 Ledger，因为它已被记账软件占满；不叫 Chain，因为它会被误认成区块链。</p>
+    </div>
+    <div>
+      <h3>给谁用</h3>
+      <p>不是交易者，而是靠工资、经营或租金生活，同时大量阅读中外新闻的人。他们缺的不是信息，是传导路径、可证伪性和隐私。</p>
+    </div>
+    <div>
+      <h3>只做三件事</h3>
+      <p>记录推断、到期结算、按坐标投影。不预测股价，不给买卖信号，不接券商，不做社区喊单，不做广告推荐。</p>
+    </div>
+  </div>
+
+  <div class="origin-ledgers">
+    <div class="origin-subhead">
+      <h3>最初想做的五本账</h3>
+      <p>0.3 把没有形成闭环的 04 / 05 / 06 从导航移除，只保留能记录、能结算、能校准的三本。少做，是为了让每一本都真的能用。</p>
+    </div>
+    <ol class="ledger-list">
+      <li><b>01</b><span>因果链登记册</span><em>已交付</em></li>
+      <li><b>02</b><span>投影</span><em>已交付</em></li>
+      <li><b>03</b><span>校准</span><em>已交付</em></li>
+      <li><b>04</b><span>口径对齐</span><em class="no">未交付</em></li>
+      <li><b>05</b><span>政策扩散</span><em class="no">未交付</em></li>
+      <li><b>06</b><span>本地镜像</span><em class="no">后续</em></li>
+    </ol>
+  </div>
+
+  <div class="origin-principles">
+    <h3>四条不让步的规则</h3>
+    <div class="principle"><b>01</b><p>反事实优先。结算第一屏不是结论，而是“当初说好的不成立条件出现了吗”。</p></div>
+    <div class="principle"><b>02</b><p>时间锁。到期前 72 小时置信度锁定；到期后必须结算；证据不足是诚实，不是失败。</p></div>
+    <div class="principle"><b>03</b><p>本地优先。无账号、零遥测、SQLCipher + Keychain；数据不离开设备，除非你主动导出。</p></div>
+    <div class="principle"><b>04</b><p>AI 不裁判。模型可以起草链条、整理证据，但不能自动改置信度，也不能替你结算。</p></div>
+  </div>
+
+  <div class="timeline" aria-label="版本演进">
+    <div><b>0.1</b><span>规格：五本账、本地优先、反事实优先</span></div>
+    <div><b>0.2</b><span>Fey 视觉与量化面板</span></div>
+    <div><b>0.3</b><span>链条 / 结算 / 校准闭环 + 原生加密</span></div>
+    <div><b>0.4</b><span>加密擦除、Keychain 恢复、按类别校准</span></div>
   </div>
 </section>
 
