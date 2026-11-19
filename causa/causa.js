@@ -73,6 +73,16 @@
         setTheme("dark");
         ground.style.setProperty("--ground", "#182124");
         screens.forEach((img, i) => img.classList.toggle("active", i === 0));
+      } else {
+        const mid = innerHeight * 0.62;
+        const current =
+          chapters.find((c) => {
+            const r = c.getBoundingClientRect();
+            return r.top <= mid && r.bottom > mid;
+          }) ||
+          chapters.find((c) => c.getBoundingClientRect().top >= 0) ||
+          chapters[0];
+        if (current) activate(current);
       }
     });
   };

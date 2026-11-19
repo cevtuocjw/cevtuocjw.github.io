@@ -273,15 +273,25 @@ section { scroll-margin-top: 0; }
 .origin-head { display: flex; justify-content: space-between; gap: 20px; align-items: baseline; border-bottom: 1px solid rgba(242,240,240,.18); padding-bottom: 18px; }
 .origin-spec { margin: 0; font: 400 10px/1 var(--mono); letter-spacing: .14em; color: rgba(242,240,240,.4); text-transform: uppercase; }
 .origin .eyebrow { margin: 0; }
-.origin-quote { margin: 11vh 0 12vh; max-width: 1050px; }
-.origin-quote p {
+.origin-quote { margin: 10vh 0 11vh; max-width: 1050px; }
+.origin-big {
   margin: 0;
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(36px, 5.4vw, 84px);
-  line-height: 1.08;
-  letter-spacing: -.03em;
+  font-size: clamp(64px, 9vw, 140px);
+  line-height: 0.95;
+  letter-spacing: -.04em;
   color: var(--paper);
+}
+.origin-full {
+  margin: 34px 0 0;
+  max-width: 30ch;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.45;
+  letter-spacing: -.015em;
+  color: rgba(242, 240, 240, 0.66);
 }
 .origin-quote cite { display: block; margin-top: 22px; font: 400 10px/1 var(--mono); letter-spacing: .14em; color: var(--accent); font-style: normal; }
 .origin-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 64px); border-top: 1px solid rgba(242,240,240,.18); padding-top: 26px; }
@@ -336,7 +346,7 @@ section { scroll-margin-top: 0; }
   font: 400 clamp(150px, 19vw, 330px)/0.8 var(--serif);
   letter-spacing: -0.05em;
   color: var(--chapter-ink, var(--ink));
-  opacity: 0.09;
+  opacity: 0.11;
   z-index: 0;
   pointer-events: none;
   transition: opacity 260ms var(--ease);
