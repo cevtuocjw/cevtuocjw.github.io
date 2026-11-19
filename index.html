@@ -60,6 +60,23 @@
   .osicon{display:block;flex:none;fill:currentColor}
   .osicon.apple{width:22px;height:22px}
   .osicon.win{width:18px;height:18px}
+  a.featured{
+    display:block;position:relative;margin:0 0 18px;border-radius:18px;overflow:hidden;
+    border:1px solid rgba(232,122,79,.55);background:rgba(20,26,24,.62);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
+    text-align:left;text-decoration:none;color:var(--ink);
+    transition:transform .2s var(--ease),border-color .2s var(--ease);
+  }
+  a.featured:hover{transform:translateY(-3px);border-color:rgba(232,122,79,.95)}
+  a.featured img{width:100%;height:180px;object-fit:cover;object-position:top center;display:block;opacity:.92}
+  a.featured .badge{
+    position:absolute;top:12px;left:12px;font:600 10px/1 ui-monospace,SFMono-Regular,monospace;
+    letter-spacing:.12em;padding:7px 9px;border-radius:999px;background:#e87a4f;color:#fff;
+  }
+  a.featured .fbody{display:flex;align-items:center;gap:12px;padding:14px 18px 16px}
+  a.featured .fbody b{display:block;font-size:16px;font-weight:680}
+  a.featured .fbody small{display:block;font-size:12px;color:var(--faint);margin-top:3px}
+  a.featured .arrow{margin-left:auto;font-size:20px;color:#e87a4f}
   .foot{margin-top:26px;font-size:12px;color:var(--faint);
     text-shadow:0 1px 8px rgba(0,0,0,.5)}
 </style>
@@ -106,6 +123,15 @@
   <h1>CEVTUOGRND</h1>
   <p class="sub">Apps &amp; tools</p>
   <div class="rule"></div>
+
+  <a class="featured" href="/causa/">
+    <span class="badge">NEW · 0.4.0</span>
+    <img src="/causa/assets/ledger.png" alt="Cevtuo Causa 账本界面">
+    <span class="fbody">
+      <span><b>Cevtuo Causa / 因果簿</b><small>本地优先的因果账本 · 记得住、能结算、可校准 · macOS</small></span>
+      <span class="arrow">›</span>
+    </span>
+  </a>
 
   <a class="item" href="/xd/">
     <svg class="osicon" style="width:24px;height:24px"><use href="#i-watch"/></svg>
