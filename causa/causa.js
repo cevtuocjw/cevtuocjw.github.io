@@ -110,7 +110,7 @@
   }
 
   document.querySelector("[data-copy-sha]")?.addEventListener("click", async (event) => {
-    const sha = "bdf8c7f692dcda052cdfad91914fd9dd071bbe01b8a832a8decbcb4336064a18";
+    const sha = "b2db7bed8360d55c1f539a573098922211620521c2f5937c98d9347c895edca8";
     const button = event.currentTarget;
     try {
       await navigator.clipboard.writeText(sha);

@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cevtuo Causa 0.5.0 — 本地优先的因果账本</title>
+<title>Cevtuo Causa 0.5.1 — 本地优先的因果账本</title>
 <meta name="description" content="记录一条因果链，到期按纪律结算，再用真实结果校准置信度。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
 <meta name="theme-color" content="#182124">
 <link rel="icon" href="/logo.png">
 <link rel="canonical" href="https://apps.cevtuogrnd.com/causa/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cevtuo Causa 0.5.0 — 本地优先的因果账本">
+<meta property="og:title" content="Cevtuo Causa 0.5.1 — 本地优先的因果账本">
 <meta property="og:description" content="记录判断、到期结算、按真实结果校准；新增口径对齐与政策扩散。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
 <meta property="og:url" content="https://apps.cevtuogrnd.com/causa/">
 <meta property="og:image" content="https://apps.cevtuogrnd.com/causa/assets/ledger.png">
@@ -23,7 +23,7 @@
 <header class="nav">
   <a class="brand" href="/">CEVTUOGRND</a>
   <span class="sep">/</span>
-  <span class="version">CAUSA 0.5.0</span>
+  <span class="version">CAUSA 0.5.1</span>
   <nav class="links" aria-label="页面导航">
     <a href="#how">它是什么</a>
     <a href="#origin">构想</a>
@@ -41,7 +41,7 @@
   <h1 class="">把判断<br><em>写进时间</em>里。</h1>
   <p class="hero-sub">本地优先的因果账本。记录一条因果链，到期按纪律结算，再用真实结果校准你的置信度。没有账号，没有同步，数据只在本机。</p>
   <div class="hero-actions">
-    <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.dmg">下载 0.5.0 · DMG</a>
+    <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.1/Cevtuo-Causa-0.5.1-macos-universal.dmg">下载 0.5.1 · DMG</a>
     <a class="btn ghost" href="#demo">看 51 秒演示</a>
   </div>
   <p class="hero-meta">Universal · Apple Silicon / Intel · 12.9 MB · 未签名、未公证</p>
@@ -287,7 +287,7 @@
   </div>
 
   <div class="player">
-    <video id="demo-video" controls playsinline preload="metadata" poster="assets/ledger.png" aria-label="Cevtuo Causa 0.5.0 功能演示">
+    <video id="demo-video" controls playsinline preload="metadata" poster="assets/ledger.png" aria-label="Cevtuo Causa 0.5.1 功能演示">
       <source src="assets/demo.mp4" type="video/mp4">
       你的浏览器不支持 MP4 视频。
     </video>
@@ -355,11 +355,11 @@
     </article>
   </div>
 
-  <p class="research-note">04 / 05 已交付；06 本地镜像仍未做。研究视图是本地快照，新增路径必须同时补证据与触发条件。</p>
+  <p class="research-note">04 / 05 已交付；06 本地镜像仍未做。研究视图是本地快照；每条来源标出发布页 / 数据集 / 门户 / 样本与抓取日期。</p>
 </section>
 
 <section class="index" data-nav="light" id="all-features">
-  <p class="eyebrow">Feature index · 0.5.0</p>
+  <p class="eyebrow">Feature index · 0.5.1</p>
   <h2 class="">所有功能，<br>逐项列出。</h2>
 
   <div class="feature-group">
@@ -418,6 +418,8 @@
       <div class="feature"><span>T1 / T2 来源与备注</span><b>已实现</b></div>
       <div class="feature"><span>冲突保留两个值，不取平均</span><b>已实现</b></div>
       <div class="feature"><span>相关指标跳回链条</span><b>已实现</b></div>
+      <div class="feature"><span>精确发布页 / 数据集 / 门户 / 样本分级</span><b>已实现</b></div>
+      <div class="feature"><span>发布日期与抓取日期分开记录</span><b>已实现</b></div>
       <div class="feature"><span>跨地区合成为一个“全球数”</span><b class="no">不做</b></div>
     </div>
   </div>
@@ -428,10 +430,21 @@
       <div class="feature"><span>3 个政策案例 × 5 个阶段</span><b>已实现</b></div>
       <div class="feature"><span>已发生 / 观察中 / 可能下一站</span><b>已实现</b></div>
       <div class="feature"><span>每一步带证据与触发条件</span><b>已实现</b></div>
+      <div class="feature"><span>文号 / 法案号 / 活动编号</span><b>已实现</b></div>
       <div class="feature"><span>置信度筛选（高 / 中 / 低）</span><b>已实现</b></div>
       <div class="feature"><span>阶段轨与当前阶段</span><b>已实现</b></div>
       <div class="feature"><span>相关链条跳转</span><b>已实现</b></div>
       <div class="feature"><span>把置信度当概率 / 承诺日期</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>来源机制</h3>
+    <div class="feature-list">
+      <div class="feature"><span>46 条来源集中到单一注册表</span><b>已实现</b></div>
+      <div class="feature"><span>口径 / 扩散 / 链证据只引用 sourceId</span><b>已实现</b></div>
+      <div class="feature"><span>每周链接健康检查与逐条白名单</span><b>已实现</b></div>
+      <div class="feature"><span>健康检查只判链接，不判数值修订</span><b class="no">不做</b></div>
     </div>
   </div>
 
@@ -515,7 +528,7 @@
   <h2 class="">下载，放行。</h2>
   <div class="install-grid">
     <ol class="steps">
-      <li>下载 DMG 或 ZIP。当前版本 0.5.0，universal 构建，约 12.9 MB。</li>
+      <li>下载 DMG 或 ZIP。当前版本 0.5.1，universal 构建，约 12.9 MB。</li>
       <li>打开 DMG，把 Cevtuo Causa 拖进“应用程序”。</li>
       <li>首次打开被 Gatekeeper 拦下：系统设置 → 隐私与安全性 → 拉到底 → “仍要打开”。macOS 13–14 可在 Finder 里右键 App → 打开。</li>
       <li>首次启动会请求访问 Keychain，用于保存数据库密钥。选择“允许”。</li>
@@ -524,11 +537,11 @@
     </ol>
 
     <aside class="download-card">
-      <span class="ver">macOS · 0.5.0</span>
+      <span class="ver">macOS · 0.5.1</span>
       <h3>Cevtuo Causa</h3>
       <p>Universal · Apple Silicon / Intel · 12.9 MB</p>
-      <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.dmg">下载 DMG</a>
-      <a class="btn" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.zip">下载 ZIP</a>
+      <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.1/Cevtuo-Causa-0.5.1-macos-universal.dmg">下载 DMG</a>
+      <a class="btn" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.1/Cevtuo-Causa-0.5.1-macos-universal.zip">下载 ZIP</a>
       <dl>
         <div><dt>系统</dt><dd>macOS 13+</dd></div>
         <div><dt>架构</dt><dd>x86_64 / arm64</dd></div>
@@ -537,7 +550,7 @@
         <div><dt>许可</dt><dd>MIT</dd></div>
       </dl>
       <div class="sha">
-        DMG SHA256<br>bdf8c7f692dcda052cdfad91914fd9dd071bbe01b8a832a8decbcb4336064a18
+        DMG SHA256<br>b2db7bed8360d55c1f539a573098922211620521c2f5937c98d9347c895edca8
         <br><button type="button" data-copy-sha>复制校验和</button>
       </div>
     </aside>
@@ -588,7 +601,7 @@
       <a href="/">更多应用</a>
       <a href="#install">下载</a>
     </nav>
-    <span>0.5.0 · MIT · 未公证</span>
+    <span>0.5.1 · MIT · 未公证</span>
   </div>
 </footer>
 
