@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cevtuo Causa 0.4.0 — 本地优先的因果账本</title>
+<meta name="description" content="记录一条因果链，到期按纪律结算，再用真实结果校准置信度。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
+<meta name="theme-color" content="#182124">
+<link rel="icon" href="/logo.png">
+<link rel="stylesheet" href="causa.css">
+</head>
+<body data-theme="dark">
+<div class="ground"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="brand" href="/">CEVTUOGRND</a>
+  <span class="sep">/</span>
+  <span class="version">CAUSA 0.4.0</span>
+  <nav class="links" aria-label="页面导航">
+    <a href="#how">它是什么</a>
+    <a href="#features">功能</a>
+    <a href="#demo">演示</a>
+    <a href="#install">安装</a>
+  </nav>
+  <a class="dl" href="#install">下载</a>
+</header>
+
+<main>
+<section class="hero" data-nav="dark">
+  <p class="hero-kicker">Local-first causal ledger · macOS</p>
+  <h1 class="">把判断<br><em>写进时间</em>里。</h1>
+  <p class="hero-sub">本地优先的因果账本。记录一条因果链，到期按纪律结算，再用真实结果校准你的置信度。没有账号，没有同步，数据只在本机。</p>
+  <div class="hero-actions">
+    <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.dmg">下载 0.4.0 · DMG</a>
+    <a class="btn ghost" href="#demo">看 51 秒演示</a>
+  </div>
+  <p class="hero-meta">Universal · Apple Silicon / Intel · 12.9 MB · 未签名、未公证</p>
+
+  <div class="claim-stack" aria-hidden="true">
+    <div class="claim">
+      <b>人民币走弱，正在改变珠三角制造业的招聘</b>
+      事件 → 出口订单 → 扩产决策 → 招聘岗位
+      <div class="row"><span>置信 62%</span><span>逾期 28d</span></div>
+    </div>
+    <div class="claim">
+      <b>降息预期，正在改写你的房贷重定价</b>
+      事件 → 美债利率 → LPR → 月供
+      <div class="row"><span>置信 71%</span><span>到期 12/22</span></div>
+    </div>
+    <div class="claim">
+      <b>CBAM 过渡期核算，正在进入紧固件报价</b>
+      事件 → 碳价 → 报关成本 → 毛利
+      <div class="row"><span>置信 64%</span><span>2 段传导</span></div>
+    </div>
+  </div>
+  <span class="scroll-hint">Scroll · 8 chapters</span>
+</section>
+
+<section class="intro" data-nav="light" id="how">
+  <p class="eyebrow">不是预测市场，也不是记账软件</p>
+  <h2 class="">它只问<br>三件事。</h2>
+  <div class="intro-grid">
+    <div class="">
+      <h3>01 / 你当时怎么想</h3>
+      <p>把事件、两段传导、被改变的变量和对你生活的投影写成一条链。反事实必须提前写清：什么情况下这条链不成立。</p>
+    </div>
+    <div class="">
+      <h3>02 / 后来发生了什么</h3>
+      <p>到期才能结算。成立、不成立、证据不足；后两者必须写理由。结算后 10 秒内可撤销，撤销只作废记录，不删除审计。</p>
+    </div>
+    <div class="">
+      <h3>03 / 你到底准不准</h3>
+      <p>0–100% 十档校准、HIT、Brier、ECE、90 天窗口、按类别筛选。样本不足 10 条时，只记录，不当作结论。</p>
+    </div>
+  </div>
+</section>
+
+<section class="chapters" id="features">
+  <div class="stage" aria-hidden="true">
+    <span class="stage-ghost" id="stage-ghost">CLAIMS</span>
+    <div class="window">
+      <div class="window-bar"><i></i><i></i><i></i><span>Cevtuo Causa</span></div>
+      <div class="window-body">
+        <img class="screen active" data-screen="ledger" src="assets/ledger.png" alt="">
+        <img class="screen" data-screen="settle" src="assets/settle.png" alt="">
+        <img class="screen" data-screen="calibration" src="assets/calibration.png" alt="">
+        <img class="screen" data-screen="projection" src="assets/projection.png" alt="">
+        <img class="screen" data-screen="bills" src="assets/bills.png" alt="">
+        <img class="screen" data-screen="vault" src="assets/settings-native.png" alt="">
+        <img class="screen" data-screen="erase" src="assets/destroy-native.png" alt="">
+        <img class="screen" data-screen="recovery" src="assets/recovery-native.png" alt="">
+      </div>
+    </div>
+  </div>
+
+  <div class="chapter-copy">
+    <article class="chapter" data-screen="ledger" data-bg="#f2f0f0" data-theme="light" data-nav="light" data-ghost="CLAIMS">
+      <aside class="chapter-aside"><b>On this screen</b>7 条演示链 · 五段路径<br>反事实为空不能登记</aside>
+      <div class="chapter-head"><span>01 / 账本</span><span>About chains</span></div>
+      <h2>一条链，必须能走通。</h2>
+      <div class="chapter-body">
+        <p>事件 → 两段传导 → 被改变的变量 → 对你生活的投影。每一步都有名称、数值和时间，不是一句“影响很大”。</p>
+        <p>反事实是必填项。1–3 个先行指标，每个带当前值、目标值和来源；到期前 72 小时置信度锁定，防止临门改口。</p>
+      </div>
+      <ul class="specs">
+        <li>固定五段路径</li><li>1–3 个先行指标</li><li>来源 T1–T5</li><li>72h 置信度锁定</li><li>标签：宏观 / 政策 / 行业 / 个人</li>
+      </ul>
+      <img class="mobile-shot" src="assets/ledger.png" alt="账本界面">
+    </article>
+
+    <article class="chapter" data-screen="settle" data-bg="#e7c9bb" data-theme="light" data-nav="light" data-ghost="SETTLE">
+      <aside class="chapter-aside"><b>On this screen</b>到期 / 逾期才可结算<br>10 秒撤销窗口</aside>
+      <div class="chapter-head"><span>02 / 结算</span><span>About settlement</span></div>
+      <h2>到期之前，<br>不许改口。</h2>
+      <div class="chapter-body">
+        <p>只有到期或逾期才能结算。对话框先固定展示反事实与指标快照，再让你选成立、不成立或证据不足。</p>
+        <p>不成立与证据不足必须写理由。结算后 10 秒内可撤销；逾期仍可结算，但会标注逾期天数，不假装准时。</p>
+      </div>
+      <ul class="specs">
+        <li>不可提前结算</li><li>反事实 + 快照</li><li>miss / insufficient 必须写理由</li><li>10 秒撤销</li><li>审计只记动作</li>
+      </ul>
+      <img class="mobile-shot" src="assets/settle.png" alt="结算界面">
+    </article>
+
+    <article class="chapter" data-screen="calibration" data-bg="#1b2421" data-theme="dark" data-nav="dark" data-ghost="CALIBRATE">
+      <aside class="chapter-aside"><b>On this screen</b>n=23 · ECE 0.115<br>个人 n=6 时不下结论</aside>
+      <div class="chapter-head"><span>03 / 校准</span><span>About calibration</span></div>
+      <h2>你以为的 70%，<br>实际是多少？</h2>
+      <div class="chapter-body">
+        <p>0–100% 十档，逐桶对比登记置信度与实际命中率；HIT、Brier、ECE 同时给出。证据不足不进 HIT / Brier 分母。</p>
+        <p>全部或最近 90 天；按链条标签筛选宏观、政策、行业、个人。样本不足 10 条时只记录，不把曲线当结论。</p>
+      </div>
+      <ul class="specs">
+        <li>10 档分桶</li><li>HIT / Brier / ECE</li><li>90 天窗口</li><li>按类别筛选</li><li>小样本提示</li><li>演示 / 迁移默认不计入</li>
+      </ul>
+      <img class="mobile-shot" src="assets/calibration.png" alt="校准界面">
+    </article>
+
+    <article class="chapter" data-screen="projection" data-bg="#d8d2c6" data-theme="light" data-nav="light" data-ghost="HOUSEHOLD">
+      <aside class="chapter-aside"><b>On this screen</b>6 个家庭数字<br>单变量，不叠加</aside>
+      <div class="chapter-head"><span>04 / 家庭</span><span>About household</span></div>
+      <h2>不是“影响很大”，<br>是多少钱。</h2>
+      <div class="chapter-body">
+        <p>家庭 6 个数：月收入、固定支出、房贷、流动现金、总负债、赡养 / 子女。实时给出月缓冲、月供收入比、负债 / 年收入、缓冲月数。</p>
+        <p>每条链可以设置一个暴露目标与 deltaPct，按单变量平移。不把多条链的效果相加，也不编造叠加。</p>
+      </div>
+      <ul class="specs">
+        <li>6 个家庭数字</li><li>单变量投影</li><li>不叠加</li><li>未设置就不显示</li>
+      </ul>
+      <img class="mobile-shot" src="assets/projection.png" alt="家庭投影界面">
+    </article>
+
+    <article class="chapter" data-screen="bills" data-bg="#e8ded0" data-theme="light" data-nav="light" data-ghost="CSV">
+      <aside class="chapter-aside"><b>On this screen</b>微信样例 4 笔<br>跳过 1 笔转账</aside>
+      <div class="chapter-head"><span>05 / 账单</span><span>About CSV</span></div>
+      <h2>账单只估支出。</h2>
+      <div class="chapter-body">
+        <p>导入支付宝 / 微信 CSV，逐笔复核，把交易改判为房贷、固定或其他；转账、还款、理财自动跳过。</p>
+        <p>只估算月均支出与两类固定支出，确认后才写入家庭数字。没有 PDF 解析，没有支付直连。</p>
+      </div>
+      <ul class="specs">
+        <li>支付宝 / 微信 CSV</li><li>逐笔改判</li><li>转账跳过</li><li>确认才入库</li><li>不做 PDF / 直连</li>
+      </ul>
+      <img class="mobile-shot" src="assets/bills.png" alt="账单复核界面">
+    </article>
+
+    <article class="chapter" data-screen="vault" data-bg="#141a18" data-theme="dark" data-nav="dark" data-ghost="VAULT">
+      <aside class="chapter-aside"><b>On this screen</b>SQLCipher · Keychain<br>0 次网络请求</aside>
+      <div class="chapter-head"><span>06 / 保险箱</span><span>About vault</span></div>
+      <h2>数据库是密文，<br>密钥在钥匙串。</h2>
+      <div class="chapter-body">
+        <p>SQLCipher AES-256。启动先读文件头；明文库或未链接 SQLCipher 直接拒绝启动。密钥存 macOS Keychain，应用没有网络模块。</p>
+        <p>每日自动加密备份，也可手动备份；VACUUM INTO 生成同样加密的副本，保留 7 份。JSON / Markdown 导出是明文，导入前先备份当前账本。</p>
+      </div>
+      <ul class="specs">
+        <li>SQLCipher</li><li>Keychain</li><li>0 次网络请求</li><li>自动 + 手动备份</li><li>保留 7 份</li><li>JSON / Markdown 导出</li><li>审计</li>
+      </ul>
+      <img class="mobile-shot" src="assets/settings-native.png" alt="设置与保险箱">
+    </article>
+
+    <article class="chapter" data-screen="erase" data-bg="#efe7dc" data-theme="light" data-nav="light" data-ghost="ERASE">
+      <aside class="chapter-aside"><b>On this screen</b>库 + 备份 + 密钥<br>三步缺一不可</aside>
+      <div class="chapter-head"><span>07 / 擦除</span><span>About crypto-erase</span></div>
+      <h2>销毁不是重置。</h2>
+      <div class="chapter-body">
+        <p>重置只清空链条与记录；销毁会删除数据库、全部加密备份和 Keychain 密钥。备份与数据库共用同一把密钥，少删一步都不算擦除。</p>
+        <p>必须先导出 JSON，再输入“销毁全部数据”。删除后退出重开，进入首次启动。</p>
+      </div>
+      <ul class="specs">
+        <li>先导出才解锁</li><li>确认短语</li><li>删库 + 删备份 + 删密钥</li><li>重启首启</li><li>Rust 二次校验</li>
+      </ul>
+      <img class="mobile-shot" src="assets/destroy-native.png" alt="销毁本地数据确认">
+    </article>
+
+    <article class="chapter" data-screen="recovery" data-bg="#c9d1c8" data-theme="light" data-nav="light" data-ghost="RECOVER">
+      <aside class="chapter-aside"><b>On this screen</b>不新建密钥<br>可重试、可恢复</aside>
+      <div class="chapter-head"><span>08 / 恢复</span><span>About Keychain recovery</span></div>
+      <h2>密钥出问题时，<br>不要新建密钥。</h2>
+      <div class="chapter-body">
+        <p>区分缺密钥、钥匙串锁定、权限拒绝、密钥不匹配；数据库存在时绝不新建密钥覆盖旧库。</p>
+        <p>恢复页可以重试、查看数据库与备份路径、在 Finder 中显示、从加密备份恢复；恢复前保留 before-restore 副本。</p>
+      </div>
+      <ul class="specs">
+        <li>缺密钥 / 锁定 / 拒绝 / 不匹配</li><li>不新建密钥</li><li>重试</li><li>备份恢复</li><li>before-restore 副本</li>
+      </ul>
+      <img class="mobile-shot" src="assets/recovery-native.png" alt="Keychain 恢复页">
+    </article>
+  </div>
+</section>
+
+<section class="demo" data-nav="dark" id="demo">
+  <div class="demo-head">
+    <div>
+      <p class="eyebrow">Recorded walkthrough · 00:51</p>
+      <h2 class="">51 秒，<br>走完一本账。</h2>
+    </div>
+    <p class="demo-sub">从账本、结算、校准到账单复核。没有旁白，所有操作都是真实界面；底部字幕标出每一步在做什么。</p>
+  </div>
+
+  <div class="player">
+    <video id="demo-video" controls playsinline preload="metadata" poster="assets/ledger.png" aria-label="Cevtuo Causa 0.4.0 功能演示">
+      <source src="assets/demo.mp4" type="video/mp4">
+      你的浏览器不支持 MP4 视频。
+    </video>
+    <div class="player-bar"><span>CEVTUO CAUSA / 0.4.0</span><span>1440 × 900 · H.264 · 无音频</span></div>
+  </div>
+
+  <div class="video-chapters" role="group" aria-label="视频章节">
+    <button data-time="0"><b>00:00</b> 概览</button>
+    <button data-time="3"><b>00:03</b> 账本</button>
+    <button data-time="13"><b>00:13</b> 结算</button>
+    <button data-time="22"><b>00:22</b> 校准</button>
+    <button data-time="31"><b>00:31</b> 投影</button>
+    <button data-time="36"><b>00:36</b> 账单</button>
+    <button data-time="42"><b>00:42</b> 问账本</button>
+  </div>
+
+  <div class="transcript">
+    <div><span>00:00</span><p>账本首页：7 条演示链、逾期横幅、八项量化条；所有数据来自本地。</p></div>
+    <div><span>00:03</span><p>切换链条：事件、两段传导、变量、投影与反事实在同一条路径上。</p></div>
+    <div><span>00:13</span><p>结算对话框：先固定反事实与指标快照，再选择成立；确认后 10 秒内可撤销。</p></div>
+    <div><span>00:22</span><p>校准页：10 档曲线、90 天窗口、按类别筛选；个人样本 6 条时提示不下结论。</p></div>
+    <div><span>00:31</span><p>投影页：家庭暴露按 deltaPct 单变量平移，不叠加多条链。</p></div>
+    <div><span>00:36</span><p>账单复核：微信 CSV 逐笔分类，转账自动跳过，确认后才写入家庭数字。</p></div>
+    <div><span>00:42</span><p>⌘K 本地问答：输入“命中率”，答案只来自本地 state，不发起网络请求。</p></div>
+    <div><span>00:48</span><p>结束。加密、备份、擦除与恢复在下面的功能清单里逐项列出。</p></div>
+  </div>
+</section>
+
+<section class="index" data-nav="light" id="all-features">
+  <p class="eyebrow">Feature index · 0.4.0</p>
+  <h2 class="">所有功能，<br>逐项列出。</h2>
+
+  <div class="feature-group">
+    <h3>记录与编辑</h3>
+    <div class="feature-list">
+      <div class="feature"><span>三步链条编辑器（主张 / 证据与到期 / 量化）</span><b>已实现</b></div>
+      <div class="feature"><span>事件 → 两段传导 → 变量 → 投影</span><b>已实现</b></div>
+      <div class="feature"><span>反事实必填</span><b>已实现</b></div>
+      <div class="feature"><span>1–3 个先行指标：当前值 / 目标 / 来源</span><b>已实现</b></div>
+      <div class="feature"><span>来源 T1–T5 与加权可信度</span><b>已实现</b></div>
+      <div class="feature"><span>四维影响：城市 / 行业 / 住房 / 家庭</span><b>已实现</b></div>
+      <div class="feature"><span>标签：宏观 / 政策 / 行业 / 个人</span><b>已实现</b></div>
+      <div class="feature"><span>到期前 72h 置信度锁定</span><b>已实现</b></div>
+      <div class="feature"><span>已结算链条不可编辑</span><b>已实现</b></div>
+      <div class="feature"><span>优先队列 S / A / B / C 与 0–100 分</span><b>已实现</b></div>
+      <div class="feature"><span>⌘K 本地问答与“起草”入口</span><b>已实现</b></div>
+      <div class="feature"><span>硬编码草案直接入库</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>结算纪律</h3>
+    <div class="feature-list">
+      <div class="feature"><span>仅到期 / 逾期可结算</span><b>已实现</b></div>
+      <div class="feature"><span>成立 / 不成立 / 证据不足</span><b>已实现</b></div>
+      <div class="feature"><span>不成立与证据不足必须写理由</span><b>已实现</b></div>
+      <div class="feature"><span>反事实与指标快照封存</span><b>已实现</b></div>
+      <div class="feature"><span>10 秒撤销，作废不删除</span><b>已实现</b></div>
+      <div class="feature"><span>逾期仍可结算并标注天数</span><b>已实现</b></div>
+      <div class="feature"><span>允许提前结算</span><b class="no">不做</b></div>
+      <div class="feature"><span>结算后修改原判断</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>校准</h3>
+    <div class="feature-list">
+      <div class="feature"><span>0–100% 十档分桶</span><b>已实现</b></div>
+      <div class="feature"><span>HIT / Brier / ECE</span><b>已实现</b></div>
+      <div class="feature"><span>全部 / 最近 90 天</span><b>已实现</b></div>
+      <div class="feature"><span>按标签类别筛选</span><b>已实现</b></div>
+      <div class="feature"><span>样本 &lt;10 只记录、不结论</span><b>已实现</b></div>
+      <div class="feature"><span>演示 / 迁移默认不计入</span><b>已实现</b></div>
+      <div class="feature"><span>分桶完整性断言</span><b>已实现</b></div>
+      <div class="feature"><span>跨类别合并成一个总分</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>家庭与暴露</h3>
+    <div class="feature-list">
+      <div class="feature"><span>6 个家庭数字</span><b>已实现</b></div>
+      <div class="feature"><span>月缓冲 / 月供收入比 / 负债率 / 缓冲月数</span><b>已实现</b></div>
+      <div class="feature"><span>单链暴露 deltaPct 投影</span><b>已实现</b></div>
+      <div class="feature"><span>未设置暴露就不显示数字</span><b>已实现</b></div>
+      <div class="feature"><span>多链效果叠加</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>账单导入</h3>
+    <div class="feature-list">
+      <div class="feature"><span>支付宝 / 微信 CSV</span><b>已实现</b></div>
+      <div class="feature"><span>逐笔复核与改判</span><b>已实现</b></div>
+      <div class="feature"><span>转账 / 还款 / 理财自动跳过</span><b>已实现</b></div>
+      <div class="feature"><span>改判后重算月均</span><b>已实现</b></div>
+      <div class="feature"><span>确认后才写入家庭数字</span><b>已实现</b></div>
+      <div class="feature"><span>PDF 账单解析</span><b class="no">不做</b></div>
+      <div class="feature"><span>银行 / 支付直连</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>数据与安全</h3>
+    <div class="feature-list">
+      <div class="feature"><span>SQLCipher AES-256</span><b>已实现</b></div>
+      <div class="feature"><span>明文 SQLite / 未链接 SQLCipher 拒绝启动</span><b>已实现</b></div>
+      <div class="feature"><span>密钥存 macOS Keychain</span><b>已实现</b></div>
+      <div class="feature"><span>无网络模块，0 次请求</span><b>已实现</b></div>
+      <div class="feature"><span>每日自动加密备份</span><b>已实现</b></div>
+      <div class="feature"><span>手动备份，保留 7 份</span><b>已实现</b></div>
+      <div class="feature"><span>JSON / Markdown 导出（明文警告）</span><b>已实现</b></div>
+      <div class="feature"><span>JSON 导入前自动备份当前账本</span><b>已实现</b></div>
+      <div class="feature"><span>加密擦除：删库 + 删备份 + 删密钥</span><b>已实现</b></div>
+      <div class="feature"><span>Keychain 异常分类与恢复页</span><b>已实现</b></div>
+      <div class="feature"><span>从加密备份恢复 + before-restore 副本</span><b>已实现</b></div>
+      <div class="feature"><span>审计只记动作、不记金额</span><b>已实现</b></div>
+      <div class="feature"><span>SQLite user_version 结构版本</span><b>已实现</b></div>
+      <div class="feature"><span>生物识别解锁</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>平台与分发</h3>
+    <div class="feature-list">
+      <div class="feature"><span>macOS 原生壳（Tauri 2）</span><b>已实现</b></div>
+      <div class="feature"><span>Universal：x86_64 + arm64</span><b>已实现</b></div>
+      <div class="feature"><span>Apple Silicon 实测启动</span><b>已实现</b></div>
+      <div class="feature"><span>Intel 真机 / VM</span><b class="no">未验证</b></div>
+      <div class="feature"><span>Gatekeeper 真实拦截</span><b class="no">未验证</b></div>
+      <div class="feature"><span>Developer ID 签名 / 公证</span><b class="no">不做</b></div>
+      <div class="feature"><span>自动更新</span><b class="no">不做</b></div>
+      <div class="feature"><span>账号 / 云同步 / 遥测</span><b class="no">不做</b></div>
+      <div class="feature"><span>Android / iOS</span><b class="no">未构建</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="limits" data-nav="dark">
+  <p class="eyebrow">Limits · 先看边界</p>
+  <h2 class="">它不做什么。</h2>
+  <ol>
+    <li class=""><b>01</b><span>不是投资建议，也不保证预测准确。它只记录你当时怎么想，以及后来到底对不对。</span></li>
+    <li class=""><b>02</b><span>没有接入实时数据源。演示账本来自 0.2 的静态数据；来源矩阵不会自动抓取。</span></li>
+    <li class=""><b>03</b><span>校准样本不足 10 条时，曲线只作记录。迁移记录没有结算时间与类别，会被排除在 90 天窗和类别筛选之外。</span></li>
+    <li class=""><b>04</b><span>不接银行、支付或券商。账单只支持支付宝 / 微信 CSV；PDF 解析与支付直连都没有做。</span></li>
+    <li class=""><b>05</b><span>release 未签名、未公证。首次打开需要手动放行；文档不引导关闭 Gatekeeper。</span></li>
+    <li class=""><b>06</b><span>Intel 只在 Rosetta 下验证过 x86_64 切片；Gatekeeper 开启环境下的真实首次打开仍未复现。</span></li>
+    <li class=""><b>07</b><span>没有账号、云同步、自动更新或遥测。换电脑只能导出 JSON 再导入；加密备份依赖同一把 Keychain 密钥。</span></li>
+    <li class=""><b>08</b><span>Keychain 密钥丢失后，数据库与备份都无法解密。应用不会新建密钥覆盖旧库；这是有意设计，不是可绕过的限制。</span></li>
+  </ol>
+</section>
+
+<section class="install" data-nav="light" id="install">
+  <p class="eyebrow">Install · macOS</p>
+  <h2 class="">下载，放行。</h2>
+  <div class="install-grid">
+    <ol class="steps">
+      <li>下载 DMG 或 ZIP。当前版本 0.4.0，universal 构建，约 12.9 MB。</li>
+      <li>打开 DMG，把 Cevtuo Causa 拖进“应用程序”。</li>
+      <li>首次打开被 Gatekeeper 拦下：系统设置 → 隐私与安全性 → 拉到底 → “仍要打开”。macOS 13–14 可在 Finder 里右键 App → 打开。</li>
+      <li>首次启动会请求访问 Keychain，用于保存数据库密钥。选择“允许”。</li>
+      <li>数据库落在 ~/Library/Application Support/com.cevtuo.causa/causa.db；密钥在 Keychain 的 com.cevtuo.causa / db-key。</li>
+      <li>要彻底清除：设置 → 销毁本地数据 → 先导出 JSON → 输入“销毁全部数据”。</li>
+    </ol>
+
+    <aside class="download-card">
+      <span class="ver">macOS · 0.4.0</span>
+      <h3>Cevtuo Causa</h3>
+      <p>Universal · Apple Silicon / Intel · 12.9 MB</p>
+      <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.dmg">下载 DMG</a>
+      <a class="btn" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.zip">下载 ZIP</a>
+      <dl>
+        <div><dt>系统</dt><dd>macOS 13+</dd></div>
+        <div><dt>架构</dt><dd>x86_64 / arm64</dd></div>
+        <div><dt>签名</dt><dd>ad-hoc · 未公证</dd></div>
+        <div><dt>更新</dt><dd>手动替换</dd></div>
+        <div><dt>许可</dt><dd>MIT</dd></div>
+      </dl>
+      <div class="sha">
+        DMG SHA256<br>633d8ab13d554b4a8b4f61cc6823df3908b4ba664e9194fd7d4b0b7747ef6624
+        <br><button type="button" data-copy-sha>复制校验和</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="faq" data-nav="light">
+  <p class="eyebrow">FAQ · 数据在哪里</p>
+  <h2 class="">几个必须说清的问题。</h2>
+  <details class="">
+    <summary>数据会上传吗？</summary>
+    <p>不会。Rust 侧没有 HTTP 客户端，应用没有网络模块；保险箱里的“0 次请求”是实际状态。数据只写在本地 SQLCipher 数据库，密钥在 macOS Keychain。</p>
+  </details>
+  <details class="">
+    <summary>换电脑怎么办？</summary>
+    <p>在设置里导出 JSON，在新机器导入。导入前会先备份当前账本。加密备份与数据库共用 Keychain 密钥；备份文件不能脱离原机器的密钥单独解密。</p>
+  </details>
+  <details class="">
+    <summary>钥匙串密钥丢了还能恢复吗？</summary>
+    <p>不能解密。应用会明确报“数据库在，但 Keychain 密钥不见了”，并且不会新建密钥覆盖旧库。只有找回原密钥，或用同一密钥下的备份，才能恢复。</p>
+  </details>
+  <details class="">
+    <summary>为什么首次打开会被拦？</summary>
+    <p>没有 Apple Developer 账号，release 只有 ad-hoc 签名、没有公证。首次打开需要“仍要打开”或去掉隔离标记；这不是安装损坏。</p>
+  </details>
+  <details class="">
+    <summary>会自动更新吗？</summary>
+    <p>不会。没有接 Tauri updater；升级方式是下载新版本替换应用。数据库结构版本与 payload schema 分开记录，升级前仍建议导出 JSON。</p>
+  </details>
+  <details class="">
+    <summary>能接银行或支付平台吗？</summary>
+    <p>不做。账单只支持支付宝 / 微信 CSV，用于估算月均支出；没有支付直连、银行接口或 PDF 解析。</p>
+  </details>
+  <details class="">
+    <summary>校准多少条才有意义？</summary>
+    <p>至少 10 条可判定样本。低于 10 条时页面只记录曲线，不把它当结论；证据不足不计入 HIT / Brier 的分母。</p>
+  </details>
+</section>
+</main>
+
+<footer data-nav="dark">
+  <p class="footer-mark">Cevtuo <em>Causa</em></p>
+  <div class="footer-row">
+    <span>CEVTUOGRND · 本地优先的因果账本 · 2026</span>
+    <nav>
+      <a href="https://github.com/cevtuocjw/cevtuo-causa">GitHub</a>
+      <a href="https://github.com/cevtuocjw/cevtuo-causa/releases">Releases</a>
+      <a href="/">更多应用</a>
+      <a href="#install">下载</a>
+    </nav>
+    <span>0.4.0 · MIT · 未公证</span>
+  </div>
+</footer>
+
+<script src="causa.js"></script>
+</body>
+</html>
