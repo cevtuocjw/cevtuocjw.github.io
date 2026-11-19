@@ -335,6 +335,8 @@ section { scroll-margin-top: 0; }
 }
 .window-body img.active { opacity: 1; transform: scale(1); }
 .chapter-copy { position: relative; z-index: 3; margin-top: -100svh; }
+.chapter[data-theme="dark"] { --chapter-ink: var(--paper); }
+.chapter[data-theme="light"] { --chapter-ink: var(--ink); }
 .chapter {
   position: relative;
   min-height: 100svh;
