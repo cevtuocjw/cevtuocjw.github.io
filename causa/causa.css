@@ -93,8 +93,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--paper);
+  --nav-bg: rgba(24, 33, 36, 0.94);
   transition: color 180ms var(--ease), background 600ms var(--ease);
 }
+.nav::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 96px;
+  background: linear-gradient(180deg, var(--nav-bg), transparent);
+  z-index: -1;
+  pointer-events: none;
+}
+body[data-nav="light"] .nav { --nav-bg: rgba(239, 231, 220, 0.94); }
 .nav .brand { letter-spacing: 0.2em; font-weight: 400; }
 .nav .sep { opacity: 0.4; }
 .nav .version { opacity: 0.65; }
@@ -314,7 +327,7 @@ section { scroll-margin-top: 0; }
 .principle { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 14px 0; border-bottom: 1px solid rgba(242,240,240,.12); }
 .principle b { font: 400 10px/1.7 var(--mono); color: var(--accent); }
 .principle p { margin: 0; max-width: 62ch; font-size: 14.5px; line-height: 1.7; color: rgba(242,240,240,.7); }
-.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 12vh; background: rgba(242,240,240,.14); border-top: 1px solid rgba(242,240,240,.18); }
+.timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; margin-top: 12vh; background: rgba(242,240,240,.14); border-top: 1px solid rgba(242,240,240,.18); }
 .timeline div { background: #182124; padding: 18px 18px 20px 0; }
 .timeline b { display: block; font: 400 11px/1 var(--mono); letter-spacing: .12em; color: var(--accent); margin-bottom: 10px; }
 .timeline span { display: block; font-size: 12.5px; line-height: 1.6; color: rgba(242,240,240,.55); }
@@ -516,6 +529,39 @@ section { scroll-margin-top: 0; }
 .transcript span { font: 400 10px/1.5 var(--mono); color: var(--accent); letter-spacing: 0.06em; }
 .transcript p { margin: 0; font-size: 14px; line-height: 1.65; max-width: 70ch; color: rgba(242, 240, 240, 0.64); }
 
+
+/* ------------------------------------------------------------------ research */
+
+.research {
+  position: relative;
+  z-index: 1;
+  background: #efe7dc;
+  color: var(--ink);
+  padding: 14vh var(--pad) 12vh;
+}
+.research-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+.research h2 {
+  margin: 0;
+  max-width: 18ch;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(44px, 5.8vw, 92px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+.research .eyebrow { color: #a84a26; margin-bottom: 22px; }
+.research-sub { max-width: 40ch; margin: 0; font-size: 15px; line-height: 1.7; color: #3c4742; }
+.research-player { margin-top: 7vh; }
+.research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 4vw, 64px); margin-top: 9vh; }
+.research-card { border-top: 1px solid var(--line); padding-top: 20px; }
+.research-card-head { display: flex; justify-content: space-between; gap: 16px; font: 400 10px/1 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+.research-card img { width: 100%; margin: 20px 0 18px; border: 1px solid var(--line); border-radius: 12px; background: #0b0b0b; }
+.research-card h3 { margin: 0 0 12px; font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 3.4vw, 46px); line-height: 1; letter-spacing: -0.02em; }
+.research-card p { margin: 0; max-width: 46ch; font-size: 14.5px; line-height: 1.7; color: #3c4742; }
+.research-card .specs { margin-top: 18px; color: var(--ink); }
+.research-card .specs li { opacity: 0.55; }
+.research-note { margin: 8vh 0 0; font: 400 10.5px/1.6 var(--mono); letter-spacing: 0.04em; color: var(--muted); }
+
 /* ------------------------------------------------------------------ index */
 
 .index {
@@ -668,6 +714,10 @@ html.motion .reveal.in { opacity: 1; transform: none; }
 }
 
 @media (max-width: 860px) {
+  .research-head { display: block; }
+  .research-sub { margin-top: 22px; }
+  .research-grid { grid-template-columns: 1fr; }
+  .research-card img { margin-top: 16px; }
   .origin-head { display: block; }
   .origin-spec { margin-top: 10px; }
   .origin-quote { margin: 64px 0 72px; }

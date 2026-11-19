@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cevtuo Causa 0.4.0 — 本地优先的因果账本</title>
+<title>Cevtuo Causa 0.5.0 — 本地优先的因果账本</title>
 <meta name="description" content="记录一条因果链，到期按纪律结算，再用真实结果校准置信度。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
 <meta name="theme-color" content="#182124">
 <link rel="icon" href="/logo.png">
 <link rel="canonical" href="https://apps.cevtuogrnd.com/causa/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Cevtuo Causa 0.4.0 — 本地优先的因果账本">
-<meta property="og:description" content="记录判断、到期结算、按真实结果校准。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
+<meta property="og:title" content="Cevtuo Causa 0.5.0 — 本地优先的因果账本">
+<meta property="og:description" content="记录判断、到期结算、按真实结果校准；新增口径对齐与政策扩散。SQLCipher + macOS Keychain，本地存储，可加密擦除。">
 <meta property="og:url" content="https://apps.cevtuogrnd.com/causa/">
 <meta property="og:image" content="https://apps.cevtuogrnd.com/causa/assets/ledger.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -23,12 +23,13 @@
 <header class="nav">
   <a class="brand" href="/">CEVTUOGRND</a>
   <span class="sep">/</span>
-  <span class="version">CAUSA 0.4.0</span>
+  <span class="version">CAUSA 0.5.0</span>
   <nav class="links" aria-label="页面导航">
     <a href="#how">它是什么</a>
     <a href="#origin">构想</a>
     <a href="#features">功能</a>
     <a href="#demo">演示</a>
+    <a href="#research">研究</a>
     <a href="#install">安装</a>
   </nav>
   <a class="dl" href="#install">下载</a>
@@ -40,7 +41,7 @@
   <h1 class="">把判断<br><em>写进时间</em>里。</h1>
   <p class="hero-sub">本地优先的因果账本。记录一条因果链，到期按纪律结算，再用真实结果校准你的置信度。没有账号，没有同步，数据只在本机。</p>
   <div class="hero-actions">
-    <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.dmg">下载 0.4.0 · DMG</a>
+    <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.dmg">下载 0.5.0 · DMG</a>
     <a class="btn ghost" href="#demo">看 51 秒演示</a>
   </div>
   <p class="hero-meta">Universal · Apple Silicon / Intel · 12.9 MB · 未签名、未公证</p>
@@ -114,14 +115,14 @@
   <div class="origin-ledgers">
     <div class="origin-subhead">
       <h3>最初想做的五本账</h3>
-      <p>0.3 把没有形成闭环的 04 / 05 / 06 从导航移除，只保留能记录、能结算、能校准的三本。少做，是为了让每一本都真的能用。</p>
+      <p>0.3 曾把未闭环的 04 / 05 / 06 从导航移除；0.5 把 04 口径对齐、05 政策扩散做成真实页面，06 本地镜像仍未做。少做，是为了让每一本都真的能用。</p>
     </div>
     <ol class="ledger-list">
       <li><b>01</b><span>因果链登记册</span><em>已交付</em></li>
       <li><b>02</b><span>投影</span><em>已交付</em></li>
       <li><b>03</b><span>校准</span><em>已交付</em></li>
-      <li><b>04</b><span>口径对齐</span><em class="no">未交付</em></li>
-      <li><b>05</b><span>政策扩散</span><em class="no">未交付</em></li>
+      <li><b>04</b><span>口径对齐</span><em>已交付</em></li>
+      <li><b>05</b><span>政策扩散</span><em>已交付</em></li>
       <li><b>06</b><span>本地镜像</span><em class="no">后续</em></li>
     </ol>
   </div>
@@ -139,6 +140,7 @@
     <div><b>0.2</b><span>Fey 视觉与量化面板</span></div>
     <div><b>0.3</b><span>链条 / 结算 / 校准闭环 + 原生加密</span></div>
     <div><b>0.4</b><span>加密擦除、Keychain 恢复、按类别校准</span></div>
+    <div><b>0.5</b><span>口径对齐、政策扩散两个研究视图</span></div>
   </div>
 </section>
 
@@ -285,11 +287,11 @@
   </div>
 
   <div class="player">
-    <video id="demo-video" controls playsinline preload="metadata" poster="assets/ledger.png" aria-label="Cevtuo Causa 0.4.0 功能演示">
+    <video id="demo-video" controls playsinline preload="metadata" poster="assets/ledger.png" aria-label="Cevtuo Causa 0.5.0 功能演示">
       <source src="assets/demo.mp4" type="video/mp4">
       你的浏览器不支持 MP4 视频。
     </video>
-    <div class="player-bar"><span>CEVTUO CAUSA / 0.4.0</span><span>1440 × 900 · H.264 · 无音频</span></div>
+    <div class="player-bar"><span>CEVTUO CAUSA / 0.5.0</span><span>1440 × 900 · H.264 · 无音频</span></div>
   </div>
 
   <div class="video-chapters" role="group" aria-label="视频章节">
@@ -314,8 +316,50 @@
   </div>
 </section>
 
+
+<section class="research" id="research" data-nav="light">
+  <div class="research-head">
+    <div>
+      <p class="eyebrow">0.5 new · Research views</p>
+      <h2>同一个数字，<br>和它的下一站。</h2>
+    </div>
+    <p class="research-sub">0.5 把最初五本账里的 04 口径对齐、05 政策扩散做成了真实页面。仍然是本地静态资料，不联网，也不假装预测。</p>
+  </div>
+
+  <div class="player research-player">
+    <video controls playsinline preload="metadata" poster="assets/research-align.png" aria-label="口径对齐与政策扩散演示">
+      <source src="assets/research.mp4" type="video/mp4">
+      你的浏览器不支持 MP4 视频。
+    </video>
+    <div class="player-bar"><span>0.5 / RESEARCH · 口径与扩散</span><span>1440 × 900 · 15 秒 · 无音频</span></div>
+  </div>
+
+  <div class="research-grid">
+    <article class="research-card">
+      <div class="research-card-head"><span>04 / 口径对齐</span><span>Definition alignment</span></div>
+      <img src="assets/research-align.png" alt="口径对齐页面">
+      <h3>同一个 50，三个 50。</h3>
+      <p>6 组指标 × 中 / 美 / 欧。定义、样本、权重、频率逐项列出；只有定义完全一致才允许取平均，冲突时保留两个值。</p>
+      <ul class="specs">
+        <li>6 组指标</li><li>T1–T2 来源</li><li>不取平均</li><li>相关链跳转</li>
+      </ul>
+    </article>
+    <article class="research-card">
+      <div class="research-card-head"><span>05 / 政策扩散</span><span>Policy diffusion</span></div>
+      <img src="assets/research-diff.png" alt="政策扩散页面">
+      <h3>先有证据，再有下一站。</h3>
+      <p>3 个政策 × 5 个阶段。已发生 / 观察中 / 可能下一站；每一步必须有证据与触发条件，置信度不是概率。</p>
+      <ul class="specs">
+        <li>5 个阶段</li><li>触发条件</li><li>置信度不是概率</li><li>相关链跳转</li>
+      </ul>
+    </article>
+  </div>
+
+  <p class="research-note">04 / 05 已交付；06 本地镜像仍未做。研究视图是本地快照，新增路径必须同时补证据与触发条件。</p>
+</section>
+
 <section class="index" data-nav="light" id="all-features">
-  <p class="eyebrow">Feature index · 0.4.0</p>
+  <p class="eyebrow">Feature index · 0.5.0</p>
   <h2 class="">所有功能，<br>逐项列出。</h2>
 
   <div class="feature-group">
@@ -361,6 +405,33 @@
       <div class="feature"><span>演示 / 迁移默认不计入</span><b>已实现</b></div>
       <div class="feature"><span>分桶完整性断言</span><b>已实现</b></div>
       <div class="feature"><span>跨类别合并成一个总分</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+
+  <div class="feature-group">
+    <h3>口径对齐</h3>
+    <div class="feature-list">
+      <div class="feature"><span>6 组指标 × 中 / 美 / 欧</span><b>已实现</b></div>
+      <div class="feature"><span>逐项列定义、样本、权重、频率</span><b>已实现</b></div>
+      <div class="feature"><span>直接可比 / 需换算 / 不可直接比较</span><b>已实现</b></div>
+      <div class="feature"><span>T1 / T2 来源与备注</span><b>已实现</b></div>
+      <div class="feature"><span>冲突保留两个值，不取平均</span><b>已实现</b></div>
+      <div class="feature"><span>相关指标跳回链条</span><b>已实现</b></div>
+      <div class="feature"><span>跨地区合成为一个“全球数”</span><b class="no">不做</b></div>
+    </div>
+  </div>
+
+  <div class="feature-group">
+    <h3>政策扩散</h3>
+    <div class="feature-list">
+      <div class="feature"><span>3 个政策案例 × 5 个阶段</span><b>已实现</b></div>
+      <div class="feature"><span>已发生 / 观察中 / 可能下一站</span><b>已实现</b></div>
+      <div class="feature"><span>每一步带证据与触发条件</span><b>已实现</b></div>
+      <div class="feature"><span>置信度筛选（高 / 中 / 低）</span><b>已实现</b></div>
+      <div class="feature"><span>阶段轨与当前阶段</span><b>已实现</b></div>
+      <div class="feature"><span>相关链条跳转</span><b>已实现</b></div>
+      <div class="feature"><span>把置信度当概率 / 承诺日期</span><b class="no">不做</b></div>
     </div>
   </div>
 
@@ -444,7 +515,7 @@
   <h2 class="">下载，放行。</h2>
   <div class="install-grid">
     <ol class="steps">
-      <li>下载 DMG 或 ZIP。当前版本 0.4.0，universal 构建，约 12.9 MB。</li>
+      <li>下载 DMG 或 ZIP。当前版本 0.5.0，universal 构建，约 12.9 MB。</li>
       <li>打开 DMG，把 Cevtuo Causa 拖进“应用程序”。</li>
       <li>首次打开被 Gatekeeper 拦下：系统设置 → 隐私与安全性 → 拉到底 → “仍要打开”。macOS 13–14 可在 Finder 里右键 App → 打开。</li>
       <li>首次启动会请求访问 Keychain，用于保存数据库密钥。选择“允许”。</li>
@@ -453,11 +524,11 @@
     </ol>
 
     <aside class="download-card">
-      <span class="ver">macOS · 0.4.0</span>
+      <span class="ver">macOS · 0.5.0</span>
       <h3>Cevtuo Causa</h3>
       <p>Universal · Apple Silicon / Intel · 12.9 MB</p>
-      <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.dmg">下载 DMG</a>
-      <a class="btn" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.4.0/Cevtuo-Causa-0.4.0-macos-universal.zip">下载 ZIP</a>
+      <a class="btn solid" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.dmg">下载 DMG</a>
+      <a class="btn" href="https://github.com/cevtuocjw/cevtuo-causa/releases/download/v0.5.0/Cevtuo-Causa-0.5.0-macos-universal.zip">下载 ZIP</a>
       <dl>
         <div><dt>系统</dt><dd>macOS 13+</dd></div>
         <div><dt>架构</dt><dd>x86_64 / arm64</dd></div>
@@ -466,7 +537,7 @@
         <div><dt>许可</dt><dd>MIT</dd></div>
       </dl>
       <div class="sha">
-        DMG SHA256<br>633d8ab13d554b4a8b4f61cc6823df3908b4ba664e9194fd7d4b0b7747ef6624
+        DMG SHA256<br>bdf8c7f692dcda052cdfad91914fd9dd071bbe01b8a832a8decbcb4336064a18
         <br><button type="button" data-copy-sha>复制校验和</button>
       </div>
     </aside>
@@ -517,7 +588,7 @@
       <a href="/">更多应用</a>
       <a href="#install">下载</a>
     </nav>
-    <span>0.4.0 · MIT · 未公证</span>
+    <span>0.5.0 · MIT · 未公证</span>
   </div>
 </footer>
 
