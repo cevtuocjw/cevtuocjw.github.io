@@ -65,8 +65,6 @@ def footer() -> str:
 
 def card(p: dict, i: int, small: bool = False) -> str:
     flag = ""
-    if p["status"] != "released":
-        flag = f'<span class="card__flag">{e(p["statusLabel"])}</span>'
     date = p["date"]
     meta = f"{date} · {e(p['platform'])}"
     return f"""<a class="card reveal" data-status="{p['status']}" href="p/{p['slug']}.html" style="animation-delay:{min(i*55, 550)}ms">
