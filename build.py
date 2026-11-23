@@ -22,7 +22,6 @@ REPOS = [
     ("blendergate", "Python", 0, "v1.1.0", "2026-11-02"),
     ("CEVTUO-C4EMEM", "—", 0, "v0.2.4", "2026-10-16"),
     ("syncmusic", "HTML", 0, "—", "2026-11-09"),
-    ("reportpft", "CSS", 0, "—", "2026-11-12"),
     ("music-sync · private", "Python", 0, "—", "2026-11-09"),
     ("alterego · private", "TypeScript", 0, "—", "2026-11-20"),
     ("cevtuo-health · private", "Kotlin", 0, "—", "2026-09-28"),
