@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
-  <rect width="200" height="200" rx="34" fill="#111"/>
-  <g fill="none" stroke="#f5f3ef" stroke-width="3">
-    <path d="M52 62h96M52 100h96M52 138h96" stroke-opacity=".28"/>
+  <g fill="none" stroke="#111" stroke-width="3" opacity=".16">
+    <path d="M52 62h96M52 100h96M52 138h96"/>
   </g>
-  <text x="100" y="120" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="52" letter-spacing="-2" fill="#f5f3ef">blq</text>
+  <text x="100" y="120" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="52" letter-spacing="-2" fill="#111">blq</text>
 </svg>

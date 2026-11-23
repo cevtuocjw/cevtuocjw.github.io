@@ -196,7 +196,7 @@
       "platform": "Web · PWA",
       "status": "released",
       "statusLabel": "已发布",
-      "logo": "assets/logos/msync-app.png",
+      "logo": "assets/logos/msync-mark.svg",
       "cover": "assets/shots/msync-player-free.jpg",
       "gallery": [
         "assets/shots/msync-player-free.jpg",
@@ -481,7 +481,7 @@
       "platform": "macOS · Web",
       "status": "released",
       "statusLabel": "已发布",
-      "logo": "assets/logos/cevtuo-z.png",
+      "logo": "assets/logos/cevtuo-z.svg",
       "cover": "assets/shots/z-home.jpg",
       "gallery": [
         "assets/shots/z-home.jpg",

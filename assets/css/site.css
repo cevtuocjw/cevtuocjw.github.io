@@ -47,19 +47,28 @@ button{font:inherit;color:inherit}
 .topbar__side a{color:var(--muted);transition:color .2s var(--ease)}
 .topbar__side a:hover,.topbar__side a[aria-current="page"]{color:var(--ink)}
 .wordmark{
-  font:400 17px/1 var(--serif);letter-spacing:.34em;text-transform:uppercase;
-  padding-left:.34em;
+  display:flex;align-items:center;gap:10px;
+  font:400 15px/1 var(--serif);letter-spacing:.26em;text-transform:uppercase;
 }
+.wordmark img{height:24px;width:auto;flex:none;display:block}
+.wordmark span{display:block}
 .menu-note{display:none}
 .mobile-stats{display:none}
 
 /* ---------- hero ---------- */
 .hero{padding:clamp(54px,8vw,112px) var(--pad) clamp(34px,4vw,58px);text-align:center}
 .kicker{font-size:10.5px;letter-spacing:.38em;text-transform:uppercase;color:var(--muted);margin:0 0 22px}
+.hero__mark{
+  display:block;width:clamp(96px,10vw,148px);height:auto;margin:0 auto 26px;
+}
 .hero h1{
   margin:0;font:400 clamp(40px,8.4vw,126px)/.96 var(--serif);
   letter-spacing:.075em;text-transform:uppercase;
   padding-left:.075em;
+}
+.hero h1 span{
+  display:block;font-size:.3em;line-height:1;letter-spacing:.5em;
+  padding-left:.5em;margin-top:.18em;
 }
 .hero p{
   max-width:36em;margin:24px auto 0;color:var(--muted);font-size:14px;line-height:1.9;
@@ -80,12 +89,15 @@ button{font:inherit;color:inherit}
   border-left:1px solid var(--line);
   margin:0 var(--pad);
 }
+@media (min-width:1200px){
+  .grid{grid-template-columns:repeat(5,1fr)}
+}
 .card{
   display:flex;flex-direction:column;border-right:1px solid var(--line);border-bottom:1px solid var(--line);
   background:var(--paper);
 }
 .card__media{
-  position:relative;aspect-ratio:1/1;background:var(--tile);
+  position:relative;aspect-ratio:1/1;background:var(--paper);
   display:flex;align-items:center;justify-content:center;overflow:hidden;
 }
 .card__media img{
@@ -259,7 +271,6 @@ button{font:inherit;color:inherit}
   .metric-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:820px){
-  .grid{grid-template-columns:repeat(2,1fr)}
   .topbar__in{height:56px}
   .topbar__side{gap:16px}
   .topbar__side a.hide-sm{display:none}
@@ -271,16 +282,25 @@ button{font:inherit;color:inherit}
 }
 @media (max-width:560px){
   .hero{padding-top:44px}
-  .hero h1{letter-spacing:.05em;padding-left:.05em}
-  .grid{grid-template-columns:1fr;margin:0}
-  .card{border-left:0}
-  .card__media{aspect-ratio:1.15/1}
-  .card__body{padding:16px 4px 24px}
+  .hero h1{letter-spacing:.045em;padding-left:.045em}
+  .hero__mark{width:88px;margin-bottom:18px}
+  .grid{grid-template-columns:repeat(3,1fr);margin:0 var(--pad)}
+  .card__media{aspect-ratio:1/1}
+  .card__media img{width:64%;height:64%}
+  .card__body{padding:11px 6px 18px;gap:4px}
+  .card__name{font-size:13px;line-height:1.2}
+  .card__cn{font-size:9.5px;letter-spacing:.04em}
+  .card__meta{font-size:7.5px;letter-spacing:.08em;line-height:1.45}
+  .card__status{font-size:7.5px;letter-spacing:.04em}
+  .card__status::before{width:4px;height:4px;margin-right:4px}
+  .section-head{padding:20px var(--pad) 14px}
+  .section-head span{font-size:9px;letter-spacing:.08em}
   .topbar__side--left{display:none}
   .mobile-stats{display:inline}
   .topbar__in{grid-template-columns:auto 1fr}
-  .wordmark{justify-self:start}
-  .topbar__side--right{justify-self:end}
+  .wordmark{justify-self:start;font-size:10px;letter-spacing:.12em;gap:6px}
+  .wordmark img{height:17px}
+  .topbar__side--right{justify-self:end;gap:10px;font-size:9px}
   .metric-grid{grid-template-columns:1fr 1fr}
   .thumbs{grid-template-columns:repeat(4,1fr)}
   .p-features li{grid-template-columns:1fr;gap:4px}

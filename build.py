@@ -48,7 +48,7 @@ def topbar(active: str = "") -> str:
       <a href="/index.html"{cur("index")}>INDEX</a>
       <a href="/stats.html"{cur("stats")}>STATS</a>
     </nav>
-    <a class="wordmark" href="/index.html" aria-label="CEVTUOGRND home">CEVTUOGRND</a>
+    <a class="wordmark" href="/index.html" aria-label="CEVTUOGRND APPS home"><span>CEVTUOGRND APPS</span></a>
     <nav class="topbar__side topbar__side--right" aria-label="Elsewhere">
       <a class="mobile-stats" href="/stats.html">STATS</a>
       <a href="https://github.com/cevtuocjw" target="_blank" rel="noopener">GITHUB ↗</a>
@@ -58,7 +58,7 @@ def topbar(active: str = "") -> str:
 
 def footer() -> str:
     return """<footer class="footer">
-  <div>© 2026 CEVTUOGRND</div>
+  <div>© 2026 CEVTUOGRND APPS</div>
   <div class="fine">apps.cevtuogrnd.com · 所有软件由 CEVTUO 独立构建</div>
   <div><a href="/index.html">APPS</a> &nbsp;·&nbsp; <a href="/stats.html">STATS</a> &nbsp;·&nbsp; <a href="/privacy.html">PRIVACY</a></div>
 </footer>"""
@@ -85,10 +85,10 @@ def index_page() -> str:
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CEVTUOGRND — Apps &amp; Tools</title>
+<title>CEVTUOGRND APPS — Apps &amp; Tools</title>
 <meta name="description" content="{e(SITE['intro'])}"/>
 <link rel="icon" href="/assets/favicon.png"/>
-<meta property="og:title" content="CEVTUOGRND — Apps &amp; Tools"/>
+<meta property="og:title" content="CEVTUOGRND APPS — Apps &amp; Tools"/>
 <meta property="og:description" content="{e(SITE['intro'])}"/>
 <meta property="og:type" content="website"/>
 <link rel="stylesheet" href="/assets/css/site.css"/>
@@ -98,7 +98,8 @@ def index_page() -> str:
 <main>
   <section class="hero">
     <p class="kicker">{e(SITE['tagline'])} · {e(SITE['year'])}</p>
-    <h1>{e(SITE['wordmark'])}</h1>
+    <img class="hero__mark" src="/assets/logos/cevtuogrnd-mark.png" alt="CEVTUOGRND APPS">
+    <h1>{e(SITE['wordmark'])}<span>APPS</span></h1>
     <p>{e(SITE['intro'])}</p>
   </section>
   <div class="rule"></div>
@@ -168,10 +169,10 @@ def project_page(p: dict, next_p: dict | None) -> str:
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>{e(p['name'])} — CEVTUOGRND</title>
+<title>{e(p['name'])} — CEVTUOGRND APPS</title>
 <meta name="description" content="{e(p['tagline'])}"/>
 <link rel="icon" href="/assets/favicon.png"/>
-<meta property="og:title" content="{e(p['name'])} — CEVTUOGRND"/>
+<meta property="og:title" content="{e(p['name'])} — CEVTUOGRND APPS"/>
 <meta property="og:description" content="{e(p['tagline'])}"/>
 <meta property="og:image" content="/{esc_attr(p['cover'])}"/>
 <link rel="stylesheet" href="/assets/css/site.css"/>
@@ -307,7 +308,7 @@ def stats_page() -> str:
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>STATS — CEVTUOGRND</title>
+<title>STATS — CEVTUOGRND APPS</title>
 <meta name="description" content="GitHub 贡献热力图与项目看板。"/>
 <link rel="icon" href="/assets/favicon.png"/>
 <link rel="stylesheet" href="/assets/css/site.css"/>
@@ -345,28 +346,6 @@ def stats_page() -> str:
     </div>
   </section>
 
-  <section class="panel">
-    <div class="panel-head"><h2>PROJECT STATUS</h2><span>{len(PROJECTS)} PROJECTS · {RELEASE_DOWNLOADS} RELEASE DOWNLOADS</span></div>
-    <div class="metric-grid">
-      <div class="metric"><b>{released}</b><span>RELEASED</span></div>
-      <div class="metric"><b>{beta}</b><span>BETA / 内测</span></div>
-      <div class="metric"><b>{internal}</b><span>INTERNAL / 内部</span></div>
-      <div class="metric"><b>{RELEASE_DOWNLOADS}</b><span>RELEASE DOWNLOADS</span></div>
-    </div>
-  </section>
-
-  <section class="panel">
-    <div class="panel-head"><h2>NOT ON GITHUB / NOT DISTRIBUTED</h2><span>LOCAL INVENTORY</span></div>
-    <div class="status-list">
-      <div class="status-item"><i class="dot"></i><div><b>CEVTUO-PGN</b><span>Chrome 扩展，只在本站分发 zip，没有公开仓库。</span></div></div>
-      <div class="status-item"><i class="dot"></i><div><b>CEVNOAUATOMO</b><span>Tuna 脚本 + 使用页，没有公开仓库。</span></div></div>
-      <div class="status-item"><i class="dot"></i><div><b>CEVTUO XD</b><span>APK 与手表固件，只在 /xd/ 分发，没有公开仓库。</span></div></div>
-      <div class="status-item"><i class="dot dot--open"></i><div><b>师度 Alterego</b><span>私有仓库，内测中，尚未分发。</span></div></div>
-      <div class="status-item"><i class="dot dot--open"></i><div><b>海外情报平台</b><span>内部 Electron 工具，未公开发行。</span></div></div>
-      <div class="status-item"><i class="dot dot--open"></i><div><b>CEVTUO Health</b><span>私有仓库，Android 端 Health Connect 上报工具，未分发。</span></div></div>
-      <div class="status-item"><i class="dot dot--open"></i><div><b>本地技能库</b><span>43 个 Cherry Studio 技能；其中 corner-menu / kinetic-web / apple-liquid-glass / negative-control / adaptive-contrast 等自建前端技能值得择日发布。</span></div></div>
-    </div>
-  </section>
 </main>
 {footer()}
 </body>
