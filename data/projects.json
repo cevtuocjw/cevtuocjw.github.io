@@ -1,0 +1,569 @@
+{
+  "site": {
+    "wordmark": "CEVTUOGRND",
+    "tagline": "APPS & TOOLS",
+    "intro": "独立构建的软件、工具与实验。每一件都从真实的工作里长出来。",
+    "year": "2026"
+  },
+  "projects": [
+    {
+      "slug": "alterego",
+      "name": "师度 ALTEREGO",
+      "cn": "师度",
+      "category": "EDUCATION · WEB / MINI PROGRAM",
+      "date": "2026-11-20",
+      "version": "0.1.0",
+      "platform": "Web · 微信小程序",
+      "status": "beta",
+      "statusLabel": "内测 · 未分发",
+      "logo": "assets/logos/alterego.png",
+      "cover": "assets/shots/alterego-home.jpg",
+      "gallery": [
+        "assets/shots/alterego-home.jpg",
+        "assets/shots/alterego-mobile.jpg"
+      ],
+      "tagline": "一位老师的判断，做成可运行的系统。",
+      "body": [
+        "学生端每天 20 分钟，用老师的方法练一道题；老师端把判断变成方法卡、证据与可复用的课。一套 Taro 代码同时跑 Web 与微信小程序。",
+        "从 90 秒画像开始，经过 3 分钟试听、20 分钟八段课、八周复盘，学习动作被拆成可观察的证据，而不是一句「多练」。"
+      ],
+      "features": [
+        [
+          "学生端",
+          "每天 20 分钟：题、三格、讲解、录音、改一处、固化、总结、作业。"
+        ],
+        [
+          "老师端",
+          "本周该看谁、批改趋势、最近批改、角色隔离。"
+        ],
+        [
+          "判断可复用",
+          "方法卡、证据、错题本、到期复练汇到同一条队列。"
+        ]
+      ],
+      "links": {
+        "download": "",
+        "downloadLabel": "内测中 · 暂未分发",
+        "github": "",
+        "page": ""
+      },
+      "note": "私有项目，尚未公开发行。"
+    },
+    {
+      "slug": "causa",
+      "name": "CEVTUO CAUSA",
+      "cn": "因果簿",
+      "category": "CAUSAL LEDGER · MACOS",
+      "date": "2026-11-19",
+      "version": "0.5.1",
+      "platform": "macOS · Universal",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/causa.png",
+      "cover": "assets/shots/causa-ledger.jpg",
+      "gallery": [
+        "assets/shots/causa-ledger.jpg",
+        "assets/shots/causa-settle.jpg",
+        "assets/shots/causa-projection.jpg"
+      ],
+      "tagline": "记录判断，到期结算，再按结果校准。",
+      "body": [
+        "本地优先的因果账本：记录一条经济推断，写下什么时候能知道对错、错了算多少，到期结算，再按结果校准信心。",
+        "0.5 版把口径对齐与政策扩散做成了两个研究视图：同一个数字在中 / 美 / 欧到底统计什么，一项政策下一步会经过哪些阶段。数据库文件加密，密钥在 Keychain，判定退出重开后仍然保留。"
+      ],
+      "features": [
+        [
+          "记录与结算",
+          "每条判断都有到期日与结算条件，不靠事后记忆。"
+        ],
+        [
+          "口径对齐",
+          "同一个指标在不同统计体系里到底算的是什么。"
+        ],
+        [
+          "政策扩散",
+          "一项政策从提出到落地可能经过的阶段。"
+        ],
+        [
+          "本地加密",
+          "SQLCipher + Keychain；数据不出本机。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/cevtuo-causa/releases/tag/v0.5.1",
+        "downloadLabel": "下载 macOS 版",
+        "github": "https://github.com/cevtuocjw/cevtuo-causa",
+        "page": "https://apps.cevtuogrnd.com/causa/"
+      },
+      "note": "未签名、未公证：首次打开需在「系统设置 → 隐私与安全性」里放行。"
+    },
+    {
+      "slug": "intel",
+      "name": "OVERSEAS INTEL",
+      "cn": "海外项目情报平台",
+      "category": "INTELLIGENCE · MACOS",
+      "date": "2026-11-12",
+      "version": "0.43",
+      "platform": "macOS · Electron",
+      "status": "internal",
+      "statusLabel": "内部 · 未分发",
+      "logo": "assets/logos/intel.svg",
+      "cover": "assets/shots/intel-projects.jpg",
+      "gallery": [
+        "assets/shots/intel-projects.jpg",
+        "assets/shots/intel-gate.jpg"
+      ],
+      "tagline": "港口、铁路、海关项目的情报聚合与推荐。",
+      "body": [
+        "把海外与国内的港口、铁路、海关口岸项目汇到一处：多来源抓取、关键词订阅、LLM 归并与分析，最后落成可导出的项目清单与报告。",
+        "每一条线索都保留来源与抓取时间；可以在项目、情报、报告三个视图之间切换，也可以按场景、区域、时间窗筛选。"
+      ],
+      "features": [
+        [
+          "多来源聚合",
+          "新闻、招标、政府发布统一进入同一条管线。"
+        ],
+        [
+          "LLM 分析",
+          "摘要、相关性判断、可切入角度。"
+        ],
+        [
+          "项目清单",
+          "按场景 / 区域 / 时间窗筛选并导出。"
+        ]
+      ],
+      "links": {
+        "download": "",
+        "downloadLabel": "内部工具 · 未分发",
+        "github": "",
+        "page": ""
+      },
+      "note": "内部工作流工具，不对外发行。"
+    },
+    {
+      "slug": "pgn",
+      "name": "CEVTUO-PGN",
+      "cn": "新闻链接抓取器",
+      "category": "BROWSER EXTENSION · CHROME",
+      "date": "2026-11-03",
+      "version": "2.0.1",
+      "platform": "Chrome 扩展",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/pgn.png",
+      "cover": "assets/shots/pgn.jpg",
+      "gallery": [
+        "assets/shots/pgn.jpg"
+      ],
+      "tagline": "一键抓取任意新闻页面上的文章链接。",
+      "body": [
+        "Google News、nytimes.com、ft.com、bbc.com、CNN、Guardian、Al Jazeera、SCMP、TechCrunch 都可以用同一个按钮。复制结果每行只有一个链接，不带标题、来源、时间。",
+        "可以下拉选够 20 / 30 / 50 / 100 条，也可以拉到底并全选。Google News 的 Home、For you、Following 各自分册，每个新闻站点也各自一册，互不覆盖。"
+      ],
+      "features": [
+        [
+          "任意新闻站",
+          "不再只认 Google News。"
+        ],
+        [
+          "原文解析",
+          "尽量把 news.google.com/read/… 还原成原始链接。"
+        ],
+        [
+          "按站点分册",
+          "不同站点、不同频道的清单互不覆盖。"
+        ],
+        [
+          "拉到底并全选",
+          "自动滚动整页，合并每一屏。"
+        ]
+      ],
+      "links": {
+        "download": "https://apps.cevtuogrnd.com/pgn/cevtuo-pgn.zip",
+        "downloadLabel": "下载扩展",
+        "github": "",
+        "page": "https://apps.cevtuogrnd.com/pgn/"
+      },
+      "note": "Chrome 开发者模式加载解压后的文件夹。"
+    },
+    {
+      "slug": "msync",
+      "name": "CEVTUO-MSYNC",
+      "cn": "音乐同步",
+      "category": "MUSIC · WEB / PWA",
+      "date": "2026-11-09",
+      "version": "1.0",
+      "platform": "Web · PWA",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/msync-app.png",
+      "cover": "assets/shots/msync-player-free.jpg",
+      "gallery": [
+        "assets/shots/msync-player-free.jpg",
+        "assets/shots/msync-launcher.jpg",
+        "assets/shots/msync-chooser.jpg",
+        "assets/shots/msync-member.jpg"
+      ],
+      "tagline": "Spotify 收藏镜像到网易云，正在听的歌几十秒内出现在朋友的歌单里。",
+      "body": [
+        "两个功能：Spotify「喜欢的歌曲」增量镜像到网易云的一个歌单；你正在 Spotify 播放的歌，几十秒内出现在网易云的另一个歌单，朋友收藏那个歌单就能一直跟着听。",
+        "全部在本机跑。Cookie 和 token 只存在本地 state.db，没有中间服务器。"
+      ],
+      "features": [
+        [
+          "增量同步",
+          "只写新增的歌，不重建整个歌单。"
+        ],
+        [
+          "实时同听",
+          "正在播放的歌进入公共歌单。"
+        ],
+        [
+          "本机存储",
+          "没有中间服务器，凭据不出本机。"
+        ],
+        [
+          "房间",
+          "创建或加入一个 listening room。"
+        ]
+      ],
+      "links": {
+        "download": "https://apps.cevtuogrnd.com/music-sync/",
+        "downloadLabel": "打开安装页",
+        "github": "https://github.com/cevtuocjw/syncmusic",
+        "page": "https://apps.cevtuogrnd.com/music-sync/"
+      },
+      "note": "需要本机运行同步服务；Spotify 与网易云账号各一。"
+    },
+    {
+      "slug": "blendergate",
+      "name": "CEVTUO-BLENDERGATE",
+      "cn": "Blender 作业闸门",
+      "category": "INFRASTRUCTURE · CLI",
+      "date": "2026-11-02",
+      "version": "1.1.0",
+      "platform": "macOS · Linux",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/blq.svg",
+      "cover": "assets/shots/blendergate.jpg",
+      "gallery": [
+        "assets/shots/blendergate.jpg"
+      ],
+      "tagline": "一台机器上所有 headless Blender 作业的串行闸门。",
+      "body": [
+        "多个窗口、多个 agent、多个脚本同时 blender -b 的时候，同时跑几件、谁先跑全凭运气。blq 把并发放进一个可控范围：按整机 CPU 压力动态决定放行几件，机器有余量就多跑，余量不够就排队。",
+        "状态全局共享在 ~/.cache/blender-queue，跨仓库、跨窗口排同一队。同一个脚本已在跑或已在排队会直接跳过。绕过闸门的 headless Blender 会被点名，一条命令停掉。"
+      ],
+      "features": [
+        [
+          "动态并发",
+          "按实时 CPU 在 1 到上限之间放行。"
+        ],
+        [
+          "共享队列",
+          "跨仓库、跨窗口排同一队。"
+        ],
+        [
+          "重复跳过",
+          "同一个脚本不跑第二遍。"
+        ],
+        [
+          "按需状态页",
+          "没人看就自动休眠，不常驻。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/blendergate/releases/tag/v1.1.0",
+        "downloadLabel": "下载 blq",
+        "github": "https://github.com/cevtuocjw/blendergate",
+        "page": "https://apps.cevtuogrnd.com/blendergate/"
+      },
+      "note": "单文件、零第三方依赖，Python 3.9+。Windows 暂不支持。"
+    },
+    {
+      "slug": "rwp",
+      "name": "CEVTUO-RWP",
+      "cn": "网页转 EPUB",
+      "category": "READING · MACOS / WINDOWS",
+      "date": "2026-10-26",
+      "version": "1.8",
+      "platform": "macOS · Windows",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/rwp.png",
+      "cover": "assets/shots/rwp-library.jpg",
+      "gallery": [
+        "assets/shots/rwp-library.jpg",
+        "assets/shots/rwp-chapters.jpg",
+        "assets/shots/rwp-import.jpg",
+        "assets/shots/rwp-settings.jpg"
+      ],
+      "tagline": "把网页、站内链接、RSS、Markdown 做成 EPUB。",
+      "body": [
+        "原生桌面应用，自带运行时，下载即用。输入一个网页或一组链接，抓正文、生成目录、做封面，输出一本能在任何阅读器里打开的 EPUB。",
+        "支持网站内链接批量展开、RSS 订阅、Markdown 导入；章节可以在导出前逐条检查与删改。"
+      ],
+      "features": [
+        [
+          "网页与 RSS",
+          "单个页面、整站链接、订阅源都能进。"
+        ],
+        [
+          "章节可编辑",
+          "导出前逐条检查、删改、排序。"
+        ],
+        [
+          "封面与目录",
+          "自动生成封面和可点击目录。"
+        ],
+        [
+          "双平台",
+          "macOS 与 Windows 原生包。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/CEVTUO-RWP/releases/tag/v1.8",
+        "downloadLabel": "下载 RWP",
+        "github": "https://github.com/cevtuocjw/CEVTUO-RWP",
+        "page": "https://apps.cevtuogrnd.com/CEVTUO-RWP/"
+      },
+      "note": "macOS 为 ad-hoc 签名，首次打开需右键 → 打开。"
+    },
+    {
+      "slug": "xd",
+      "name": "CEVTUO XD",
+      "cn": "可穿戴音乐系统",
+      "category": "WEARABLE · ANDROID / WATCH",
+      "date": "2026-10-20",
+      "version": "1.0",
+      "platform": "Android · 手表 · 手机 · Mac",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/xd-cospon-d.png",
+      "cover": "assets/shots/xd-cospon.jpg",
+      "gallery": [
+        "assets/shots/xd-cospon.jpg",
+        "assets/shots/xd-mac.jpg",
+        "assets/shots/xd-groove.jpg"
+      ],
+      "tagline": "手表、手机、Mac 之间的实时音乐与 agent 控制台。",
+      "body": [
+        "Stem D / Groove D / Cospon D / Muse D 四件套：手表负责当下，手机负责连接，Mac 负责生成与编排。",
+        "CONSPON-D 把 agent 的 STEPS、TOTAL / TURN、CONTINUE / HANDOFF 放到手表上；按一下就能把当前会话交接给桌面端继续。"
+      ],
+      "features": [
+        [
+          "四端",
+          "Stem D / Groove D / Cospon D / Muse D。"
+        ],
+        [
+          "实时",
+          "手表与桌面之间同步播放与状态。"
+        ],
+        [
+          "CONTINUE / HANDOFF",
+          "在手表上继续或交接当前 agent 会话。"
+        ],
+        [
+          "Phone → Mac → Watch",
+          "全链路打通。"
+        ]
+      ],
+      "links": {
+        "download": "https://apps.cevtuogrnd.com/xd/",
+        "downloadLabel": "打开 XD 页面",
+        "github": "",
+        "page": "https://apps.cevtuogrnd.com/xd/"
+      },
+      "note": "Android APK 与手表固件说明在 XD 页面。"
+    },
+    {
+      "slug": "c4emem",
+      "name": "CEVTUO C4EMEM",
+      "cn": "本地知识库助手",
+      "category": "KNOWLEDGE · MACOS",
+      "date": "2026-10-16",
+      "version": "0.2.4",
+      "platform": "macOS",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/c4emem-app.png",
+      "cover": "assets/shots/c4emem.jpg",
+      "gallery": [
+        "assets/shots/c4emem.jpg"
+      ],
+      "tagline": "本地优先的知识库 AI 助手。",
+      "body": [
+        "检索、卡片、货架放在同一个桌面应用里：把文件、图片、网页片段收进来，提问时先在本地找，再决定要不要调用模型。",
+        "和桌面宠物共用一套素材与 3D 管线；数据留在本机，不经过中间服务器。"
+      ],
+      "features": [
+        [
+          "本地检索",
+          "先在本机索引里找，再交给模型。"
+        ],
+        [
+          "卡片与货架",
+          "把找到的东西固定成可复用的卡片。"
+        ],
+        [
+          "宠物联动",
+          "与 CEVTUO Pet 共用素材与 3D 管线。"
+        ],
+        [
+          "本机优先",
+          "数据不出本机。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest",
+        "downloadLabel": "下载 C4emem",
+        "github": "https://github.com/cevtuocjw/CEVTUO-C4EMEM",
+        "page": "https://apps.cevtuogrnd.com/c4emem/"
+      },
+      "note": "发行包在 GitHub Releases；介绍页为 /c4emem/。"
+    },
+    {
+      "slug": "pet",
+      "name": "CEVTUO PET",
+      "cn": "桌面宠物",
+      "category": "DESKTOP · MACOS",
+      "date": "2026-10-16",
+      "version": "0.1.9",
+      "platform": "macOS",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/pet-app.png",
+      "cover": "assets/shots/pet-settings.jpg",
+      "gallery": [
+        "assets/shots/pet-settings.jpg",
+        "assets/shots/pet-rose.gif"
+      ],
+      "tagline": "随便一张图、一个模型，都能变成能转的真 3D 桌面宠物。",
+      "body": [
+        "支持图片、.obj、压缩包。自动抠底、补面、生成可旋转的 3D 模型，放到桌面上常驻。",
+        "和 C4emem 共用一条素材与 3D 管线；宠物的形态可以随时换。"
+      ],
+      "features": [
+        [
+          "图片转 3D",
+          "一张图就能生成可旋转的模型。"
+        ],
+        [
+          "自动抠底",
+          "铬面、玻璃、渐变底也能处理。"
+        ],
+        [
+          "桌面常驻",
+          "窗口置顶、可拖动、可缩放。"
+        ],
+        [
+          "形态可换",
+          "随时换一只。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/CEVTUO-C4EMEM/releases/latest",
+        "downloadLabel": "下载 Pet",
+        "github": "https://github.com/cevtuocjw/CEVTUO-C4EMEM",
+        "page": "https://apps.cevtuogrnd.com/cevtuopet/"
+      },
+      "note": "与 C4emem 同一个 Releases 仓库。"
+    },
+    {
+      "slug": "cevtuo-z",
+      "name": "CEVTUO-Z",
+      "cn": "个人数据仪表盘",
+      "category": "DASHBOARD · MACOS / WEB",
+      "date": "2026-10-08",
+      "version": "2026.10.08",
+      "platform": "macOS · Web",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/cevtuo-z.png",
+      "cover": "assets/shots/z-home.jpg",
+      "gallery": [
+        "assets/shots/z-home.jpg",
+        "assets/shots/z-coof.jpg"
+      ],
+      "tagline": "把四条数据线汇到一块屏。",
+      "body": [
+        "COOF、CNSR、CE-PaperR、Chealth 汇到一处：今天读什么、听什么、身体怎么样。",
+        "桌面端与网页端共享同一套数据契约；每条数据都能追到来源。"
+      ],
+      "features": [
+        [
+          "四个数据源",
+          "COOF / CNSR / CE-PaperR / Chealth。"
+        ],
+        [
+          "每日摘要",
+          "一屏看完今天的数据。"
+        ],
+        [
+          "来源可追",
+          "每个数字都能点回原始记录。"
+        ],
+        [
+          "双端",
+          "macOS 与 Web。"
+        ]
+      ],
+      "links": {
+        "download": "https://github.com/cevtuocjw/CEVTUO-Z/releases/tag/v2026.10.08",
+        "downloadLabel": "下载 CEVTUO-Z",
+        "github": "https://github.com/cevtuocjw/CEVTUO-Z",
+        "page": "https://apps.cevtuogrnd.com/cevtuoz-intro/"
+      },
+      "note": "介绍页 /cevtuoz-intro/ 有完整技术链路与截图。"
+    },
+    {
+      "slug": "coof",
+      "name": "CEVNOAUATOMO",
+      "cn": "观影记录",
+      "category": "TOOL · TUNA / CLI",
+      "date": "2026-10-02",
+      "version": "1.0",
+      "platform": "Tuna · CLI",
+      "status": "released",
+      "statusLabel": "已发布",
+      "logo": "assets/logos/coof-dark.png",
+      "cover": "assets/shots/coof-notion.jpg",
+      "gallery": [
+        "assets/shots/coof-notion.jpg",
+        "assets/shots/coof-term.jpg"
+      ],
+      "tagline": "输入模糊片名，自动查豆瓣、下载海报、写进 Notion。",
+      "body": [
+        "片名中英文、带不带年份都行；分数接近时列出候选，补个年份再跑一次即可，不会随便挑一个。",
+        "海报下载后上传（豆瓣图床有防盗链），片名做成指向豆瓣的超链接，字段跟着你的 Notion 数据库走。"
+      ],
+      "features": [
+        [
+          "模糊片名",
+          "按年份消歧，认英文原名。"
+        ],
+        [
+          "自动消歧",
+          "拿不准时列候选，不硬猜。"
+        ],
+        [
+          "海报是真图",
+          "下载后上传，外链不裂图。"
+        ],
+        [
+          "片名带链接",
+          "点片名直接跳豆瓣。"
+        ]
+      ],
+      "links": {
+        "download": "https://apps.cevtuogrnd.com/cevnoauatomo/",
+        "downloadLabel": "打开使用页",
+        "github": "",
+        "page": "https://apps.cevtuogrnd.com/cevnoauatomo/"
+      },
+      "note": "需要 Tuna，或直接跑命令行脚本。"
+    }
+  ]
+}

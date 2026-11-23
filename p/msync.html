@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CEVTUO-MSYNC — CEVTUOGRND</title>
+<meta name="description" content="Spotify 收藏镜像到网易云，正在听的歌几十秒内出现在朋友的歌单里。"/>
+<link rel="icon" href="/assets/favicon.png"/>
+<meta property="og:title" content="CEVTUO-MSYNC — CEVTUOGRND"/>
+<meta property="og:description" content="Spotify 收藏镜像到网易云，正在听的歌几十秒内出现在朋友的歌单里。"/>
+<meta property="og:image" content="/assets/shots/msync-player-free.jpg"/>
+<link rel="stylesheet" href="/assets/css/site.css"/>
+</head>
+<body>
+<header class="topbar">
+  <div class="topbar__in">
+    <nav class="topbar__side topbar__side--left" aria-label="Primary">
+      <a href="/index.html">INDEX</a>
+      <a href="/stats.html">STATS</a>
+    </nav>
+    <a class="wordmark" href="/index.html" aria-label="CEVTUOGRND home">CEVTUOGRND</a>
+    <nav class="topbar__side topbar__side--right" aria-label="Elsewhere">
+      <a class="mobile-stats" href="/stats.html">STATS</a>
+      <a href="https://github.com/cevtuocjw" target="_blank" rel="noopener">GITHUB ↗</a>
+    </nav>
+  </div>
+</header>
+<main class="detail">
+  <div class="crumbs"><a href="/index.html">INDEX</a><span>/</span><span>msync</span></div>
+  <div class="detail__grid">
+    <div class="media">
+      <div class="stage"><img id="stage" src="/assets/shots/msync-player-free.jpg" alt="CEVTUO-MSYNC 界面截图"></div>
+      <div class="thumbs" role="group" aria-label="截图"><button class="thumb" type="button" data-src="/assets/shots/msync-player-free.jpg" aria-current="true" aria-label="查看第 1 张截图"><img src="/assets/shots/msync-player-free.jpg" alt="" loading="lazy"></button><button class="thumb" type="button" data-src="/assets/shots/msync-launcher.jpg" aria-current="false" aria-label="查看第 2 张截图"><img src="/assets/shots/msync-launcher.jpg" alt="" loading="lazy"></button><button class="thumb" type="button" data-src="/assets/shots/msync-chooser.jpg" aria-current="false" aria-label="查看第 3 张截图"><img src="/assets/shots/msync-chooser.jpg" alt="" loading="lazy"></button><button class="thumb" type="button" data-src="/assets/shots/msync-member.jpg" aria-current="false" aria-label="查看第 4 张截图"><img src="/assets/shots/msync-member.jpg" alt="" loading="lazy"></button></div>
+    </div>
+    <aside class="info">
+      <img class="p-logo" src="/assets/logos/msync-app.png" alt="CEVTUO-MSYNC 标识">
+      <p class="p-cat">MUSIC · WEB / PWA · 2026-11-09</p>
+      <h1 class="p-title">CEVTUO-MSYNC</h1>
+      <p class="p-cn">音乐同步</p>
+      <p class="p-tagline">Spotify 收藏镜像到网易云，正在听的歌几十秒内出现在朋友的歌单里。</p>
+      <div class="p-body"><p>两个功能：Spotify「喜欢的歌曲」增量镜像到网易云的一个歌单；你正在 Spotify 播放的歌，几十秒内出现在网易云的另一个歌单，朋友收藏那个歌单就能一直跟着听。</p><p>全部在本机跑。Cookie 和 token 只存在本地 state.db，没有中间服务器。</p></div>
+      <ul class="p-features"><li><b>增量同步</b><span>只写新增的歌，不重建整个歌单。</span></li><li><b>实时同听</b><span>正在播放的歌进入公共歌单。</span></li><li><b>本机存储</b><span>没有中间服务器，凭据不出本机。</span></li><li><b>房间</b><span>创建或加入一个 listening room。</span></li></ul>
+      <table class="p-meta">
+        <tr><th>平台</th><td>Web · PWA</td></tr>
+        <tr><th>版本</th><td>1.0</td></tr>
+        <tr><th>更新</th><td>2026-11-09</td></tr>
+        <tr><th>状态</th><td>已发布</td></tr>
+      </table>
+      <div class="p-actions">
+      <a class="btn" href="https://apps.cevtuogrnd.com/music-sync/" target="_blank" rel="noopener">打开安装页</a>
+      <a class="ghost" href="https://github.com/cevtuocjw/syncmusic" target="_blank" rel="noopener">GITHUB 源码 ↗</a>
+      </div>
+      <p class="note">需要本机运行同步服务；Spotify 与网易云账号各一。</p>
+    </aside>
+  </div>
+  <section class="gallery">
+  <h2>SCREENS</h2>
+  <div class="gallery-grid"><figure><img src="/assets/shots/msync-player-free.jpg" alt="CEVTUO-MSYNC 截图 1" loading="lazy"><figcaption>CEVTUO-MSYNC · 01</figcaption></figure><figure><img src="/assets/shots/msync-launcher.jpg" alt="CEVTUO-MSYNC 截图 2" loading="lazy"><figcaption>CEVTUO-MSYNC · 02</figcaption></figure><figure><img src="/assets/shots/msync-chooser.jpg" alt="CEVTUO-MSYNC 截图 3" loading="lazy"><figcaption>CEVTUO-MSYNC · 03</figcaption></figure><figure><img src="/assets/shots/msync-member.jpg" alt="CEVTUO-MSYNC 截图 4" loading="lazy"><figcaption>CEVTUO-MSYNC · 04</figcaption></figure></div>
+</section>
+  <section class="next">
+  <a href="/p/pgn.html">
+    <span>NEXT PROJECT</span>
+    <b>CEVTUO-PGN</b>
+    <i>新闻链接抓取器 →</i>
+  </a>
+</section>
+</main>
+<footer class="footer">
+  <div>© 2026 CEVTUOGRND</div>
+  <div class="fine">apps.cevtuogrnd.com · 所有软件由 CEVTUO 独立构建</div>
+  <div><a href="/index.html">APPS</a> &nbsp;·&nbsp; <a href="/stats.html">STATS</a> &nbsp;·&nbsp; <a href="/privacy.html">PRIVACY</a></div>
+</footer>
+<script src="/assets/js/project.js" defer></script>
+</body>
+</html>

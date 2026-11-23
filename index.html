@@ -1,224 +1,156 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CEVTUOGRND</title>
-<link rel="icon" href="logo.png"/>
-<style>
-  :root{
-    --ink:#fff; --soft:rgba(255,255,255,.78); --faint:rgba(255,255,255,.55);
-    --panel:255,255,255; --line:rgba(255,255,255,.22);
-    --accent:#5b93ff; --r:26px; --ease:cubic-bezier(.32,.72,0,1);
-  }
-  *{box-sizing:border-box}
-  html{background:#2a0c06}
-  body{
-    margin:0;min-height:100vh;color:var(--ink);
-    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
-    background-color:#2a0c06;
-    background-image:url("bg.jpg");
-    background-position:center center;
-    background-size:cover;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-    display:flex;align-items:center;justify-content:center;padding:26px;
-  }
-  body::before{
-    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-    background:linear-gradient(180deg,rgba(0,0,0,.10) 0%,rgba(0,0,0,.28) 55%,rgba(0,0,0,.46) 100%);
-  }
-  .card{
-    position:relative;z-index:1;width:100%;max-width:620px;text-align:center;
-    padding:44px 34px;border-radius:var(--r);
-    background:rgba(var(--panel),.16);
-    backdrop-filter:blur(30px) saturate(180%);
-    -webkit-backdrop-filter:blur(30px) saturate(180%);
-    border:1px solid var(--line);
-    box-shadow:0 24px 70px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.28);
-  }
-  .card>img{width:92px;height:92px;filter:drop-shadow(0 8px 22px rgba(0,0,0,.6))}
-  h1{font-size:26px;margin:18px 0 4px;font-weight:750;letter-spacing:3px;
-    text-shadow:0 2px 14px rgba(0,0,0,.6)}
-  .sub{color:var(--soft);font-size:14.5px;margin:0 0 28px;
-    text-shadow:0 1px 10px rgba(0,0,0,.55)}
-  .rule{width:64px;height:1px;background:rgba(255,255,255,.3);margin:0 auto 26px}
-  a.item{
-    display:flex;align-items:center;gap:14px;padding:16px 20px;margin-bottom:12px;
-    text-decoration:none;color:var(--ink);border-radius:18px;text-align:left;
-    background:rgba(var(--panel),.13);
-    backdrop-filter:blur(20px) saturate(170%);
-    -webkit-backdrop-filter:blur(20px) saturate(170%);
-    border:1px solid var(--line);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.22);
-    transition:transform .2s var(--ease), background .2s var(--ease);
-  }
-  a.item:hover{transform:translateY(-3px);background:rgba(var(--panel),.22)}
-  a.item .tx b{display:block;font-size:15.5px;font-weight:660}
-  a.item .tx small{display:block;font-size:12.5px;color:var(--faint)}
-  a.item .arrow{margin-left:auto;font-size:20px;color:var(--faint)}
-  .osicon{display:block;flex:none;fill:currentColor}
-  .osicon.apple{width:22px;height:22px}
-  .osicon.win{width:18px;height:18px}
-  a.featured{
-    display:block;position:relative;margin:0 0 18px;border-radius:18px;overflow:hidden;
-    border:1px solid rgba(232,122,79,.55);background:rgba(20,26,24,.62);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.16);
-    text-align:left;text-decoration:none;color:var(--ink);
-    transition:transform .2s var(--ease),border-color .2s var(--ease);
-  }
-  a.featured:hover{transform:translateY(-3px);border-color:rgba(232,122,79,.95)}
-  a.featured img{width:100%;height:180px;object-fit:cover;object-position:top center;display:block;opacity:.92}
-  a.featured .badge{
-    position:absolute;top:12px;left:12px;font:600 10px/1 ui-monospace,SFMono-Regular,monospace;
-    letter-spacing:.12em;padding:7px 9px;border-radius:999px;background:#e87a4f;color:#fff;z-index:2;pointer-events:none;
-  }
-  a.featured .fbody{display:flex;align-items:center;gap:12px;padding:14px 18px 16px}
-  a.featured .fbody b{display:block;font-size:16px;font-weight:680}
-  a.featured .fbody small{display:block;font-size:12px;color:var(--faint);margin-top:3px}
-  a.featured .arrow{margin-left:auto;font-size:20px;color:#e87a4f}
-  .foot{margin-top:26px;font-size:12px;color:var(--faint);
-    text-shadow:0 1px 8px rgba(0,0,0,.5)}
-</style>
+<title>CEVTUOGRND — Apps &amp; Tools</title>
+<meta name="description" content="独立构建的软件、工具与实验。每一件都从真实的工作里长出来。"/>
+<link rel="icon" href="/assets/favicon.png"/>
+<meta property="og:title" content="CEVTUOGRND — Apps &amp; Tools"/>
+<meta property="og:description" content="独立构建的软件、工具与实验。每一件都从真实的工作里长出来。"/>
+<meta property="og:type" content="website"/>
+<link rel="stylesheet" href="/assets/css/site.css"/>
 </head>
 <body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="i-windows" viewBox="0 0 24 24">
-    <path d="M0 3.449 9.75 2.1v9.451H0V3.449zM11.1 1.921 24 0v11.4H11.1V1.921zM0 12.6h9.75v9.451L0 20.699V12.6zM11.1 12.6H24V24l-12.9-1.801V12.6z"/>
-  </symbol>
-  <symbol id="i-book" viewBox="0 0 24 24">
-    <path d="M4 3h6a3 3 0 0 1 2 .8A3 3 0 0 1 14 3h6a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1h-6a1 1 0 0 0-1 1 1 1 0 0 0-1-1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v13h5.5V6.2A1 1 0 0 0 10 5H5zm13 0h-5a1 1 0 0 0-.5.2V18H18V5z"/>
-  </symbol>
-  <symbol id="i-info" viewBox="0 0 24 24">
-    <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1.1 3.2h2.2v2.2h-2.2V7.2zm0 4h2.2V17h-2.2v-5.8z"/>
-  </symbol>
-  <symbol id="i-film" viewBox="0 0 24 24">
-    <path d="M3 4h18a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1zm1 2v2h2V6H4zm14 0v2h2V6h-2zM4 16v2h2v-2H4zm14 0v2h2v-2h-2zm-12 0v2h12v-2H6zm0-8v6h12V8H6zM5 10v2h2v-2H5zm12 0v2h2v-2h-2z"/>
-  </symbol>
-  <!-- ⚠️ 路径上**不要写 fill** —— `<use>` 只克隆 symbol 自己的子树，
-       而这里靠 CSS 的 `.osicon{fill:currentColor}` **继承**进去。
-       路径一旦自带 fill，继承就被顶掉，图标会变成一坨黑。 -->
-  <symbol id="i-pencil" viewBox="0 0 24 24">
-    <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/>
-    <path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-  </symbol>
-  <symbol id="i-spark" viewBox="0 0 24 24">
-    <path d="M11 2.2c.82 3.92 2.46 5.56 6.38 6.38-3.92.82-5.56 2.46-6.38 6.38-.82-3.92-2.46-5.56-6.38-6.38 3.92-.82 5.56-2.46 6.38-6.38z"/>
-    <path d="M17.6 13.6c.4 1.92 1.2 2.72 3.12 3.12-1.92.4-2.72 1.2-3.12 3.12-.4-1.92-1.2-2.72-3.12-3.12 1.92-.4 2.72-1.2 3.12-3.12z"/>
-  </symbol>
-  <symbol id="i-watch" viewBox="0 0 24 24">
-    <path d="M9.2 2h5.6l.5 3.1A7 7 0 0 1 19 12a7 7 0 0 1-3.7 6.9l-.5 3.1H9.2l-.5-3.1A7 7 0 0 1 5 12a7 7 0 0 1 3.7-6.9L9.2 2zm2.8 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/>
-  </symbol>
-  <symbol id="i-gate" viewBox="0 0 24 24">
-    <path d="M3 3h2v18H3V3zm16 0h2v18h-2V3zM6 4h12v2H6V4zM7 8h2v13H7V8zm8 0h2v13h-2V8zM7 12h10v2H7v-2z"/>
-  </symbol>
-  <symbol id="i-note" viewBox="0 0 24 24">
-    <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
-  </symbol>
-</svg>
-
-<div class="card">
-  <img src="logo.png" alt="CEVTUOGRND"/>
-  <h1>CEVTUOGRND</h1>
-  <p class="sub">Apps &amp; tools</p>
+<header class="topbar">
+  <div class="topbar__in">
+    <nav class="topbar__side topbar__side--left" aria-label="Primary">
+      <a href="/index.html" aria-current="page">INDEX</a>
+      <a href="/stats.html">STATS</a>
+    </nav>
+    <a class="wordmark" href="/index.html" aria-label="CEVTUOGRND home">CEVTUOGRND</a>
+    <nav class="topbar__side topbar__side--right" aria-label="Elsewhere">
+      <a class="mobile-stats" href="/stats.html">STATS</a>
+      <a href="https://github.com/cevtuocjw" target="_blank" rel="noopener">GITHUB ↗</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <p class="kicker">APPS &amp; TOOLS · 2026</p>
+    <h1>CEVTUOGRND</h1>
+    <p>独立构建的软件、工具与实验。每一件都从真实的工作里长出来。</p>
+  </section>
   <div class="rule"></div>
-
-  <a class="featured" href="/causa/">
-    <span class="badge">NEW · 0.5.0</span>
-    <img src="/causa/assets/ledger.png" alt="Cevtuo Causa 账本界面">
-    <span class="fbody">
-      <span><b>Cevtuo Causa / 因果簿</b><small>本地优先的因果账本 · 口径对齐 / 政策扩散 · macOS</small></span>
-      <span class="arrow">›</span>
-    </span>
-  </a>
-
-  <a class="item" href="/xd/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-watch"/></svg>
-    <span class="tx"><b>CEVTUO XD</b>
-      <small>Wearable music system · Stem D / Groove D / Cospon D / Muse D · Android</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/conspon-d/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-watch"/></svg>
-    <span class="tx"><b>CEVTUO CONSPON-D</b>
-      <small>Wearable agent console · watch / phone / Mac · STEPS, TOTAL / TURN, CONTINUE / HANDOFF</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/blendergate/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-gate"/></svg>
-    <span class="tx"><b>Cevtuo-Blendergate</b>
-      <small>Headless Blender job gate · one queue, two at a time · macOS &amp; Linux</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/CEVTUO-RWP/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-book"/></svg>
-    <span class="tx"><b>CEVTUO-RWP</b>
-      <small>Web pages &amp; RSS → EPUB · macOS &amp; Windows</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/causa/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-book"/></svg>
-    <span class="tx"><b>Cevtuo Causa</b>
-      <small>本地优先的因果账本 · 记录判断 · 到期结算 · 按置信度校准 · macOS</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/c4emem/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-spark"/></svg>
-    <span class="tx"><b>Cevtuo C4emem</b>
-      <small>本地优先的知识库 AI 助手 · macOS</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/cevtuopet/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-pencil"/></svg>
-    <span class="tx"><b>CEVTUO Pet</b>
-      <small>桌面宠物 · 随便一张图 / 一个模型（含 .obj、压缩包）都能做成能转的真 3D · macOS</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/pgn/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-spark"/></svg>
-    <span class="tx"><b>Cevtuo-PGN</b>
-      <small>任意新闻站点 → 去重后的纯链接清单 · Chrome 扩展</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/cevnoauatomo/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-film"/></svg>
-    <span class="tx"><b>CEVNOAUATOMO</b>
-      <small>模糊片名 → 豆瓣 → Notion · Tuna &amp; CLI</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/CEVTUO-Z/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-book"/></svg>
-    <span class="tx"><b>CEVTUO-Z</b>
-      <small>Personal data dashboard · COOF · CNSR · CAPPERR</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/cevtuoz-intro/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-info"/></svg>
-    <span class="tx"><b>CEVTUO-Z 介绍</b>
-      <small>技术链路 &middot; 数据链路 &middot; 截图与演示</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <a class="item" href="/music-sync/">
-    <svg class="osicon" style="width:24px;height:24px"><use href="#i-note"/></svg>
-    <span class="tx"><b>CEVTUO-MSYNC</b>
-      <small>Spotify → 网易云收藏同步 · 实时一起听 · Web/PWA</small></span>
-    <span class="arrow">›</span>
-  </a>
-
-  <p class="foot">© 2026 cevtuo · CEVTUOGRND</p>
-</div>
-
+  <div class="section-head">
+    <h2>PROJECTS</h2>
+    <span>12 ITEMS · SORTED BY DATE</span>
+  </div>
+  <div class="grid">
+<a class="card reveal" data-status="beta" href="p/alterego.html" style="animation-delay:0ms">
+  <div class="card__media"><span class="card__flag">内测 · 未分发</span><img src="/assets/logos/alterego.png" alt="师度 ALTEREGO 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">师度 ALTEREGO</div>
+    <div class="card__cn">师度</div>
+    <div class="card__meta">2026-11-20 · Web · 微信小程序</div>
+    <div class="card__status">内测</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/causa.html" style="animation-delay:55ms">
+  <div class="card__media"><img src="/assets/logos/causa.png" alt="CEVTUO CAUSA 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO CAUSA</div>
+    <div class="card__cn">因果簿</div>
+    <div class="card__meta">2026-11-19 · macOS · Universal</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="internal" href="p/intel.html" style="animation-delay:110ms">
+  <div class="card__media"><span class="card__flag">内部 · 未分发</span><img src="/assets/logos/intel.svg" alt="OVERSEAS INTEL 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">OVERSEAS INTEL</div>
+    <div class="card__cn">海外项目情报平台</div>
+    <div class="card__meta">2026-11-12 · macOS · Electron</div>
+    <div class="card__status">内部</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/msync.html" style="animation-delay:165ms">
+  <div class="card__media"><img src="/assets/logos/msync-app.png" alt="CEVTUO-MSYNC 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO-MSYNC</div>
+    <div class="card__cn">音乐同步</div>
+    <div class="card__meta">2026-11-09 · Web · PWA</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/pgn.html" style="animation-delay:220ms">
+  <div class="card__media"><img src="/assets/logos/pgn.png" alt="CEVTUO-PGN 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO-PGN</div>
+    <div class="card__cn">新闻链接抓取器</div>
+    <div class="card__meta">2026-11-03 · Chrome 扩展</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/blendergate.html" style="animation-delay:275ms">
+  <div class="card__media"><img src="/assets/logos/blq.svg" alt="CEVTUO-BLENDERGATE 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO-BLENDERGATE</div>
+    <div class="card__cn">Blender 作业闸门</div>
+    <div class="card__meta">2026-11-02 · macOS · Linux</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/rwp.html" style="animation-delay:330ms">
+  <div class="card__media"><img src="/assets/logos/rwp.png" alt="CEVTUO-RWP 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO-RWP</div>
+    <div class="card__cn">网页转 EPUB</div>
+    <div class="card__meta">2026-10-26 · macOS · Windows</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/xd.html" style="animation-delay:385ms">
+  <div class="card__media"><img src="/assets/logos/xd-cospon-d.png" alt="CEVTUO XD 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO XD</div>
+    <div class="card__cn">可穿戴音乐系统</div>
+    <div class="card__meta">2026-10-20 · Android · 手表 · 手机 · Mac</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/c4emem.html" style="animation-delay:440ms">
+  <div class="card__media"><img src="/assets/logos/c4emem-app.png" alt="CEVTUO C4EMEM 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO C4EMEM</div>
+    <div class="card__cn">本地知识库助手</div>
+    <div class="card__meta">2026-10-16 · macOS</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/pet.html" style="animation-delay:495ms">
+  <div class="card__media"><img src="/assets/logos/pet-app.png" alt="CEVTUO PET 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO PET</div>
+    <div class="card__cn">桌面宠物</div>
+    <div class="card__meta">2026-10-16 · macOS</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/cevtuo-z.html" style="animation-delay:550ms">
+  <div class="card__media"><img src="/assets/logos/cevtuo-z.png" alt="CEVTUO-Z 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVTUO-Z</div>
+    <div class="card__cn">个人数据仪表盘</div>
+    <div class="card__meta">2026-10-08 · macOS · Web</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+<a class="card reveal" data-status="released" href="p/coof.html" style="animation-delay:550ms">
+  <div class="card__media"><img src="/assets/logos/coof-dark.png" alt="CEVNOAUATOMO 标识" decoding="async"></div>
+  <div class="card__body">
+    <div class="card__name">CEVNOAUATOMO</div>
+    <div class="card__cn">观影记录</div>
+    <div class="card__meta">2026-10-02 · Tuna · CLI</div>
+    <div class="card__status">已发布</div>
+  </div>
+</a>
+  </div>
+</main>
+<footer class="footer">
+  <div>© 2026 CEVTUOGRND</div>
+  <div class="fine">apps.cevtuogrnd.com · 所有软件由 CEVTUO 独立构建</div>
+  <div><a href="/index.html">APPS</a> &nbsp;·&nbsp; <a href="/stats.html">STATS</a> &nbsp;·&nbsp; <a href="/privacy.html">PRIVACY</a></div>
+</footer>
 </body>
 </html>
